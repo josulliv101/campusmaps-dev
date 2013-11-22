@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "C:\\node\\sandbox\\campusmaps"
+		}
+	],
+	"settings": { "build_on_save": 1 }
+}

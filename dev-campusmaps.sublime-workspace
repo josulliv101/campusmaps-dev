@@ -1,0 +1,313 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lo",
+				"locsArray"
+			],
+			[
+				"cam",
+				"campusmaps_  (variable)"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/User/grunt.sublime-build",
+	"command_palette":
+	{
+		"height": 104.0,
+		"selected_items":
+		[
+			[
+				"grun",
+				"Grunt"
+			],
+			[
+				"readme",
+				"ReadmePlease"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"Bookmarks: Select Previous"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 424.0
+	},
+	"console":
+	{
+		"height": 299.0,
+		"history":
+		[
+			"grunt --version",
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read()) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/node/sandbox/campusmaps/app/scripts/services/datastore-injected.js",
+		"/C/node/sandbox/campusmaps/app/data/data-static.js",
+		"/C/node/sandbox/campusmaps/app/scripts/services/datastore-interface.js",
+		"/C/node/sandbox/campusmaps/test/datastoreSpec.js",
+		"/C/node/sandbox/campusmaps/app/config.js",
+		"/C/node/campusmapbuilder/app/scripts/services/data/datastore-json.js",
+		"/C/node/sandbox/campusmaps/app/scripts/_mixins.js",
+		"/C/node/sandbox/campusmaps/.gitignore",
+		"/C/node/sandbox/campusmaps/app/scripts/services/datastore-json.js",
+		"/C/node/campusmapbuilder/app/scripts/services/data/datastore-in-memory.js",
+		"/C/node/sandbox/campusmaps/test/_mixinsSpec.js",
+		"/C/node/sandbox/campusmaps/app/scripts/services/datastore.js",
+		"/C/node/sandbox/campusmaps/app/.jshintrc",
+		"/C/node/sandbox/campusmaps/test/.jshintrc",
+		"/C/node/sandbox/campusmaps/.jshintrc",
+		"/C/node/sandbox/campusmaps/Gruntfile.js",
+		"/C/node/sandbox/campusmaps/index.htm",
+		"/C/node/sandbox/campusmaps/dist/require.min.js",
+		"/C/node/sandbox/campusmaps/dist/require.js",
+		"/C/node/sandbox/campusmaps/bower_components/lodash/dist/lodash.compat.js",
+		"/C/node/sandbox/campusmaps/bower.json",
+		"/C/node/sandbox/campusmaps/bower_components/underscore/underscore.js",
+		"/C/Users/jsulli05/AppData/Roaming/Sublime Text 3/Packages/User/grunt.sublime-build",
+		"/C/Users/jsulli05/AppData/Roaming/Sublime Text 3/Packages/User/node.sublime-build",
+		"/C/node/campusmapbuilder/app/scripts/services/data/datastore-parse-com.js",
+		"/C/Users/jsulli05/Documents/test.js",
+		"/C/node/sandbox/campusmaps/node_modules/grunt-contrib-jasmine/tasks/jasmine.js",
+		"/C/node/sandbox/campusmaps/node_modules/grunt-contrib-jasmine/Gruntfile.js",
+		"/C/node/campusmapbuilder/app/scripts/underscore-mixins.js",
+		"/C/Users/jsulli05/AppData/Roaming/Sublime Text 3/Packages/Grunt/README.md",
+		"/C/node/campusmapbuilder/app/scripts/main.js",
+		"/C/node/sandbox/campusmaps/test/mainSpec.js",
+		"/C/node/campusmapbuilder/app/scripts/interfaces/datainterface.js",
+		"/C/node/sandbox/campusmaps/app/main.js",
+		"/C/node/sandbox/campusmaps/karma.conf.js",
+		"/C/node/sandbox/campusmaps/node_modules/generator-requirejs-jasmine-karma/node_modules/yeoman-generator/main.js",
+		"/C/node/sandbox/campusmaps/node_modules/generator-requirejs-jasmine-karma/app/templates/_karma.conf.js",
+		"/C/node/sandbox/campusmaps/node_modules/karma-jasmine/lib/index.js",
+		"/C/node/sandbox/campusmaps/_SpecRunner.html",
+		"/C/node/sandbox/campusmaps/app/scripts/services/datastore-parse-com.js",
+		"/C/node/campusmapbuilder/bower.json",
+		"/C/node/campusmapbuilder/app/bower_components/requirejs/require.js",
+		"/C/xampp/htdocs/drupal7/docroot/sites/all/themes/tuftsnow/js/tuftsnow.js",
+		"/C/xampp/htdocs/drupal7/docroot/sites/all/modules/contrib/print/css/print.css",
+		"/C/node/sandbox/campusmaps/test/test-main.js",
+		"/C/node/sandbox/campusmaps/package.json",
+		"/C/node/sandbox/campusmaps/bower_components/requirejs/require.js",
+		"/C/node/sandbox/campusmaps/bower_components/lodash/dist/lodash.js",
+		"/C/node/demo-backbone/package.json",
+		"/C/node/demo-backbone/Gruntfile.js",
+		"/C/node/demo-backbone/test/spec/testSpec.js",
+		"/C/node/demo-backbone/karma.conf.js",
+		"/C/node/demo-backbone/node_modules/grunt-karma/package.json",
+		"/C/node/demo-backbone/test/spec/test.js",
+		"/C/node/demo-karma-requirejs/node_modules/grunt-karma/karma.conf.js",
+		"/C/node/demo-karma-requirejs/Gruntfile.js",
+		"/C/node/campusmap/Gruntfile.js",
+		"/C/node/campusmap/karma.conf.js",
+		"/C/node/demo-backbone/test/main.test.js",
+		"/C/node/demo-karma-requirejs/test/main.test.js",
+		"/C/node/demo-karma-requirejs/karma.conf.js",
+		"/C/node/demo-backbone/app/scripts/main.js",
+		"/C/node/demo-karma-requirejs/test/spec/testSpec.js",
+		"/C/node/demo-karma-requirejs/app/scripts/app.js",
+		"/C/node/demo-karma-requirejs/package.json",
+		"/C/node/demo-karma-requirejs/app/scripts/main.js",
+		"/C/node/campusmap/package.json",
+		"/C/node/demo-backbone/karma-e2e.conf.js",
+		"/C/node/demo-backbone/node_modules/karma-jasmine/lib/jasmine.js",
+		"/C/node/demo-backbone/dist/styles/300047f3.main.css",
+		"/C/node/demo-backbone/dist/scripts/9035363c.main.js",
+		"/C/node/campusmapbuilder/package.json",
+		"/C/node/demo/test/SpecRunner.js",
+		"/C/node/demo/app/js/services/data.js",
+		"/C/node/demo/test/spec/index.js",
+		"/C/node/demo/test/spec/services/data_spec.js",
+		"/C/node/demo/test/spec/services/underscore_mixins_spec.js",
+		"/C/node/demo/app/js/lib/underscore-mixins.js",
+		"/C/node/demo/grunt.js",
+		"/C/node/demo/test/spec/models/todo_spec.js",
+		"/C/node/demo/app/js/models/todo.js",
+		"/C/node/demo/app/js/services/datastore-utils.js",
+		"/C/node/demo/test/spec/services/datainterface_spec.js",
+		"/C/node/demo/app/js/services/datastore-parse-com.js",
+		"/C/node/demo/app/scripts/underscore-mixins.js",
+		"/C/node/demo/package.json",
+		"/C/node/demo/test/index.html",
+		"/C/node/demo/app/scripts/services/data/datastore-parse-com.js",
+		"/C/node/campusmapbuilder/app/SpecRunner.html",
+		"/C/node/campusmapbuilder/Gruntfile.js",
+		"/C/node/campusmapbuilder/app/bower_components/jasmine/lib/jasmine-core/example/SpecRunner.html",
+		"/C/node/campusmapbuilder/app/scripts/app.js",
+		"/C/node/campusmapbuilder/app/scripts/managers/data/datamanager.js",
+		"/C/node/campusmapbuilder/test/SpecRunner.html",
+		"/C/Users/jsulli05/AppData/Local/Temp/Temp1_app.zip/app/scripts/models/model-parse-com.js",
+		"/C/node/campusmapbuilder/app/scripts/services/filtermanager.js",
+		"/C/node/campusmapbuilder/app/scripts/views/map.js",
+		"/C/node/campusmapbuilder/app/scripts/views/map2.js",
+		"/C/node/campusmapbuilder/app/scripts/managers/view/viewmanager.js",
+		"/C/node/campusmapbuilder/app/scripts/models/datastore-parse-com.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"getItemByStringId",
+			"\"",
+			"preview",
+			"config",
+			"group_share",
+			"unit",
+			"port",
+			"karma",
+			"mocha",
+			"port",
+			"kar",
+			"karma",
+			"alert",
+			"set:defaults",
+			"select:map"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"getItemById",
+			"'"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 333.0
+	},
+	"project": "dev-campusmaps.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 246.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
