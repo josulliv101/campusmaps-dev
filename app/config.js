@@ -4,6 +4,9 @@
     require.config({
 
         shim: {
+            jquery: {
+                exports: '$'
+            },
 
             underscore: {
                 exports: '_'
@@ -15,7 +18,7 @@
 
             backbone: {
 
-                deps: ['underscore'],
+                deps: ['jquery', 'underscore'],
 
                 exports: 'Backbone'
 
@@ -33,7 +36,9 @@
 
             'backbone': '../bower_components/backbone/backbone',
 
-            'datastore': './scripts/services/datastore-injected'
+            'datastore': './scripts/services/datastore-injected',
+
+            'datamodel': './data/data-static'
 
         }
 

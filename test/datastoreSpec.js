@@ -10,7 +10,7 @@ define(['_mixins', 'datastore'], function (_, Datastore) {
 
       if (_.isObject(campuses) && _.isArray(campuses.models)) campuses = campuses.models;
 
-      console.info('Datastore.fetch()', campuses);
+      console.info('Datastore ===', Datastore);
 
     });
 
@@ -37,9 +37,9 @@ define(['_mixins', 'datastore'], function (_, Datastore) {
 
         expect(Datastore.campus('xyz')).toBeDefined();
 
-console.info('campuses spec', campuses.models);
+        console.info('campuses spec', Datastore.campus('xyz').id, campuses);
 
-        expect(Datastore.campus('xyz')).toEqual(campuses.at(1));
+        expect(Datastore.campus('xyz')).toEqual(_.getItemAt(campuses, 1));
 
       });
 
@@ -47,7 +47,7 @@ console.info('campuses spec', campuses.models);
 
         var options = { id: 'campusid' };
 
-        expect(Datastore.campus('grafton', options)).toEqual(campuses.at(1));
+        expect(Datastore.campus('grafton', options)).toEqual(_.getItemAt(campuses, 1));
 
       });
 
@@ -60,11 +60,11 @@ console.info('campuses spec', campuses.models);
 
         expect(Datastore.campus()).toBeDefined();
 
-        expect(Datastore.campus()).toEqual(campuses.at(1)); // grafton
+        expect(Datastore.campus()).toEqual(_.getItemAt(campuses, 1)); // grafton
 
         Datastore.campus('medford', { id: 'campusid', select: true });
 
-        expect(Datastore.campus()).toEqual(campuses.at(2));
+        expect(Datastore.campus()).toEqual(_.getItemAt(campuses, 2));
 
       });
 

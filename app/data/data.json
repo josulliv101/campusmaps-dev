@@ -1,0 +1,62 @@
+{ "data" : [
+
+        {
+            "campusid": "boston",
+            "id" : "abc",
+            "defaultmap": "boston-main",
+            "latlng": "42.407678,-71.120939",
+            "maps": [],
+            "name": "Boston",
+            "zoom": 15,
+            "objectId": "4ITKheBPqs"
+        }, {
+            "campusid": "grafton",
+            "id" : "xyz",
+            "latlng": "42.39253,-71.124802",
+            "name": "Grafton",
+            "zoom": 13,
+            "objectId": "Pi8dCQgLvN"
+        }, {
+            "campusid": "medford",
+            "id" : "hij",
+            "defaultmap": "medford-main",
+            "latlng": "42.405967,-71.117506",
+            "maps": [{
+                "extendsdata": "",
+                "latlng": "42.406561,-71.120886",
+                "locations": [{
+                    "attachmentpoint": {
+                        "x": -50,
+                        "y": -23.5
+                    },
+                    "country": "United States",
+                    "emphasis": "4",
+                    "isvisible": "true",
+                    "labelVisible": false,
+                    "labeldimensions": {
+                        "height": 17,
+                        "width": 85
+                    },
+                    "latlng": "42.409199,-71.122699",
+                    "locationid": "m001",
+                    "mapid": "medford-main",
+                    "name": "Carmichael Hall",
+                    "state": "MA",
+                    "tags": "dorm",
+                    "objectId": "1gocQ9aAT6",
+                    "__type": "Object",
+                    "className": "Location"
+                }],
+                "mapid": "medford-main",
+                "name": "Main Campus",
+                "zoom": "18",
+                "objectId": "trlVXBszaK",
+                "__type": "Object",
+                "className": "Map"
+            }],
+            "name": "Medford&#x2F;Somerville",
+            "zoom": 17,
+            "objectId": "gkovYGr6Ry"
+        }
+    ]
+}

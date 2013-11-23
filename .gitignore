@@ -1,4 +1,6 @@
 .project
+.sublime-project
+.sublime-workspace
 .metadata
 bin/
 tmp/

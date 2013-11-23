@@ -33,7 +33,7 @@ define([
                 // Data pre-fetched
                 fetch: function() { 
 
-                    console.info('fetch', campuses_);
+                    console.info('fetch', campuses_.toString());
 
                     return campuses_; 
 
