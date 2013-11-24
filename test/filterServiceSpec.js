@@ -1,0 +1,122 @@
+/*global describe, it, beforeEach
+ */
+
+define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filter, Backbone) {
+
+  describe('_mixins Filter Service Tests', function () {
+
+    var locsCollection;
+
+    beforeEach(function(){
+
+      locsCollection = new Backbone.Collection([
+
+        { name: 'Ballou Hall', id: 'm001', locationid: 'xyz', descr: 'my test descr for Ballou' },
+
+        { name: 'Houston Hall', id: 'm002', locationid: 'abc', descr: 'my test descr abc' },
+
+        { name: '80 George Street', id: 'm003', locationid: 'hij', descr: 'my test descr' }
+
+      ]);
+
+    });
+
+    afterEach(function(){
+
+      locsCollection = null;
+
+    });
+
+    describe('Getting available methods', function () {
+
+      it('should have a filter method and query object exposed', function () {
+
+        expect(Filter.filter).toBeDefined();
+
+        expect(Filter.getQuery).toBeDefined();
+
+      });
+
+    });
+
+    describe('Filtering of data', function () {
+
+      it('should filter on a <String> matching an attribute', function () {
+
+        var results = Filter.filter('Hall', locsCollection.models, 'name');
+
+        expect(results).toBeDefined();
+
+        expect(results.length).toEqual(2);
+
+        results = Filter.filter('Geo', locsCollection.models, 'name');
+
+        expect(results.length).toEqual(1);
+
+      });
+
+      it('should filter on a <Object> cooresponding to an attribute', function () {
+
+        var f = { label: 'Custom Label', filter: 'id' },
+
+            results = Filter.filter('m', locsCollection.models, [f]);
+
+        expect(results.length).toEqual(3);
+
+        results = Filter.filter('2', locsCollection.models, [f]);
+
+        expect(results.length).toEqual(1);
+
+      });
+
+      it('should filter on multiple attributes', function () {
+
+        var results = Filter.filter('ou', locsCollection.models, ['name', 'descr']);
+
+        expect(results.length).toEqual(1);
+
+        results = Filter.filter('abc', locsCollection.models, ['locationid', 'descr']);
+
+        expect(results.length).toEqual(1);
+
+        results = Filter.filter('abc', locsCollection.models, [{ filter: 'locationid' }, 'descr']);
+
+        expect(results.length).toEqual(1);
+
+      });
+
+      it('should filter on passed in fns making use of query term', function () {
+
+        var fnExactMatch= function(loc) { return _.getAttr(loc, 'name') === Filter.getQuery().term; };
+
+        results = Filter.filter('Ballou Hall', locsCollection.models, [fnExactMatch]);
+
+        expect(results.length).toEqual(1);
+
+        results = Filter.filter('Ballou Hall', locsCollection.models, fnExactMatch);
+
+        expect(results.length).toEqual(1);
+
+        results = Filter.filter('Houston Hall', locsCollection.models, [{ label: 'mylabel', filter: fnExactMatch }]);
+
+        expect(results.length).toEqual(1);
+ 
+
+      });
+
+      it('should filter on passed in fns matching non-query', function () {
+
+        var fnNameLength = function(loc) { return _.getAttr(loc, 'name').length > 11; };
+
+        results = Filter.filter('', locsCollection.models, [fnNameLength]);
+
+        expect(results.length).toEqual(2);
+ 
+
+      });
+
+    });
+
+  });
+
+});

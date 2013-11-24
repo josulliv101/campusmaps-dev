@@ -16,7 +16,7 @@ define([
 
             return {
 
-                // A function to get the current campus, or set it if there's an <String>id or <Integer>index arg passed in
+                // A function to get a campus, or if none found the selected one is returned
                 campus: _.dispatch(
 
                     // First try to find a campus by an "id" attribute, can accept custom id attr in options arg
@@ -31,13 +31,7 @@ define([
                 map: function() {},
 
                 // Data pre-fetched
-                fetch: function() { 
-
-                    console.info('fetch', campuses_.toString());
-
-                    return campuses_; 
-
-                },
+                fetch: function() { return campuses_; },
 
                 campuses: campuses_
 

@@ -8,7 +8,7 @@ define([
 
     'backbone',
 
-    'scripts/services/datastore-interface',
+    'datainterface',
 
     'parsecom'
 

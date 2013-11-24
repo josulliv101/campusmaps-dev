@@ -6,7 +6,7 @@ define([
 
     'backbone',
 
-    'scripts/services/datastore-interface'
+    'datainterface'
 
 ], function(_, Backbone, DataInterface) {
 
@@ -18,9 +18,11 @@ define([
 
         campuses_ = new Backbone.Collection();
 
+
     fns_ = DataInterface.initialize(campuses_);
 
     campuses_.url = url_;
+    
 
     function fetch_() {
 

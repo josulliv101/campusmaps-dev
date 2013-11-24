@@ -2,7 +2,7 @@ define([
 
     'backbone',
 
-    'scripts/services/datastore-interface',
+    'datainterface',
 
     'datamodel'
 
@@ -16,6 +16,7 @@ define([
 
     //// Public ////
     
+    // Each Datastore makes use of a reusable interface which defines available functions
     return DataInterface.initialize(campuses_);
 
 });
