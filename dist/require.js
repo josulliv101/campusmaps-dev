@@ -1,4 +1,4 @@
-/*! campusmaps - v0.0.0 - 2013-11-22
+/*! campusmaps - v0.0.0 - 2013-11-24
 * Copyright (c) 2013 Author Name; Licensed MIT */
 //Not using strict: uneven strict support in browsers, #392, and causes
 //problems with requirejs.exec()/transpiler plugins that may not be strict.
@@ -2052,11 +2052,13 @@ var requirejs, require, define;
 
 
 (function () {
+
    
 
     require.config({
 
         shim: {
+
             jquery: {
                 exports: '$'
             },
@@ -2075,6 +2077,14 @@ var requirejs, require, define;
 
                 exports: 'Backbone'
 
+            },
+            
+            parsecom: {
+
+                deps: ['backbone'],
+
+                exports: 'Parse'
+
             }
         },
 
@@ -2082,14 +2092,18 @@ var requirejs, require, define;
 
             'jquery': '../bower_components/jquery/jquery',
 
-            'underscore': '../bower_components/underscore/underscore', 
-            // ../bower_components/lodash/dist/lodash 
+            'underscore': '../bower_components/lodash/dist/lodash', 
+            // lodash/dist/lodash || underscore/underscore
 
             '_mixins': './scripts/_mixins',
 
             'backbone': '../bower_components/backbone/backbone',
 
-            'datastore': './scripts/services/datastore-injected',
+            'parsecom': 'http://www.parsecdn.com/js/parse-1.2.9.min',
+
+            'datastore': './scripts/services/data/datastore-injected', // datastore-injected datastore-jsonp datastore-parse-com
+
+            'datainterface': './scripts/services/data/interface',
 
             'datamodel': './data/data-static'
 

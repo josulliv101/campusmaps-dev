@@ -5,9 +5,9 @@ define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filte
 
   describe('_mixins Filter Service Tests', function () {
 
-    var locsCollection;
+    var results, locsCollection;
 
-    beforeEach(function(){
+    beforeEach(function() {
 
       locsCollection = new Backbone.Collection([
 
@@ -43,7 +43,7 @@ define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filte
 
       it('should filter on a <String> matching an attribute', function () {
 
-        var results = Filter.filter('Hall', locsCollection.models, 'name');
+        results = Filter.filter('Hall', locsCollection.models, 'name');
 
         expect(results).toBeDefined();
 
@@ -57,9 +57,9 @@ define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filte
 
       it('should filter on a <Object> cooresponding to an attribute', function () {
 
-        var f = { label: 'Custom Label', filter: 'id' },
+        var f = { label: 'Custom Label', filter: 'id' };
 
-            results = Filter.filter('m', locsCollection.models, [f]);
+        results = Filter.filter('m', locsCollection.models, [f]);
 
         expect(results.length).toEqual(3);
 
@@ -71,7 +71,7 @@ define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filte
 
       it('should filter on multiple attributes', function () {
 
-        var results = Filter.filter('ou', locsCollection.models, ['name', 'descr']);
+        results = Filter.filter('ou', locsCollection.models, ['name', 'descr']);
 
         expect(results.length).toEqual(1);
 

@@ -25,6 +25,7 @@ define([
         fns_ = DataInterface.initialize(campuses_);
 
 
+    // Wrap the Parse.com in a jquery deferred obj for consistency
     function fetch_() {
 
         var dfd = $.Deferred(), query;

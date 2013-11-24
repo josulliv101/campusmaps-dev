@@ -4,13 +4,11 @@ define(['_mixins', 'datastore'], function (_, Datastore) {
 
     var campuses;
 
-    beforeEach(function(){
+    beforeEach(function() {
 
       campuses = Datastore.fetch();
 
       if (_.isObject(campuses) && _.isArray(campuses.models)) campuses = campuses.models;
-
-      //console.info('Datastore ===', Datastore);
 
     });
 

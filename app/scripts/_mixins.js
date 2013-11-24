@@ -61,8 +61,6 @@ define([
 
                 len = fns.length;
 
-            console.log('dispatch outer', arguments);
-
             return function(target /*, args */ ) {
 
                 var ret, fn, i = 0,
@@ -74,8 +72,6 @@ define([
                 for (i; i < len; i++) {
 
                     fn = fns[i];
-
-                    console.log('construct', _.construct(target, args));
 
                     ret = fn.apply(fn, _.construct(target, args));
 
@@ -89,8 +85,6 @@ define([
         },
 
         getAttr: function(item, attr) {
-
-            //console.info('getAttr', item, attr);
 
             return item.attributes && item.attributes[attr] || item[attr];
 
