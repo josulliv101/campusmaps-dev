@@ -1,8 +1,6 @@
 /*global define*/
 
 define([
-    
-    'jquery',
 
     'underscore',
 
@@ -10,20 +8,17 @@ define([
 
     'scripts/services/datastore-interface'
 
-], function($, _, Backbone, DataInterface) {
+], function(_, Backbone, DataInterface) {
 
     'use strict';
 
-
     //// Private ////
 
+    var fns_, url_ = 'http://s125381.gridserver.com/data/data.json',
 
-    var campuses_, 
+        campuses_ = new Backbone.Collection();
 
-        url_ = 'http://s125381.gridserver.com/data/data.json'; 
-
-    // A collection of campuses, each with an array of maps -- each map has an array of locations.
-    campuses_ = new Backbone.Collection([]);
+    fns_ = DataInterface.initialize(campuses_);
 
     campuses_.url = url_;
 
@@ -31,28 +26,17 @@ define([
 
         return campuses_.fetch({ 
 
-            jsonpCallback: 'cb', 
-
-            dataType: 'jsonp',
+            jsonpCallback: 'cb',  dataType: 'jsonp',
 
             success: function(coll, data){
 
-                console.info('!data', coll, data.results);
-
-                campuses_.add(data.results, { silent: true });
-
-                return data;
-
+                return campuses_.reset(data.results, { silent: true });
             }
-
         });
     }
 
-
     //// Public ////
 
-    var obj = DataInterface.initialize(campuses_);
-
-    return _.extend(obj, { fetch: fetch_ });
+    return _.extend(fns_, { fetch: fetch_ });
 
 });

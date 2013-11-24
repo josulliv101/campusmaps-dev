@@ -10,7 +10,13 @@ define(['_mixins', 'datastore'], function (_, Datastore) {
 
       if (_.isObject(campuses) && _.isArray(campuses.models)) campuses = campuses.models;
 
-      console.info('Datastore ===', Datastore);
+      //console.info('Datastore ===', Datastore);
+
+    });
+
+    afterEach(function(){
+
+      campuses = null;
 
     });
 
@@ -37,7 +43,7 @@ define(['_mixins', 'datastore'], function (_, Datastore) {
 
         expect(Datastore.campus('xyz')).toBeDefined();
 
-        console.info('campuses spec', Datastore.campus('xyz').id, campuses);
+        //console.info('campuses spec', Datastore.campus('xyz').id, campuses);
 
         expect(Datastore.campus('xyz')).toEqual(_.getItemAt(campuses, 1));
 

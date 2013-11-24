@@ -22,6 +22,13 @@
 
                 exports: 'Backbone'
 
+            },
+            parsecom: {
+
+                deps: ['backbone'],
+
+                exports: 'Parse'
+
             }
         },
 
@@ -35,6 +42,8 @@
             '_mixins': './scripts/_mixins',
 
             'backbone': '../bower_components/backbone/backbone',
+
+            'parsecom': 'http://www.parsecdn.com/js/parse-1.2.9.min',
 
             'datastore': './scripts/services/datastore-injected',
 
