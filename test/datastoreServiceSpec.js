@@ -75,7 +75,18 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
         // Select a campus, still no map selected
         Datastore.campus('hij', { select: true });
 
+        expect(Datastore.campus().id).toBe('hij');
+
         expect(Datastore.map()).toBeUndefined();
+
+        // Select a map by id that belongs to hij (medford) campus
+        expect(Datastore.map('engmap', { select: true }).id).toBe('engmap');
+
+        expect(Datastore.map('engmap').selected).toBe(true);
+
+console.info('test', Datastore.map());
+
+        expect(Datastore.map().id).toBe('engmap');
 
       });
 

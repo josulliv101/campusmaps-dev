@@ -39,7 +39,7 @@
 
             'jquery': '../bower_components/jquery/jquery',
 
-            'underscore': '../bower_components/lodash/dist/lodash', 
+            'underscore': '../bower_components/underscore/underscore', 
             // lodash/dist/lodash || underscore/underscore
 
             '_mixins': './scripts/_mixins',

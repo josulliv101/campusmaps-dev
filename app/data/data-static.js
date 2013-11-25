@@ -18,6 +18,7 @@ define([
                 "latlng": "42.407678,-71.120939",
                 "locations": [],
                 "mapid": "boston-main",
+                "campusid": "boston",
                 "name": "Main Boston Campus",
                 "zoom": "18",
                 "objectId": "bostonmap",
@@ -41,6 +42,7 @@ define([
             "latlng": "42.405967,-71.117506",
             "maps": [{
                     "id": "engmap",
+                    "campusid": "medford",
                     "extendsdata": "",
                     "latlng": "42.405967,-71.117506",
                     "locations": [],
@@ -52,6 +54,7 @@ define([
                     "className": "Map"
                 },{
                 "id": "medmap",
+                "campusid": "medford",
                 "extendsdata": "",
                 "latlng": "42.406561,-71.120886",
                 "locations": [{

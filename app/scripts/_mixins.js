@@ -102,7 +102,7 @@ define([
 
             item = _.find(items, fn);
 
-            return options.select !== true ? item : _.selectItem(item, items);
+            return options.select !== true ? item : _.selectItem(item, items, options);
 
         },
 
@@ -112,7 +112,7 @@ define([
 
             if (!_.exists(options)) options = {};
 
-            return options.select !== true ? item : _.selectItem(item, items);
+            return options.select !== true ? item : _.selectItem(item, items, options);
 
         },
 
@@ -133,11 +133,22 @@ define([
             return items;
         },
 
-        selectItem: function(targetItem, items) {
+        selectItem: function(targetItem, items, options) {
 
             var coll = targetItem.collection;
 
+            options || (options = {});
+
             items = items || (_.isArray(coll) ? coll : coll.models);
+
+            // Limit the items reset when selecting.
+            if (options.restrictItemsToCampus === true) {
+
+                console.log('restrictItemsToCampus', targetItem, items);
+
+                items = _.filter(items, function(item) { return _.getAttr(item, 'campusid') === _.getAttr(targetItem, 'campusid'); });
+
+            }
 
             _.resetItems(items);
 
