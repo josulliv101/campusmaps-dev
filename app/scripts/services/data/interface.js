@@ -6,29 +6,75 @@ define([
 
     'use strict';
 
+
+    //// Private ////
+    
+    function createMapList_(campuses) {
+
+        var maps = _.chain(campuses.models)
+
+                    .map(function(campus) { return campus.get('maps'); })
+
+                    .flatten()
+
+                    .reject(function(map) { return _.isUndefined(map); })
+
+                    .value();
+
+        return maps;
+    }
+
     //// Public ////
+
+    console.info('Data Interface');
 
     return {
 
-        initialize: function(campuses) {
+        // Utility methods not part of interface
+        utils: {
 
-            var campuses_ = campuses;
+            createMapList: createMapList_,
 
+        },
+
+        initialize: function(campuses, maps) {
+
+            var campuses_ = campuses, maps_ = maps;
+
+            // The Data Interface which every Datastore will implement
             return {
 
                 // A function to get a campus, or if none found the selected one is returned
                 campus: _.dispatch(
 
-                    // First try to find a campus by an "id" attribute, can accept custom id attr in options arg
-                    function(id, options) { return _.getItemById(campuses_.models, id, options); },
+                    // Bind the campus models to getItemById so only an id & options args need to be passed in
+                    _.partial(_.getItemById, campuses_.models),
+
 
                     // Return the selected campus if no match found
                     function() { return _.getSelectedItem(campuses_.models); }
 
                 ),
 
-                // A function to get the current map, or set it if there's an <String>id or <Integer>index arg passed in
-                map: function() {},
+                // A function to get a map, or if none found the selected one of selected campus is returned
+                map: _.dispatch(
+
+                    // Bind the map models to getItemById so only an id & options need to be passed in
+                    _.partial(_.getItemById, maps_.models),
+
+                    // Return the selected campus if no match found
+                    function() { 
+
+                        // The selected campus
+                        var campus = _.getItemById(campuses_.models);
+
+                        return _.exists(campus) ? _.getSelectedItem(campus.get('maps')) : undefined; 
+
+                    }
+
+                ),
+
+                maps: function() { return maps_; },
 
                 // Data pre-fetched
                 fetch: function() { return campuses_; },

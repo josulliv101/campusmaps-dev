@@ -12,7 +12,18 @@ define([
             "id" : "abc",
             "defaultmap": "boston-main",
             "latlng": "42.407678,-71.120939",
-            "maps": [],
+            "maps": [{
+                "id": "bosmap",
+                "extendsdata": "",
+                "latlng": "42.407678,-71.120939",
+                "locations": [],
+                "mapid": "boston-main",
+                "name": "Main Boston Campus",
+                "zoom": "18",
+                "objectId": "bostonmap",
+                "__type": "Object",
+                "className": "Map"
+            }],
             "name": "Boston",
             "zoom": 15,
             "objectId": "4ITKheBPqs"
@@ -29,6 +40,18 @@ define([
             "defaultmap": "medford-main",
             "latlng": "42.405967,-71.117506",
             "maps": [{
+                    "id": "engmap",
+                    "extendsdata": "",
+                    "latlng": "42.405967,-71.117506",
+                    "locations": [],
+                    "mapid": "engineering-main",
+                    "name": "Main Engineering Campus",
+                    "zoom": "18",
+                    "objectId": "engmap",
+                    "__type": "Object",
+                    "className": "Map"
+                },{
+                "id": "medmap",
                 "extendsdata": "",
                 "latlng": "42.406561,-71.120886",
                 "locations": [{

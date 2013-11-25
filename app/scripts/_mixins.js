@@ -67,8 +67,6 @@ define([
 
                     args = _.rest(arguments);
 
-                console.log('dispatch inner', args);
-
                 for (i; i < len; i++) {
 
                     fn = fns[i];
@@ -127,13 +125,21 @@ define([
             });
         },
 
+        resetItems: function(items) {
+
+            // Unselect
+            _.each(items, function(item) { item.selected = false; });
+
+            return items;
+        },
+
         selectItem: function(targetItem, items) {
 
             var coll = targetItem.collection;
 
             items = items || (_.isArray(coll) ? coll : coll.models);
 
-            _.each(items, function(item) { item.selected = false; });
+            _.resetItems(items);
 
             targetItem.selected = true;
 

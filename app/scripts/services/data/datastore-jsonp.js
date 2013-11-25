@@ -12,14 +12,18 @@ define([
 
     'use strict';
 
+    console.info('Datastore JSONP');
+
     //// Private ////
 
     var fns_, url_ = 'http://s125381.gridserver.com/data/data.json',
 
-        campuses_ = new Backbone.Collection();
+        campuses_ = new Backbone.Collection(),
+
+        maps_ = new Backbone.Collection(DataInterface.utils.createMapList(campuses_));
 
 
-    fns_ = DataInterface.initialize(campuses_);
+    fns_ = DataInterface.initialize(campuses_, maps_);
 
     campuses_.url = url_;
     
