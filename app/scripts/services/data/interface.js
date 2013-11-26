@@ -23,9 +23,6 @@ define([
 
     }
 
-
-    //// Public ////
-
     return {
 
         // Utility methods not part of interface
@@ -37,20 +34,36 @@ define([
 
         initialize: function(campuses, maps) {
 
-            var campuses_ = campuses, 
+            var campuses_ = campuses, maps_ = maps;
 
-                maps_ = maps,
 
-                // Wraps the getItemById function so that the restrictItems to Campus is set to true
-                fnMapWrap = function(fn) {
+            //// Private ////
 
-                    // Bind the fn to the map model data
-                    var args = _.cat([maps_.models], _.rest(arguments)), optsArg = args[2];
 
-                    !optsArg || (_.extend(optsArg, { restrictItemsToCampus: true }));
+            function mapsMatchingCampus_(campus) {
 
-                    return fn.apply(null, args); 
-                };
+                if (_.exists(campus)) {
+
+                    return _.filter(maps_.models, function(map) { return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
+
+                }
+            }
+
+            function getItemByIdWrapForMap_(fn) {
+
+                // Bind the fn to the map model data
+                var args = _.cat([maps_.models], _.rest(arguments)), optsArg = args[2];
+
+                !optsArg || (_.extend(optsArg, { restrictItemsToCampus: true }));
+
+                return fn.apply(null, args); 
+            }
+
+            function getSelectedCampus_() {
+
+                return _.getSelectedItem(campuses_.models);
+
+            }
 
             // The Data Interface which every Datastore will implement
             return {
@@ -62,7 +75,7 @@ define([
                     _.partial(_.getItemById, campuses_.models),
 
                     // Return the selected campus if no match found
-                    function() { return _.getSelectedItem(campuses_.models); }
+                    getSelectedCampus_
 
                 ),
 
@@ -70,53 +83,19 @@ define([
                 map: _.dispatch(
 
                     // Bind the map models to getItemById so only an id & options need to be passed in
-                    _.wrap(_.getItemById, fnMapWrap),
+                    _.wrap(_.getItemById, getItemByIdWrapForMap_),
 
-                    // If an object is passed in, and it has a maps attr, return the selected map
-                    function(campus, options) {
-
-                        var maps;
-
-                        if (_.isObject(campus) && campus.get) {
-
-                            maps = _.filter(maps_.models, function(map) { return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
-
-                            return _.getSelectedItem(maps, options);
-
-                        }
-
-                    },
+                    // A campus object is passed in
+                    _.compose(_.getSelectedItem, mapsMatchingCampus_),
 
                     // Return the selected map if no match found
-                    _.compose(
-
-                        // First get the selected campus
-                        function(maps) {
-
-                            if (!_.exists(maps)) return;
-
-                            return _.getSelectedItem(maps);
-
-                        },
-
-                        function() { 
-
-                            var campus = _.getSelectedItem(campuses_.models);
-
-                            // Then, return the selected campuses maps
-                            if (_.exists(campus))
-
-                                return _.filter(maps_.models, function(map) { return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
-
-                        }
-
-                    )
+                    _.compose(_.getSelectedItem, mapsMatchingCampus_, getSelectedCampus_)
 
                 ),
 
                 maps: function() { return maps_; },
 
-                // Data pre-fetched so just return it
+                // Each datastore will overwrite this with its own way of fetching data
                 fetch: function() { return campuses_; },
 
                 campuses: campuses_

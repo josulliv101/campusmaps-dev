@@ -118,6 +118,8 @@ define([
 
         getSelectedItem: function(items) {
 
+            if (!_.exists(items)) return;
+            
             return _.find(items, function(item) {
 
                 return item.selected === true;
@@ -156,6 +158,13 @@ define([
 
             return targetItem;
 
+        },
+
+        latLng: function(txtLatLng) {
+
+            var coords = txtLatLng.replace(/ /g,'').split(",");
+
+            return _.map(coords, function(coord) { return parseFloat(coord); });
         }
 
     });
