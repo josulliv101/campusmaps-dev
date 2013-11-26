@@ -11,31 +11,27 @@ define([
     
     function createMapList_(campuses) {
 
-        console.log('createMapList_', campuses);
+        return _.chain(campuses.models)
 
-        var maps = _.chain(campuses.models)
+                .map(function(campus) { return campus.get('maps'); })
 
-                    .map(function(campus) { return campus.get('maps'); })
+                .reject(function(map) { return _.isUndefined(map); })
 
-                    .flatten()
+                .flatten()
 
-                    .reject(function(map) { return _.isUndefined(map); })
+                .value();
 
-                    .value();
-
-        return maps;
     }
 
-    //// Public ////
 
-    console.info('Data Interface');
+    //// Public ////
 
     return {
 
         // Utility methods not part of interface
         utils: {
 
-            createMapList: createMapList_,
+            createMapList: createMapList_
 
         },
 
@@ -54,7 +50,6 @@ define([
                     !optsArg || (_.extend(optsArg, { restrictItemsToCampus: true }));
 
                     return fn.apply(null, args); 
-
                 };
 
             // The Data Interface which every Datastore will implement
@@ -77,13 +72,26 @@ define([
                     // Bind the map models to getItemById so only an id & options need to be passed in
                     _.wrap(_.getItemById, fnMapWrap),
 
+                    // If an object is passed in, and it has a maps attr, return the selected map
+                    function(campus, options) {
+
+                        var maps;
+
+                        if (_.isObject(campus) && campus.get) {
+
+                            maps = _.filter(maps_.models, function(map) { return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
+
+                            return _.getSelectedItem(maps, options);
+
+                        }
+
+                    },
+
                     // Return the selected map if no match found
                     _.compose(
 
                         // First get the selected campus
                         function(maps) {
-
-                            console.log('maps!', maps);
 
                             if (!_.exists(maps)) return;
 
@@ -95,27 +103,14 @@ define([
 
                             var campus = _.getSelectedItem(campuses_.models);
 
-                            console.log('selected campus!', campuses_, campus);
-
-                            console.log('maps_.models@', maps_.models);
-
                             // Then, return the selected campuses maps
-                            return _.exists(campus) ? _.filter(maps_.models, function(map) { return map.getAttr('campusid') === campus.getAttr('campusid'); }) : undefined;
+                            if (_.exists(campus))
+
+                                return _.filter(maps_.models, function(map) { return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
 
                         }
 
                     )
-                    
-                    // function() { 
-
-                    //     // The selected campus
-                    //     var campus = _.getItemById(campuses_.models),
-
-                    //         campusSpecificMaps = _.exists(campus) && campus.get('maps') || [];
-
-                    //     return _.getSelectedItem(campusSpecificMaps);
-
-                    // }
 
                 ),
 

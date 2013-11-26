@@ -16,7 +16,7 @@ define([
 
     var campuses_ = new Backbone.Collection(DataModel),
 
-    	maps_ = new Backbone.Collection(DataInterface.utils.createMapList(campuses_));
+        maps_ = new Backbone.Collection(DataInterface.utils.createMapList(campuses_));
 
     console.log('Data injected::campuses', campuses_.models.length);
 

@@ -2,7 +2,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
   describe('Datastore Tests', function () {
 
-    var campuses, maps;
+    var campuses, mapList;
 
     beforeEach(function() {
 
@@ -68,9 +68,13 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       });
 
-      it('should return the selected map if no id, or undefined if none', function () {
+      it('should return undefined if none if no map selected and no id passed in', function () {
 
         expect(Datastore.map()).toBeUndefined();
+
+      });
+
+      it('should return undefined if none if no map selected and no id passed in even if campus selected', function () {
 
         // Select a campus, still no map selected
         Datastore.campus('hij', { select: true });
@@ -79,14 +83,64 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
         expect(Datastore.map()).toBeUndefined();
 
+      });
+
+      it('should return a map if a map and its campus selected', function () {
+
+        Datastore.campus('hij', { select: true });
+
         // Select a map by id that belongs to hij (medford) campus
         expect(Datastore.map('engmap', { select: true }).id).toBe('engmap');
 
         expect(Datastore.map('engmap').selected).toBe(true);
 
-console.info('test', Datastore.map());
+        //console.info('test', Datastore.map());
 
         expect(Datastore.map().id).toBe('engmap');
+
+      });
+
+      it('should have only a single map selected at once per campus', function () {
+
+        Datastore.campus('hij', { select: true });
+
+        // Select a map by id that belongs to hij (medford) campus
+        expect(Datastore.map('engmap', { select: true }).id).toBe('engmap');
+
+        Datastore.campus('abc', { select: true });
+
+        expect(Datastore.map()).toBeUndefined();
+
+        expect(Datastore.map('bosmap', { select: true }).id).toBe('bosmap');
+
+        expect(Datastore.map().id).toBe('bosmap');
+
+        Datastore.campus('hij', { select: true });
+
+        expect(Datastore.map().id).toBe('engmap');
+
+
+
+      });
+
+      it('should return the selected map if a campus passed in', function () {
+
+        var bostonCampus = Datastore.campus('abc'), 
+
+            medfordCampus = Datastore.campus('hij');
+
+        console.log('bostonCampus', bostonCampus);
+
+        expect(Datastore.map('engmap', { select: true }).id).toBe('engmap');
+
+        expect(Datastore.map('bosmap', { select: true }).id).toBe('bosmap');
+
+        console.log('bostonCampus2', Datastore.map(bostonCampus));
+
+        expect(Datastore.map(bostonCampus).id).toBe('bosmap');
+
+        expect(Datastore.map(medfordCampus).id).toBe('engmap');
+
 
       });
 

@@ -1,4 +1,4 @@
-/*! campusmaps - v0.0.0 - 2013-11-24
+/*! campusmaps - v0.0.0 - 2013-11-25
 * Copyright (c) 2013 Author Name; Licensed MIT */
 //Not using strict: uneven strict support in browsers, #392, and causes
 //problems with requirejs.exec()/transpiler plugins that may not be strict.
@@ -2092,7 +2092,7 @@ var requirejs, require, define;
 
             'jquery': '../bower_components/jquery/jquery',
 
-            'underscore': '../bower_components/lodash/dist/lodash', 
+            'underscore': '../bower_components/underscore/underscore', 
             // lodash/dist/lodash || underscore/underscore
 
             '_mixins': './scripts/_mixins',

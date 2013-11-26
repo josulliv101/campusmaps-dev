@@ -6,10 +6,10 @@ module.exports = function (grunt) {
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-      '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-      '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-      ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+    '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
+    '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
+    '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+    ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
     clean: {
       files: ['dist']
@@ -21,7 +21,7 @@ module.exports = function (grunt) {
       },
       dist: {
         src: ['bower_components/requirejs/require.js', '<%= concat.dist.dest %>'],
-        dest: 'dist/require.js'
+        dest: 'dist/campusmaps.js'
       }
     },
     uglify: {
@@ -30,7 +30,7 @@ module.exports = function (grunt) {
       },
       dist: {
         src: '<%= concat.dist.dest %>',
-        dest: 'dist/require.min.js'
+        dest: 'dist/campusmaps.min.js'
       }
     },
     jasmine: {
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
       }
     },
     jshint: {
-/*      gruntfile: {
+/*    gruntfile: {
         options: {
           jshintrc: '.jshintrc'
         },
@@ -76,7 +76,7 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-/*      gruntfile: {
+/*    gruntfile: {
         files: 'Gruntfile.js',
         tasks: ['jshint:gruntfile']
       },*/
@@ -114,18 +114,18 @@ module.exports = function (grunt) {
               // rewrite requirejs to the compiled version
               function (req, res, next) {
                 if (req.url === '/bower_components/requirejs/require.js') {
-                  req.url = '/dist/require.min.js';
+                  req.url = '/dist/campusmaps.min.js';
                 }
                 next();
               },
               connect.static(options.base),
 
-            ];
+              ];
+            }
           }
         }
       }
-    }
-  });
+    });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
