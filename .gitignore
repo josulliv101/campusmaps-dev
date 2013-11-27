@@ -1,6 +1,7 @@
 .project
-.sublime-project
-.sublime-workspace
+*.sublime-project
+*.sublime-workspace
+_SpecRunner.html
 .metadata
 bin/
 tmp/

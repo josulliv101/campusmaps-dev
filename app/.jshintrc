@@ -12,7 +12,7 @@
   "boss": true,
   "eqnull": true,
   "browser": true,
-  "predef": ["require","define", "alert", "expect", "console", "beforeEach"],
+  "predef": ["require","define", "alert", "expect", "console", "beforeEach", "google"],
   "globals"   : {
     "describe"   : false,
     "it"         : false,

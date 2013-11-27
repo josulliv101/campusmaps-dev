@@ -9,7 +9,7 @@ define([
 
     'mapstyles',
 
-    'async!http://maps.google.com/maps/api/js?sensor=false',
+    'async!http://maps.google.com/maps/api/js?sensor=false'
 
     
 

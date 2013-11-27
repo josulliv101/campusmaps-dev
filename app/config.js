@@ -52,7 +52,11 @@
 
             'datainterface': './scripts/services/data/interface',
 
-            'datamodel': './data/data-static'
+            'datamodel': './data/data-static',
+
+            'mapstyles': './config-mapstyles',
+
+            'async': '../bower_components/requirejs-plugins/src/async'
 
         }
 

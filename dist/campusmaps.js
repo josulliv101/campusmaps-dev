@@ -1,4 +1,4 @@
-/*! campusmaps - v0.0.0 - 2013-11-25
+/*! campusmaps - v0.0.0 - 2013-11-27
 * Copyright (c) 2013 Author Name; Licensed MIT */
 //Not using strict: uneven strict support in browsers, #392, and causes
 //problems with requirejs.exec()/transpiler plugins that may not be strict.
@@ -2105,7 +2105,11 @@ var requirejs, require, define;
 
             'datainterface': './scripts/services/data/interface',
 
-            'datamodel': './data/data-static'
+            'datamodel': './data/data-static',
+
+            'mapstyles': './config-mapstyles',
+
+            'async': '../bower_components/requirejs-plugins/src/async'
 
         }
 
