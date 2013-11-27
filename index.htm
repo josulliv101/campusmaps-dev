@@ -18,7 +18,7 @@
 <body>
 
 	<div id="map-wrap">
-		<div id="map-canvas"></div>
+		<div id="map-canvas" tabindex="0" accesskey="h"></div>
 	</div>
 
 	<!-- build:js scripts/main.js -->
@@ -30,20 +30,19 @@
 		require(['config'], function() {
 
 			require(['domReady!', 'app'], function (doc, App) {
-				
-			    console.info('The DOM is ready before I happen');
+
+			    console.info('The DOM is ready before I happen', doc);
 
 				App.init({
 
 			            campusid: 'medford'
 
-			        });
+		        });
 
-				});
+			});
 
 		});
 
-		
 	</script>	
 </body>
 </html>
