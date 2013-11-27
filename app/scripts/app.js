@@ -17,7 +17,7 @@ define([
 
     function init_(options) {
 
-        // google object is available
+        // google object is now available.
         
         var campusid;
 
