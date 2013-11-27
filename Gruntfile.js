@@ -24,6 +24,23 @@ module.exports = function (grunt) {
         dest: 'dist/campusmaps.js'
       }
     },
+    compass: {
+        options: {
+            sassDir: 'app/styles',
+            cssDir: '.tmp/styles',
+            imagesDir: 'app/images',
+            javascriptsDir: 'app/scripts',
+            fontsDir: 'app/styles/fonts',
+            importPath: 'bower_components',
+            relativeAssets: true
+        },
+        dist: {},
+        server: {
+            options: {
+                debugInfo: true
+            }
+        }
+    },
     uglify: {
       options: {
         banner: '<%= banner %>'
@@ -88,6 +105,10 @@ module.exports = function (grunt) {
         files: ['test/**/*.js'],
         tasks: ['jshint:test', 'jasmine']
       },
+      compass: {
+        files: ['app/**/*.scss'],
+        tasks: ['compass:dist']
+      }
     },
     requirejs: {
       compile: {
@@ -136,11 +157,12 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-karma');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'jasmine', 'clean', 'requirejs', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'jasmine', 'clean', 'compass:dist', 'requirejs', 'concat', 'uglify']);
   grunt.registerTask('server', ['connect:development']);
   grunt.registerTask('server:prod', ['default', 'connect:production']);
-  grunt.registerTask('test', ['jasmine']);
+  grunt.registerTask('test', ['jasmine', 'compass:dist']);
 };

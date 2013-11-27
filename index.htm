@@ -10,20 +10,40 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href=".tmp/styles/main.css">
 	<!-- build:js scripts/vendor/modernizr.js -->
 	<script src="bower_components/modernizr/modernizr.js"></script>
 	<!-- endbuild -->
 </head>
 <body>
 
-	<div class="map-wrap">
+	<div id="map-wrap">
 		<div id="map-canvas"></div>
 	</div>
 
 	<!-- build:js scripts/main.js -->
 	<script data-main="app/config" src="bower_components/requirejs/require.js"></script>
+
 	<!-- endbuild -->
-	
+	<script>
+
+		require(['config'], function() {
+
+			require(['domReady!', 'app'], function (doc, App) {
+				
+			    console.info('The DOM is ready before I happen');
+
+				App.init({
+
+			            campusid: 'medford'
+
+			        });
+
+				});
+
+		});
+
+		
+	</script>	
 </body>
 </html>

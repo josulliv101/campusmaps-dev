@@ -17,7 +17,7 @@ define([
 
     function init_(options) {
 
-        // google object is now available.
+        // google object is now available
         
         var campusid;
 
@@ -54,13 +54,21 @@ define([
 
 
             map = new google.maps.Map(mapDiv, {
+
                 center: new google.maps.LatLng(latlng[0], latlng[1]),
+
                 zoom: zoom,
+
                 styles: MapStyles.styles,
+
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
+
                 navigationControl: true,
+
                 navigationControlOptions: {
+
                     style: google.maps.NavigationControlStyle.SMALL
+                    
                 }
 
             });
