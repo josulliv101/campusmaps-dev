@@ -5,6 +5,7 @@ define([], function() {
 
     return {
 
+
         styles: [{
                         'elementType': 'labels',
                         'stylers': [{
