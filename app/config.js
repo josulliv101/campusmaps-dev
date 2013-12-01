@@ -58,6 +58,8 @@
 
             'mapstyles': './config-mapstyles',
 
+            'map': './scripts/services/map/leaflet',
+
             'async': '../bower_components/requirejs-plugins/src/async',
 
             'domReady': '../bower_components/requirejs-domready/domReady'
@@ -65,18 +67,5 @@
         }
 
     });
-/*
-    require(['domReady'], function() { });
-    require(['app'], function(App) {
-
-        App.init({
-
-            campusid: 'medford'
-
-        });
-
-    });
-*/
-
 
 }());
