@@ -2097,8 +2097,6 @@ var requirejs, require, define;
 
             '_mixins': './scripts/_mixins',
 
-            'app': './scripts/app',
-
             'backbone': '../bower_components/backbone/backbone',
 
             'parsecom': 'http://www.parsecdn.com/js/parse-1.2.9.min',
@@ -2111,26 +2109,11 @@ var requirejs, require, define;
 
             'mapstyles': './config-mapstyles',
 
-            'async': '../bower_components/requirejs-plugins/src/async',
-
-            'domReady': '../bower_components/requirejs-domready/domReady'
+            'async': '../bower_components/requirejs-plugins/src/async'
 
         }
 
     });
-/*
-    require(['domReady'], function() { });
-    require(['app'], function(App) {
-
-        App.init({
-
-            campusid: 'medford'
-
-        });
-
-    });
-*/
-
 
 }());
 define("config", function(){});
