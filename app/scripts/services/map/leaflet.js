@@ -14,8 +14,6 @@ define([
     'use strict';
 
     // L object is now available
-    
-    var map;
 
     function init_() {
 

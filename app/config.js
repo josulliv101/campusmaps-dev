@@ -58,7 +58,7 @@
 
             'mapstyles': './config-mapstyles',
 
-            'map': './scripts/services/map/leaflet',
+            'map': './scripts/services/map/directory',
 
             'async': '../bower_components/requirejs-plugins/src/async',
 

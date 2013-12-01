@@ -1,4 +1,4 @@
-/*! campusmaps - v0.0.0 - 2013-11-27
+/*! campusmaps - v0.0.0 - 2013-11-30
 * Copyright (c) 2013 Author Name; Licensed MIT */
 //Not using strict: uneven strict support in browsers, #392, and causes
 //problems with requirejs.exec()/transpiler plugins that may not be strict.
@@ -2097,6 +2097,8 @@ var requirejs, require, define;
 
             '_mixins': './scripts/_mixins',
 
+            'app': './scripts/app',
+
             'backbone': '../bower_components/backbone/backbone',
 
             'parsecom': 'http://www.parsecdn.com/js/parse-1.2.9.min',
@@ -2109,7 +2111,11 @@ var requirejs, require, define;
 
             'mapstyles': './config-mapstyles',
 
-            'async': '../bower_components/requirejs-plugins/src/async'
+            'map': './scripts/services/map/leaflet',
+
+            'async': '../bower_components/requirejs-plugins/src/async',
+
+            'domReady': '../bower_components/requirejs-domready/domReady'
 
         }
 

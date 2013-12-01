@@ -65,6 +65,18 @@ define([
 
             }
 
+            function selectDefaultMapForCampus_(campus) {
+
+                var mapid;
+
+                if (!_.exists(campus)) return;
+
+                mapid = campus.get("defaultmap");
+
+                return _.getItemById(maps_.models, mapid, { id: 'mapid', select: true });
+
+            }
+
             // The Data Interface which every Datastore will implement
             return {
 
@@ -89,7 +101,9 @@ define([
                     _.compose(_.getSelectedItem, mapsMatchingCampus_),
 
                     // Return the selected map if no match found
-                    _.compose(_.getSelectedItem, mapsMatchingCampus_, getSelectedCampus_)
+                    _.compose(_.getSelectedItem, mapsMatchingCampus_, getSelectedCampus_)//,
+
+                    //_.compose(selectDefaultMapForCampus_, getSelectedCampus_)
 
                 ),
 
