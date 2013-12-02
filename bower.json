@@ -10,6 +10,7 @@
     "requirejs-domready": "~2.0.1"
   },
   "devDependencies": {
-    "modernizr": "~2.7.0"
+    "modernizr": "~2.7.0",
+    "jasmine-jquery": "~1.5.93"
   }
 }

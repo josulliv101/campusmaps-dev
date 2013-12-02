@@ -58,11 +58,13 @@
 
             'mapstyles': './config-mapstyles',
 
-            'map': './scripts/services/map/directory',
+            'map': './scripts/services/map/googlemap',
 
             'async': '../bower_components/requirejs-plugins/src/async',
 
-            'domReady': '../bower_components/requirejs-domready/domReady'
+            'domReady': '../bower_components/requirejs-domready/domReady',
+
+            'templates': '../.tmp/scripts/templates'
 
         }
 

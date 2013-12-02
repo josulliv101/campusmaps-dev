@@ -7,9 +7,11 @@ define([
 
     'datastore',
 
-    'map'
+    'map',
 
-], function($, _, Datastore, Map) {
+    'scripts/views/searchbox'
+
+], function($, _, Datastore, Map, SearchboxView) {
 
     'use strict';
 
@@ -19,15 +21,22 @@ define([
 
         $.when(Datastore.fetch())
 
-        .done(function() {
+        .done(function() { 
 
-            var campus = Datastore.campus(campusid, { id: 'campusid', select: true });
+            var campus = Datastore.campus(campusid, { id: 'campusid', select: true }),
+
+                vSearchbox;
 
             console.log('Datastore', Datastore.campuses);
 
             console.log('medford campus', campus);
 
             console.log('Map init', Map.init());
+
+            vSearchbox = new SearchboxView({ el: $('#ui-search') }).render();
+
+            console.log('vSearchbox', vSearchbox);
+
 
         })
 

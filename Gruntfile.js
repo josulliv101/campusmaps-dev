@@ -56,6 +56,7 @@ module.exports = function (grunt) {
         options: {
           specs: 'test/*Spec.js',
           helpers: 'test/*Helper.js',
+          //vendor: 'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
           keepRunner: true,
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
@@ -66,6 +67,16 @@ module.exports = function (grunt) {
           }
         }
       }
+    },
+    jst: {
+        options: {
+            amd: true
+        },
+        compile: {
+            files: {
+                '.tmp/scripts/templates.js': ['app/scripts/templates/*.ejs']
+            }
+        }
     },
     karma: {
       options: {
@@ -154,15 +165,20 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-karma');
 
+  grunt.registerTask('createDefaultTemplate', function () {
+      grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
+  });
+
   // Default task.
-  grunt.registerTask('default', ['jshint', 'jasmine', 'clean', 'compass:dist', 'requirejs', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'jasmine', 'clean', 'createDefaultTemplate', 'jst', 'compass:dist', 'requirejs', 'concat', 'uglify']);
   grunt.registerTask('server', ['connect:development']);
   grunt.registerTask('server:prod', ['default', 'connect:production']);
-  grunt.registerTask('test', ['jasmine', 'compass:dist']);
+  grunt.registerTask('test', ['createDefaultTemplate', 'jst', 'jasmine', 'clean', 'compass:dist']);
 };

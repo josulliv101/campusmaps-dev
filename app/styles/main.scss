@@ -2,5 +2,37 @@ html { height: 100% }
 
 body { height: 100%; margin: 0; padding: 0 }
 
+/* Global */
+
+:focus {
+	
+	outline-style:dotted;
+	outline-color:#00ff00;
+
+}
+
+/* Layout */
+
 #map-wrap, #map-canvas { height: 100% }
+
+#map-wrap {
+	position: relative;
+}
+
+/* Searchbox */
+#ui-search {
+	background: #ccc;
+	position: absolute;
+	z-index: 999;
+	top: 32px;
+	left: 94px;
+	.form-group {
+		float: left;
+	}
+	.btn {
+		float: right;
+	}
+}
+
+
 
