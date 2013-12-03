@@ -1,5 +1,5 @@
 
-define(['jquery', '../scripts/views/searchbox', '../../bower_components/jasmine-jquery/lib/jasmine-jquery'], function ($, viewSearchbox) {
+define(['jquery', '../scripts/views/searchbox', '../../bower_components/jasmine-jquery/lib/jasmine-jquery'], function ($, SearchboxView) {
 
   describe('Searchbox View Tests', function () {
 
@@ -7,7 +7,7 @@ define(['jquery', '../scripts/views/searchbox', '../../bower_components/jasmine-
 
     beforeEach(function() {
 
-      view = new viewSearchbox();
+      view = new SearchboxView();
 
       view.render();
 
