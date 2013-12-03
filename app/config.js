@@ -46,6 +46,8 @@
 
             'app': './scripts/app',
 
+            'eventdispatcher': './scripts/eventdispatcher',
+
             'backbone': '../bower_components/backbone/backbone',
 
             'parsecom': 'http://www.parsecdn.com/js/parse-1.2.9.min',

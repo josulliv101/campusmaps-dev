@@ -63,7 +63,7 @@ define([
             // Hack to give map keyboard focus
             $("#map-canvas div:first div:first div:first").trigger('click');
 
-            $("#map-canvas a").attr('tabindex', -1)
+            $("#map-canvas a").attr('tabindex', -1);
 
 
         });

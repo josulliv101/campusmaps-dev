@@ -65,7 +65,7 @@ define([
 
             }
 
-            function selectDefaultMapForCampus_(campus) {
+/*            function selectDefaultMapForCampus_(campus) {
 
                 var mapid;
 
@@ -75,7 +75,7 @@ define([
 
                 return _.getItemById(maps_.models, mapid, { id: 'mapid', select: true });
 
-            }
+            }*/
 
             // The Data Interface which every Datastore will implement
             return {

@@ -6,17 +6,21 @@ define([
 
     'backbone',
 
-    'templates'
+    'templates',
 
-], function($, _, Backbone, JST) {
+    '../controllers/searchboxController'
+
+], function($, _, Backbone, JST, SearchboxController) {
 
     'use strict';
+
+    var controller = new SearchboxController();
 
     var SearchboxView = Backbone.View.extend({
 
         events: {
 
-            'click .btn': 'handleBtnClick'
+            'click .btn': 'handleBtnClick' 
 
         },
 
@@ -24,7 +28,7 @@ define([
 
         template: JST['app/scripts/templates/searchbox.ejs'],
 
-        initialize: function(options) {
+        initialize: function() {
 
             this.viewCache = {};
 
@@ -46,8 +50,14 @@ define([
             console.log('search btn clicked.');
 
             ev.preventDefault();
+            
+        },
 
-        }
+        getPanelAndRender: function() {},
+
+        showPanels: function() {},
+
+        closePanels: function() {}
 
     });
 
