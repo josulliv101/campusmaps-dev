@@ -16,7 +16,7 @@ define([
 
         events: {
 
-            'click .btn': 'handleBtnClick' 
+            'click .btn': 'handleBtnClick'
 
         },
 
@@ -46,7 +46,7 @@ define([
             console.log('search btn clicked.');
 
             ev.preventDefault();
-            
+
         }
 
     });
