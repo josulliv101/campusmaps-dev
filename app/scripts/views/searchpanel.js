@@ -33,7 +33,15 @@ define([
 
             }));
 
+            this.$el.attr({ role: 'presentation' }).addClass('in-queue');
+
             return this;
+        },
+
+        show: function() {
+
+            this.$el.toggleClass('show');
+
         }
 
     });

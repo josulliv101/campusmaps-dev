@@ -8,13 +8,11 @@ define([
 
     'templates',
 
-    '../controllers/searchboxController'
+    'eventdispatcher'
 
-], function($, _, Backbone, JST, SearchboxController) {
+], function($, _, Backbone, JST, EventDispatcher) {
 
     'use strict';
-
-    var controller = new SearchboxController();
 
     var SearchboxView = Backbone.View.extend({
 
@@ -30,7 +28,12 @@ define([
 
         initialize: function() {
 
-            this.viewCache = {};
+            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel');
+
+            this.cache = {};
+
+            // Define dispatch fns for getPanel
+            this.getPanel = _.dispatch(this.getCachedPanel, this.createPanel);
 
         },
 
@@ -42,7 +45,12 @@ define([
 
             }));
 
+            this.$panels = $('<div/>').attr({ id: 'panels', role: 'complementary' }).appendTo(this.$el);
+
+            console.log('SearchboxView::init', this.$el, this.$panels);
+
             return this;
+
         },
 
         handleBtnClick: function(ev) {
@@ -50,14 +58,58 @@ define([
             console.log('search btn clicked.');
 
             ev.preventDefault();
+
+            EventDispatcher.trigger('cmd', 'mycommand', { yo: 'hi' });
             
         },
 
-        getPanelAndRender: function() {},
-
         showPanels: function() {},
 
-        closePanels: function() {}
+        closePanels: function() {},
+
+        createPanel: function(panelid, viewConstructor) {
+
+            var model, view;
+
+            console.log('createPanel panel...', panelid, viewConstructor);
+
+            if (!_.exists(panelid) || !_.exists(viewConstructor) || !_.isFunction(viewConstructor)) return;
+
+            model = new Backbone.Model({ state: 'created' });
+
+            view = new viewConstructor({ id: panelid, model: model });
+
+            console.log('fresh panel', view);
+
+            view.render().$el.appendTo(this.$panels);
+
+            return this.cachePanel(view);
+ 
+        },
+
+        getCachedPanel: function(panelid, viewConstructor) {
+
+            console.log('getting cached panel...a', panelid, viewConstructor);
+
+            if (!_.exists(panelid) || !_.has(this.cache, panelid)) return;
+
+            console.log('getting cached panel...b', panelid, viewConstructor);
+
+            return this.cache[panelid];
+
+        },
+
+        // Defined in init -- uses _.dispatch
+        getPanel: function(panelid, viewConstructor) {},
+
+        cachePanel: function(panel) {
+
+            if (!_.exists(panel) || !_.exists(panel.id)) return;
+
+            this.cache[panel.id] = panel;
+
+            return panel;
+        }
 
     });
 

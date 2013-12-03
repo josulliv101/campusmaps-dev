@@ -9,9 +9,13 @@ define([
 
     'map',
 
-    'scripts/views/searchbox'
+    'scripts/views/searchbox',
 
-], function($, _, Datastore, Map, SearchboxView) {
+    'scripts/views/searchpanel',
+
+    'scripts/controllers/searchboxController'
+
+], function($, _, Datastore, Map, SearchboxView, SearchPanelView, SearchboxController) {
 
     'use strict';
 
@@ -25,7 +29,7 @@ define([
 
             var campus = Datastore.campus(campusid, { id: 'campusid', select: true }),
 
-                vSearchbox;
+                vSearchbox, searchboxController;
 
             console.log('Datastore', Datastore.campuses);
 
@@ -35,8 +39,9 @@ define([
 
             vSearchbox = new SearchboxView({ el: $('#ui-search') }).render();
 
-            console.log('vSearchbox', vSearchbox);
+            searchboxController = new SearchboxController(vSearchbox, SearchPanelView);
 
+            console.log('vSearchbox', vSearchbox);
 
         })
 

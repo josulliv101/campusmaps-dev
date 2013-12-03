@@ -23,9 +23,13 @@ body { height: 100%; margin: 0; padding: 0 }
 #ui-search {
 	background: #ccc;
 	position: absolute;
+	width: 400px;
 	z-index: 999;
 	top: 32px;
 	left: 94px;
+	#panels {
+		clear: both;
+	}
 	.form-group {
 		float: left;
 	}
@@ -33,6 +37,29 @@ body { height: 100%; margin: 0; padding: 0 }
 		float: right;
 	}
 }
+
+/* Transition */
+
+.in-queue {
+	background: #ccc;
+	.bd {
+		width: 100%; 
+		overflow: hidden;
+	    max-height: 0px;  
+	    -webkit-transition:  max-height .8s;  
+	    -moz-transition:  max-height .8s;  
+	    -o-transition:  max-height .8s;  
+	    transition:  max-height .8s;  
+	}
+    &.show {
+    	.bd {
+    		max-height: 1060px; 
+    	}
+	     
+    }
+
+}
+
 
 
 

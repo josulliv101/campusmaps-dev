@@ -1,11 +1,17 @@
 
-define(['jquery', '../scripts/views/searchbox', '../../bower_components/jasmine-jquery/lib/jasmine-jquery'], function ($, SearchboxView) {
+define(['jquery', '../scripts/views/searchbox', '../scripts/views/searchpanel', '../../bower_components/jasmine-jquery/lib/jasmine-jquery'], function ($, SearchboxView, SearchPanelView) {
 
   describe('Searchbox View Tests', function () {
 
     var view;
 
     beforeEach(function() {
+
+      spyOn(SearchboxView.prototype, 'createPanel').andCallThrough();
+
+      spyOn(SearchboxView.prototype, 'getCachedPanel').andCallThrough();
+
+console.log('SearchboxView', SearchboxView.prototype);
 
       view = new SearchboxView();
 
@@ -121,6 +127,92 @@ define(['jquery', '../scripts/views/searchbox', '../../bower_components/jasmine-
       });*/
 
 
+
+    });
+
+    describe('Getting Panels', function () {
+
+      it('should have a cache', function () {
+
+        expect(view.cache).toBeDefined();
+
+      });
+
+      it('should return undefined if a panel is not in cache', function () {
+
+        expect(view.getCachedPanel('mypanel')).toBeUndefined();
+
+        view.cache = { mypanel: 'view' };
+
+        expect(view.getCachedPanel('mypanel')).toBeDefined();
+
+      });
+
+      it('should be able to create a new panel with an id, and model ("created" state)', function () {
+
+        var panel = view.createPanel('mynewpanel', SearchPanelView);
+
+        expect(panel).toBeDefined();
+
+        expect(panel.model).toBeDefined();
+
+        expect(panel.id).toBeDefined();
+
+        expect(panel.model.get('state')).toEqual('created');
+
+        console.log('panel', panel);
+
+      });
+
+      it('should be able to cache a panel by id', function () {
+
+        var panel = { id: 'myfakepanel' };
+
+        view.cache = {};
+
+        view.cachePanel(panel);
+
+        console.log('fakepanel cached?', view.cache);
+
+        expect(view.getCachedPanel('myfakepanel')).toBeDefined();
+
+      });
+
+      it('should be able to use a dispatch function to get a new panel', function () {
+
+        spyOn(view, 'getPanel').andCallThrough();
+
+        var panel1 = view.getPanel('myotherpanel', SearchPanelView);
+
+        console.log('myotherpanel ?', panel1);
+
+        expect(SearchboxView.prototype.getCachedPanel).toHaveBeenCalled();
+
+        expect(SearchboxView.prototype.createPanel).toHaveBeenCalled();
+
+        expect(view.getPanel).toHaveBeenCalled();
+
+        expect(panel1.id).toBe('myotherpanel');
+
+      });
+
+      it('should be able to use a dispatch function to get a cached panel', function () {
+
+        var panel;
+
+        spyOn(view, 'getPanel').andCallThrough();
+
+        view.cachePanel({ id: 'myfakepanel' });
+
+        panel = view.getPanel('myfakepanel', SearchPanelView);
+
+        expect(view.getPanel).toHaveBeenCalled();
+
+        expect(SearchboxView.prototype.getCachedPanel).toHaveBeenCalled();
+
+        expect(SearchboxView.prototype.createPanel).not.toHaveBeenCalled();
+
+      });
 
     });
 
