@@ -67,17 +67,17 @@ define([
 
         closePanels: function() {},
 
-        createPanel: function(panelid, viewConstructor) {
+        createPanel: function(panelid, ViewConstructor) {
 
             var model, view;
 
-            console.log('createPanel panel...', panelid, viewConstructor);
+            console.log('createPanel panel...', panelid, ViewConstructor);
 
-            if (!_.exists(panelid) || !_.exists(viewConstructor) || !_.isFunction(viewConstructor)) return;
+            if (!_.exists(panelid) || !_.exists(ViewConstructor) || !_.isFunction(ViewConstructor)) return;
 
             model = new Backbone.Model({ state: 'created' });
 
-            view = new viewConstructor({ id: panelid, model: model });
+            view = new ViewConstructor({ id: panelid, model: model });
 
             console.log('fresh panel', view);
 
@@ -100,7 +100,7 @@ define([
         },
 
         // Defined in init -- uses _.dispatch
-        getPanel: function(panelid, viewConstructor) {},
+        getPanel: function() {},
 
         cachePanel: function(panel) {
 

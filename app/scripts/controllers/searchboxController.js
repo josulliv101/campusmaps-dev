@@ -1,8 +1,12 @@
 define([
 
+    'jquery',
+
+    'underscore',
+
     'eventdispatcher'
 
-], function(EventDispatcher) {
+], function($, _, EventDispatcher) {
 
     'use strict';
 

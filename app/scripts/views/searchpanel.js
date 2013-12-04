@@ -33,14 +33,22 @@ define([
 
             }));
 
-            this.$el.attr({ role: 'presentation' }).addClass('in-queue');
+            this.$el.attr({ tabindex: 0, role: 'presentation' }).addClass('in-queue');
 
             return this;
         },
 
         show: function() {
 
-            this.$el.toggleClass('show');
+            if (this.$el.hasClass('bounceInDown')) {
+                this.$el.removeClass('animated bounceInDown');
+                this.$el.addClass('animated slideOutUp');
+            }
+            else {
+                this.$el.removeClass('animated slideOutUp');
+                this.$el.addClass('animated bounceInDown');
+
+            }
 
         }
 

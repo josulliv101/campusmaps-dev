@@ -118,8 +118,8 @@ define([
   });
 
 
-  function FakeView() {};
+  function FakeView() {}
 
-  FakeView.prototype.closePanels = function() {}
+  FakeView.prototype.closePanels = function() {};
 
 });

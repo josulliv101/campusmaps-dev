@@ -21,7 +21,7 @@ body { height: 100%; margin: 0; padding: 0 }
 
 /* Searchbox */
 #ui-search {
-	background: #ccc;
+	
 	position: absolute;
 	width: 400px;
 	z-index: 999;
@@ -29,34 +29,156 @@ body { height: 100%; margin: 0; padding: 0 }
 	left: 94px;
 	#panels {
 		clear: both;
+		position: relative;
+		z-index: 998;
+		margin-top: 54px;
 	}
 	.form-group {
 		float: left;
+		width: 100%;
+		background: #fff;
+		border-radius: 0;
+		border: 1px #999 solid;
+		padding: 12px;
+		position: relative;
+		z-index: 999;
+		-moz-box-shadow:    2px 2px 1px 0px rgba(0,0,0,.22);
+		-webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,.22);
+		box-shadow:         2px 2px 1px 0px rgba(0,0,0,.22);
 	}
 	.btn {
-		float: right;
+		position: absolute;
+		right: 0;
+		top: 12px;
+		z-index: 999;
 	}
 }
 
 /* Transition */
 
+.animated {
+	overflow: hidden;
+  animation-duration: .5s;
+  animation-fill-mode: both;
+    -webkit-transition:     max-height .6s  ease-in;
+    -moz-transition:        max-height .6s  ease-in;
+    -o-transition:          max-height .6s  ease-in;
+    -ms-transition:         max-height .6s  ease-in;
+    transition:             max-height .6s  ease-in;
+
+}
+
+@keyframes slideInDown {
+        0% {
+                opacity: 0;
+                transform: translateY(0px);
+        }
+
+        100% {
+                transform: translateY(-50px);
+        }
+}
+
+.slideInDown {
+        animation-name: slideInDown;
+        max-height: 0px;
+}
+
+@keyframes slideOutUp {
+        0% {
+                transform: translateY(0px);
+                max-height: 400px;
+        }
+
+        20% {
+                transform: translateY(0px);
+                max-height: 400px;
+        }
+
+        100% {
+                 
+                transform: translateY(-54px);
+                 max-height: 0px;
+                
+        }
+}
+
+@-webkit-keyframes slideOutUp /* Safari and Chrome */
+{
+        0% {
+                transform: translateY(0px);
+                max-height: 400px;
+        }
+
+        20% {
+                transform: translateY(0px);
+                max-height: 400px;
+        }
+
+        100% {
+                 
+                transform: translateY(-54px);
+                 max-height: 0px;
+                
+        }
+}
+
+.slideOutUp {
+        animation-name: slideOutUp;
+        -webkit-animation: slideOutUp; /* Safari and Chrome */
+       
+}
+
+@keyframes bounceInDown {
+        0% {
+               
+                transform: translateY(-54px);
+                max-height: 0px;
+        }
+
+
+
+        100% {
+        		max-height: 600px;
+                transform: translateY(0);
+        }
+}
+
+@-webkit-keyframes bounceInDown /* Safari and Chrome */
+{
+        0% {
+               
+                transform: translateY(-54px);
+                max-height: 0px;
+        }
+
+
+
+        100% {
+        		max-height: 600px;
+                transform: translateY(0);
+        }
+}
+
+.bounceInDown {
+        animation-name: bounceInDown;
+        -webkit-animation: bounceInDown; /* Safari and Chrome */
+}
+
 .in-queue {
-	background: #ccc;
 	.bd {
-		width: 100%; 
-		overflow: hidden;
-	    max-height: 0px;  
-	    -webkit-transition:  max-height .8s;  
-	    -moz-transition:  max-height .8s;  
-	    -o-transition:  max-height .8s;  
-	    transition:  max-height .8s;  
+
+
 	}
-    &.show {
-    	.bd {
-    		max-height: 1060px; 
-    	}
-	     
-    }
+
+		background: #fff;
+		padding: 12px;
+		border: 1px #999 solid;
+		-moz-box-shadow:    2px 2px 1px 0px rgba(0,0,0,.22);
+		-webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,.22);
+		box-shadow:         2px 2px 1px 0px rgba(0,0,0,.22);
+	
+
 
 }
 
