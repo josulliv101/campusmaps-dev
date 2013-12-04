@@ -4,6 +4,12 @@ body { height: 100%; margin: 0; padding: 0 }
 
 /* Global */
 
+button {
+    
+    cursor: pointer;
+
+}
+
 :focus {
 	
 	outline-style:dotted;
@@ -39,7 +45,7 @@ body { height: 100%; margin: 0; padding: 0 }
 		background: #fff;
 		border-radius: 0;
 		border: 1px #999 solid;
-		padding: 12px;
+		padding: 12px 0;
 		position: relative;
 		z-index: 999;
 		-moz-box-shadow:    2px 2px 1px 0px rgba(0,0,0,.22);

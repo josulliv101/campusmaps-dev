@@ -1,5 +1,5 @@
 
-define(['jquery', '../scripts/views/searchbox', '../scripts/views/searchpanel', '../../bower_components/jasmine-jquery/lib/jasmine-jquery'], function ($, SearchboxView, SearchPanelView) {
+define(['jquery', '../scripts/views/searchbox', 'searchpanels/base', '../../bower_components/jasmine-jquery/lib/jasmine-jquery'], function ($, SearchboxView, SearchPanelView) {
 
   describe('Searchbox View Tests', function () {
 

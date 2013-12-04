@@ -74,7 +74,7 @@ module.exports = function (grunt) {
         },
         compile: {
             files: {
-                '.tmp/scripts/templates.js': ['app/scripts/templates/*.ejs']
+                '.tmp/scripts/templates.js': ['app/scripts/templates/**/*.ejs']
             }
         }
     },

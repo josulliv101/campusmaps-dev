@@ -1,13 +1,15 @@
 
-define(['jquery', '../scripts/views/searchpanel', '../../bower_components/jasmine-jquery/lib/jasmine-jquery'], function ($, SearchPanelView) {
+define(['jquery', 'backbone', 'searchpanels/base', '../../bower_components/jasmine-jquery/lib/jasmine-jquery'], function ($, Backbone, SearchPanelView) {
 
   describe('SearchPanel View Tests', function () {
 
-    var view;
+    var view, model;
 
     beforeEach(function() {
 
-      view = new SearchPanelView();
+      model = new Backbone.Model({ state: 'created' });
+      
+      view = new SearchPanelView({ model: model });
 
       view.render();
 

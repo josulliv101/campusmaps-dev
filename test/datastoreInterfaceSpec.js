@@ -6,8 +6,6 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
     beforeEach(function() {
 
-      console.info('Datastore fetch');
-
       campuses = Datastore.fetch();
 
       mapList = Datastore.maps();

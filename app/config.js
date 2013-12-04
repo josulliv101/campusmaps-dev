@@ -46,6 +46,8 @@
 
             'app': './scripts/app',
 
+            'animation': './scripts/animations/jquery-animate',
+
             'eventdispatcher': './scripts/eventdispatcher',
 
             'backbone': '../bower_components/backbone/backbone',
@@ -59,6 +61,8 @@
             'datamodel': './data/data-static',
 
             'mapstyles': './config-mapstyles',
+
+            'searchpanels': './scripts/views/searchpanels', // A short-cut
 
             'map': './scripts/services/map/googlemap',
 

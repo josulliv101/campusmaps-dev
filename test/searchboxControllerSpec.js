@@ -20,11 +20,29 @@ define([
       // Spy needs to be created before controller instance
       spyOn(SearchboxController.prototype, 'handleCommand').andCallThrough();
 
-      spyOn(SearchboxController.prototype, 'doCommands');
+      spyOn(SearchboxController.prototype, 'doCommands').andCallThrough();
+
+      spyOn(SearchboxController.prototype, 'getCmds').andCallThrough();
+
+      spyOn(SearchboxController.prototype, 'getViewPaths').andCallThrough();
+
+      spyOn(SearchboxController.prototype, 'doView').andReturn(new FakeView());
 
       spyOn(FakeView.prototype, 'closePanels');
 
+      spyOn(SearchboxController.prototype, 'getDependencies').andCallFake(function() {
+        
+        var dfd = $.Deferred();
+
+        return dfd.promise();
+
+      });
+
       controller = new SearchboxController(new FakeView());
+
+      // Lives  on SearchboxController object not prototype
+      spyOn(controller, 'loadViews').andCallThrough();
+
 
     });
 
@@ -107,9 +125,113 @@ define([
 
       it('should be called in response to a cmd event.', function () {
 
-        EventDispatcher.trigger('cmd', 'mycommand', { yo: 'hi' });
+        controller.doCommands({ fakeCmd: FakeView });
 
-        expect(SearchboxController.prototype.handleCommand).toHaveBeenCalled();
+        expect(SearchboxController.prototype.doView).toHaveBeenCalled();
+
+      });
+
+    });
+
+   describe('loadViews Function', function () {
+      
+      it('should ...', function () {
+
+        controller.loadViews('test');
+
+        expect(controller.loadViews).toHaveBeenCalled();
+
+        expect(SearchboxController.prototype.getCmds).toHaveBeenCalled();
+
+        expect(SearchboxController.prototype.getDependencies).toHaveBeenCalled();
+
+        expect(SearchboxController.prototype.getViewPaths).toHaveBeenCalled();
+
+      });
+
+    });
+
+    describe('getViewPaths Function', function () {
+ 
+      it('should return an empty array if no cmds.', function () {
+
+        expect(controller.getViewPaths().length).toBe(0);
+
+        expect(controller.getViewPaths([]).length).toBe(0);
+
+      });
+
+      it('should return an array with a length matching number of cmds.', function () {
+
+        expect(controller.getViewPaths(['cmd1']).length).toBe(1);
+
+        expect(controller.getViewPaths(['cmd1', 'cmd2']).length).toBe(2);
+
+      });
+
+      it('should return a path to the view file.', function () {
+
+        var viewpaths;
+
+        controller.searchpanelPath = 'fake/path';
+
+        viewpaths = controller.getViewPaths(['cmd1', 'cmd2', 'cmd999']);
+
+        expect(viewpaths[0]).toBe('fake/path/cmd1');
+
+        expect(viewpaths[1]).toBe('fake/path/cmd2');
+
+        expect(viewpaths[2]).toBe('fake/path/cmd999');
+
+      });
+
+    });
+
+    describe('getDependencies Function', function () {
+ 
+      it('should exists.', function () {
+
+        expect(SearchboxController.prototype.getDependencies).toBeDefined();
+
+      });
+
+      it('should return a promise', function () {
+
+        var obj = SearchboxController.prototype.getDependencies(['searchpanels/base']);
+
+        expect(obj).toBeDefined();
+
+        // It should have a promise function
+        expect(obj.promise).toBeDefined();
+
+      });
+
+    });
+
+    describe('getCmds Function', function () {
+ 
+      it('should exists.', function () {
+
+        expect(controller.getCmds).toBeDefined();
+
+      });
+
+      it('should return an array of cmds', function () {
+
+        var cmds = controller.getCmds('view1');
+
+        expect(cmds).toBeDefined();
+
+        // It should have a promise function
+        expect(cmds.length).toBe(1);
+
+        cmds = controller.getCmds('view1_view2');
+
+        expect(cmds.length).toBe(2);
+
+        cmds = controller.getCmds('');
+
+        expect(cmds.length).toBe(0);
 
       });
 

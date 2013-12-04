@@ -8,9 +8,11 @@ define([
 
     'templates',
 
+    'animation', // Control appropriate animation to use in config via browser feature detection
+
     'eventdispatcher'
 
-], function($, _, Backbone, JST, EventDispatcher) {
+], function($, _, Backbone, JST, Animation, EventDispatcher) {
 
     'use strict';
 
@@ -59,13 +61,21 @@ define([
 
             ev.preventDefault();
 
-            EventDispatcher.trigger('cmd', 'mycommand', { yo: 'hi' });
+            EventDispatcher.trigger('cmd', 'test', { yo: 'hi' });
             
         },
 
-        showPanels: function() {},
+        open: function(panel) {
 
-        closePanels: function() {},
+            Animation.prototype.open.apply(null, arguments);
+
+        },
+
+        close: function(panel) {
+
+            Animation.prototype.close.apply(null, arguments);
+
+        },
 
         createPanel: function(panelid, ViewConstructor) {
 
