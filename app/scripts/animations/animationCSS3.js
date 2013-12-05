@@ -25,8 +25,6 @@ define([
             dfd.resolve();
 
         });
-
-        //view.$el.removeClass('animated slideOutUp');
         
         view.$el.addClass('animated bounceInDown');
 
@@ -55,9 +53,6 @@ define([
         return dfd.promise();
 
     };
-
-    console.log('Animations css', AnimationCSS3.prototype);
-    console.log('Animations base', Base.prototype);
 
     return AnimationCSS3;
 

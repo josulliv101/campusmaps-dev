@@ -64,7 +64,7 @@
 
             'searchpanels': './scripts/views/searchpanels', // A short-cut
 
-            'map': './scripts/services/map/googlemap',
+            'map': './scripts/services/map/leaflet',
 
             'async': '../bower_components/requirejs-plugins/src/async',
 
