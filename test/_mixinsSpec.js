@@ -152,8 +152,6 @@ define(['_mixins', 'backbone'], function (_, Backbone) {
         _.selectItem(models[2]);
         _.selectItem(models[1]);
 
-console.info('debug', _.getSelectedItem(models).selected);
-
         expect(_.getSelectedItem(models)).toEqual(models[1]);
 
         selectedList = _.filter(models, fnSelected);

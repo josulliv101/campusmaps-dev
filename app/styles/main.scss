@@ -17,6 +17,19 @@ button {
 
 }
 
+/* Dev */
+
+#log {
+    
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 240px;
+    height: 400px;
+    background: #fff;
+    z-index: 999;
+}
+
 /* Layout */
 
 #map-wrap, #map-canvas { height: 100% }
@@ -40,7 +53,6 @@ button {
 		margin-top: 54px;
 	}
 	.form-group {
-		float: left;
 		width: 100%;
 		background: #fff;
 		border-radius: 0;
@@ -48,9 +60,6 @@ button {
 		padding: 12px 0;
 		position: relative;
 		z-index: 999;
-		-moz-box-shadow:    2px 2px 1px 0px rgba(0,0,0,.22);
-		-webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,.22);
-		box-shadow:         2px 2px 1px 0px rgba(0,0,0,.22);
 	}
 	.btn {
 		position: absolute;
@@ -129,11 +138,7 @@ button {
         }
 }
 
-.slideOutUp {
-        animation-name: slideOutUp;
-        -webkit-animation: slideOutUp; /* Safari and Chrome */
-       
-}
+
 
 @keyframes bounceInDown {
         0% {
@@ -166,28 +171,39 @@ button {
         }
 }
 
-.bounceInDown {
-        animation-name: bounceInDown;
-        -webkit-animation: bounceInDown; /* Safari and Chrome */
-}
-
 .in-queue {
+
+    display: none;
+
 	.bd {
 
 
 	}
+    &.animated {
+        display: block;
+    }
+    &.bounceInDown {
+        animation-name: bounceInDown;
+        -webkit-animation: bounceInDown; /* Safari and Chrome */
+    }
 
-		background: #fff;
-		padding: 12px;
-		border: 1px #999 solid;
-		-moz-box-shadow:    2px 2px 1px 0px rgba(0,0,0,.22);
-		-webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,.22);
-		box-shadow:         2px 2px 1px 0px rgba(0,0,0,.22);
-	
+    &.slideOutUp {
+        animation-name: slideOutUp;
+        -webkit-animation: slideOutUp; /* Safari and Chrome */
+           
+    }
 
+	background: #fff;
+	padding: 12px;
+	border: 1px #999 solid;
 
 }
 
+.shadow {
+    -moz-box-shadow:    2px 2px 1px 0px rgba(0,0,0,.22);
+    -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,.22);
+    box-shadow:         2px 2px 1px 0px rgba(0,0,0,.22);    
+}
 
 
 

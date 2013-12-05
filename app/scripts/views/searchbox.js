@@ -16,6 +16,8 @@ define([
 
     'use strict';
 
+    
+
     var SearchboxView = Backbone.View.extend({
 
         events: {
@@ -31,6 +33,8 @@ define([
         initialize: function() {
 
             _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel');
+
+            _.bindAll(Animation.prototype, 'open', 'isOpen_');
 
             this.cache = {};
 
@@ -65,17 +69,9 @@ define([
             
         },
 
-        open: function(panel) {
+        open: Animation.prototype.open,
 
-            Animation.prototype.open.apply(null, arguments);
-
-        },
-
-        close: function(panel) {
-
-            Animation.prototype.close.apply(null, arguments);
-
-        },
+        close: Animation.prototype.close,
 
         createPanel: function(panelid, ViewConstructor) {
 

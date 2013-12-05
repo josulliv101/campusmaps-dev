@@ -13,24 +13,31 @@
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="stylesheet" href=".tmp/styles/main.css">
 
-	 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-	 <!--[if lte IE 8]>
-	     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
-	 <![endif]-->
-	 
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	<!--[if lte IE 8]>
+	    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+	<![endif]-->
+	
 	<!-- build:js scripts/vendor/modernizr.js -->
 	<script src="bower_components/modernizr/modernizr.js"></script>
 	<!-- endbuild -->
 </head>
 <body>
 	
-	
+
 
 	<div id="map-wrap">
 		<div id="map-canvas"></div>
 	</div>
-	<div id="ui-search"/>
 
+	<div id="ui-search"></div>
+
+	<div id="log" class="shadow">
+		<ul>
+			<li><a href="#" data-cmd="test">panel 1</a></li>
+			<li><a href="#" data-cmd="base">panel 2</a></li>
+		</ul>
+	</div>	
 	<!-- build:js scripts/main.js -->
 	<script data-main="app/config" src="bower_components/requirejs/require.js"></script>
 

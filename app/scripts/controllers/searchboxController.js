@@ -4,21 +4,27 @@ define([
 
     'underscore',
 
-    'eventdispatcher'
+    'eventdispatcher',
 
-], function($, _, EventDispatcher) {
+    'animation'
+
+], function($, _, EventDispatcher, Animation) {
 
     'use strict';
 
+
+
     function SearchboxController(searchboxview) {
+
+        var cmdFunctions;
 
         _.bindAll(this, 'doCommands', 'handleCommand', 'getViewPaths', 'doView', 'getDependencies', 'getCmds', 'loadViews');
 
         this.view = searchboxview;
 
-        this.searchpanelPath = 'searchpanels'; // This is a requirejs alias
+        this.animation = new Animation();
 
-        EventDispatcher.on('cmd', this.handleCommand, this);
+        this.searchpanelPath = 'searchpanels'; // This is a requirejs alias
 
         // Defined here so this binding behaves when creating unit test spies
         this.loadViews = _.compose(
@@ -33,6 +39,27 @@ define([
                 this.getCmds // Starts here, goes from right to left. Return obj becomes arg for next fn
             
             );
+
+
+        //// Event Listeners ////
+        
+        // Handle when the Event Dispatcher triggers a cmd
+        EventDispatcher.on('cmd', this.handleCommand, this);
+
+        // Handle when the Event Dispatcher triggers a cmd
+        EventDispatcher.on('doAnimationOpen', function() { alert('animation open'); }, this);
+
+        // Pass off any cmds from DOM elements to the Event Dispatcher
+        $('body').on('click', '[data-cmd]', function(ev) {
+
+            console.log('data-cmd', ev);
+
+            // In case the element happens to be a link
+            ev.preventDefault();
+
+            EventDispatcher.trigger('cmd', $(this).data('cmd'));
+
+        });
 
     }
 
@@ -114,13 +141,11 @@ define([
 
             state = panel.model.get('state'),
 
-            fn = state === 'created' ? this.view.open : this.view.close;
+            fn = state === 'open' ? this.animation.close : this.animation.open;
 
         console.log('panel model', panel.model);
 
-        fn(panel);
-
-        panel.model.set('state', state === 'created' ? 'open' : 'created');
+        fn.call(this.animation, panel);
 
     };
 

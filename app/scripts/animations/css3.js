@@ -1,12 +1,16 @@
 define([
 
-    'jquery'
+    'jquery',
 
-], function($) {
+    'scripts/animations/animationBase'
+
+], function($, AnimationBase) {
 
     'use strict';
 
     function AnimationCSS3() {}
+
+    console.log($);
 
     // Stub -- defined in constructor so this keyword behaves when unit testing
     AnimationCSS3.prototype.open = function(view) {

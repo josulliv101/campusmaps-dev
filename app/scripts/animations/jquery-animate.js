@@ -8,6 +8,8 @@ define([
 
     function AnimationJQueryAnimate() {}
 
+    console.log($);
+
     // Stub -- defined in constructor so this keyword behaves when unit testing
     AnimationJQueryAnimate.prototype.open = function(view) {
 

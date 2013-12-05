@@ -46,7 +46,7 @@
 
             'app': './scripts/app',
 
-            'animation': './scripts/animations/jquery-animate',
+            'animation': './scripts/animations/animationCSS3',
 
             'eventdispatcher': './scripts/eventdispatcher',
 
