@@ -18,7 +18,7 @@ define([
 
         },
 
-        className: 'searchpanel shadow',
+        className: '',
 
         template: JST['app/scripts/templates/searchpanels/test.ejs'],
 

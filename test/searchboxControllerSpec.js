@@ -75,7 +75,7 @@ define([
 
       });
 
-      it('should call the view closePanels fn if forceClose option is true.', function () {
+/*      it('should call the view closePanels fn if forceClose option is true.', function () {
 
         EventDispatcher.trigger('cmd', 'mycommand', { forceClose: true });
 
@@ -89,7 +89,7 @@ define([
 
         expect(FakeView.prototype.closePanels).not.toHaveBeenCalled();
 
-      });
+      });*/
 
       it('should split the cmd text into an array of commands.', function () {
 

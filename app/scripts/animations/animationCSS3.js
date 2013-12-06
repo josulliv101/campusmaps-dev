@@ -24,9 +24,13 @@ define([
         
             dfd.resolve();
 
+            alert('animateDomOpen_');
+
         });
-        
-        view.$el.addClass('animated bounceInDown');
+         
+        view.$('.panel').addClass('bounceInDown');
+
+        view.$el.addClass('animated');
 
         return dfd.promise();
 
@@ -38,15 +42,19 @@ define([
 
         view.$el.one('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) {
 
-            view.$el.removeClass('animated slideOutUp');
+            view.$('.panel').removeClass('slideOutUp');
+
+            view.$el.removeClass('animated');
 
             dfd.resolve();
 
+            alert('animateDomClose_');
+
         });
 
-        view.$el.removeClass('bounceInDown');
+        view.$('.panel').removeClass('bounceInDown');
 
-        view.$el.addClass('slideOutUp');
+        view.$('.panel').addClass('slideOutUp');
 
         dfd.resolve();
 
