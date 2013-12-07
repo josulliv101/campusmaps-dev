@@ -5,17 +5,11 @@ define([
 
     '_mixins',
 
-    'datastore',
+    'datastore'
 
-    'isotope',
-
-    'lazyload'
-
-], function($, _, Datastore, Isotope, Lazyload) {
+], function($, _, Datastore) {
 
     'use strict';
-
-    var template = JST['app/scripts/templates/directory.ejs'];
 
     function init_() {
 
@@ -33,29 +27,7 @@ define([
 
     function createDirectory_(el, name) {
 
-        $(el).html(template({}));
-
-        $('#container').isotope({
-
-          itemSelector : '.item',
-
-          layoutMode : 'fitRows'
-
-        });
-
-        $('.item img').lazyload({
-
-            effect: 'fadeIn'
-
-        });
-
-        $('.item img').trigger('scroll');
-
-        $(document).on('click', '.btn', function() {
-
-            $('#container').isotope({ filter: $(this).attr('data-filter') });
-
-        });
+        $(el).html(name);
 
     }
 

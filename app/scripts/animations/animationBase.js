@@ -15,14 +15,14 @@ define([
     // Returns a deferred object promise
     AnimationBase.prototype.animateDomOpen_ = function(view) {
 
-        return view.$el.fadeIn(900);
+        return view.$el.fadeIn(300);
 
     };
 
     // Returns a deferred object promise
     AnimationBase.prototype.animateDomClose_ = function(view) {
 
-        return view.$el.fadeOut(900);
+        return view.$el.fadeOut(300);
 
     };
 

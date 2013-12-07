@@ -23,9 +23,9 @@ define(['jquery', 'backbone', 'searchpanels/base', '../../bower_components/jasmi
 
     describe('Basics', function () {
 
-      it('should render a div.panel', function () {
+      it('should render a div.searchpanel', function () {
 
-        expect(view.$el).toBe('div');
+        expect(view.$el).toBe('div.searchpanel');
 
         console.log('el', view.el);
 

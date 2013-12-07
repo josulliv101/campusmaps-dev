@@ -20,11 +20,12 @@ button {
 /* Dev */
 
 #log {
+    
     position: absolute;
     right: 20px;
     top: 20px;
     width: 240px;
-    height: auto;
+    height: 400px;
     background: #fff;
     z-index: 999;
 }
@@ -42,57 +43,14 @@ button {
 	
 	position: absolute;
 	width: 400px;
-	z-index: 101;
+	z-index: 999;
 	top: 32px;
 	left: 94px;
-    .panel {
-        margin-right: 4px;
-    }
 	#panels {
 		clear: both;
-		z-index: 100;
-        position: relative;
+		position: relative;
+		z-index: 998;
 		margin-top: 12px;
-        &> div {
-            box-sizing: border-box;
-            padding: 0 3px 0 0;
-            position: relative;
-            z-index: 200;
-            .panel {
-                margin: 0 0 12px 0;
-                position: relative;
-
-            }
-        }
-        .in-queue {
-
-            display: none;
-            margin-right: 0;
-            .bd {
-                background: #fff;
-                padding: 12px;
-                border: 1px #999 solid;
-
-            }
-            &.animated {
-                display: block;
-            }
-            .bounceInDown {
-                animation-name: bounceInDown;
-                -webkit-animation: bounceInDown; /* Safari and Chrome */
-            }
-
-            .slideOutUp {
-                animation-name: slideOutUp;
-                -webkit-animation: slideOutUp; /* Safari and Chrome */
-                   
-            }
-
-
-
-        }
-
-
 	}
 	.form-group {
 		width: 100%;
@@ -105,7 +63,7 @@ button {
 	}
 	.btn {
 		position: absolute;
-		right: 12px;
+		right: 0;
 		top: 12px;
 		z-index: 999;
 	}
@@ -113,144 +71,139 @@ button {
 
 /* Transition */
 
-.animated .panel {
+.animated {
 	overflow: hidden;
-    animation-duration: 1.6s;
-    animation-fill-mode: both;
-    box-sizing: border-box;
-    
+  animation-duration: .5s;
+  animation-fill-mode: both;
+    -webkit-transition:     max-height .6s  ease-in;
+    -moz-transition:        max-height .6s  ease-in;
+    -o-transition:          max-height .6s  ease-in;
+    -ms-transition:         max-height .6s  ease-in;
+    transition:             max-height .6s  ease-in;
+
 }
 
+@keyframes slideInDown {
+        0% {
+                opacity: 0;
+                transform: translateY(0px);
+        }
+
+        100% {
+                transform: translateY(-50px);
+        }
+}
+
+.slideInDown {
+        animation-name: slideInDown;
+        max-height: 0px;
+}
 
 @keyframes slideOutUp {
+        0% {
+                transform: translateY(0px);
+                max-height: 400px;
+        }
 
-    0% {
-            transform: translateY(0px);
-            max-height: 200px;
-            opacity: 1;
-    }
+        20% {
+                transform: translateY(0px);
+                max-height: 400px;
+        }
 
-
-
-
-    100% {
-             
-            transform: translateY(-100%);
-             max-height: 32px;
-             opacity: .05;
-            
-    }
+        100% {
+                 
+                transform: translateY(-54px);
+                 max-height: 0px;
+                
+        }
 }
+
+@-webkit-keyframes slideOutUp /* Safari and Chrome */
+{
+        0% {
+                transform: translateY(0px);
+                max-height: 400px;
+        }
+
+        20% {
+                transform: translateY(0px);
+                max-height: 400px;
+        }
+
+        100% {
+                 
+                transform: translateY(-54px);
+                 max-height: 0px;
+                
+        }
+}
+
+
 
 @keyframes bounceInDown {
-
-    0% {
-           
-            transform: translateY(-100%);
-            max-height: 32px;
-            opacity: .05;
-    }
+        0% {
+               
+                transform: translateY(-54px);
+                max-height: 0px;
+        }
 
 
 
-    100% {
-            max-height: 200px;
-            transform: translateY(0);
-            opacity: 1;
-    }
+        100% {
+        		max-height: 600px;
+                transform: translateY(0);
+        }
 }
 
-/* Contours */
+@-webkit-keyframes bounceInDown /* Safari and Chrome */
+{
+        0% {
+               
+                transform: translateY(-54px);
+                max-height: 0px;
+        }
+
+
+
+        100% {
+        		max-height: 600px;
+                transform: translateY(0);
+        }
+}
+
+.in-queue {
+
+    display: none;
+
+	.bd {
+
+
+	}
+    &.animated {
+        display: block;
+    }
+    &.bounceInDown {
+        animation-name: bounceInDown;
+        -webkit-animation: bounceInDown; /* Safari and Chrome */
+    }
+
+    &.slideOutUp {
+        animation-name: slideOutUp;
+        -webkit-animation: slideOutUp; /* Safari and Chrome */
+           
+    }
+
+	background: #fff;
+	padding: 12px;
+	border: 1px #999 solid;
+
+}
 
 .shadow {
-    -moz-box-shadow:    2px 2px 2px 0px rgba(0,0,0,.22);
-    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.22);
-    box-shadow:         2px 2px 2px 0px rgba(0,0,0,.22);    
-}
-
-/* Directory */
-
-.directory {
-    margin: 60px auto;
-    background: #eee;
-   max-width: 1040px; 
-
-
-}
-
-.directory .item {
-
-}
-
-.directory > .item {
-    
-    background-color: #FFFFFF;
-    border: 1px solid #DDDDDD;
-    border-radius: 4px;
-    display: inline-block;
-    line-height: 1;
-    max-width: 100%;
-    padding: 4px;
-    transition: all 0.2s ease-in-out 0s;
-    margin: 5px;
-}
-
-.directory > .item img {
-
-}
-
-/**** Isotope Filtering ****/
-
-.isotope-item {
-  z-index: 2;
-}
-
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1;
-}
-
-/**** Isotope CSS3 transitions ****/
-
-.isotope,
-.isotope .isotope-item {
-  -webkit-transition-duration: 0.8s;
-     -moz-transition-duration: 0.8s;
-      -ms-transition-duration: 0.8s;
-       -o-transition-duration: 0.8s;
-          transition-duration: 0.8s;
-}
-
-.isotope {
-  -webkit-transition-property: height, width;
-     -moz-transition-property: height, width;
-      -ms-transition-property: height, width;
-       -o-transition-property: height, width;
-          transition-property: height, width;
-}
-
-.isotope .isotope-item {
-  -webkit-transition-property: -webkit-transform, opacity;
-     -moz-transition-property:    -moz-transform, opacity;
-      -ms-transition-property:     -ms-transform, opacity;
-       -o-transition-property:      -o-transform, opacity;
-          transition-property:         transform, opacity;
-}
-
-/**** disabling Isotope CSS3 transitions ****/
-
-.isotope.no-transition,
-.isotope.no-transition .isotope-item,
-.isotope .isotope-item.no-transition {
-  -webkit-transition-duration: 0s;
-     -moz-transition-duration: 0s;
-      -ms-transition-duration: 0s;
-       -o-transition-duration: 0s;
-          transition-duration: 0s;
+    -moz-box-shadow:    2px 2px 1px 0px rgba(0,0,0,.22);
+    -webkit-box-shadow: 2px 2px 1px 0px rgba(0,0,0,.22);
+    box-shadow:         2px 2px 1px 0px rgba(0,0,0,.22);    
 }
 
 
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1;
-}
+

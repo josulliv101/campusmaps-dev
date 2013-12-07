@@ -32,7 +32,7 @@ define([
 
         initialize: function() {
 
-            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels');
+            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel');
 
             _.bindAll(Animation.prototype, 'open', 'isOpen_');
 
@@ -72,21 +72,6 @@ define([
         open: Animation.prototype.open,
 
         close: Animation.prototype.close,
-
-        closePanels: function() {
-
-            var dfds = _.map(this.cache, function(val, key) { 
-
-                console.log('closePanels', val, key);
-
-                return Animation.prototype.close(val);
-
-            }) || [];
-
-            console.log('dfds', dfds);
-
-            return dfds;
-        },
 
         createPanel: function(panelid, ViewConstructor) {
 
