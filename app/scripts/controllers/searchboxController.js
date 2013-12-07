@@ -65,13 +65,25 @@ define([
 
     SearchboxController.prototype.handleCommand = function(cmds, options) {
 
-        var fnForceClosePanels;
+        var fnForceClosePanels, deferreds = [this.loadViews(cmds)],
+
+            dfdsClose = _.map(this.view.cache, function(val, key) { 
+
+                console.log('closePanels', val, key);
+
+                return this.animation.close(val);
+
+            }, this);
 
         options || (options = {});
 
-        fnForceClosePanels = options.forceClose === true ? this.view.closePanels : function() {};
+        //fnForceClosePanels = options.forceClose === true ? this.view.closePanels : function() {};
 
-        $.when(this.loadViews(cmds),  fnForceClosePanels()).done( this.doCommands );
+        deferreds.concat(dfdsClose);
+
+        console.log('deferreds', deferreds, dfdsClose);
+
+        $.when.apply( $,  deferreds).done( this.doCommands );
 
     };
 
