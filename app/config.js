@@ -41,12 +41,16 @@
 
             'underscore': '../bower_components/underscore/underscore', 
             // lodash/dist/lodash || underscore/underscore
+            // 
+            'isotope' : 'http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min',
+
+            'lazyload': 'http://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.0/jquery.lazyload.min',
 
             '_mixins': './scripts/_mixins',
 
             'app': './scripts/app',
 
-            'animation': './scripts/animations/animationCSS3',
+            'animation': './scripts/animations/animationBase',
 
             'eventdispatcher': './scripts/eventdispatcher',
 
@@ -64,7 +68,7 @@
 
             'searchpanels': './scripts/views/searchpanels', // A short-cut
 
-            'map': './scripts/services/map/leaflet',
+            'map': './scripts/services/map/leaflet', // leaflet googlemap directory
 
             'async': '../bower_components/requirejs-plugins/src/async',
 
