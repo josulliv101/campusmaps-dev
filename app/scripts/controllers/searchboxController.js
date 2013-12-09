@@ -67,23 +67,28 @@ define([
 
         var fnForceClosePanels, deferreds = [this.loadViews(cmds)],
 
-            dfdsClose = _.map(this.view.cache, function(val, key) { 
+            dfdsClose = _.chain(this.view.cache)
 
-                console.log('closePanels', val, key);
+                            // Don't close any that are open and need to be
+                            .reject(function(val, key) { return _.contains(this.cmds, key); }, this)
 
-                return this.animation.close(val);
+                            .map(function(val, key) { 
 
-            }, this);
+                                console.log('closePanels', val, key, this.cmds);
+
+                                return this.animation.close(val);
+
+                            }, this)
+
+                            .value();
 
         options || (options = {});
 
-        //fnForceClosePanels = options.forceClose === true ? this.view.closePanels : function() {};
-
         deferreds.concat(dfdsClose);
 
-        console.log('deferreds', deferreds, dfdsClose);
+        console.log('deferreds', deferreds.concat(dfdsClose));
 
-        $.when.apply( $,  deferreds).done( this.doCommands );
+        $.when.apply( $,  deferreds.concat(dfdsClose) ).done( this.doCommands );
 
     };
 
@@ -151,13 +156,12 @@ define([
 
         var panel = this.view.getPanel(viewid, Constructor),
 
-            state = panel.model.get('state'),
-
-            fn = state === 'open' ? this.animation.close : this.animation.open;
+            state = panel.model.get('state');
 
         console.log('panel model', panel.model);
 
-        fn.call(this.animation, panel);
+        // Panel must be in close state in order to open
+        if (state === 'close') this.animation.open(panel);
 
     };
 

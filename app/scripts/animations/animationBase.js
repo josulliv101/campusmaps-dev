@@ -15,14 +15,14 @@ define([
     // Returns a deferred object promise
     AnimationBase.prototype.animateDomOpen_ = function(view) {
 
-        return view.$el.fadeIn(900);
+        return view.$el.slideDown(300);
 
     };
 
     // Returns a deferred object promise
     AnimationBase.prototype.animateDomClose_ = function(view) {
 
-        return view.$el.fadeOut(900);
+        return view.$el.slideUp(300);
 
     };
 
@@ -73,15 +73,29 @@ define([
 
         if (this.isOpen_(view)) return;
 
+        if (view.$el.hasClass('animating')) {
+
+          console.log('open animation in progress');
+
+          return false; 
+
+        } 
+
+        if (view.$el) view.$el.addClass('animating');
+
         this.openPre_(view);
 
     };
 
     AnimationBase.prototype.openPost_ = function(view) {
 
+        console.log('AnimationBase.openPost_', view.model);
+
         view.model.set('state', 'openPost');
 
         view.model.set('state', 'open');
+
+        if (view.$el) view.$el.removeClass('animating');
 
     };
 
@@ -101,15 +115,38 @@ define([
 
         if (this.isClosed_(view)) return;
 
+        if (view.$el.hasClass('animating')) {
+
+          console.log('close animation in progress');
+
+          return false; 
+
+        } 
+
+        if (view.$el) view.$el.addClass('animating');
+
+        // Needs to be created before triggering closePre
+        view.deferred = new $.Deferred();
+
         this.closePre_(view);
+
+        return view.deferred.promise(); 
 
     };
 
     AnimationBase.prototype.closePost_ = function(view) {
 
+        console.log('AnimationBase.closePost_', view.model);
+
         view.model.set('state', 'closePost');
 
         view.model.set('state', 'close');
+
+        if (view.$el) view.$el.removeClass('animating');
+
+        if (view.$el) view.$el.css({ display: 'none' });
+
+        if (view.deferred) view.deferred.resolve( 'animation complete' );
 
     };
 

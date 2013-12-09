@@ -54,8 +54,8 @@ module.exports = function (grunt) {
       test: {
         src: ['app/**/*.js', '!app/config.js'],
         options: {
-          specs: 'test/*Spec.js',
-          helpers: 'test/*Helper.js',
+          specs: 'test/**/*Spec.js',
+          helpers: 'test/**/*Helper.js',
           //vendor: 'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
           keepRunner: true,
           template: require('grunt-template-jasmine-requirejs'),

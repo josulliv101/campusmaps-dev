@@ -59,7 +59,11 @@ define([
         expect( Animation.prototype.close ).toBeDefined();
         expect( Animation.prototype.closePost_ ).toBeDefined();
 
+        expect( Animation.prototype.animateDomOpen_ ).toBeDefined();
+        expect( Animation.prototype.animateDomClose_ ).toBeDefined();
+
         expect( Animation.prototype.isOpen_ ).toBeDefined();
+        expect( Animation.prototype.isClosed_ ).toBeDefined();
 
       });
   
@@ -110,7 +114,7 @@ define([
 
       });
 
-      it('should trigger an event', function () {
+      it('should call doAnimationOpen_', function () {
 
         spyOn(Animation.prototype, 'doAnimationOpen_');
 
@@ -136,6 +140,17 @@ define([
 
     describe('The Close Functions', function () {
 
+      it('should return a deferred object', function () {
+
+        // Stop action here
+        spyOn(Animation.prototype, 'isClosed_');
+
+        var ret = Animation.prototype.close.call(animation, view);
+
+        expect( ret.promise ).toBeDefined();
+
+      });
+
       it('should check if the model is already in the close state', function () {
 
         // Stop action here
@@ -159,7 +174,7 @@ define([
 
       });
 
-      it('should call closePre if not already open', function () {
+      it('should call closePre if not already closed', function () {
 
         spyOn(Animation.prototype, 'closePre_').andCallThrough();
 
@@ -174,7 +189,7 @@ define([
 
       });
 
-      it('should trigger an event', function () {
+      it('should call doAnimationClose_', function () {
 
         spyOn(Animation.prototype, 'doAnimationClose_');
 
@@ -195,12 +210,133 @@ define([
         //expect( view.model.state ).toBe('openPre');
 
       });
+
+      it('should return a deferred object that gets called after close animation ends', function () {
+
+        Animation.prototype.close.call(animation, view);
+
+         waitsFor(function () {
+
+          return view.deferred.state() === 'resolved';
+
+        });
+
+        runs(function () {
+
+          expect(view.deferred.state()).toBe('resolved');
+
+        });
+
+      });
   
     });
 
+
+    describe('Animation', function () {
+
+      it('should not have the "animating" class when not opening/closing', function () {
+
+        // Baseline
+        expect( view.$el.hasClass('animating') ).toBe(false);
+
+        // After an open
+        Animation.prototype.open.call(animation, view);
+
+        expect( view.$el.hasClass('animating') ).toBe(false);
+
+
+        // After an open
+        Animation.prototype.close.call(animation, view);
+        
+        expect( view.$el.hasClass('animating') ).toBe(false);
+
+      });
+
+      it('should have the "animating" class while opening', function () {
+
+        // Stop action here
+        spyOn(Animation.prototype, 'doAnimationOpen_');
+
+        spyOn(Animation.prototype, 'openPre_').andCallThrough();
+
+        // Baseline
+        expect( view.$el.hasClass('animating') ).toBe(false);
+
+        Animation.prototype.open.call(animation, view);
+
+        expect( view.$el.hasClass('animating') ).toBe(true);
+
+        expect( Animation.prototype.openPre_ ).toHaveBeenCalled();
+
+      });
+
+      it('should have the "animating" class while closing', function () {
+
+        // Stop action here
+        spyOn(Animation.prototype, 'doAnimationClose_');
+
+        spyOn(Animation.prototype, 'closePre_').andCallThrough();
+
+        // Baseline
+        expect( view.$el.hasClass('animating') ).toBe(false);
+
+        Animation.prototype.close.call(animation, view);
+
+        expect( view.$el.hasClass('animating') ).toBe(true);
+
+        expect( Animation.prototype.closePre_ ).toHaveBeenCalled();
+
+      });
+
+      it('should have an "open" state after opening', function () {
+
+        // Baseline
+        expect( view.model.get('state')).not.toBe('open');
+
+        Animation.prototype.open.call(animation, view);
+
+        expect( view.model.get('state')).toBe('open');
+
+      });
+
+      it('should have an "close" state after closing', function () {
+
+        // First open it
+        Animation.prototype.open.call(animation, view);
+
+        // Baseline
+        expect( view.model.get('state')).toBe('open');
+
+        Animation.prototype.close.call(animation, view);
+
+        expect( view.model.get('state')).toBe('close');
+
+      });
+
+      it('should not be able to open when "animating" class is present', function () {
+
+        view.$el.addClass('animating');
+
+        // First open it
+        expect( Animation.prototype.open.call(animation, view) ).toBe(false);
+
+      });
+
+      it('should not be able to close when "animating" class is present', function () {
+
+        view.$el.addClass('animating');
+
+        // First open it
+        expect( Animation.prototype.close.call(animation, view) ).toBe(false);
+
+      });
+  
+    });
+
+
   });
   
-  function FakeView() {}
+  function FakeView() { this.$el = $('<div/>'); }
 
   function FakeModel() { this.state = ""; }
 

@@ -75,22 +75,6 @@ define([
 
       });
 
-/*      it('should call the view closePanels fn if forceClose option is true.', function () {
-
-        EventDispatcher.trigger('cmd', 'mycommand', { forceClose: true });
-
-        expect(FakeView.prototype.closePanels).toHaveBeenCalled();
-
-      });
-
-      it('should not call the view closePanels fn if forceClose option is not true.', function () {
-
-        EventDispatcher.trigger('cmd', 'mycommand');
-
-        expect(FakeView.prototype.closePanels).not.toHaveBeenCalled();
-
-      });*/
-
       it('should split the cmd text into an array of commands.', function () {
 
         EventDispatcher.trigger('cmd', 'cmd1_cmd2');
@@ -110,6 +94,14 @@ define([
         expect(controller.cmds.length).toEqual(0);
 
       });
+/*
+      it('should open the view corresponding to the cmd.', function () {
+
+        EventDispatcher.trigger('cmd', 'panelA');
+
+        expect(SearchboxController.prototype.handleCommand).toHaveBeenCalled();
+
+      });*/
 
     });
 

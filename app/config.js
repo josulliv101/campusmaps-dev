@@ -18,6 +18,14 @@
                 deps: ['underscore']
             },
 
+            lazyload: {
+                deps: ['jquery']
+            },
+
+            isotope: {
+                deps: ['jquery']
+            },
+
             backbone: {
 
                 deps: ['jquery', 'underscore'],
