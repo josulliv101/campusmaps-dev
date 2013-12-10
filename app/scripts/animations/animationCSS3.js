@@ -50,8 +50,6 @@ define([
 
             view.$el.removeClass('animated');
 
-            alert('yo');
-
             dfd.resolve();
 
         });

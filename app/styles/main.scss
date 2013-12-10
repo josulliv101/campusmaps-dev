@@ -21,12 +21,13 @@ button {
 
 #log {
     position: absolute;
-    right: 20px;
+    right: -9920px;
     top: 20px;
     width: 240px;
     height: auto;
     background: #fff;
     z-index: 999;
+    display: none;
 }
 
 /* Layout */
@@ -115,7 +116,7 @@ button {
 
 .animated .panel {
 	overflow: hidden;
-    animation-duration: 1.6s;
+    animation-duration: .6s;
     animation-fill-mode: both;
     box-sizing: border-box;
     
