@@ -114,57 +114,44 @@ button {
 /* Transition */
 
 .animated .panel {
-	overflow: hidden;
-    animation-duration: .1s;
-    animation-fill-mode: both;
-    box-sizing: border-box;
+
+  overflow: hidden;
+
+  animation: slideOutUp .5s;
+  -webkit-animation: slideOutUp .5s; /* Safari and Chrome */
+
+  animation:bounceInDown .5s;
+  -webkit-animation: bounceInDown .5s; /* Safari and Chrome */
+
+  box-sizing: border-box;
     
 }
 
-
 @keyframes slideOutUp {
-
-    0% {
-            transform: translateY(0px);
-            max-height: 200px;
-            opacity: 1;
-    }
-
-
-
-
-    100% {
-             
-            transform: translateY(-100%);
-             max-height: 32px;
-             opacity: 1;
-            
-    }
+  0% { transform: translateY(0px);max-height: 200px;opacity: 1; }
+  100% { transform: translateY(-52px); max-height: 32px; opacity: 1; }
 }
 
 @keyframes bounceInDown {
+    0% {transform: translateY(-52px);max-height: 32px;opacity: .05; }
+    100% { max-height: 200px; transform: translateY(0); opacity: 1; }
+}
 
-    0% {
-           
-            transform: translateY(-100%);
-            max-height: 32px;
-            opacity: .05;
-    }
+@-webkit-keyframes slideOutUp /* Safari and Chrome */
+{
+  0% { transform: translateY(0px);max-height: 200px;opacity: 1; }
+  100% { transform: translateY(-52px); max-height: 32px; opacity: 1; }
+}
 
-
-
-    100% {
-            max-height: 200px;
-            transform: translateY(0);
-            opacity: 1;
-    }
+@-webkit-keyframes bounceInDown /* Safari and Chrome */
+{
+    0% {transform: translateY(-52px);max-height: 32px;opacity: .05; }
+    100% { max-height: 200px; transform: translateY(0); opacity: 1; }
 }
 
 /* Contours */
 
 .shadow {
-    -moz-box-shadow:    2px 2px 2px 0px rgba(0,0,0,.22);
-    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.22);
     box-shadow:         2px 2px 2px 0px rgba(0,0,0,.22);    
 }
 

@@ -5,27 +5,59 @@ define([
 
   , 'eventdispatcher'
 
-  , '../../scripts/animations/animationCSS3'
+  , 'animation' // animationCSS3 animationBase
 
   , '../../scripts/controllers/searchboxController'
 
   , '../../scripts/views/searchbox'
 
 
-], function ($, EventDispatcher, Animation, SearchboxController, SearchboxView, PanelViewA) {
+], function ($, EventDispatcher, Animation, SearchboxController, SearchboxView) {
 
-  describe('End-to-End Searchbox Tests', function () {
+  describe('End-to-End Searchbox/Panel Tests', function () {
 
     var view, controller, panel;
+
+    console.log('End-to-End Searchbox Tests');
 
     beforeEach(function() {
 
       // Spies need to be created before object created
       spyOn(SearchboxController.prototype, 'handleCommand').andCallThrough();
 
+      spyOn(SearchboxController.prototype, 'doCommands').andCallThrough();
+      
+      // Fake the deferred resolve here because css transition events not fired in phantomjs
+      spyOn(Animation.prototype, 'doAnimationClose_').andCallFake(function(view) {
+
+        view.model.set('state', 'doingAnimation');
+
+        Animation.prototype.closePost_.call(null, view);
+
+        // So tests against css properties pass
+        view.$el.hide();
+
+        if (view.deferred) view.deferred.resolve( 'animation complete' );
+
+      });
+
+      spyOn(Animation.prototype, 'doAnimationOpen_').andCallFake(function(view) {
+
+        view.model.set('state', 'doingAnimation');
+
+        // So tests against css properties pass
+        view.$el.show();
+
+        Animation.prototype.openPost_.call(null, view);
+
+      });
+
       view = new SearchboxView().render();
 
-      controller = new SearchboxController(view, new Animation());
+      controller = new SearchboxController(view, Animation);
+
+      // Needs to spy after object creation
+      spyOn(Animation.prototype, 'open').andCallThrough();
 
     });
 
@@ -45,7 +77,63 @@ define([
       it('should exist', function () {
 
         expect( view.$el ).toBe('div.searchbox');
+
         expect( controller ).toBeDefined();
+
+      });
+
+    });
+
+
+    describe('Z-index', function () {
+
+      it('should have panels near top of searchbox with higher z-indexes', function () {
+
+        EventDispatcher.trigger('cmd', 'panelA_panelB');
+
+        waitsFor(function () {
+
+          return isPanelOpen(view, 'panelA') && isPanelOpen(view, 'panelB');
+
+        });
+
+        runs(function () {
+
+          var cache = view.cache,
+
+              panelA = cache['panelA'],
+
+              panelB = cache['panelB'];
+
+          expect(panelA.$el.css('z-index')).toBeGreaterThan(panelB.$el.css('z-index'));
+
+        });
+
+      });
+
+    });
+
+    describe('Classes', function () {
+
+      it('should have the "animating" class removed after opened', function () {
+
+        EventDispatcher.trigger('cmd', 'panelA');
+
+        waitsFor(function () {
+
+          return isPanelOpen(view, 'panelA');
+
+        });
+
+        runs(function () {
+
+          var cache = view.cache,
+
+              panelA = cache['panelA'];
+
+          expect(panelA.$el).not.toHaveCss('animating');
+
+        });
 
       });
 
@@ -57,27 +145,27 @@ define([
 
         EventDispatcher.trigger('cmd', 'panelA');
 
-        expect(SearchboxController.prototype.handleCommand).toHaveBeenCalled();
-
         // General panel container created when searchbox view rendered
         expect( view.$('#panels') ).toExist();
 
-          waitsFor(function () {
+        expect(SearchboxController.prototype.handleCommand).toHaveBeenCalled();
 
-            return view.cache['panelA'] && view.cache['panelA'].model.get('state') === 'open';
+        // Async call for panel js
+        waitsFor(function () {
 
-          });
+          return isPanelOpen(view, 'panelA');
 
         });
 
         runs(function () {
 
-          expect( view.$('#panelA') ).toExist();
-          expect( view.$('#panelA') ).toHaveClass('in-queue');
-          expect( view.$('#panelA') ).toHaveCss({ display: 'block' });
+          expect(SearchboxController.prototype.doCommands).toHaveBeenCalled();
+
+          expect(Animation.prototype.open).toHaveBeenCalled();
+
+          expectVisible(view, 'panelA');
 
         });
-        
 
       });
 
@@ -96,17 +184,11 @@ define([
 
         runs(function () {
 
-          expect( view.$('#panelA') ).toExist();
-          expect( view.$('#panelA') ).toHaveClass('in-queue');
-          expect( view.$('#panelA') ).toHaveCss({ display: 'block' });
+          expectVisible(view, 'panelA');
 
-          expect( view.$('#panelB') ).toExist();
-          expect( view.$('#panelB') ).toHaveClass('in-queue');
-          expect( view.$('#panelB') ).toHaveCss({ display: 'block' });
+          expectVisible(view, 'panelB');
 
-          expect( view.$('#panelC') ).toExist();
-          expect( view.$('#panelC') ).toHaveClass('in-queue');
-          expect( view.$('#panelC') ).toHaveCss({ display: 'block' });
+          expectVisible(view, 'panelC');
 
         });
         
@@ -124,6 +206,8 @@ define([
         });
 
         runs(function () {
+ 
+          expectVisible(view, 'panelA');
 
           EventDispatcher.trigger('cmd', 'panelB');
 
@@ -135,13 +219,9 @@ define([
 
           runs(function () {
 
-            expect( view.$('#panelB') ).toExist();
-            expect( view.$('#panelB') ).toHaveClass('in-queue');
-            expect( view.$('#panelB') ).toHaveCss({ display: 'block' });
+            expectVisible(view, 'panelB');
 
-            expect( view.$('#panelA') ).toExist();
-            expect( view.$('#panelA') ).toHaveClass('in-queue');
-            expect( view.$('#panelA') ).toHaveCss({ display: 'none' });
+            expectNotVisible(view, 'panelA');
 
           });
 
@@ -164,14 +244,12 @@ define([
           // Call panelA again
           EventDispatcher.trigger('cmd', 'panelA');
 
-          expect( view.$('#panelA') ).toExist();
-          expect( view.$('#panelA') ).toHaveClass('in-queue');
-          expect( view.$('#panelA') ).toHaveCss({ display: 'block' });
+          // No async calls needed
+          expectVisible(view, 'panelA');
 
         });
 
       });
-
 
       it('should keep one panel open and shut the other open panel', function () {
 
@@ -186,15 +264,9 @@ define([
 
         runs(function () {
 
-          // Call panelA again
-          //EventDispatcher.trigger('cmd', 'panelA');
-          expect( view.$('#panelA') ).toExist();
-          expect( view.$('#panelA') ).toHaveClass('in-queue');
-          expect( view.$('#panelA') ).toHaveCss({ display: 'block' });
+          expectVisible(view, 'panelA');
 
-          expect( view.$('#panelB') ).toExist();
-          expect( view.$('#panelB') ).toHaveClass('in-queue');
-          expect( view.$('#panelB') ).toHaveCss({ display: 'block' });
+          expectVisible(view, 'panelB');
 
           EventDispatcher.trigger('cmd', 'panelB');
 
@@ -206,15 +278,9 @@ define([
 
           runs(function () {
 
-            // Call panelA again
-            //EventDispatcher.trigger('cmd', 'panelA');
-            expect( view.$('#panelA') ).toExist();
-            expect( view.$('#panelA') ).toHaveClass('in-queue');
-            expect( view.$('#panelA') ).toHaveCss({ display: 'none' });
+            expectNotVisible(view, 'panelA');
 
-            expect( view.$('#panelB') ).toExist();
-            expect( view.$('#panelB') ).toHaveClass('in-queue');
-            expect( view.$('#panelB') ).toHaveCss({ display: 'block' });
+            expectVisible(view, 'panelB');
 
           });
 
@@ -222,9 +288,27 @@ define([
 
       });
 
+    });
+
   });
 
 });
+
+function expectVisible(view, panelid) {
+
+  expect( view.$('#' + panelid) ).toExist();
+  expect( view.$('#' + panelid) ).toHaveClass('in-queue');
+  expect( view.$('#' + panelid) ).toHaveCss({ display: 'block' });
+
+}
+
+function expectNotVisible(view, panelid) {
+
+  expect( view.$('#' + panelid) ).toExist();
+  expect( view.$('#' + panelid) ).toHaveClass('in-queue');
+  expect( view.$('#' + panelid) ).toHaveCss({ display: 'none' });
+
+}
 
 function isPanelOpen(view, panelid) {
 

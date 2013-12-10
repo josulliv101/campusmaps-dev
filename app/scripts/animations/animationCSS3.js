@@ -20,7 +20,7 @@ define([
 
         var dfd = $.Deferred();
 
-        view.$el.one('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) {
+        view.$el.on('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function(e) {
 
             dfd.resolve();
 
@@ -32,7 +32,7 @@ define([
 
         view.$el.show();
 
-        return [ dfd.promise() ];
+        return dfd.promise();
 
     };
 

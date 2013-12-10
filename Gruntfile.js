@@ -60,7 +60,7 @@ module.exports = function (grunt) {
           keepRunner: true,
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
-            requireConfigFile: 'app/config.js',
+            requireConfigFile: 'test/config.js', // real config has modernizr logic
             requireConfig: {
               baseUrl: 'app/'
             }

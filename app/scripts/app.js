@@ -39,7 +39,7 @@ define([
 
             vSearchbox = new SearchboxView({ el: $('#ui-search') }).render();
 
-            searchboxController = new SearchboxController(vSearchbox, new Animation());
+            searchboxController = new SearchboxController(vSearchbox, Animation);
 
             console.log('vSearchbox', vSearchbox);
 

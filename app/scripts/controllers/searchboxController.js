@@ -4,17 +4,15 @@ define([
 
     'underscore',
 
-    'eventdispatcher',
+    'eventdispatcher'
 
-    'animation'
-
-], function($, _, EventDispatcher, Animation) {
+], function($, _, EventDispatcher) {
 
     'use strict';
 
 
 
-    function SearchboxController(searchboxview, animation) {
+    function SearchboxController(searchboxview, AnimationConstructor) {
 
         var cmdFunctions;
 
@@ -22,9 +20,9 @@ define([
 
         this.view = searchboxview;
 
-        this.animation = animation;
-
         this.searchpanelPath = 'searchpanels'; // This is a requirejs alias
+
+        this.panelAnimation = AnimationConstructor;
 
         // Defined here so this binding behaves when creating unit test spies
         this.loadViews = _.compose(
@@ -46,9 +44,6 @@ define([
         // Handle when the Event Dispatcher triggers a cmd
         EventDispatcher.on('cmd', this.handleCommand, this);
 
-        // Handle when the Event Dispatcher triggers a cmd
-        EventDispatcher.on('doAnimationOpen', function() { alert('animation open'); }, this);
-
         // Pass off any cmds from DOM elements to the Event Dispatcher
         $('body').on('click', '[data-cmd]', function(ev) {
 
@@ -65,7 +60,7 @@ define([
 
     SearchboxController.prototype.handleCommand = function(cmds, options) {
 
-        var fnForceClosePanels, deferreds = [this.loadViews(cmds)],
+        var fnForceClosePanels, deferreds = [this.loadViews(cmds)], AnimationConstructor = this.panelAnimation, 
 
             dfdsClose = _.chain(this.view.cache)
 
@@ -76,7 +71,7 @@ define([
 
                                 console.log('closePanels', val, key, this.cmds);
 
-                                var anim = new Animation();
+                                var anim = new AnimationConstructor();
                                 
                                 return anim.close(val);
 
@@ -88,7 +83,7 @@ define([
 
         deferreds.concat(dfdsClose);
 
-        console.log('deferreds', deferreds.concat(dfdsClose));
+        console.log('deferreds', deferreds, (dfdsClose));
 
         $.when.apply( $,  deferreds.concat(dfdsClose) ).done( this.doCommands );
 
@@ -152,18 +147,22 @@ define([
 
     };
 
-    SearchboxController.prototype.doView = function(Constructor, viewid) {
+    SearchboxController.prototype.doView = function(Constructor, viewid, position) {
 
         console.log('doView', Constructor.id);
 
-        var panel = this.view.getPanel(viewid, Constructor),
+        var panel = this.view.getPanel(viewid, Constructor, position),
 
-            state = panel.model.get('state');
+            state = panel.model.get('state'),
 
-        console.log('panel model', panel.model);
+            AnimationConstructor = this.panelAnimation,
+
+            anim = new AnimationConstructor();
+
+        console.log('panel model', Constructor, viewid);
 
         // Panel must be in close state in order to open
-        if (state === 'close') this.animation.open(panel);
+        if (state === 'close') AnimationConstructor.prototype.open.call(anim, panel, position);
 
     };
 
@@ -171,9 +170,15 @@ define([
 
         console.log('doing commands Constructors', constructors);
 
+        var i = 0;
+
         if (!_.isObject(constructors)) return;
 
-        _.each(constructors, this.doView, this);
+        _.each(constructors, function(val, key) {
+
+            this.doView(val, key, i++);
+
+        }, this);
 
     };
 
