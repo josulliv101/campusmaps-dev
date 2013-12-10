@@ -76,7 +76,7 @@
 
             'searchpanels': './scripts/views/searchpanels', // A short-cut
 
-            'map': './scripts/services/map/directory', // leaflet googlemap directory
+            'map': './scripts/services/map/leaflet', // leaflet googlemap directory
 
             'async': '../bower_components/requirejs-plugins/src/async',
 

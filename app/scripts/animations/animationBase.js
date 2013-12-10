@@ -50,6 +50,8 @@ define([
 
             AnimationBase.prototype.closePost_.call(null, view);
 
+            if (view.deferred) view.deferred.resolve( 'animation complete' );
+
         });
 
     };
@@ -105,6 +107,8 @@ define([
 
         view.model.set('state', 'closePre');
 
+        console.log('this.doAnimationClose_', this.doAnimationClose_);
+        
         this.doAnimationClose_(view);
 
     };
@@ -145,8 +149,6 @@ define([
         if (view.$el) view.$el.removeClass('animating');
 
         if (view.$el) view.$el.css({ display: 'none' });
-
-        if (view.deferred) view.deferred.resolve( 'animation complete' );
 
     };
 

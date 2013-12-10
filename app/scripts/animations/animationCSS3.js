@@ -21,10 +21,8 @@ define([
         var dfd = $.Deferred();
 
         view.$el.one('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) {
-        
-            dfd.resolve();
 
-            alert('animateDomOpen_');
+            dfd.resolve();
 
         });
          
@@ -32,7 +30,9 @@ define([
 
         view.$el.addClass('animated');
 
-        return dfd.promise();
+        view.$el.show();
+
+        return [ dfd.promise() ];
 
     };
 
@@ -40,25 +40,25 @@ define([
 
         var dfd = $.Deferred();
 
+        view.$('.panel').removeClass('bounceInDown');
+
+        view.$('.panel').addClass('slideOutUp');
+
         view.$el.one('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) {
 
             view.$('.panel').removeClass('slideOutUp');
 
             view.$el.removeClass('animated');
 
-            dfd.resolve();
+            alert('yo');
 
-            alert('animateDomClose_');
+            dfd.resolve();
 
         });
 
-        view.$('.panel').removeClass('bounceInDown');
+        return dfd.promise() ;
 
-        view.$('.panel').addClass('slideOutUp');
-
-        dfd.resolve();
-
-        return dfd.promise();
+        //return view.$el.slideUp(1300);
 
     };
 

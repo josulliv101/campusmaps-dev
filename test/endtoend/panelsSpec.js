@@ -5,7 +5,7 @@ define([
 
   , 'eventdispatcher'
 
-  , '../../scripts/animations/animationBase'
+  , '../../scripts/animations/animationCSS3'
 
   , '../../scripts/controllers/searchboxController'
 
@@ -25,7 +25,7 @@ define([
 
       view = new SearchboxView().render();
 
-      controller = new SearchboxController(view);
+      controller = new SearchboxController(view, new Animation());
 
     });
 

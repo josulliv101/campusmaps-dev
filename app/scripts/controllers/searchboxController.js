@@ -14,7 +14,7 @@ define([
 
 
 
-    function SearchboxController(searchboxview) {
+    function SearchboxController(searchboxview, animation) {
 
         var cmdFunctions;
 
@@ -22,7 +22,7 @@ define([
 
         this.view = searchboxview;
 
-        this.animation = new Animation();
+        this.animation = animation;
 
         this.searchpanelPath = 'searchpanels'; // This is a requirejs alias
 
@@ -76,7 +76,9 @@ define([
 
                                 console.log('closePanels', val, key, this.cmds);
 
-                                return this.animation.close(val);
+                                var anim = new Animation();
+                                
+                                return anim.close(val);
 
                             }, this)
 

@@ -11,9 +11,11 @@ define([
 
     'scripts/views/searchbox',
 
-    'scripts/controllers/searchboxController'
+    'scripts/controllers/searchboxController',
 
-], function($, _, Datastore, Map, SearchboxView, SearchboxController) {
+    'animation'
+
+], function($, _, Datastore, Map, SearchboxView, SearchboxController, Animation) {
 
     'use strict';
 
@@ -37,7 +39,7 @@ define([
 
             vSearchbox = new SearchboxView({ el: $('#ui-search') }).render();
 
-            searchboxController = new SearchboxController(vSearchbox);
+            searchboxController = new SearchboxController(vSearchbox, new Animation());
 
             console.log('vSearchbox', vSearchbox);
 
