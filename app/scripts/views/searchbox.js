@@ -96,7 +96,7 @@ define([
 
             if (!_.exists(panelid) || !_.exists(ViewConstructor) || !_.isFunction(ViewConstructor)) return;
 
-            model = new Backbone.Model({ state: 'created' });
+            model = new Backbone.Model({ state: 'close' });
 
             view = new ViewConstructor({ id: panelid, model: model });
 

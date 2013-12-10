@@ -158,7 +158,8 @@ console.log('SearchboxView', SearchboxView.prototype);
 
         expect(panel.id).toBeDefined();
 
-        expect(panel.model.get('state')).toEqual('created');
+        // Panels start out in close state
+        expect(panel.model.get('state')).toEqual('close');
 
         console.log('panel', panel);
 
