@@ -24,8 +24,6 @@ define([
         
             dfd.resolve();
 
-            alert('animateDomOpen_');
-
         });
          
         view.$('.panel').addClass('bounceInDown');
@@ -48,15 +46,13 @@ define([
 
             dfd.resolve();
 
-            alert('animateDomClose_');
-
         });
 
         view.$('.panel').removeClass('bounceInDown');
 
         view.$('.panel').addClass('slideOutUp');
 
-        dfd.resolve();
+        //dfd.resolve();
 
         return dfd.promise();
 
