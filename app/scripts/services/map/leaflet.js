@@ -43,7 +43,7 @@ define([
         //https://a.tiles.mapbox.com/v3/pinterest.map-ho21rkos
         // http://somebits.com:8001/rivers/
         //L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/83612/256/{z}/{x}/{y}.png', {
-        L.tileLayer('http://b.tiles.mapbox.com/v3/examples.a3cad6da/{z}/{x}/{y}.png', {
+        L.tileLayer('http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
         }).addTo(map);
