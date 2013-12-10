@@ -1,4 +1,4 @@
-/*! campusmaps - v0.0.0 - 2013-12-06
+/*! campusmaps - v0.0.0 - 2013-12-09
 * Copyright (c) 2013 Author Name; Licensed MIT */
 //Not using strict: uneven strict support in browsers, #392, and causes
 //problems with requirejs.exec()/transpiler plugins that may not be strict.
@@ -2069,6 +2069,14 @@ var requirejs, require, define;
 
             _mixins: {
                 deps: ['underscore']
+            },
+
+            lazyload: {
+                deps: ['jquery']
+            },
+
+            isotope: {
+                deps: ['jquery']
             },
 
             backbone: {
