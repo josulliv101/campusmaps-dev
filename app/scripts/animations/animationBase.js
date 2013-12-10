@@ -28,13 +28,19 @@ define([
 
     AnimationBase.prototype.doAnimationOpen_ = function(view) {
 
+        var openFn = this.openPost_;
+
         view.model.set('state', 'doingAnimation');
 
-        $.when(this.animateDomOpen_(view))
+
+var d=this.animateDomOpen_(view);
+
+
+        $.when([d])
 
         .then(function() {
 
-            AnimationBase.prototype.openPost_.call(null, view);
+            openFn(view);
 
         });
 
@@ -42,13 +48,15 @@ define([
 
     AnimationBase.prototype.doAnimationClose_ = function(view) {
 
+        var closeFn = this.closePost_;
+
         view.model.set('state', 'doingAnimation');
 
         $.when(this.animateDomClose_(view))
 
         .then(function() {
 
-            AnimationBase.prototype.closePost_.call(null, view);
+            closeFn(view);
 
             if (view.deferred) view.deferred.resolve( 'animation complete' );
 
@@ -67,11 +75,13 @@ define([
     };
 
     // Stub -- defined in constructor so this keyword behaves when unit testing
-    AnimationBase.prototype.open = function(view) {
+    AnimationBase.prototype.open = function(view, position) {
 
         console.log('AnimationBase.open', view.model);
 
         if (!view || !view.model) return;
+
+        if (_.exists(position)) view.$el.css('z-index', 999-position);
 
         if (this.isOpen_(view)) return;
 

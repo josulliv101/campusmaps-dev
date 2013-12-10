@@ -1,8 +1,6 @@
-(function (FeatureDetection) {
+(function () {
 
    'use strict';
-
-    var pathToAnimation = './scripts/animations/animation' + (FeatureDetection && FeatureDetection.cssanimations ? 'CSS3' :  'Base');
 
     require.config({
 
@@ -60,7 +58,7 @@
 
             'app': './scripts/app',
 
-            'animation': pathToAnimation,
+            'animation': './scripts/animations/animationCSS3',
 
             'eventdispatcher': './scripts/eventdispatcher',
 
@@ -90,4 +88,4 @@
 
     });
 
-}(Modernizr));
+}());

@@ -5,7 +5,7 @@ define([
 
   'eventdispatcher',
 
-  '../scripts/animations/animationBase'
+  'animation'
 
 ], function ($, EventDispatcher, Animation) {
 
