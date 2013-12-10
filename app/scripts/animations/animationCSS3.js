@@ -21,7 +21,7 @@ define([
         var dfd = $.Deferred();
 
         view.$el.one('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) {
-        
+
             dfd.resolve();
 
         });
@@ -30,13 +30,19 @@ define([
 
         view.$el.addClass('animated');
 
-        return dfd.promise();
+        view.$el.show();
+
+        return [ dfd.promise() ];
 
     };
 
     AnimationCSS3.prototype.animateDomClose_ = function(view) {
 
         var dfd = $.Deferred();
+
+        view.$('.panel').removeClass('bounceInDown');
+
+        view.$('.panel').addClass('slideOutUp');
 
         view.$el.one('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) {
 
@@ -52,9 +58,7 @@ define([
 
         view.$('.panel').addClass('slideOutUp');
 
-        //dfd.resolve();
-
-        return dfd.promise();
+        return dfd.promise() ;
 
     };
 
