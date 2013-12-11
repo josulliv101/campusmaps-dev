@@ -53,6 +53,10 @@ define([
 
     }
 
+    function assignModules() {
+
+    }
+
 
     return {
 

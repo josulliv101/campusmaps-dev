@@ -56,11 +56,11 @@ module.exports = function (grunt) {
         options: {
           specs: 'test/**/*Spec.js',
           helpers: 'test/**/*Helper.js',
-          //vendor: 'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
+          vendor: 'bower_components/modernizr/modernizr.js',
           keepRunner: true,
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
-            requireConfigFile: 'test/config.js', // real config has modernizr logic
+            requireConfigFile: 'app/config.js', 
             requireConfig: {
               baseUrl: 'app/'
             }
