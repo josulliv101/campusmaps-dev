@@ -15,14 +15,38 @@ define([
     // Returns a deferred object promise
     AnimationBase.prototype.animateDomOpen_ = function(view) {
 
-        return view.$el.slideDown(300);
+        view.$el.css({ overflow: 'hidden', top: '-50px' });
+
+        return view.$el.show().animate({
+
+                    top: '0px',
+
+                    'max-height': '600px'
+
+                }, {
+
+                    duration: 400
+                    
+                })
 
     };
 
     // Returns a deferred object promise
     AnimationBase.prototype.animateDomClose_ = function(view) {
 
-        return view.$el.slideUp(300);
+        view.$el.css('overflow', 'hidden');
+
+        return view.$el.animate({
+
+                    top: '-50px',
+
+                    'max-height': '0px'
+
+                }, {
+
+                    duration: 400
+
+                })
 
     };
 
