@@ -117,7 +117,7 @@ button {
 
   overflow: hidden;
 
-  animation: slideOutUp .5s;
+  animation: slideOutUp .8s;
   -webkit-animation: slideOutUp .5s; /* Safari and Chrome */
 
   animation:bounceInDown .5s;
@@ -129,23 +129,23 @@ button {
 
 @keyframes slideOutUp {
   0% { transform: translateY(0px);max-height: 200px;opacity: 1; }
-  100% { transform: translateY(-52px); max-height: 32px; opacity: 1; }
+  100% { transform: translateY(-52px); max-height: 0px; opacity: 1; }
 }
 
 @keyframes bounceInDown {
-    0% {transform: translateY(-52px);max-height: 32px;opacity: .05; }
+    0% {transform: translateY(-52px);max-height: 32px;opacity: 1; }
     100% { max-height: 200px; transform: translateY(0); opacity: 1; }
 }
 
 @-webkit-keyframes slideOutUp /* Safari and Chrome */
 {
   0% { transform: translateY(0px);max-height: 200px;opacity: 1; }
-  100% { transform: translateY(-52px); max-height: 32px; opacity: 1; }
+  100% { transform: translateY(-52px); max-height: 0px; opacity: 1; }
 }
 
 @-webkit-keyframes bounceInDown /* Safari and Chrome */
 {
-    0% {transform: translateY(-52px);max-height: 32px;opacity: .05; }
+    0% {transform: translateY(-52px);max-height: 32px;opacity: 1; }
     100% { max-height: 200px; transform: translateY(0); opacity: 1; }
 }
 
