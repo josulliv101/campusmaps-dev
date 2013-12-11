@@ -96,75 +96,10 @@
 
             'templates': '../.tmp/scripts/templates',
 
-            'modulemanager': './scripts/moduleManager',
-
             'modernizr': './scripts/modernizr' // Just a wrapper for Moderizr global object
 
         }
 
     });
-
-
-
-    require.config({
-
-        // '*' signifies that these mappings should be used everywhere (all modules)
-        map: { '*':  getModuleOverrides(window.location.search) }
-
-    });
-
-    function parseQueryString( queryString ) {
-
-        var params = {}, queries, temp, i, l;
-        
-        if (queryString.indexOf('?') === 0) queryString = queryString.substring(1); 
-
-        // Split into key/value pairs
-        queries = queryString.split("&");
-     
-        // Convert the array of strings into an object
-        for ( i = 0, l = queries.length; i < l; i++ ) {
-            temp = queries[i].split('=');
-            params[temp[0]] = temp[1];
-        }
-        
-        return modules(params);
-    }
-
-    function modules( obj ) {
-
-        var i, len, pairs, ret = {};
-
-        if (obj.modules === undefined) return;
-
-        pairs = obj.modules.split('|');
-
-        for ( i = 0, len = pairs.length; i < len; i++ ) {
-            
-            var pair = pairs[i].split(',');
-
-            if (pair.length === 2) ret[pair[0]] = pair[1];
-
-        }
-
-
-        return ret;
-
-    }
-
-    function getModuleOverrides(querystring) {
-
-        var modules = parseQueryString(querystring);
-
-        console.log('modules', modules);
-
-        return modules;
-    }
-
-
-
-
-
-
 
 }());

@@ -56,7 +56,14 @@
 	<!-- endbuild -->
 	<script>
 
-		require(['config'], function() {
+		require(['./scripts/moduleManager', 'config'], function(ModuleManager) {
+
+		    require.config({
+
+		        // '*' signifies that these mappings should be used everywhere (all modules)
+		        map: { '*':  ModuleManager.getOverrides(window.location.search) }
+
+		    });
 
 			require(['domReady!', 'app'], function (doc, App) {
 
