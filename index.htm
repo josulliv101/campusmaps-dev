@@ -58,12 +58,16 @@
 
 		require(['./scripts/moduleManager', 'config'], function(ModuleManager) {
 
+			var mappings = ModuleManager.getOverrides(window.location.search);
+
+			console.log('mappings', mappings);
+/*
 		    require.config({
 
 		        // '*' signifies that these mappings should be used everywhere (all modules)
-		        map: { '*':  ModuleManager.getOverrides(window.location.search) }
+		        map: { '*':  { map: "googlemap" }  }
 
-		    });
+		    });*/
 
 			require(['domReady!', 'app'], function (doc, App) {
 

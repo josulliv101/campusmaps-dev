@@ -53,6 +53,8 @@ define([
 
 	        console.log('q', q);
 
+            
+
 	        if (q === undefined) return modules;
 
 	        modules = parseQueryString_(q);
@@ -63,8 +65,8 @@ define([
 
 	        // Forcing a module via querystring params takes precedence over feature detection tweaks
 	        if (Modernizr.cssanimations === true) modules.animation = 'animationCSS';
-	        
-	        console.log('modules', modules, Modernizr );
+
+	        console.log('modules', modules, Modernizr.cssanimations );
 
 	        return modules;
 

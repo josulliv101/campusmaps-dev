@@ -16,21 +16,32 @@ define([
 
     AnimationCSS3.prototype = new Base();
 
+    AnimationCSS3.prototype.constructor = AnimationCSS3;  
+
     AnimationCSS3.prototype.animateDomOpen_ = function(view) {
 
         var dfd = $.Deferred();
 
-        view.$el.on('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function(e) {
+        view.$el.one('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend', function(e) {
+
+            // 'one' function will only remove the 1 event triggered, 3 others will remain and need to be removed
+            view.$el.unbind('webkitAnimationEnd oAnimationEnd msAnimationEnd animationend');
+
+            view.$('.panel').removeClass('slideDown');
 
             dfd.resolve();
 
         });
-         
-        view.$('.panel').addClass('bounceInDown');
+        
+        var e = $._data( view.$el[0], 'events' );
 
-        view.$el.addClass('animated');
+        console.log('events!', e);
 
         view.$el.show();
+        
+        view.$('.panel').addClass('slideDown');
+
+        view.$el.addClass('animated');
 
         return dfd.promise();
 
@@ -40,13 +51,9 @@ define([
 
         var dfd = $.Deferred();
 
-        view.$('.panel').removeClass('bounceInDown');
-
-        view.$('.panel').addClass('slideOutUp');
-
         view.$el.one('animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd', function(e) {
 
-            view.$('.panel').removeClass('slideOutUp');
+            view.$('.panel').removeClass('slideUp');
 
             view.$el.removeClass('animated');
 
@@ -54,9 +61,7 @@ define([
 
         });
 
-        view.$('.panel').removeClass('bounceInDown');
-
-        view.$('.panel').addClass('slideOutUp');
+        view.$('.panel').addClass('slideUp');
 
         return dfd.promise() ;
 

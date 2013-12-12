@@ -56,11 +56,9 @@ define([
 
         view.model.set('state', 'doingAnimation');
 
+        var dfd = this.animateDomOpen_(view);
 
-var d=this.animateDomOpen_(view);
-
-
-        $.when([d])
+        $.when(dfd)
 
         .then(function() {
 
@@ -101,7 +99,7 @@ var d=this.animateDomOpen_(view);
     // Stub -- defined in constructor so this keyword behaves when unit testing
     AnimationBase.prototype.open = function(view, position) {
 
-        console.log('AnimationBase.open', view.model);
+        console.log('AnimationBase.open', this);
 
         if (!view || !view.model) return;
 
