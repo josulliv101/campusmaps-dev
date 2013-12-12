@@ -31,14 +31,14 @@ define([
 
             dfd.resolve();
 
-        });
+        }); 
         
         var e = $._data( view.$el[0], 'events' );
 
         console.log('events!', e);
 
         view.$el.show();
-        
+
         view.$('.panel').addClass('slideDown');
 
         view.$el.addClass('animated');

@@ -17,15 +17,12 @@
 	<!--[if lte IE 8]>
 	    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
 	<![endif]-->
-	<!--<script src="//cdn.jsdelivr.net/prefixfree/1.0.7/prefixfree.dynamic-dom.min.js"></script>-->
-	
+
 	<!-- build:js scripts/vendor/modernizr.js -->
 	<script src="bower_components/modernizr/modernizr.js"></script>
 	<!-- endbuild -->
 </head>
 <body>
-	
-
 
 	<div id="map-wrap">
 		<div id="map-canvas"></div>
@@ -41,12 +38,7 @@
 			<li><a href="#" data-cmd="panelA_panelB">panels A_B</a></li>
 			<li><a href="#" data-cmd="panelA_panelC">panels A_C</a></li>
 			<li><a href="#" data-cmd="panelB_panelC">panels B_C</a></li>
-			<li><a href="#" data-cmd="panelB_panelA">panels B_A</a></li>
-			<li><a href="#" data-cmd="panelC_panelA">panels C_A</a></li>
-			<li><a href="#" data-cmd="panelC_panelB">panels C_B</a></li>
 			<li><a href="#" data-cmd="panelA_panelB_panelC">panels A_B_C</a></li>
-			<li><a href="#" data-cmd="panelA_panelC_panelB">panels A_C_B</a></li>
-			<li><a href="#" data-cmd="panelA_panelB_panelC">panels C_B_A</a></li>
 			<li><a href="#" data-cmd="test">panels multi</a></li>
 		</ul>
 	</div>	
@@ -61,13 +53,13 @@
 			var mappings = ModuleManager.getOverrides(window.location.search);
 
 			console.log('mappings', mappings);
-/*
+
 		    require.config({
 
 		        // '*' signifies that these mappings should be used everywhere (all modules)
-		        map: { '*':  { map: "googlemap" }  }
+		        map: { '*':  mappings  }
 
-		    });*/
+		    });
 
 			require(['domReady!', 'app'], function (doc, App) {
 

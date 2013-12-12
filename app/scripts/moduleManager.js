@@ -53,8 +53,6 @@ define([
 
 	        console.log('q', q);
 
-            
-
 	        if (q === undefined) return modules;
 
 	        modules = parseQueryString_(q);
@@ -72,5 +70,4 @@ define([
 
 		}
 	} 
-
 });

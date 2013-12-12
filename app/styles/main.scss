@@ -22,7 +22,7 @@ button {
 #log {
     position: absolute;
     right: 20px;
-    top: 20px;
+    bottom: 20px;
     width: 240px;
     height: auto;
     background: #fff;
@@ -114,16 +114,30 @@ button {
 
     &.slideDown {
 
-      animation: slideDownFrames 0.4s;
       -webkit-animation: slideDownFrames 0.4s; /* Safari and Chrome */
+      animation: slideDownFrames 0.4s;
+      
+      -webkit-animation-timing-function:ease-in-out;
+      animation-timing-function:ease-in-out;
+
+/*
+animation-timing-function:linear;
+animation-timing-function:ease;
+animation-timing-function:ease-in;
+animation-timing-function:ease-out;
+animation-timing-function:ease-in-out;
+*/
 
     }
 
     &.slideUp {
 
-      animation: slideUpFrames 0.4s;
-      -webkit-animation: slideUpFrames 0.4s; /* Safari and Chrome */
+      -webkit-animation-timing-function:ease-in-out;
+      animation-timing-function:ease-in-out;
 
+      -webkit-animation: slideUpFrames 0.4s; /* Safari and Chrome */
+      animation: slideUpFrames 0.4s;
+      
     }
   }
 }

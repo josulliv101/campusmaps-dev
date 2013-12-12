@@ -64,7 +64,7 @@
 
             'app': './scripts/app',
 
-            'animation': './scripts/animations/animationCSS3',
+            'animation': './scripts/animations/animationBase',
 
             'animationCSS': './scripts/animations/animationCSS3',
 
