@@ -29,6 +29,8 @@ define([
 
             view.$('.panel').removeClass('slideDown');
 
+            view.$('.panel').addClass('css3');
+
             dfd.resolve();
 
         }); 

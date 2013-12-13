@@ -55,14 +55,12 @@ define([
 
 	        if (q === undefined) return modules;
 
-	        modules = parseQueryString_(q);
-
-	        if (modules === undefined) return {};
+	        modules = parseQueryString_(q) || {};
 
 	        if (modules.animation) return modules;
 
 	        // Forcing a module via querystring params takes precedence over feature detection tweaks
-	        if (Modernizr.cssanimations === true) modules.animation = 'animationCSS';
+	        if (modules.animation === undefined && Modernizr.cssanimations === true) modules.animation = 'animationCSS';
 
 	        console.log('modules', modules, Modernizr.cssanimations );
 
