@@ -1,62 +1,67 @@
 
 define([
 
-    'jquery',
+    'underscore'
 
-    '_mixins',
+    , 'backbone'
 
-    'datastore',
+    , 'scripts/router'
 
-    'map',
+    , 'datastore'
 
-    'scripts/views/searchbox',
+    , 'eventdispatcher'
 
-    'scripts/controllers/searchboxController',
-
-    'animation'
-
-], function($, _, Datastore, Map, SearchboxView, SearchboxController, Animation) {
+], function(_, Backbone, Router, Datastore, EventDispatcher) {
 
     'use strict';
 
+    //// Private ////
+    
+    var settings, vizList = new Backbone.Collection();
+
     function init_(options) {
 
-        var campusid = options && options.campusid || 'medford';
+        options || (options = {});
 
-        $.when(Datastore.fetch())
+        settings = {
 
-        .done(function() { 
+            campusid: options.campusid || 'medford'
 
-            var campus = Datastore.campus(campusid, { id: 'campusid', select: true }),
-
-                vSearchbox, searchboxController;
-
-            console.log('Datastore', Datastore.campuses);
-
-            console.log('medford campus', campus);
-
-            console.log('Map init', Map.init());
-
-            vSearchbox = new SearchboxView({ el: $('#ui-search') }).render();
-
-            searchboxController = new SearchboxController(vSearchbox, Animation);
-
-            console.log('vSearchbox', vSearchbox);
-
-        })
-
-        .fail(function() {
-
-            alert('fail');
+            , vizid: options.vizid || 'googlemap'
             
-        });
+        }
+
+        vizList.add(options.vizList);
+
+        $.when( Datastore.fetch() )
+
+            .done(function() { 
+
+                // Kicks off route parsing
+                Router.init();
+                
+                // Url settings take precedence over passed-in options
+                settings = _.extend(settings, Router.settingsUrl);
+
+                // Select an inital campus
+                Datastore.campus(settings.campusid, { id: 'campusid', select: true });
+
+                // And a visualization
+                _.getItemById(vizList.models, settings.vizid, { select: true });
+
+                console.log('vizList', vizList);
+
+                console.log('settings', settings);
+
+            })
+
+            .fail(function() {
+
+                alert('fail');
+                
+            });
 
     }
-
-    function assignModules() {
-
-    }
-
 
     return {
 

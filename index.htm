@@ -67,7 +67,21 @@
 
 				App.init({
 
-			            campusid: 'medford'
+		            campusid: 'medford',
+
+		            latlng: null,
+
+		            vizList: [
+
+		            	{ id: 'googlemap', modulepath: 'googlemap',  name: 'Campus Map (google)'}
+
+		            	, { id: 'leaflet', modulepath: 'leaflet',  name: 'Campus Map (leaflet)'}
+
+		            	, { id: 'directory', modulepath: 'directory',  name: 'Building Directory'}
+
+		            ],
+
+		            locations: []
 
 		        });
 
@@ -76,5 +90,6 @@
 		});
 
 	</script>	
+	
 </body>
 </html>

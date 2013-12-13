@@ -10,7 +10,6 @@ define([
 
     function AnimationBase() {}
 
-    console.log($);
 
     // Returns a deferred object promise
     AnimationBase.prototype.animateDomOpen_ = function(view) {

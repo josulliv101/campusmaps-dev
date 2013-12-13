@@ -74,11 +74,41 @@ button {
                 border: 1px #999 solid;
 
             }
-            &.animated {
+            &.showing {
                 display: block;
             }
             .css3 {
                 border: red 1px solid;;
+            }
+
+            .panel {
+
+              overflow: hidden;
+              box-sizing: border-box;
+
+              /* Specify how to apply style before/after animation*/
+              animation-fill-mode: both; 
+              -webkit-animation-fill-mode: both; 
+
+              &.slideDown {
+
+                -webkit-animation: slideDownFrames 0.4s; /* Safari and Chrome */
+                animation: slideDownFrames 0.4s;
+                
+                -webkit-animation-timing-function:ease-in-out;
+                animation-timing-function:ease-in-out;
+
+              }
+
+              &.slideUp {
+
+                -webkit-animation-timing-function:ease-in-out;
+                animation-timing-function:ease-in-out;
+
+                -webkit-animation: slideUpFrames 0.4s; /* Safari and Chrome */
+                animation: slideUpFrames 0.4s;
+                
+              }
             }
 
         }
@@ -103,47 +133,6 @@ button {
 }
 
 /* Transition */
-
-.animated {
-
-  .panel {
-
-    overflow: hidden;
-    box-sizing: border-box;
-
-    /* Specify how to apply style before/after animation*/
-    animation-fill-mode: both; 
-    -webkit-animation-fill-mode: both; 
-
-    &.slideDown {
-
-      -webkit-animation: slideDownFrames 0.4s; /* Safari and Chrome */
-      animation: slideDownFrames 0.4s;
-      
-      -webkit-animation-timing-function:ease-in-out;
-      animation-timing-function:ease-in-out;
-
-/*
-animation-timing-function:linear;
-animation-timing-function:ease;
-animation-timing-function:ease-in;
-animation-timing-function:ease-out;
-animation-timing-function:ease-in-out;
-*/
-
-    }
-
-    &.slideUp {
-
-      -webkit-animation-timing-function:ease-in-out;
-      animation-timing-function:ease-in-out;
-
-      -webkit-animation: slideUpFrames 0.4s; /* Safari and Chrome */
-      animation: slideUpFrames 0.4s;
-      
-    }
-  }
-}
 
 @keyframes slideUpFrames {
     0% { 

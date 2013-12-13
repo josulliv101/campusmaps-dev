@@ -90,6 +90,8 @@
 
             'googlemap': './scripts/services/map/googlemap',
 
+            'viz': './scripts/services/map/leaflet',
+
             'async': '../bower_components/requirejs-plugins/src/async',
 
             'domReady': '../bower_components/requirejs-domready/domReady',
