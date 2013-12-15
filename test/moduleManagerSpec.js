@@ -78,6 +78,17 @@ define(['../scripts/moduleManager'], function (ModuleManager) {
 
     });
 
+    describe('Viewport size', function () {
+
+      it('should have a method to test viewport sizes', function () {
+
+        expect(ModuleManager.getViewportSize).toBeDefined();
+
+      });
+
+
+    });
+
   });
 
 });

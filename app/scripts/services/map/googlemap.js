@@ -73,7 +73,9 @@ define([
 
     return {
 
-        init: init_
+        init: init_,
+
+        refresh: function() {}
 
     };
 

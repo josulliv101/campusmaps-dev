@@ -9,9 +9,11 @@ define([
 
     'isotope',
 
-    'lazyload'
+    'lazyload',
 
-], function($, _, Datastore, Isotope, Lazyload) {
+    'templates'
+
+], function($, _, Datastore, Isotope, Lazyload, JST) {
 
     'use strict';
 
@@ -62,7 +64,9 @@ define([
 
     return {
 
-        init: init_
+        init: init_,
+
+        refresh: function() {}
 
     };
 

@@ -15,7 +15,9 @@ define([
 
     // L object is now available
 
-    function init_() {
+    var createMap = _.once(createMap_), isInit = false, map;
+
+    function init_(map) {
 
         // google object is now available
         
@@ -28,13 +30,21 @@ define([
             el = document.getElementById('map-canvas');
 
 
-        createMap_(el, latlng, zoom);
+        if (map) return map.invalidateSize(false);
+
+        createMap(map, el, latlng, zoom);
         
     }
 
-    function createMap_(el, latlng, zoom) {
+    function createMap_(map, el, latlng, zoom) {
 
-        var map = L.map(el).setView(latlng, zoom);
+        if (isInit) {
+
+            map.invalidateSize(false);
+
+        }
+
+        map = L.map(el).setView(latlng, zoom);
         //https://b.tiles.mapbox.com/v3/examples.a3cad6da/13/2411/3078.png
         //http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy
         //https://a.tiles.mapbox.com/v3/examples.bc17bb2a/13/2413/3079.png
@@ -48,14 +58,16 @@ define([
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
         }).addTo(map);
 
- 
+        isInit = true;
 
     }
 
 
     return {
 
-        init: init_
+        init: init_,
+
+        refresh: function() {}
 
     };
 

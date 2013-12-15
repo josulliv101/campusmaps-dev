@@ -1,8 +1,15 @@
 define([
 
-	'scripts/modernizr'
+    'scripts/_mixins'
+	
+    , 'scripts/modernizr'
 
-], function (FeatureDetector) { 
+], function (_, FeatureDetector) { 
+
+    var getViewportSize_ = _.dispatch( isMobile, isTablet, isDesktop ),
+
+        getVizPath_ = _.dispatch( isVizDirectory, isVizMap );
+
 
     function parseQueryString_( queryString ) {
 
@@ -45,7 +52,55 @@ define([
 
     }
 
+    function isMobile() {
+
+        // Is viewport bigger than 660px
+        if (Modernizr.mq('only screen and (min-width: 661px)')) return;
+
+        return 'mobile';
+
+    }
+
+    function isTablet() {
+
+        // Is viewport small than 660px
+        if (Modernizr.mq('only screen and (max-width: 660px)')) return;
+
+        // Is viewport bigger than 1024px
+        if (Modernizr.mq('only screen and (min-width: 1025px)')) return;
+
+        return 'tablet';
+
+    }
+
+    function isDesktop() {
+
+        if (Modernizr.mq('only screen and (max-width: 1024px)')) return;
+
+        return 'desktop';
+
+    }
+
+    function isVizDirectory() {
+
+        if (getViewportSize_() === 'mobile') return './scripts/services/map/directory';
+
+    }
+
+    function isVizMap() {
+
+        if (getViewportSize_() === 'tablet') return './scripts/services/map/leaflet';
+
+        return './scripts/services/map/googlemap';
+
+    }
+
 	return {
+
+        // The first one that returns a value is the viewport size
+        getViewportSize: getViewportSize_,
+
+        getVizPath: getVizPath_,
 
 		getOverrides: function (q) { 
 

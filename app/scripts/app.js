@@ -11,13 +11,17 @@ define([
 
     , 'eventdispatcher'
 
-], function(_, Backbone, Router, Datastore, EventDispatcher) {
+    , 'scripts/moduleManager'
+
+    , 'map'
+
+], function(_, Backbone, Router, Datastore, EventDispatcher, ModuleManager, Map) {
 
     'use strict';
 
     //// Private ////
     
-    var settings, vizList = new Backbone.Collection();
+    var settings, vizList = new Backbone.Collection(), vizCache = {};
 
     function init_(options) {
 
@@ -53,6 +57,10 @@ define([
 
                 console.log('settings', settings);
 
+                console.log('ModuleManager', ModuleManager.getViewportSize());
+
+                loadVizModule_();
+
             })
 
             .fail(function() {
@@ -60,6 +68,30 @@ define([
                 alert('fail');
                 
             });
+
+            $(window).resize(_.debounce(function() {
+
+                loadVizModule_();
+
+            }, 500));
+
+    }
+
+    function loadVizModule_() {
+
+        var path = ModuleManager.getVizPath();
+
+console.log('Module', path, vizCache[path]);
+
+        if (vizCache[path]) return vizCache[path].refresh();
+
+        require([ path ], function (Viz) {
+
+            vizCache[path] = Viz;
+
+            console.log('Module viz', Viz.init());
+
+        });
 
     }
 
