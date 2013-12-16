@@ -99,7 +99,15 @@ define([
 
       });
 
+      it('should handle an empty querystring', function () {
 
+        var defaults = router.getDefaults(' ');
+
+        console.log('defaults', defaults);
+
+        expect( defaults ).toEqual({});
+
+      });
 
     });
 

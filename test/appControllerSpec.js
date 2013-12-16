@@ -17,6 +17,8 @@ define([
 
       controller = new AppController(div);
 
+      controller.init();
+
     });
 
     afterEach(function(){
@@ -28,6 +30,7 @@ define([
         controller = null;
 
         Backbone.history.stop();
+
     });
 
     describe('Basic', function () {
@@ -40,7 +43,7 @@ define([
 
       it('should have an init method', function () {
 
-        expect( controller.init_ ).toBeDefined();
+        expect( controller.init ).toBeDefined();
 
       });
 
@@ -50,13 +53,25 @@ define([
 
       });
 
-      it('should have window resize listener', function () {
+      it('should have a window resize listener', function () {
 
         var events = $._data( window, 'events' );
  
         console.log('window', events['resize']);
 
         expect( events['resize'] ).toBeDefined();
+
+      });
+
+      it('should have a reference to the router', function () {
+
+        expect(controller.router).toBeDefined();
+
+      });
+
+      it('should trigger a resize event on initialization', function () {
+
+        //expect(AppController.prototype.confirmResizeEvent_).toHaveBeenCalled();
 
       });
 

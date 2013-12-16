@@ -10,60 +10,57 @@ define([
 
     , 'datastore'
 
+    , 'scripts/moduleManager'
+
     , 'eventdispatcher'
 
-], function($, _, Backbone, Router, Datastore, EventDispatcher) {
+], function($, _, Backbone, Router, Datastore, ModuleManager, EventDispatcher) {
 
     'use strict';
 
+    var appWidth = 0;
+
     function AppController(el) {
 
-        _.bindAll(this, 'handleResize_');
+        _.bindAll(this, 'confirmResizeEvent_', 'loadViz');
 
         this.$root = $(el);
 
-        // Width of root element. This may or may not fill entire device viewport.
-        this.appWidth = 0;
-
-        console.log('root width', this.$root.width(), this.$root.outerWidth());
-
-        this.router;
-
-        this.init_();
+        this.router = null;
 
     }
 
-    AppController.prototype.init_ = function() {
+    AppController.prototype.init = function() {
 
         this.router = Router.init();
 
-        $(window).on('resize', _.debounce(this.handleResize_, 500));
+        $(window).on('resize', _.debounce(this.confirmResizeEvent_, 500));
 
         // keep?
         EventDispatcher.on('appresize', function() {
 
-            alert('handleResize_');
+            this.loadViz();
 
-        });
+        }, this);
 
         // Manually trigger a resize to kick things off
         $(window).trigger('resize');
         
     }
 
-    AppController.prototype.handleResize_ = function() {
+    AppController.prototype.confirmResizeEvent_ = function() {
 
         // Only care about width changes
-        var currentWidth = this.$root.outerWidth();
+        var currentWidth;
+
+        if (!this.$root) return;
+
+        currentWidth = this.$root.outerWidth();
 
         // Guard against 'non-real' resize events by checking width (old IE triggers them on scrolling)
-        if (currentWidth !== this.appWidth) {
+        if (currentWidth !== appWidth) {
 
-            console.log('comparea', currentWidth, this.appWidth);
-
-            this.appWidth = currentWidth;
-
-            console.log('compareb', currentWidth, this.appWidth);
+            appWidth = currentWidth;
 
             // An application-level resize event. Give views an opportunity to listen and react if needed.
             EventDispatcher.trigger('appresize');
@@ -78,13 +75,46 @@ define([
 
     }
 
-    AppController.prototype.processRoute = function() {
-
-        console.log('processing route');
+    AppController.prototype.startRouter = function() {
 
         Backbone.history.start();
 
     }
+
+    AppController.prototype.getRouterSettings = function() {
+
+        return (this.router && this.router.settings) || {};
+
+    }
+
+    // Load can happen when browser resized, user interaction, and initial page load
+    AppController.prototype.loadViz = function() {
+
+        var path = ModuleManager.getVizPath();
+
+        require([ path ], function (Viz) {
+
+            //vizCache[path] = Viz;
+
+            console.log('Module viz', Viz.init());
+
+        });
+        
+    }
+
+/*
+
+        if (vizCache[path]) return vizCache[path].refresh();
+
+        require([ path ], function (Viz) {
+
+            vizCache[path] = Viz;
+
+            console.log('Module viz', Viz.init());
+
+        });
+
+    }*/
 
     return AppController;
 

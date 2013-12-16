@@ -37,6 +37,8 @@ define([
 
                 }
 
+                console.log('qs', qs);
+
                 return qs;
 
             },
@@ -44,6 +46,8 @@ define([
             getDefaults: function(qs) {
 
                 var defaults, qs = this.processQueryString(qs);
+
+                if (qs.indexOf('=') === -1) return {};
 
                 defaults = _.chain(qs.split('&'))
 
@@ -56,6 +60,8 @@ define([
                 .object()
 
                 .value();
+
+                console.log('defaults', defaults);
 
                 return defaults;
 
@@ -72,6 +78,8 @@ define([
             settingsUrl = this.getDefaults(q);
 
             console.log('route:processDefaults', settingsUrl);
+
+            appRouter.settings = settingsUrl;
 
             // DataManager is listening
             //EventDispatcher.trigger('set:defaults', defaults);

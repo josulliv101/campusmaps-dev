@@ -11,29 +11,39 @@ define([
 
     function App(settings) {
 
-        this.settings = settings || {};
+        if (!settings || !settings.el) throw new Error('A root DOM element is required.');
 
-        console.log('App::constructor', this.settings);
+        // The application's state - everything is always built off the truth.
+        this.truth = settings;
 
-        this.init_();
+        this.controller = new AppController(settings.el);
 
     }
     
-    App.prototype.init_ = function() {
+    // A manual init call makes for nice insertion point for spies when testing
+    App.prototype.init = function() {
 
-        var controller;
+        var controller = this.controller, 
 
-        if (!this.settings.el) throw new Error('A root DOM element is required.');
+            truth = this.truth, 
 
-        controller = new AppController(this.settings.el);
+            app = this;
+
+
+        controller.init();
 
         $.when( controller.getData() )
 
          .done(function(data) { 
 
-            console.log('data', data);
+            // Parses the current route into settings
+            controller.startRouter();
 
-            controller.processRoute();
+            // Router settings override config passed-in on App creation
+            $.extend(truth, controller.getRouterSettings());
+
+            // Helpful when testing
+            app.init = true;
 
          })
 
