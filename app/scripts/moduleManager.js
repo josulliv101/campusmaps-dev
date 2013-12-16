@@ -1,5 +1,5 @@
 define([
-    
+
     'scripts/_mixins'
 	
     , 'scripts/modernizr'
@@ -8,7 +8,7 @@ define([
 
     var getViewportSize_ = _.dispatch( isMobile, isTablet, isDesktop ),
 
-        getVizPath_ = _.dispatch( isVizDirectory, isVizMap );
+        getVizPath_ = _.dispatch( isVizForced, isVizDirectory, isVizMap );
 
 
     function parseQueryString_( queryString ) {
@@ -92,6 +92,12 @@ define([
         if (getViewportSize_() === 'tablet') return './scripts/services/map/leaflet';
 
         return './scripts/services/map/googlemap';
+
+    }
+
+    function isVizForced(truth) {
+
+        if (truth && truth.vizpath) return truth.vizpath;//'./scripts/services/map/leaflet';//truth.vizpath;
 
     }
 

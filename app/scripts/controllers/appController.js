@@ -10,11 +10,9 @@ define([
 
     , 'datastore'
 
-    , 'scripts/moduleManager'
-
     , 'eventdispatcher'
 
-], function($, _, Backbone, Router, Datastore, ModuleManager, EventDispatcher) {
+], function($, _, Backbone, Router, Datastore, EventDispatcher) {
 
     'use strict';
 
@@ -34,21 +32,11 @@ define([
 
         this.router = Router.init();
 
-        $(window).on('resize', _.debounce(this.confirmResizeEvent_, 500));
+        $(window).on('resize', this.confirmResizeEvent_);
 
-        // keep?
-        EventDispatcher.on('appresize', function() {
-
-            this.loadViz();
-
-        }, this);
-
-        // Manually trigger a resize to kick things off
-        $(window).trigger('resize');
-        
     }
 
-    AppController.prototype.confirmResizeEvent_ = function() {
+    AppController.prototype.confirmResizeEvent_ = _.debounce(function() {
 
         // Only care about width changes
         var currentWidth;
@@ -67,7 +55,7 @@ define([
 
         }
 
-    }
+    }, 500)
 
     AppController.prototype.getData = function() {
 
@@ -88,9 +76,7 @@ define([
     }
 
     // Load can happen when browser resized, user interaction, and initial page load
-    AppController.prototype.loadViz = function() {
-
-        var path = ModuleManager.getVizPath();
+    AppController.prototype.loadViz = function(path) {
 
         require([ path ], function (Viz) {
 
@@ -102,7 +88,7 @@ define([
         
     }
 
-/*
+    /*
 
         if (vizCache[path]) return vizCache[path].refresh();
 

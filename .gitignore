@@ -6,7 +6,7 @@ _SpecRunner.html
 bin/
 tmp/
 *.tmp
-.sass-cache
+.sass-cache/*/main.scssc
 node_modules
 bower_components
 .grunt

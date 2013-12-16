@@ -90,7 +90,9 @@
 
             'googlemap': './scripts/services/map/googlemap',
 
-            'viz': './scripts/services/map/leaflet',
+            'directory': './scripts/services/map/directory',
+
+            'viz': './scripts/services/map/directory',
 
             'async': '../bower_components/requirejs-plugins/src/async',
 

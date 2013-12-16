@@ -69,9 +69,9 @@ define([
 
       });
 
-      it('should trigger a resize event on initialization', function () {
+      it('should have a loadViz method', function () {
 
-        //expect(AppController.prototype.confirmResizeEvent_).toHaveBeenCalled();
+        expect(AppController.prototype.loadViz).toBeDefined();
 
       });
 

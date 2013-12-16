@@ -1,15 +1,20 @@
 
 define([
 
-  '../scripts/app'
+  '../scripts/app',
 
-], function (App) {
+  '../scripts/controllers/appController'
+
+], function (App, AppController) {
 
   describe('App Tests', function () {
 
     var app;
 
     beforeEach(function() {
+
+      // Fake the router parsing a querystring
+      spyOn(AppController.prototype, 'confirmResizeEvent_');
 
       app = new App({ el: document.getElementsByTagName('body')[0], vizid: 'leaflet' });
 
@@ -84,6 +89,25 @@ define([
 
           // Now the app config settings have been overridden with any router settings
           expect( app.truth.vizid ).toBe('googlemap'); 
+
+        });
+
+      });
+
+      it('should have the controller load a viz', function () {
+
+        app.init();
+
+        waitsFor(function () {
+
+          return app.init === true;
+
+        });
+
+        runs(function () {
+
+          // Only go this far since the handled event is debounced
+          expect( AppController.prototype.confirmResizeEvent_ ).toHaveBeenCalled();
 
         });
 
