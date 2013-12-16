@@ -52,7 +52,7 @@ module.exports = function (grunt) {
     },
     jasmine: {
       test: {
-        src: ['app/**/*.js', '!app/config.js'],
+        src: ['app/**/*.js', '!app/main.js'],
         options: {
           specs: 'test/**/*Spec.js', //
           helpers: 'test/**/*Helper.js',
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
           keepRunner: true,
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
-            requireConfigFile: 'app/config.js', 
+            requireConfigFile: 'app/main.js', 
             requireConfig: {
               baseUrl: 'app/'
             }
@@ -125,7 +125,7 @@ module.exports = function (grunt) {
       compile: {
         options: {
           name: 'config',
-          mainConfigFile: 'app/config.js',
+          mainConfigFile: 'app/main.js',
           out: '<%= concat.dist.dest %>',
           optimize: 'none'
         }

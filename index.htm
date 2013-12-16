@@ -23,7 +23,9 @@
 	<!-- endbuild -->
 </head>
 <body>
-
+	
+	<div id="campusmap">campusmap</div>
+	
 	<div id="map-wrap">
 		<div id="map-canvas"></div>
 	</div>
@@ -43,12 +45,12 @@
 		</ul>
 	</div>	
 	<!-- build:js scripts/main.js -->
-	<script data-main="app/config" src="bower_components/requirejs/require.js"></script>
+	<script data-main="app/main" src="bower_components/requirejs/require.js"></script>
 
 	<!-- endbuild -->
 	<script>
 		
-		require(['./scripts/moduleManager', 'config'], function(ModuleManager) {
+		require(['./scripts/moduleManager', 'main'], function(ModuleManager) {
 
 			var mappings = ModuleManager.getOverrides(window.location.search);
 
@@ -65,21 +67,13 @@
 
 			    console.info('The DOM is ready before I happen', doc);
 
-				App.init({
+			    var app = new App({
+
+			    	el: document.getElementById('campusmap'),
 
 		            campusid: 'medford',
 
 		            latlng: null,
-
-		            vizList: [
-
-		            	{ id: 'googlemap', modulepath: 'googlemap',  name: 'Campus Map (google)'}
-
-		            	, { id: 'leaflet', modulepath: 'leaflet',  name: 'Campus Map (leaflet)'}
-
-		            	, { id: 'directory', modulepath: 'directory',  name: 'Building Directory'}
-
-		            ],
 
 		            locations: []
 

@@ -78,8 +78,6 @@ define([
 
         });
 
-        Backbone.history.start();
-
         return appRouter;
 
     };
