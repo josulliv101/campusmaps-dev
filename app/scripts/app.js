@@ -9,20 +9,27 @@ define([
 
     , 'scripts/moduleManager'
 
+    , 'scripts/viewManager'
+
     , 'eventdispatcher'
 
-], function($, AppController, Datastore, ModuleManager, EventDispatcher) {
+], function($, AppController, Datastore, ModuleManager, ViewManager, EventDispatcher) {
 
     'use strict';
+
+    var attrs; // Shortcut to the Truth attributes
 
     function App(settings) {
 
         if (!settings || !settings.el) throw new Error('A root DOM element is required.');
 
         // The application's definitive state of being. Everything is always built off the truth.
-        this.truth = settings;
+        this.truth = ViewManager.modelFactory(settings);
 
         this.controller = new AppController(settings.el);
+
+        // Set shortcut
+        attrs = this.truth.attributes;
 
     }
     
@@ -38,16 +45,22 @@ define([
 
         controller.init();
 
+        ViewManager.init(attrs.el);
+
         // The controller is listening for a window resize event, then (if appropriate) triggers an app-level resize event 
         EventDispatcher.on('appresize', function() {
 
-            var path = ModuleManager.getVizPath(truth);
+            var path = ModuleManager.getVizPath(attrs);
 
-            console.log('appresize::path', path, truth);
+truth.set(_.uniqueId('test_'), 123);
+
+            console.log('appresize::path', path, attrs);
 
             controller.loadViz(path);
 
         });
+
+        EventDispatcher.listenTo(this.truth, 'change', controller.handleTruthChange);
 
 
         // Controller has reference to a Data Service module that defines how to fetch data.
@@ -59,10 +72,13 @@ define([
             controller.startRouter();
 
             // Router settings override config passed-in on App creation
-            $.extend(truth, controller.getRouterSettings());
+            //$.extend(truth, controller.getRouterSettings());
+            truth.set(controller.getRouterSettings(), { silent: true });
+
+            console.log('truth', truth);
 
             // Update the datastore with the truth
-            Datastore.campus(truth.campusid, { id: 'campusid', select: true });
+            Datastore.campus(attrs.campusid, { id: 'campusid', select: true });
 
             // Helpful when testing
             app.init = true;

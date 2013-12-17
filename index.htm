@@ -30,8 +30,6 @@
 		</div>
 	</div>
 
-	<div id="ui-search"></div>
-
 	<div id="log" class="shadow">
 		<ul>
 			<li><a href="#" data-cmd="panelA">panel A</a></li>
@@ -50,22 +48,15 @@
 	<!-- endbuild -->
 	<script>
 		
-		require(['./scripts/moduleManager', 'main'], function(ModuleManager) {
+		// data-main="app/main" is loaded async, so make sure it's available
+		require(['main'], function() {
 
-			var mappings = ModuleManager.getOverrides(window.location.search);
-
-			console.log('mappings', mappings);
-
-		    require.config({
-
-		        // '*' signifies that these mappings should be used everywhere (all modules)
-		        map: { '*':  mappings  }
-
-		    });
-
-			require(['domReady!', 'app'], function (doc, App) {
+			require(['domReady!', 'app', './scripts/moduleManager'], function (doc, App, ModuleManager) {
 
 			    console.info('The DOM is ready before I happen', doc);
+
+			    // Paths set based on feature detection
+			    ModuleManager.setPathsMap(require);
 
 			    var app = new App({
 

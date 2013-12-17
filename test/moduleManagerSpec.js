@@ -26,6 +26,12 @@ define(['../scripts/moduleManager'], function (ModuleManager) {
 
       });
 
+      it('should have a setPathsMap method', function () {
+
+        expect(manager.setPathsMap).toBeDefined();
+
+      });
+
       it('should parse a querystring', function () {
 
         var q = "?test=123&foo=bar", obj = manager.getOverrides(q);

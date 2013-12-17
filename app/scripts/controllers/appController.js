@@ -20,7 +20,7 @@ define([
 
     function AppController(el) {
 
-        _.bindAll(this, 'confirmResizeEvent_', 'loadViz');
+        _.bindAll(this, 'confirmResizeEvent_', 'loadViz', 'handleTruthChange');
 
         this.$root = $(el);
 
@@ -60,6 +60,53 @@ define([
     AppController.prototype.getData = function() {
 
         return Datastore.fetch();
+
+    }
+
+    AppController.prototype.handleAttrChange1 = function(model, val, key) {
+
+        console.log('...handleAttrChange1', model.cid, val, key);
+
+        //return true;
+
+    }
+
+    AppController.prototype.handleAttrChange2 = function(model, val, key) {
+
+        console.log('...handleAttrChange2', model.cid, val, key);
+
+        //return true;
+
+    }
+
+    AppController.prototype.handleAttrChange3 = function(model, val, key) {
+
+        console.log('...handleAttrChange3', model.cid, val, key);
+
+        return true;
+
+    }
+
+    AppController.prototype.attrChangeDispatch = _.dispatch(
+
+        AppController.prototype.handleAttrChange1,
+
+        AppController.prototype.handleAttrChange2,
+
+        AppController.prototype.handleAttrChange3
+
+    )
+
+    // Handling this way to make wildcard event listening possible
+    AppController.prototype.handleTruthChange = function(model, options) {
+
+        console.log('AppController.prototype.handleTruthChange', model.changedAttributes(), options);
+
+        _.each(model.changedAttributes(), function(val, key) {
+
+            this.attrChangeDispatch(model, val, key);
+
+        }, this);
 
     }
 

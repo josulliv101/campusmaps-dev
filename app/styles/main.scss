@@ -27,6 +27,7 @@ button {
     height: auto;
     background: #fff;
     z-index: 999;
+    display: none;
 }
 
 /* Layout */
@@ -38,7 +39,8 @@ button {
 }
 
 #campusmap {
-
+  position: relative;
+  overflow: hidden;
   background: #eee;
   border: 1px #999 solid;
   width: 100%;
@@ -54,7 +56,7 @@ button {
 	width: 400px;
 	z-index: 101;
 	top: 32px;
-	left: 94px;
+	left: 54px;
     .panel {
         margin-right: 4px;
     }

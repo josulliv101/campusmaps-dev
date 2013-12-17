@@ -101,6 +101,27 @@ define([
 
     }
 
+    function getOverrides_(q) { 
+
+        var modules = {};
+
+        console.log('q', q);
+
+        if (q === undefined) return modules;
+
+        modules = parseQueryString_(q) || {};
+
+        if (modules.animation) return modules;
+
+        // Forcing a module via querystring params takes precedence over feature detection tweaks
+        if (modules.animation === undefined && Modernizr.cssanimations === true) modules.animation = 'animationCSS';
+
+        console.log('modules', modules, Modernizr.cssanimations );
+
+        return modules;
+
+    }
+
 	return {
 
         // The first one that returns a value is the viewport size
@@ -108,25 +129,22 @@ define([
 
         getVizPath: getVizPath_,
 
-		getOverrides: function (q) { 
+		getOverrides: getOverrides_,
 
-	        var modules = {};
+        setPathsMap: function(require) {
 
-	        console.log('q', q);
+            var mappings = getOverrides_();
 
-	        if (q === undefined) return modules;
+            console.log('mappings', mappings);
 
-	        modules = parseQueryString_(q) || {};
+            require.config({
 
-	        if (modules.animation) return modules;
+                // '*' signifies that these mappings should be used everywhere (all modules)
+                map: { '*':  mappings  }
 
-	        // Forcing a module via querystring params takes precedence over feature detection tweaks
-	        if (modules.animation === undefined && Modernizr.cssanimations === true) modules.animation = 'animationCSS';
+            });
 
-	        console.log('modules', modules, Modernizr.cssanimations );
+        }
 
-	        return modules;
-
-		}
 	} 
 });
