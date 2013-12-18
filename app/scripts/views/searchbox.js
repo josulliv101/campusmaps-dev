@@ -8,7 +8,7 @@ define([
 
     'templates',
 
-    'animation', // Control appropriate animation to use in config via browser feature detection
+    'animationCSS', // Control appropriate animation to use in config via browser feature detection
 
     'eventdispatcher'
 
@@ -16,13 +16,13 @@ define([
 
     'use strict';
 
-    
-
     var SearchboxView = Backbone.View.extend({
 
         events: {
 
-            'click .btn': 'handleBtnClick' 
+            'click .btn.search': 'handleBtnClick',
+
+            'click .btn.full': 'handleBtnExpandClick' 
 
         },
 
@@ -59,13 +59,41 @@ define([
 
         },
 
+        handleBtnExpandClick: function(ev) {
+
+            console.log('search btn clicked.');
+
+            ev.preventDefault();
+
+            EventDispatcher.trigger('truthupdate', { fullscreen: true });
+
+        },
+
         handleBtnClick: function(ev) {
 
             console.log('search btn clicked.');
 
             ev.preventDefault();
 
-            EventDispatcher.trigger('cmd', 'test', { yo: 'hi' });
+            //alert('btn');
+
+            //EventDispatcher.trigger('truthupdate', { vizpath: 'directory' });
+
+            if ($('#panelA').length === 0) {
+
+                EventDispatcher.trigger('cmd', 'panelA');
+
+                return;
+
+            }
+
+            if ($('#panelA').css('display') === 'none') 
+
+                EventDispatcher.trigger('cmd', 'panelA');
+
+            else 
+
+                EventDispatcher.trigger('cmd', 'panelB');
             
         },
 

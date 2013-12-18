@@ -58,11 +58,19 @@ define([
 
                 style: google.maps.NavigationControlStyle.SMALL
                 
-            }
+            },
+
+            panControl: false
 
         });
 
         thePanorama = gMap.getStreetView();
+
+        thePanorama.setOptions({
+
+          addressControl: false
+
+        });
 
         google.maps.event.addListenerOnce(gMap, 'tilesloaded', function() {
 

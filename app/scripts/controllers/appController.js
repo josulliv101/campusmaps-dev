@@ -20,11 +20,13 @@ define([
 
     var appWidth = 0,
 
+        enabledEventAttrs = ['vizpath', 'streetview', 'fullscreen'],
+
         viewManager;
 
     function AppController(el, viewManager) {
 
-        _.bindAll(this, 'confirmResizeEvent_', 'loadViz', 'handleTruthChange', 'attrChangeDispatch', 'handleVizPathChange', 'handleAttrStreetview');
+        _.bindAll(this, 'confirmResizeEvent_', 'loadViz', 'handleTruthChange', 'attrChangeDispatch', 'handleVizPathChange', 'handleAttrStreetview', 'handleAttrFullscreen');
 
         this.$root = $(el);
 
@@ -43,9 +45,18 @@ define([
         // Define in init to keep this keyword intact
         this.attrChangeDispatch  = _.dispatch(
 
+            // Only handle whitelisted truth attributes
+            function(model, val, key) {
+
+                return _.contains(enabledEventAttrs, key) ? undefined : true;
+
+            },
+
             this.handleVizPathChange,
 
             this.handleAttrStreetview,
+
+            this.handleAttrFullscreen,
 
             this.handleAttrChange3
 
@@ -53,12 +64,16 @@ define([
 
     }
 
-    AppController.prototype.confirmResizeEvent_ = _.debounce(function() {
+    AppController.prototype.confirmResizeEvent_ = _.debounce(function(ev, options) {
+
+console.log('opts resize', options);
 
         // Only care about width changes
         var currentWidth;
 
         if (!this.$root) return;
+
+        options || (options = {});
 
         currentWidth = this.$root.outerWidth();
 
@@ -68,7 +83,7 @@ define([
             appWidth = currentWidth;
 
             // An application-level resize event. Give views an opportunity to listen and react if needed.
-            EventDispatcher.trigger('appresize');
+            if (options.silent !== true) EventDispatcher.trigger('appresize');
 
         }
 
@@ -79,12 +94,54 @@ define([
         return Datastore.fetch();
 
     }
+    
+
+    AppController.prototype.handleAttrFullscreen = function(model, val, key) {
+
+        var prefix = 'map-',
+
+            $root = this.viewManager.$root;
+
+        if (key !== 'fullscreen') return;
+
+        console.log('handleAttrFullscreen');
+
+
+        $root.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
+
+            var $div = $('<div/>')
+
+                        .addClass('overlay')
+
+                        .appendTo($('body'));
+
+            _.delay(function() { 
+
+                $root.css({ opacity: 1 })
+
+                $div.addClass('slideRight'); 
+
+            }, 600);
+
+        }); 
+
+        this.viewManager.addCssFlagToHtmlTag(prefix + key);
+
+        return true;
+
+    }
 
     AppController.prototype.handleVizPathChange = function(model, val, key) {
 
-        var prefix = 'viz-';
+        var prefix = 'viz-',
+
+            forced = model.attributes['vizpath!'];
 
         if (key !== 'vizpath') return;
+
+        // vizpath can be forced
+        if (forced) val = forced;
+
 
         console.log('...handleAttrChange1', model.cid, val, key);
 
@@ -125,6 +182,8 @@ define([
 
 
     // Handling this way to make wildcard event listening possible
+    // Always use 'set' to update the model's truth. This ensures that the changedAttributes method
+    // is accurate.
     AppController.prototype.handleTruthChange = function(model, options) {
 
         console.log('AppController.prototype.handleTruthChange', model.changedAttributes(), options);

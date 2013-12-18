@@ -11,7 +11,6 @@ define([
     'use strict';
 
 
-
     function SearchboxController(searchboxview, AnimationConstructor) {
 
         var cmdFunctions;

@@ -8,7 +8,7 @@ define([
 
     var getViewportSize_ = _.dispatch( isMobile, isTablet, isDesktop ),
 
-        getVizPath_ = _.dispatch( isVizForced, isVizDirectory, isVizMap );
+        getVizPath_ = _.dispatch(  isVizForced, isVizDirectory, isVizMap );//isVizForced,
 
 
     function parseQueryString_( queryString ) {
@@ -97,7 +97,7 @@ define([
 
     function isVizForced(truth) {
 
-        if (truth && truth.vizpath) return truth.vizpath;//'./scripts/services/map/leaflet';//truth.vizpath;
+        if (truth && truth['vizpath!']) return truth['vizpath!'];
 
     }
 

@@ -23,12 +23,14 @@ define([
 
         if (!settings || !settings.el) throw new Error('A root DOM element is required.');
 
+        this.settings = settings;
+
         this.viewManager = new ViewManager(settings.el);
 
         this.controller = new AppController(settings.el, this.viewManager);
 
         // The application's definitive state of being. Everything is always built off the truth.
-        this.truth = this.viewManager.modelFactory(settings);
+        this.truth = this.viewManager.modelFactory();
 
         // Set shortcut
         attrs = this.truth.attributes;
@@ -39,6 +41,8 @@ define([
     App.prototype.init = function() {
 
         var controller = this.controller, 
+
+            settings = this.settings, 
 
             truth = this.truth, 
 
@@ -80,24 +84,30 @@ define([
 
          .done(function(data) { 
 
+            var model;
+
             // Parses the current route into settings
             controller.startRouter();
 
-            console.log('attrs.vizpath', attrs.vizpath);
+            model = _.extend(settings, controller.getRouterSettings());
 
             // Update the datastore with the truth
-            Datastore.campus(attrs.campusid, { id: 'campusid', select: true });
+            Datastore.campus(model.campusid, { id: 'campusid', select: true });
+
+            console.log('Datastore', Datastore.campus());
 
             // Helpful when testing
             app.init = true;
 
             // Trigger a resize event to kick things off. Doing it this way (instead of directly calling the controller's loadViz method) 
             // to make sure the app's initial  root DOM px width gets captured by resize handler (see AppController.prototype.confirmResizeEvent_)
-            $(window).trigger('resize');
+            $(window).trigger('resize', [ { silent: true } ]);
 
-            // Router settings override config passed-in on App creation
-            //$.extend(truth, controller.getRouterSettings());
-            truth.set(controller.getRouterSettings());
+            console.log('model', model);
+
+            truth.set( model );
+
+            console.log('truth', truth);
 
          })
 

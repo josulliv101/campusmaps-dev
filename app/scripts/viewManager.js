@@ -8,9 +8,13 @@ define([
 
     'eventdispatcher',
 
-    'scripts/views/searchbox'
+    'scripts/views/searchbox',
 
-], function($, _, Backbone, EventDispatcher, SearchboxView) {
+    'scripts/controllers/searchboxController',
+
+    'animationCSS'
+
+], function($, _, Backbone, EventDispatcher, SearchboxView, SearchboxController, AnimationClass) {
 
     'use strict';
 
@@ -22,7 +26,7 @@ define([
 
     ViewManager.prototype.init = function() {
 
-        var searchboxView, $div;
+        var searchboxView, searchboxController, $div;
 
         $div = $('<div></div>').attr('id', 'ui-search').appendTo(this.$root);
 
@@ -32,6 +36,8 @@ define([
             model: this.modelFactory()
 
         });
+
+        searchboxController = new SearchboxController(searchboxView, AnimationClass);
 
         searchboxView.render().$el.appendTo($div);
 
@@ -46,6 +52,18 @@ define([
     ViewManager.prototype.removeCssFlag = function (name, options) {
 
         this.$root.removeClass(name);
+
+    }
+
+    ViewManager.prototype.addCssFlagToHtmlTag = function (name, options) {
+
+        $('html').addClass(name);
+
+    }
+
+    ViewManager.prototype.removeCssFlagToHtmlTag = function (name, options) {
+
+        $('html').removeClass(name);
 
     }
 
