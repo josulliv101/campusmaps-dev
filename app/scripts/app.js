@@ -23,10 +23,12 @@ define([
 
         if (!settings || !settings.el) throw new Error('A root DOM element is required.');
 
-        // The application's definitive state of being. Everything is always built off the truth.
-        this.truth = ViewManager.modelFactory(settings);
+        this.viewManager = new ViewManager(settings.el);
 
-        this.controller = new AppController(settings.el);
+        this.controller = new AppController(settings.el, this.viewManager);
+
+        // The application's definitive state of being. Everything is always built off the truth.
+        this.truth = this.viewManager.modelFactory(settings);
 
         // Set shortcut
         attrs = this.truth.attributes;
@@ -45,18 +47,28 @@ define([
 
         controller.init();
 
-        ViewManager.init(attrs.el);
+        this.viewManager.init();
 
         // The controller is listening for a window resize event, then (if appropriate) triggers an app-level resize event 
         EventDispatcher.on('appresize', function() {
 
             var path = ModuleManager.getVizPath(attrs);
 
-truth.set(_.uniqueId('test_'), 123);
+            truth.set('vizpath', path);
 
             console.log('appresize::path', path, attrs);
 
-            controller.loadViz(path);
+            //controller.loadViz(path);
+
+        });
+
+        EventDispatcher.on('truthupdate', function(options) {
+
+            console.log('truth opts...', options);
+
+            truth.set(options);
+
+            console.log('truth...', truth);
 
         });
 
@@ -71,11 +83,7 @@ truth.set(_.uniqueId('test_'), 123);
             // Parses the current route into settings
             controller.startRouter();
 
-            // Router settings override config passed-in on App creation
-            //$.extend(truth, controller.getRouterSettings());
-            truth.set(controller.getRouterSettings(), { silent: true });
-
-            console.log('truth', truth);
+            console.log('attrs.vizpath', attrs.vizpath);
 
             // Update the datastore with the truth
             Datastore.campus(attrs.campusid, { id: 'campusid', select: true });
@@ -86,6 +94,10 @@ truth.set(_.uniqueId('test_'), 123);
             // Trigger a resize event to kick things off. Doing it this way (instead of directly calling the controller's loadViz method) 
             // to make sure the app's initial  root DOM px width gets captured by resize handler (see AppController.prototype.confirmResizeEvent_)
             $(window).trigger('resize');
+
+            // Router settings override config passed-in on App creation
+            //$.extend(truth, controller.getRouterSettings());
+            truth.set(controller.getRouterSettings());
 
          })
 

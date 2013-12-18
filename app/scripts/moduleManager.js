@@ -89,9 +89,9 @@ define([
 
     function isVizMap() {
 
-        if (getViewportSize_() === 'tablet') return './scripts/services/map/leaflet';
+        if (getViewportSize_() === 'tablet') return 'leaflet';
 
-        return './scripts/services/map/googlemap';
+        return 'googlemap';
 
     }
 

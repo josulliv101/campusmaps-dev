@@ -47,16 +47,39 @@ button {
   margin: 20px auto;
   height: 520px;
   max-width: 890px;
+
+  &.viz-googlemap {
+    
+    &.streetview {
+      
+      #ui-search {
+
+        opacity: 0;
+
+      }
+
+    }
+
+  }
+
 }
 
 /* Searchbox */
 #ui-search {
-	
+
+  opacity: 1;
+
+  transition: opacity .9s;
+  -webkit-transition: opacity .9s; /* Safari */
+
+  transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+
 	position: absolute;
 	width: 400px;
 	z-index: 101;
-	top: 32px;
-	left: 54px;
+	top: 12px;
+	left: 64px;
     .panel {
         margin-right: 4px;
     }

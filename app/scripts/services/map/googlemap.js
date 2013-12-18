@@ -9,9 +9,11 @@ define([
 
     'datastore',
 
+    'eventdispatcher',
+
     'async!http://maps.google.com/maps/api/js?sensor=false'
 
-], function($, _, MapStyles, Datastore) {
+], function($, _, MapStyles, Datastore, EventDispatcher) {
 
     'use strict';
 
@@ -38,6 +40,8 @@ define([
 
     function createMap_(el, latlng, zoom) {
 
+        var thePanorama;
+
         gMap = new google.maps.Map(el, {
 
             center: new google.maps.LatLng(latlng[0], latlng[1]),
@@ -58,7 +62,15 @@ define([
 
         });
 
+        thePanorama = gMap.getStreetView();
+
         google.maps.event.addListenerOnce(gMap, 'tilesloaded', function() {
+
+            google.maps.event.addListener(thePanorama, 'visible_changed', function() {
+
+                EventDispatcher.trigger('truthupdate', { streetview: thePanorama.getVisible() });
+
+            });
 
             // Hack to give map keyboard focus
             $("#map-canvas div:first div:first div:first").trigger('click');

@@ -14,28 +14,64 @@ define([
 
     'use strict';
 
-    function init_(root) {
+    function ViewManager(el) {
 
-        var searchboxView, $root = $(root),
+        this.$root = $(el);
 
-            $div = $('<div></div>').attr('id', 'ui-search').appendTo($root);
+    }
+
+    ViewManager.prototype.init = function() {
+
+        var searchboxView, $div;
+
+        $div = $('<div></div>').attr('id', 'ui-search').appendTo(this.$root);
 
         // Never re-rendered
         searchboxView = new SearchboxView({
 
-            model: new Backbone.Model({})
+            model: this.modelFactory()
 
         });
 
         searchboxView.render().$el.appendTo($div);
 
-    };
+    }
 
-    return {
+    ViewManager.prototype.addCssFlag = function (name, options) {
 
-        init: init_,
+        this.$root.addClass(name);
 
-        modelFactory: function (attrs) { return new Backbone.Model(attrs); }
+    }
 
-    };
+    ViewManager.prototype.removeCssFlag = function (name, options) {
+
+        this.$root.removeClass(name);
+
+    }
+
+    ViewManager.prototype.modelFactory = function (attrs) { return new Backbone.Model(attrs); }
+/*  
+    function addClass_(classname, options) {
+
+      var prefix, segments = classname.split('-');
+
+        options || (options = {});
+
+        if (options.unique === true && segments.length > 1) {
+
+            prefix = _.first(segments);
+
+            $root.removeClass(function(index, classnames) {
+
+                var classes = classnames.split(' ');
+
+                return _.map(classes, function(class) {});
+            });
+
+        }
+
+    }
+*/
+    return ViewManager
+
 });
