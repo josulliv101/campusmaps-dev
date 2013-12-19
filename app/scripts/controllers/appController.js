@@ -12,25 +12,32 @@ define([
 
     , 'scripts/viewManager'
 
+    , 'scripts/domManager'
+
     , 'eventdispatcher'
 
-], function($, _, Backbone, Router, Datastore, ViewManager, EventDispatcher) {
+], function($, _, Backbone, Router, Datastore, ViewManager, DomManager, EventDispatcher) {
 
     'use strict';
 
     var appWidth = 0,
 
-        enabledEventAttrs = ['vizpath', 'streetview', 'fullscreen'],
+        enabledEventAttrs = ['vizpath', 'streetview', 'fullscreen', 'appwidth'],
 
         viewManager;
 
     function AppController(el, viewManager) {
 
-        _.bindAll(this, 'confirmResizeEvent_', 'loadViz', 'handleTruthChange', 'attrChangeDispatch', 'handleVizPathChange', 'handleAttrStreetview', 'handleAttrFullscreen');
+        _.bindAll(this, 'confirmResizeEvent_', 'loadViz', 'handleTruthChange', 'attrChangeDispatch', 'handleVizPathChange', 'handleAttrStreetview', 'handleAttrFullscreen', 'handleAttrAppWidth');
 
         this.$root = $(el);
 
         this.viewManager = viewManager;
+
+        // App-level DOM manipulation happens here. This includes event listeners attached to DOM.
+        this.domManager = new DomManager();
+
+        this.domManager.init(el);
 
         this.router = null;
 
@@ -39,6 +46,8 @@ define([
     AppController.prototype.init = function() {
 
         this.router = Router.init();
+
+
 
         $(window).on('resize', this.confirmResizeEvent_);
 
@@ -57,6 +66,8 @@ define([
             this.handleAttrStreetview,
 
             this.handleAttrFullscreen,
+
+            this.handleAttrAppWidth,
 
             this.handleAttrChange3
 
@@ -153,13 +164,23 @@ console.log('opts resize', options);
 
     }
 
+    AppController.prototype.handleAttrAppWidth = function(model, val, key) {
+
+        if (key !== 'appwidth') return;
+
+        console.log('...handleAttrAppWidth', model.cid, val, key);
+
+        return true;
+
+    }
+
     AppController.prototype.handleAttrStreetview = function(model, val, key) {
 
         var fn, vm = this.viewManager;
 
-        console.log('...handleAttrStreetview', model.cid, val, key);
-
         if (key !== 'streetview') return;
+
+        console.log('...handleAttrStreetview', model.cid, val, key);
 
         fn = val === true ? vm.addCssFlag : vm.removeCssFlag;
 

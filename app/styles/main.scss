@@ -61,7 +61,8 @@ button {
       
       #ui-search {
 
-        top: -220px;
+        /*left: -420px;*/
+        opacity: 0;
 
       }
 
@@ -115,8 +116,8 @@ button {
 
   opacity: 1;
 
-  transition: top .9s;
-  -webkit-transition: top .9s; /* Safari */
+  transition: opacity .6s;
+  -webkit-transition: opacity .6s; /* Safari */
 
   transition-delay: 0s;
   -webkit-transition-delay: 0s;
