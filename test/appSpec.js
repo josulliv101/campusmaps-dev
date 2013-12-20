@@ -14,7 +14,7 @@ define([
     beforeEach(function() {
 
       // Fake the router parsing a querystring
-      spyOn(AppController.prototype, 'confirmResizeEvent_');
+      //spyOn(AppController.prototype, 'confirmResizeEvent_');
 
       app = new App({ el: document.getElementsByTagName('body')[0], vizid: 'leaflet' });
 
@@ -88,12 +88,12 @@ define([
         runs(function () {
 
           // Now the app config settings have been overridden with any router settings
-          expect( app.truth.get('vizid') ).toBe('googlemap'); 
+          expect( app.controller.getTheTruth().get('vizid') ).toBe('googlemap'); 
 
         });
 
       });
-
+/* 
       it('should have the controller load a viz', function () {
 
         app.init();
@@ -111,7 +111,7 @@ define([
 
         });
 
-      });
+      });*/
 
     });
 

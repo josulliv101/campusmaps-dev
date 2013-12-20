@@ -4,9 +4,11 @@ define([
 
     , '_mixins'
 
+    , 'scripts/moduleManager'
+
     , 'eventdispatcher'
 
-], function ($, _, EventDispatcher) { 
+], function ($, _, ModuleManager, EventDispatcher) { 
 
     function DomManager() {}
 
@@ -58,11 +60,15 @@ define([
 
     DomManager.prototype.handleDomResizeEvent = _.debounce(function(ev, options) {
 
-        var width = this.$root.outerWidth();
+        var path = ModuleManager.getVizPath();
+
+        EventDispatcher.trigger('truthupdate', { vizpath: path });
+
+/*        var width = this.$root.outerWidth();
 
         options || (options = {});
 
-        if (options.silent !== true) EventDispatcher.trigger('truthupdate', { appwidth: width });
+        if (options.silent !== true) EventDispatcher.trigger('truthupdate', { appwidth: width });*/
 
     }, 500)
 

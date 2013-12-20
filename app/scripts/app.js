@@ -7,23 +7,23 @@ define([
 
     , 'datastore'
 
-    , 'scripts/moduleManager'
-
     , 'scripts/viewManager'
 
     , 'eventdispatcher'
 
-], function($, AppController, Datastore, ModuleManager, ViewManager, EventDispatcher) {
+], function($, AppController, Datastore, ViewManager, EventDispatcher) {
 
     'use strict';
 
-    var attrs; // Shortcut to the Truth attributes
+    var theSettings, attrs; // Shortcut to the Truth attributes
 
     function App(settings) {
 
         if (!settings || !settings.el) throw new Error('A root DOM element is required.');
 
         this.settings = settings;
+
+        theSettings = settings;
 
         this.viewManager = new ViewManager(settings.el);
 
@@ -53,30 +53,7 @@ define([
 
         this.viewManager.init();
 
-        // The controller is listening for a window resize event, then (if appropriate) triggers an app-level resize event 
-        EventDispatcher.on('appresize', function() {
 
-            var path = ModuleManager.getVizPath(attrs);
-
-            truth.set('vizpath', path);
-
-            console.log('appresize::path', path, attrs);
-
-            //controller.loadViz(path);
-
-        });
-
-        EventDispatcher.on('truthupdate', function(options) {
-
-            console.log('truth opts...', options);
-
-            truth.set(options);
-
-            console.log('truth...', truth);
-
-        });
-
-        EventDispatcher.listenTo(this.truth, 'change', controller.handleTruthChange);
 
 
         // Controller has reference to a Data Service module that defines how to fetch data.
@@ -89,25 +66,29 @@ define([
             // Parses the current route into settings
             controller.startRouter();
 
-            model = _.extend(settings, controller.getRouterSettings());
+            theSettings = model = _.extend(settings, controller.getRouterSettings());
 
             // Update the datastore with the truth
-            Datastore.campus(model.campusid, { id: 'campusid', select: true });
+            Datastore.campus(theSettings.campusid, { id: 'campusid', select: true });
 
             console.log('Datastore', Datastore.campus());
 
-            // Helpful when testing
-            app.init = true;
+
 
             // Trigger a resize event to kick things off. Doing it this way (instead of directly calling the controller's loadViz method) 
             // to make sure the app's initial  root DOM px width gets captured by resize handler (see AppController.prototype.confirmResizeEvent_)
-            $(window).trigger('resize', [ { silent: true } ]);
+            //$(window).trigger('resize');
 
-            console.log('model', model);
+            console.log('model', model, theSettings);
 
-            truth.set( model );
+            //truth.set( model );
+
+            EventDispatcher.trigger('truthupdate', theSettings);
 
             console.log('truth', truth);
+
+            // Helpful when testing
+            app.init = true;
 
          })
 
