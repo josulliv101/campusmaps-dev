@@ -1,8 +1,10 @@
 define([
 
-    '_mixins' 
+    '_mixins',
 
-], function(_) {
+    'backbone'
+
+], function(_, Backbone) {
 
     'use strict';
 
@@ -112,7 +114,13 @@ define([
                 // Each datastore will overwrite this with its own way of fetching data
                 fetch: function() { return campuses_; },
 
-                campuses: campuses_
+                campuses: campuses_,
+
+                Factory: {
+
+                    model: function(attrs) { return new Backbone.Model(attrs); }
+                    
+                }
 
             };
 

@@ -4,42 +4,27 @@ define([
 
     , 'underscore'
 
-    , 'backbone'
-
     , 'scripts/router'
 
     , 'datastore'
 
     , 'scripts/moduleManager'
 
-    , 'scripts/viewManager'
-
-    , 'scripts/domManager'
-
     , 'scripts/controllers/appControllerEventHandlers'
 
     , 'eventdispatcher'
 
-], function($, _, Backbone, Router, Datastore, ModuleManager, ViewManager, DomManager, AppControllerEventHandlers, EventDispatcher) {
+], function($, _, Router, Datastore, ModuleManager, AppControllerEventHandlers, EventDispatcher) {
 
     'use strict';
 
-    var theTruth, viewManager;
+    var theTruth;
 
-    function AppController(el, viewManager) {
+    function AppController() {
 
         _.bindAll(this, 'loadViz', 'handleTruthChange', 'setTheTruth');
 
-        this.$root = $(el);
-
-        this.viewManager = viewManager;
-
-        theTruth = new Backbone.Model();
-
-        // App-level DOM manipulation happens here. This includes attaching event listeners to DOM.
-        this.domManager = new DomManager();
-
-        this.domManager.init(el);
+        theTruth = Datastore.Factory.model();
 
         this.router = Router.init();
 
@@ -76,6 +61,8 @@ define([
 
     AppController.prototype.setTheTruth = function(obj) {
 
+        console.log('setTheTruth', obj);
+
         theTruth.set(obj);
 
     }
@@ -83,21 +70,23 @@ define([
     // Always use 'set' to update the model's truth. This ensures that the changedAttributes method is always accurate.
     AppController.prototype.handleTruthChange = function(model, options) { 
 
+console.log('handleTruthChange', model.changedAttributes(), options);
+
         // Handle each changed attribute in the most appropriate manner, determined by dispatch function
         _.each(model.changedAttributes(), function(val, key) { this.attrChangeDispatch(model, val, key); }, this);
 
 
         /* * * * * * * * * * * * * * * * * * * * *
 
-        // --  You want answers?
+         --  You want answers?
 
-        // --- I think I'm entitled to.
+         --- I think I'm entitled to.
 
-        // --  * You want answers? *
+         --  * You want answers? *
 
-        // --- * I want the truth! *
+         --- * I want the truth! *
 
-        // --  * You can't handle the truth! *
+         --  * You can't handle the truth! *
         
         * * * * * * * * * * * * * * * * * * * * */
 
@@ -106,7 +95,9 @@ define([
 
     AppController.prototype.startRouter = function() {
 
-        Backbone.history.start();
+        Router.start();
+
+        return this.router;
 
     }
 

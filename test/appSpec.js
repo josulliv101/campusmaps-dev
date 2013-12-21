@@ -1,11 +1,13 @@
 
 define([
 
-  '../scripts/app',
+  '../scripts/app'
 
-  '../scripts/controllers/appController'
+  , '../scripts/controllers/appController'
 
-], function (App, AppController) {
+  , 'eventdispatcher'
+
+], function (App, AppController, EventDispatcher) {
 
   describe('App Tests', function () {
 
@@ -16,13 +18,11 @@ define([
       // Fake the router parsing a querystring
       //spyOn(AppController.prototype, 'confirmResizeEvent_');
 
-      app = new App({ el: document.getElementsByTagName('body')[0], vizid: 'leaflet' });
+      app = new App(document.getElementsByTagName('body')[0], { vizid: 'leaflet' });
 
     });
 
     afterEach(function(){
-
-        $(window).unbind('resize');
 
         app = null;
 
@@ -53,65 +53,35 @@ define([
       it('should throw an error if no root dom element', function () {
 
         // Creating a new app will cause error if not stopped
-        Backbone.history.stop();
+        
 
         var el = document.getElementsByTagName('body')[0];
 
-        expect( function() { var a1 = new App(); a1.init(); } ).toThrow();
+        expect( function() { var a1 = new App();  } ).toThrow();
 
-        expect( function() { var a2 = new App({ el: el });  a2.init(); } ).not.toThrow();
+        Backbone.history.stop();
 
-      });
-
-      it('should have an object representing its current truth', function () {
-
-        expect( app.truth ).toBeDefined();
+        expect( function() { var a2 = new App(el, {});  } ).not.toThrow();
 
       });
 
       it('should have the truth object populated from passed-in config settings', function () {
 
-        // At this point the vizid should match the passed-in config vizid
-        //expect( app.truth.get('vizid') ).toBe('leaflet'); 
-
-        // Fake the router parsing a querystring
-        spyOn(app.controller, 'getRouterSettings').andReturn({ vizid: 'googlemap' });
-
         app.init();
 
         waitsFor(function () {
 
-          return app.init === true;
+          return !!app.controller.router.settings;
 
         });
 
         runs(function () {
 
-          // Now the app config settings have been overridden with any router settings
-          expect( app.controller.getTheTruth().get('vizid') ).toBe('googlemap'); 
+          expect( app.controller.getTheTruth().get('vizid') ).toBe('leaflet'); 
 
         });
 
       });
-/* 
-      it('should have the controller load a viz', function () {
-
-        app.init();
-
-        waitsFor(function () {
-
-          return app.init === true;
-
-        });
-
-        runs(function () {
-
-          // Only go this far since the handled event is debounced
-          expect( AppController.prototype.confirmResizeEvent_ ).toHaveBeenCalled();
-
-        });
-
-      });*/
 
     });
 

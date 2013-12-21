@@ -5,90 +5,46 @@ define([
 
     , 'scripts/controllers/appController'
 
-    , 'datastore'
-
-    , 'scripts/viewManager'
+    , 'scripts/domManager'
 
     , 'eventdispatcher'
 
-], function($, AppController, Datastore, ViewManager, EventDispatcher) {
+], function($, AppController, DomManager, EventDispatcher) {
 
     'use strict';
 
-    var theSettings, attrs; // Shortcut to the Truth attributes
+    var theSettings;
 
-    function App(settings) {
+    function App(el, settings) {
 
-        if (!settings || !settings.el) throw new Error('A root DOM element is required.');
-
-        this.settings = settings;
+        if (!el || !el.nodeType) throw new Error('A root DOM element is required.');
 
         theSettings = settings;
 
-        this.viewManager = new ViewManager(settings.el);
+        DomManager.setAppRoot(el);
 
-        this.controller = new AppController(settings.el, this.viewManager);
-
-        // The application's definitive state of being. Everything is always built off the truth.
-        this.truth = this.viewManager.modelFactory();
-
-        // Set shortcut
-        attrs = this.truth.attributes;
+        this.controller = new AppController();
 
     }
     
     // A manual init call makes for nice insertion point for spies when testing
     App.prototype.init = function() {
 
-        var controller = this.controller, 
-
-            settings = this.settings, 
-
-            truth = this.truth, 
-
-            app = this;
-
+        var controller = this.controller;
 
         controller.init();
-
-        this.viewManager.init();
-
-
-
 
         // Controller has reference to a Data Service module that defines how to fetch data.
         $.when( controller.getData() )
 
          .done(function(data) { 
 
-            var model;
-
             // Parses the current route into settings
-            controller.startRouter();
+            var router = controller.startRouter();
 
-            theSettings = model = _.extend(settings, controller.getRouterSettings());
-
-            // Update the datastore with the truth
-            Datastore.campus(theSettings.campusid, { id: 'campusid', select: true });
-
-            console.log('Datastore', Datastore.campus());
-
-
-
-            // Trigger a resize event to kick things off. Doing it this way (instead of directly calling the controller's loadViz method) 
-            // to make sure the app's initial  root DOM px width gets captured by resize handler (see AppController.prototype.confirmResizeEvent_)
-            //$(window).trigger('resize');
-
-            console.log('model', model, theSettings);
-
-            //truth.set( model );
+            _.extend(theSettings, router.settings);
 
             EventDispatcher.trigger('truthupdate', theSettings);
-
-            console.log('truth', truth);
-
-            // Helpful when testing
-            app.init = true;
 
          })
 

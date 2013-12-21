@@ -1,12 +1,22 @@
 define([
 
-], function() {
+    'scripts/DomManager'
+
+    , 'scripts/moduleManager'
+
+    , 'datastore'
+
+    , 'eventdispatcher'
+
+], function(DomManager, ModuleManager, Datastore, EventDispatcher) {
 
     'use strict';
 
     function AppControllerEventHandlers(AppController, controller) {
 
-        console.log('controller arg', controller);
+        console.log('DomManager!!', DomManager);
+
+        var $root = DomManager.$root;
 
         AppControllerEventHandlers.prototype.getHandlers = function() {
 
@@ -19,7 +29,9 @@ define([
 
                 controller.handleAttrFullscreen,
 
-                controller.handleAttrChange3
+                controller.handleAttrCampusId,
+
+                controller.handleResize
 
             ];
 
@@ -27,14 +39,11 @@ define([
 
         AppController.prototype.handleAttrFullscreen = function(model, val, key) {
 
-            var prefix = 'map-',
-
-                $root = this.viewManager.$root;
+            var prefix = 'map-';
 
             if (key !== 'fullscreen') return;
 
             console.log('handleAttrFullscreen');
-
 
             $root.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
 
@@ -54,7 +63,7 @@ define([
 
             }); 
 
-            this.viewManager.addCssFlagToHtmlTag(prefix + key);
+            DomManager.cssFlag(prefix + key, { el: 'html' });
 
             return true;
 
@@ -76,7 +85,7 @@ define([
 
             AppController.prototype.loadViz.call(null, val);
             
-            this.viewManager.addCssFlag(prefix + val);
+            DomManager.cssFlag(prefix + val);
 
             return true;
 
@@ -84,29 +93,44 @@ define([
 
         AppController.prototype.handleAttrStreetview = function(model, val, key) {
 
-            var fn, vm = this.viewManager;
-
             if (key !== 'streetview') return;
 
             console.log('...handleAttrStreetview', model.cid, val, key);
 
-            fn = val === true ? vm.addCssFlag : vm.removeCssFlag;
-
-            fn.call(vm, key);
+            DomManager.cssFlag(key, { remove: val });
 
             return true;
 
         }
 
-        AppController.prototype.handleAttrChange3 = function(model, val, key) {
+        AppController.prototype.handleAttrCampusId = function(model, val, key) {
 
-            console.log('...handleAttrChange3', model.cid, val, key);
+            if (key !== 'campusid') return;
+
+            console.log('...handleAttrCampusId', model.cid, val, key);
+
+            Datastore.campus(val, { id: 'campusid', select: true });
 
             return true;
 
         }
 
-        _.bindAll(controller, 'handleVizPathChange', 'handleAttrStreetview', 'handleAttrFullscreen');
+        AppController.prototype.handleResize = function(model, val, key) {
+
+            var path = ModuleManager.getVizPath();
+
+            if (key !== 'resize') return;
+
+            console.log('...handleResize', model.cid, val, key);
+
+            // Reset the resize attr as well
+            if (val === true) EventDispatcher.trigger('truthupdate', { vizpath: path, resize: false });
+
+            return true;
+
+        }
+
+        _.bindAll(controller, 'handleVizPathChange', 'handleAttrStreetview', 'handleAttrFullscreen', 'handleAttrCampusId');
     }
 
     return AppControllerEventHandlers;

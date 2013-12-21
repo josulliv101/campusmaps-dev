@@ -92,9 +92,11 @@ define([
 
     return {
 
-        init: init
+        init: init,
 
-        , settingsUrl: settingsUrl 
+        settingsUrl: settingsUrl,
+
+        start: function() { Backbone.history.start(); }
 
     };
 });

@@ -3,21 +3,17 @@ define([
 
   'jquery',
 
-  '../scripts/domManager'
+  '../scripts/DomManager'
 
 ], function ($, DomManager) {
 
   describe('DomManager Tests', function () {
 
-    var domManager, el;
+    var prototype = Object.getPrototypeOf(DomManager), 
+
+      constructor = prototype.constructor;
 
     beforeEach(function() {
-
-      spyOn(DomManager.prototype, 'handleDomResizeEvent');
-
-      domManager = new DomManager();
-
-      el = document.getElementsByTagName('body')[0];
 
       $('html').removeClass();
 
@@ -27,8 +23,6 @@ define([
 
       $(window).unbind('resize');
 
-      domManager = null;
-
       el = null;
 
     });
@@ -37,27 +31,13 @@ define([
 
       it('should exist', function () {
 
-        expect( domManager ).toBeDefined();
-
-      });
-
-      it('should throw an error if no root dom element is passed to init', function () {
-
-        expect( function() { domManager.init(); } ).toThrow();
-
-      });
-
-      it('should not throw an error if a root dom element is passed to init', function () {
-
-        expect( function() { domManager.init(el); } ).not.toThrow();
+        expect( DomManager ).toBeDefined();
 
       });
 
       it('should have a $root element set', function () {
 
-        domManager.init(el);
-
-        expect( domManager.$root ).toBeDefined();
+        expect( DomManager.$root ).toBeDefined();
 
       });
 
@@ -67,57 +47,49 @@ define([
 
       it('should be able to add a class to the root element', function () {
 
-        domManager.init(el);
+        DomManager.cssFlag('myflag');
 
-        domManager.cssFlag('myflag');
+console.log('DomManager.$root', DomManager.$root);
 
-        expect( domManager.$root ).toHaveClass('myflag');
+        expect( DomManager.$root ).toHaveClass('myflag');
 
       });
 
       it('should be able to add multiple classes to the root element at once', function () {
 
-        domManager.init(el);
+        DomManager.cssFlag('myflagA myflagB');
 
-        domManager.cssFlag('myflagA myflagB');
+        expect( DomManager.$root ).toHaveClass('myflagA');
 
-        expect( domManager.$root ).toHaveClass('myflagA');
-
-        expect( domManager.$root ).toHaveClass('myflagB');
+        expect( DomManager.$root ).toHaveClass('myflagB');
 
       });
 
       it('should be able to remove a class from the root element', function () {
 
-        domManager.init(el);
+        DomManager.$root.addClass('myflag');
 
-        domManager.$root.addClass('myflag');
+        DomManager.cssFlag('myflag', { remove: true });
 
-        domManager.cssFlag('myflag', { remove: true });
-
-        expect( domManager.$root ).not.toHaveClass('myflag');
+        expect( DomManager.$root ).not.toHaveClass('myflag');
 
       });
 
       it('should be able to remove multiple classes from the root element', function () {
 
-        domManager.init(el);
+        DomManager.$root.addClass('myflagA myflagB');
 
-        domManager.$root.addClass('myflagA myflagB');
+        DomManager.cssFlag('myflagA myflagB', { remove: true });
 
-        domManager.cssFlag('myflagA myflagB', { remove: true });
+        expect( DomManager.$root ).not.toHaveClass('myflagA');
 
-        expect( domManager.$root ).not.toHaveClass('myflagA');
-
-        expect( domManager.$root ).not.toHaveClass('myflagB');
+        expect( DomManager.$root ).not.toHaveClass('myflagB');
 
       });
 
       it('should be able to add a class to the <html> tag', function () {
 
-        domManager.init(el);
-
-        domManager.cssFlag('myflag', { el: 'html' });
+        DomManager.cssFlag('myflag', { el: 'html' });
 
         expect( $('html') ).toHaveClass('myflag');
 
@@ -125,11 +97,9 @@ define([
 
       it('should be able to remove a class from the <html> tag', function () {
 
-        domManager.init(el);
-
         $('html').addClass('myflagA myflagB');
 
-        domManager.cssFlag('myflagA', { el: 'html', remove: true });
+        DomManager.cssFlag('myflagA', { el: 'html', remove: true });
 
         console.log('html', $('html'));
 
@@ -143,13 +113,27 @@ define([
 
     describe('Events', function () {
 
+      it('should have a window resize listener', function () {
+
+        var instance = new constructor();
+
+        var events = $._data( window, 'events' );
+ 
+        console.log('window', events['resize']);
+
+        expect( events['resize'] ).toBeDefined();
+
+      });
+
       it('should listen for a resize dom event', function () {
 
-        domManager.init(el);
+        spyOn(prototype, 'handleDomResizeEvent');
+
+        var instance = new constructor();
 
         $(window).trigger('resize');
 
-        expect( DomManager.prototype.handleDomResizeEvent ).toHaveBeenCalled();
+        expect( prototype.handleDomResizeEvent ).toHaveBeenCalled();
 
       });
 
@@ -158,3 +142,16 @@ define([
   });
 
 });
+
+if(!Object.getPrototypeOf) {
+  if(({}).__proto__===Object.prototype&&([]).__proto__===Array.prototype) {
+    Object.getPrototypeOf=function getPrototypeOf(object) {
+      return object.__proto__;
+    };
+  } else {
+    Object.getPrototypeOf=function getPrototypeOf(object) {
+      // May break if the constructor has been changed or removed
+      return object.constructor?object.constructor.prototype:void 0;
+    };
+  }
+}

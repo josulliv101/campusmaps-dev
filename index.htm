@@ -53,14 +53,10 @@
 
 			require(['domReady!', 'app', './scripts/moduleManager'], function (doc, App, ModuleManager) {
 
-			    console.info('The DOM is ready before I happen', doc);
-
 			    // Paths set based on feature detection
 			    ModuleManager.setPathsMap(require);
 
-			    var app = new App({
-
-			    	el: document.getElementById('campusmap'),
+			    var app = new App(document.getElementById('campusmap'), {
 
 		            campusid: 'medford',
 

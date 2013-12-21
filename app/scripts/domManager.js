@@ -10,22 +10,26 @@ define([
 
 ], function ($, _, ModuleManager, EventDispatcher) { 
 
-    function DomManager() {}
+    function DomManager() {
 
-    DomManager.prototype.init = function(el) {
+        _.bindAll(this,  'getRootEl', 'handleDomResizeEvent');
 
-         _.bindAll(this,  'getRootEl', 'handleDomResizeEvent');
+        this.$root = $('body') || $(window);
+
+        this.getElement = _.dispatch(this.getHtmlEl, this.getRootEl);
+
+$(window).unbind('resize');
+        //// DOM Event handlers ////
+        
+        $(window).on('resize', this.handleDomResizeEvent);
+
+    };
+
+    DomManager.prototype.setAppRoot = function(el) {
 
         if (!el || !el.nodeType) throw new Error('A root DOM element is required.');
 
         this.$root = $(el);
-
-        this.getElement = _.dispatch(this.getHtmlEl, this.getRootEl);
-
-
-        //// DOM Event handlers ////
-        
-        $(window).on('resize', this.handleDomResizeEvent);
 
     }
 
@@ -40,7 +44,7 @@ define([
         options.remove !== true ? $el.addClass(name) : $el.removeClass(name);
 
     }
-
+ 
     DomManager.prototype.getRootEl = function(options) {
 
         return this.$root;
@@ -55,23 +59,22 @@ define([
 
     }
 
-    // Defined in init so this keyword behaves
-    DomManager.prototype.getElement = function() {}
-
     DomManager.prototype.handleDomResizeEvent = _.debounce(function(ev, options) {
+
+        console.log('RESIZE');
 
         var path = ModuleManager.getVizPath();
 
-        EventDispatcher.trigger('truthupdate', { vizpath: path });
+        //EventDispatcher.trigger('truthupdate', { vizpath: path });
 
-/*        var width = this.$root.outerWidth();
-
-        options || (options = {});
-
-        if (options.silent !== true) EventDispatcher.trigger('truthupdate', { appwidth: width });*/
+        EventDispatcher.trigger('truthupdate', { resize: true });
 
     }, 500)
 
-    return DomManager;
+    // Defined in init so this keyword behaves
+    DomManager.prototype.getElement = function() {}
+
+    return new DomManager();
+
 
 });

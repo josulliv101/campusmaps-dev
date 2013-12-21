@@ -11,21 +11,17 @@ define([
 
     beforeEach(function() {
 
-      var div = document.createElement('div');
+      //var div = document.createElement('div');
 
-      document.getElementsByTagName('body')[0].appendChild(div);
+      //document.getElementsByTagName('body')[0].appendChild(div);
 
-      controller = new AppController(div);
+      controller = new AppController();
 
       controller.init();
 
     });
 
     afterEach(function(){
-
-        $(window).unbind('resize');
-
-        controller.$root = null;
 
         controller = null;
 
@@ -47,21 +43,11 @@ define([
 
       });
 
-      it('should have a root dom element', function () {
+/*      it('should have a root dom element', function () {
 
         expect( controller.$root ).toBeDefined();
 
-      });
-
-      it('should have a window resize listener', function () {
-
-        var events = $._data( window, 'events' );
- 
-        console.log('window', events['resize']);
-
-        expect( events['resize'] ).toBeDefined();
-
-      });
+      });*/
 
       it('should have a reference to the router', function () {
 
