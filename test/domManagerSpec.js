@@ -9,11 +9,15 @@ define([
 
   describe('DomManager Tests', function () {
 
-    var prototype = Object.getPrototypeOf(DomManager), 
-
-      constructor = prototype.constructor;
+    var dm;
 
     beforeEach(function() {
+
+      spyOn(DomManager.prototype, 'handleDomResizeEventDebounced');
+
+      dm = DomManager.getInstance();
+
+      
 
       $('html').removeClass();
 
@@ -21,7 +25,7 @@ define([
 
     afterEach(function(){
 
-      $(window).unbind('resize');
+      //$(window).unbind('resize');
 
       el = null;
 
@@ -31,13 +35,13 @@ define([
 
       it('should exist', function () {
 
-        expect( DomManager ).toBeDefined();
+        expect( dm ).toBeDefined();
 
       });
 
       it('should have a $root element set', function () {
 
-        expect( DomManager.$root ).toBeDefined();
+        expect( dm.$root ).toBeDefined();
 
       });
 
@@ -47,49 +51,49 @@ define([
 
       it('should be able to add a class to the root element', function () {
 
-        DomManager.cssFlag('myflag');
+        dm.cssFlag('myflag');
 
-console.log('DomManager.$root', DomManager.$root);
+console.log('DomManager.$root', dm.$root);
 
-        expect( DomManager.$root ).toHaveClass('myflag');
+        expect( dm.$root ).toHaveClass('myflag');
 
       });
 
       it('should be able to add multiple classes to the root element at once', function () {
 
-        DomManager.cssFlag('myflagA myflagB');
+        dm.cssFlag('myflagA myflagB');
 
-        expect( DomManager.$root ).toHaveClass('myflagA');
+        expect( dm.$root ).toHaveClass('myflagA');
 
-        expect( DomManager.$root ).toHaveClass('myflagB');
+        expect( dm.$root ).toHaveClass('myflagB');
 
       });
 
       it('should be able to remove a class from the root element', function () {
 
-        DomManager.$root.addClass('myflag');
+        dm.$root.addClass('myflag');
 
-        DomManager.cssFlag('myflag', { remove: true });
+        dm.cssFlag('myflag', { remove: true });
 
-        expect( DomManager.$root ).not.toHaveClass('myflag');
+        expect( dm.$root ).not.toHaveClass('myflag');
 
       });
 
       it('should be able to remove multiple classes from the root element', function () {
 
-        DomManager.$root.addClass('myflagA myflagB');
+        dm.$root.addClass('myflagA myflagB');
 
-        DomManager.cssFlag('myflagA myflagB', { remove: true });
+        dm.cssFlag('myflagA myflagB', { remove: true });
 
-        expect( DomManager.$root ).not.toHaveClass('myflagA');
+        expect( dm.$root ).not.toHaveClass('myflagA');
 
-        expect( DomManager.$root ).not.toHaveClass('myflagB');
+        expect( dm.$root ).not.toHaveClass('myflagB');
 
       });
 
       it('should be able to add a class to the <html> tag', function () {
 
-        DomManager.cssFlag('myflag', { el: 'html' });
+        dm.cssFlag('myflag', { el: 'html' });
 
         expect( $('html') ).toHaveClass('myflag');
 
@@ -99,7 +103,7 @@ console.log('DomManager.$root', DomManager.$root);
 
         $('html').addClass('myflagA myflagB');
 
-        DomManager.cssFlag('myflagA', { el: 'html', remove: true });
+        dm.cssFlag('myflagA', { el: 'html', remove: true });
 
         console.log('html', $('html'));
 
@@ -115,7 +119,7 @@ console.log('DomManager.$root', DomManager.$root);
 
       it('should have a window resize listener', function () {
 
-        var instance = new constructor();
+        //var instance = new constructor();
 
         var events = $._data( window, 'events' );
  
@@ -127,13 +131,21 @@ console.log('DomManager.$root', DomManager.$root);
 
       it('should listen for a resize dom event', function () {
 
-        spyOn(prototype, 'handleDomResizeEvent');
+        
 
-        var instance = new constructor();
+        //var instance = new constructor();
 
         $(window).trigger('resize');
 
-        expect( prototype.handleDomResizeEvent ).toHaveBeenCalled();
+        waits(800);
+
+        runs(function () {
+
+          expect( DomManager.prototype.handleDomResizeEventDebounced ).toHaveBeenCalled();
+
+        });
+
+        
 
       });
 

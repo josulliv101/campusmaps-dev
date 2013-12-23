@@ -14,14 +14,18 @@ define([
 
     function AppControllerEventHandlers(AppController, controller) {
 
-        console.log('DomManager!!', DomManager);
+        var domManager = DomManager.getInstance(),
 
-        var $root = DomManager.$root;
+        $root = domManager.$root;
+
+console.log('DomManager!!', $root);
 
         AppControllerEventHandlers.prototype.getHandlers = function() {
 
             // Order matters, return functions off controller so this keyword remains intact
             return [
+
+                controller.handleAttrViews,
 
                 controller.handleVizPathChange,
 
@@ -63,7 +67,7 @@ define([
 
             }); 
 
-            DomManager.cssFlag(prefix + key, { el: 'html' });
+            domManager.cssFlag(prefix + key, { el: 'html' });
 
             return true;
 
@@ -83,9 +87,11 @@ define([
 
             console.log('...handleVizPathChange', model.cid, val, key);
 
-            AppController.prototype.loadViz.call(null, val);
+            //AppController.prototype.loadViz.call(null, val);
+
+            require([ val ], function (Viz) { Viz.init(); });
             
-            DomManager.cssFlag(prefix + val);
+            domManager.cssFlag(prefix + val);
 
             return true;
 
@@ -97,7 +103,7 @@ define([
 
             console.log('...handleAttrStreetview', model.cid, val, key);
 
-            DomManager.cssFlag(key, { remove: val });
+            domManager.cssFlag(key, { remove: val });
 
             return true;
 
@@ -125,6 +131,28 @@ define([
 
             // Reset the resize attr as well
             if (val === true) EventDispatcher.trigger('truthupdate', { vizpath: path, resize: false });
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrViews = function(model, val, key) {
+
+            //var $root = DomManager.$root;
+
+            if (key !== 'views') return;
+
+            console.log('...handleAttrViews', $root);
+
+            _.each(val, function(ViewConstructor) {
+
+                var view = new ViewConstructor({ el: $root, model: Datastore.Factory.model() });
+
+                view.render().$el.appendTo($root);
+
+                console.log('handleAttrViews', view.$el);
+
+            });
 
             return true;
 

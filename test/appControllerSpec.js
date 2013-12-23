@@ -14,9 +14,13 @@ define([
       //var div = document.createElement('div');
 
       //document.getElementsByTagName('body')[0].appendChild(div);
+      
+
 
       controller = new AppController();
 
+      spyOn(controller, 'attrChangeDispatch');
+      
       controller.init();
 
     });
@@ -52,12 +56,6 @@ define([
       it('should have a reference to the router', function () {
 
         expect(controller.router).toBeDefined();
-
-      });
-
-      it('should have a loadViz method', function () {
-
-        expect(AppController.prototype.loadViz).toBeDefined();
 
       });
 

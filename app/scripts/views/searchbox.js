@@ -45,7 +45,7 @@ define([
 
         render: function() {
 
-            this.$el.html(this.template({
+            this.$el.append(this.template({
 
                 placeholder: 'Search this Campus'
 

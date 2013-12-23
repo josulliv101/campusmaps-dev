@@ -51,7 +51,7 @@
 		// data-main="app/main" is loaded async, so make sure it's available
 		require(['main'], function() {
 
-			require(['domReady!', 'app', './scripts/moduleManager'], function (doc, App, ModuleManager) {
+			require(['domReady!', 'app', './scripts/moduleManager', './scripts/views/searchbox'], function (doc, App, ModuleManager, SearchboxView) {
 
 			    // Paths set based on feature detection
 			    ModuleManager.setPathsMap(require);
@@ -64,7 +64,10 @@
 
 		            latlng: null,
 
-		            locations: []
+		            locations: [],
+
+		            // App-wide views, only rendered once & done
+		            views: [SearchboxView]
 
 		        });
 

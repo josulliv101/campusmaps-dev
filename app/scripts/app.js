@@ -7,9 +7,7 @@ define([
 
     , 'scripts/domManager'
 
-    , 'eventdispatcher'
-
-], function($, AppController, DomManager, EventDispatcher) {
+], function($, AppController, DomManager) {
 
     'use strict';
 
@@ -21,7 +19,7 @@ define([
 
         theSettings = settings;
 
-        DomManager.setAppRoot(el);
+        DomManager.getInstance().setAppRoot(el);
 
         this.controller = new AppController();
 
@@ -44,7 +42,7 @@ define([
 
             _.extend(theSettings, router.settings);
 
-            EventDispatcher.trigger('truthupdate', theSettings);
+            controller.setTheTruth(theSettings);
 
          })
 

@@ -10,7 +10,16 @@ define([
 
 ], function ($, _, ModuleManager, EventDispatcher) { 
 
+    var instance = null;
+
+
     function DomManager() {
+
+        if (instance !== null) {
+
+            throw new Error("Cannot instantiate more than one MySingleton, use MySingleton.getInstance()");
+        
+        }
 
         _.bindAll(this,  'getRootEl', 'handleDomResizeEvent');
 
@@ -19,10 +28,26 @@ define([
         this.getElement = _.dispatch(this.getHtmlEl, this.getRootEl);
 
 $(window).unbind('resize');
-        //// DOM Event handlers ////
-        
-        $(window).on('resize', this.handleDomResizeEvent);
 
+
+console.log('DomManager', this.$root);
+
+    };
+
+    DomManager.getInstance = function() {
+
+        if (instance === null) {
+
+            instance = new DomManager();
+
+            alert('instance');
+            //// DOM Event handlers ////
+            
+            $(window).on('resize', instance.handleDomResizeEventDebounced);
+
+        }
+
+        return instance;
     };
 
     DomManager.prototype.setAppRoot = function(el) {
@@ -30,6 +55,8 @@ $(window).unbind('resize');
         if (!el || !el.nodeType) throw new Error('A root DOM element is required.');
 
         this.$root = $(el);
+
+console.log('DomManager::setAppRoot', this.$root);
 
     }
 
@@ -59,7 +86,7 @@ $(window).unbind('resize');
 
     }
 
-    DomManager.prototype.handleDomResizeEvent = _.debounce(function(ev, options) {
+    DomManager.prototype.handleDomResizeEvent = function(ev, options) {
 
         console.log('RESIZE');
 
@@ -69,12 +96,14 @@ $(window).unbind('resize');
 
         EventDispatcher.trigger('truthupdate', { resize: true });
 
-    }, 500)
+    };
+
+    DomManager.prototype.handleDomResizeEventDebounced = _.debounce(DomManager.prototype.handleDomResizeEvent, 500);
 
     // Defined in init so this keyword behaves
     DomManager.prototype.getElement = function() {}
 
-    return new DomManager();
+    return DomManager;
 
 
 });
