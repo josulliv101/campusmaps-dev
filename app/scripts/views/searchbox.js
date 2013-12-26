@@ -51,7 +51,7 @@ define([
 
             }));
 
-            this.$panels = $('<div/>').attr({ id: 'panels', role: 'complementary' }).appendTo(this.$el);
+            this.$panels = $('<div/>').attr({ id: 'panels', role: 'complementary' }).appendTo(this.$('#ui-search'));
 
             console.log('SearchboxView::init', this.$el, this.$panels);
 

@@ -55,6 +55,8 @@ define([
 
     App.prototype.setRootElement = function(el) {
 
+        console.log('App::setRootElement', el);
+
         DomManager.getInstance().setAppRoot(el);
 
     }

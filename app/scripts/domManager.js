@@ -57,8 +57,8 @@ define([
 
         this.$root = $(el);
 
-console.log('DomManager::setAppRoot', this.$root);
-//debugger;
+        console.log('dom root', this.$root);
+
     }
 
     DomManager.prototype.cssFlag = function (name, options) {

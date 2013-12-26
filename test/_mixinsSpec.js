@@ -1,6 +1,3 @@
-/*global describe, it, beforeEach
- */
-
 define(['_mixins', 'backbone'], function (_, Backbone) {
 
   describe('_mixins Utility Tests', function () {

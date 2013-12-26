@@ -61,7 +61,11 @@ define([
     // Always use 'set' to update the model's truth. This ensures that the changedAttributes method is always accurate.
     AppController.prototype.handleTruthChange = function(model, options) { 
 
-        console.log('handleTruthChange', model.changedAttributes(), options);
+        var changed = model.changedAttributes();
+
+        console.log('handleTruthChange', changed, options);
+
+        if (_.isEmpty(changed)) return;
 
         // Handle each changed attribute in the most appropriate manner, determined by dispatch function
         _.each(model.changedAttributes(), function(val, key) { this.attrChangeDispatch(model, val, key); }, this);

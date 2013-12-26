@@ -9,13 +9,9 @@ define([
 
   describe('DomManager Tests', function () {
 
-  	
-
   	var dm, events;
 
     beforeEach(function() {
-
-    	
 
 		dm = DomManager.getInstance();
 

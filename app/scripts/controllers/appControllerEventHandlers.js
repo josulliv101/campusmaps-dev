@@ -1,6 +1,6 @@
 define([
 
-    'scripts/DomManager'
+    'scripts/domManager'
 
     , 'scripts/moduleManager'
 
