@@ -26,7 +26,7 @@ var map;
 
             zoom = campus.get('zoom'),
 
-            latlng = _.latLng(campus.get('latlng')),
+            latlng = _.latLng(_.isString(Datastore.latlng) ? Datastore.latlng : campus.get('latlng')),
 
             el = document.getElementById('map-canvas');
 

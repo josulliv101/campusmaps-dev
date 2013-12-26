@@ -27,6 +27,8 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrCmd,
 
+                controller.handleAttrLatLng,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrStreetview,
@@ -146,6 +148,18 @@ console.log('DomManager!!', $root);
 
             // let the searchbox controller handle it
             EventDispatcher.trigger('cmd', val);
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrLatLng = function(model, val, key) {
+
+            if (key !== 'latlng') return;
+
+            console.log('...handleAttrLatLng', model.cid, val, key);
+
+            Datastore.latlng = val;
 
             return true;
 

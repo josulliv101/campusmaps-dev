@@ -21,15 +21,13 @@ define([
     
     var gMap;
 
-    function init_() {
-
-        
+    function init_() {    
         
         var campus = Datastore.campus(),
 
             zoom = campus.get('zoom'),
 
-            latlng = _.latLng(campus.get('latlng')),
+            latlng = _.latLng(_.isString(Datastore.latlng) ? Datastore.latlng : campus.get('latlng')),
 
             el = document.getElementById('map-canvas');
 
@@ -85,6 +83,12 @@ define([
 
             $("#map-canvas a").attr('tabindex', -1);
 
+
+        });
+
+        google.maps.event.addListener(gMap, 'dragend', function(ev) {
+
+            EventDispatcher.trigger('truthupdate', { latlng: gMap.getCenter().toUrlValue() });
 
         });
 
