@@ -31,9 +31,7 @@ define([
     // A manual init call makes for nice insertion point for spies when testing
     App.prototype.init = function() {
 
-        var controller = this.controller;
-
-        controller.init();
+        var controller = this.controller.init();
 
         // Controller has reference to a Data Service module that defines how to fetch data.
         $.when( controller.getData() )

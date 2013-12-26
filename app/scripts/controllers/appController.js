@@ -42,6 +42,8 @@ define([
         // Handle any Truth changes appropriately
         EventDispatcher.listenTo(theTruth, 'change', this.handleTruthChange);
 
+        return this;
+
     }
 
     AppController.prototype.getData = function() {
