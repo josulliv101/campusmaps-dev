@@ -51,27 +51,15 @@
 		// data-main="app/main" is loaded async, so make sure it's available
 		require(['main'], function() {
 
-			require(['domReady!', 'app', './scripts/moduleManager', './scripts/views/searchbox'], function (doc, App, ModuleManager, SearchboxView) {
+			require(['domReady!', './scripts/widgets/widgets'], function (doc, Widgets) {
 
-			    // Paths set based on feature detection
-			    ModuleManager.setPathsMap(require);
+				var el = document.getElementById('campusmap');
 
-			    var app = new App(document.getElementById('campusmap'), {
+				new Widgets.campusmap(el, {
 
-		            campusid: 'medford',
+            		campusid: 'medford'
 
-		            vizpath: ModuleManager.getVizPath(),
-
-		            latlng: null,
-
-		            locations: [],
-
-		            // App-wide views, only rendered once & done
-		            views: [ SearchboxView ]
-
-		        });
-
-		        app.init();
+				});
 
 			});
 

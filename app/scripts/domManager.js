@@ -51,6 +51,14 @@ define([
         return instance;
     };
 
+    
+
+    DomManager.prototype.render = function(el, view) {
+
+        view.render().$el.appendTo(el);
+
+    }
+
     DomManager.prototype.setAppRoot = function(el) {
 
         if (!el || !el.nodeType) throw new Error('A root DOM element is required.');

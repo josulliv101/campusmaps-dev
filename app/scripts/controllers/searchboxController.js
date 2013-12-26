@@ -148,7 +148,7 @@ define([
 
     SearchboxController.prototype.doView = function(Constructor, viewid, position) {
 
-        console.log('doView', Constructor.id);
+        console.log('doView', Constructor, viewid, position);
 
         var panel = this.view.getPanel(viewid, Constructor, position),
 
@@ -174,6 +174,8 @@ define([
         if (!_.isObject(constructors)) return;
 
         _.each(constructors, function(val, key) {
+
+            console.log('panel', val, key);
 
             this.doView(val, key, i++);
 
