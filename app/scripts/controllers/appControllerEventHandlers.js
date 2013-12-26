@@ -25,8 +25,6 @@ console.log('DomManager!!', $root);
             // Order matters, return functions off controller so this keyword remains intact
             return [
 
-                controller.handleAttrViews,
-
                 controller.handleVizPathChange,
 
                 controller.handleAttrStreetview,
@@ -131,28 +129,6 @@ console.log('DomManager!!', $root);
 
             // Reset the resize attr as well
             if (val === true) EventDispatcher.trigger('truthupdate', { vizpath: path, resize: false });
-
-            return true;
-
-        }
-
-        AppController.prototype.handleAttrViews = function(model, val, key) {
-
-            //var $root = DomManager.$root;
-
-            if (key !== 'views') return;
-
-            console.log('...handleAttrViews', $root);
-
-            _.each(val, function(ViewConstructor) {
-
-                var view = new ViewConstructor({ el: $root, model: Datastore.Factory.model() });
-
-                view.render().$el.appendTo($root);
-
-                console.log('handleAttrViews', view.$el);
-
-            });
 
             return true;
 

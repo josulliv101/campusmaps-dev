@@ -4,6 +4,8 @@
 
     require.config({
 
+        catchError: true,
+
         shim: {
 
             jquery: {

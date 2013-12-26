@@ -43,48 +43,48 @@ define([
         // Handle when the Event Dispatcher triggers a cmd
         EventDispatcher.on('cmd', this.handleCommand, this);
 
-        // Pass off any cmds from DOM elements to the Event Dispatcher
-        $('body').on('click', '[data-cmd]', function(ev) {
-
-            console.log('data-cmd', ev);
-
-            // In case the element happens to be a link
-            ev.preventDefault();
-
-            EventDispatcher.trigger('cmd', $(this).data('cmd'));
-
-        });
-
     }
 
     SearchboxController.prototype.handleCommand = function(cmds, options) {
 
-        var fnForceClosePanels, deferreds = [this.loadViews(cmds)], AnimationConstructor = this.panelAnimation, 
+        try
+        
+          {
 
-            dfdsClose = _.chain(this.view.cache)
+            var fnForceClosePanels, deferreds = [this.loadViews(cmds)], AnimationConstructor = this.panelAnimation, 
 
-                            // Don't close any that are open and need to be
-                            .reject(function(val, key) { return _.contains(this.cmds, key); }, this)
+                dfdsClose = _.chain(this.view.cache)
 
-                            .map(function(val, key) { 
+                                // Don't close any that are open and need to be
+                                .reject(function(val, key) { return _.contains(this.cmds, key); }, this)
 
-                                console.log('closePanels', val, key, this.cmds);
+                                .map(function(val, key) { 
 
-                                var anim = new AnimationConstructor();
-                                
-                                return anim.close(val);
+                                    console.log('closePanels', val, key, this.cmds);
 
-                            }, this)
+                                    var anim = new AnimationConstructor();
+                                    
+                                    return anim.close(val);
 
-                            .value();
+                                }, this)
 
-        options || (options = {});
+                                .value();
 
-        deferreds.concat(dfdsClose);
+            options || (options = {});
 
-        console.log('deferreds', deferreds, (dfdsClose));
+            deferreds.concat(dfdsClose);
 
-        $.when.apply( $,  deferreds.concat(dfdsClose) ).done( this.doCommands );
+            console.log('deferreds', deferreds, (dfdsClose));
+
+            $.when.apply( $,  deferreds.concat(dfdsClose) ).done( this.doCommands );
+
+          } 
+
+          catch(err) {
+
+            alert(err);
+
+          }
 
     };
 

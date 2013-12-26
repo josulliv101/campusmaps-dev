@@ -48,14 +48,29 @@
 	<!-- endbuild -->
 	<script>
 		
-		// data-main="app/main" is loaded async, so make sure it's available
+requirejs.onError = function (err) {
+
+    console.log(err.requireType);
+
+    if (err.requireType === 'timeout') {
+
+        console.log('modules: ' + err.requireModules);
+
+    }
+
+    alert(err);
+
+    throw err;
+};
+
+		// data-main="app/main" is loaded async, make sure it's available
 		require(['main'], function() {
 
 			require(['domReady!', './scripts/widgets/widgets'], function (doc, Widgets) {
 
 				var el = document.getElementById('campusmap');
 
-				new Widgets.campusmap(el, {
+				new Widgets.CampusMap(el, {
 
             		campusid: 'medford'
 
@@ -65,7 +80,17 @@
 
 		});
 
-	</script>	
+	</script>
+
+	<button data-cmd='panelA'>Searchbox View A</button>
+
+	<button data-cmd='panelB'>Searchbox View B</button>
+
+	<button data-cmd='panelA_panelB'>Searchbox View A & B</button>
+
+	<button data-cmd=''>Searchbox View None</button>
+
+	<button data-cmd='error'>Searchbox View Invalid</button>
 	
 </body>
 </html>

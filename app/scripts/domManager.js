@@ -46,6 +46,18 @@ define([
 
             $(window).on('resize', DomManager.prototype.handleDomResizeEventDebounced);
 
+            // Listen for clicks from elements with a 'data'cmd' attribute, and forward to router
+            $('body').on('click', '[data-cmd]', function(ev) {
+
+                console.log('data-cmd', ev);
+
+                // In case the element happens to be a link
+                ev.preventDefault();
+
+                EventDispatcher.trigger('cmd', $(this).data('cmd'));
+
+            });
+
         }
 
         return instance;

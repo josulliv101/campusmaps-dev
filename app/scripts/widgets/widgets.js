@@ -21,7 +21,7 @@ define([
 
     if (require === undefined) return;
 
-    // Paths set based on feature detection
+    // Adjusts some paths based on feature detection
     ModuleManager.setPathsMap(require);
 
     function campusmap_(el, settings) {
@@ -49,7 +49,7 @@ define([
  
     return {
 
-        campusmap: campusmap_
+        CampusMap: campusmap_
 
     };
 
