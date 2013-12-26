@@ -25,6 +25,8 @@ console.log('DomManager!!', $root);
             // Order matters, return functions off controller so this keyword remains intact
             return [
 
+                controller.handleAttrCmd,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrStreetview,
@@ -129,6 +131,19 @@ console.log('DomManager!!', $root);
 
             // Reset the resize attr as well
             if (val === true) EventDispatcher.trigger('truthupdate', { vizpath: path, resize: false });
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrCmd = function(model, val, key) {
+
+            if (key !== 'cmd') return;
+
+            console.log('...handleAttrCmd', model.cid, val, key);
+
+            // let the searchbox controller handle it
+            EventDispatcher.trigger('cmd', val);
 
             return true;
 

@@ -43,6 +43,17 @@ define([
 
             },
 
+            toQueryString: function(truth) {
+
+                return  _.chain(truth)
+
+                         // Watch XSS/urlencode
+                         .map(function(val, key) { return key + '=' + val; })
+
+                         .value().join('&');
+
+            },
+
             getDefaults: function(qs) {
 
                 var defaults, qs = this.processQueryString(qs);

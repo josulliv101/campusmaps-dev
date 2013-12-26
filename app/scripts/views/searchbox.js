@@ -81,7 +81,7 @@ define([
 
             if ($('#panelA').length === 0) {
 
-                EventDispatcher.trigger('cmd', 'panelA');
+                EventDispatcher.trigger('truthupdate', { cmd: 'panelA' });
 
                 return;
 
@@ -89,11 +89,11 @@ define([
 
             if ($('#panelA').css('display') === 'none') 
 
-                EventDispatcher.trigger('cmd', 'panelA');
+                EventDispatcher.trigger('truthupdate', { cmd: 'panelA' });
 
             else 
 
-                EventDispatcher.trigger('cmd', 'panelB');
+                EventDispatcher.trigger('truthupdate', { cmd: 'panelB' });
             
         },
 

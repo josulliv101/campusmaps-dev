@@ -54,7 +54,8 @@ define([
                 // In case the element happens to be a link
                 ev.preventDefault();
 
-                EventDispatcher.trigger('cmd', $(this).data('cmd'));
+                // These will fisrt pass through the App Controller so the Truth can stay up-to-date
+                EventDispatcher.trigger('truthupdate', { cmd: $(this).data('cmd') });
 
             });
 
