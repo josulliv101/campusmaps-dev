@@ -3,11 +3,9 @@ define([
 
   '../scripts/app'
 
-  , '../scripts/controllers/appController'
+  , '../scripts/DomManager'
 
-  , 'eventdispatcher'
-
-], function (App, AppController, EventDispatcher) {
+], function (App, DomManager) {
 
   describe('App Tests', function () {
 
@@ -15,18 +13,23 @@ define([
 
     beforeEach(function() {
 
-      // Fake the router parsing a querystring
-      //spyOn(AppController.prototype, 'confirmResizeEvent_');
+      // Don't want to really start the router
+      spyOn(App.prototype, 'init');
 
-      app = new App(document.getElementsByTagName('body')[0], { vizid: 'leaflet' });
+      spyOn(App.prototype, 'setRootElement');
+
+      // These settings get overridden by any router settings
+      app = new App(document.getElementsByTagName('body')[0], { vizpath: 'leaflet' });
+
+      app.init();
+
+      app.controller = new FakeController();
 
     });
 
     afterEach(function(){
 
         app = null;
-
-        Backbone.history.stop();
 
     });
 
@@ -38,48 +41,47 @@ define([
 
       });
 
-      it('should have an init method', function () {
-
-        expect( app.init ).toBeDefined();
-
-      });
-
       it('should have a controller defined', function () {
 
         expect( app.controller ).toBeDefined();
 
       });
 
-      it('should throw an error if no root dom element', function () {
+    });
 
-        // Creating a new app will cause error if not stopped
-        
+    describe('DOM', function () {
+
+      it('should have the first argument as the root dom element and throw no error', function () {
 
         var el = document.getElementsByTagName('body')[0];
-
-        expect( function() { var a1 = new App();  } ).toThrow();
-
-        Backbone.history.stop();
 
         expect( function() { var a2 = new App(el, {});  } ).not.toThrow();
 
       });
 
-      it('should have the truth object populated from passed-in config settings', function () {
+    });
 
-        app.init();
+    describe('Error Handling', function () {
 
-        waitsFor(function () {
+      it('should throw an error if no root dom element', function () {
 
-          return !!app.controller.router.settings;
+        expect( function() { var a1 = new App();  } ).toThrow();
 
-        });
+      });
 
-        runs(function () {
+    });
 
-          expect( app.controller.getTheTruth().get('vizid') ).toBe('leaflet'); 
+    describe('Functions', function () {
 
-        });
+      it('should set a root DOM el on initialization', function () {
+
+        expect( app.init ).toBeDefined();
+
+      });
+
+      it('should be able to set a root dom element', function () {
+
+        expect( app.setRootElement ).toBeDefined();
 
       });
 
@@ -88,3 +90,13 @@ define([
   });
 
 });
+
+function FakeController() {}
+
+FakeController.prototype.init = function() {}
+
+FakeController.prototype.getData = function() {}
+
+FakeController.prototype.startRouter = function() { return { settings: {}}; }
+
+FakeController.prototype.setTheTruth = function() {}

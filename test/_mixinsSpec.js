@@ -149,7 +149,9 @@ define(['_mixins', 'backbone'], function (_, Backbone) {
         var selectedList;
 
         _.selectItem(models[0]);
+
         _.selectItem(models[2]);
+        
         _.selectItem(models[1]);
 
         expect(_.getSelectedItem(models)).toEqual(models[1]);

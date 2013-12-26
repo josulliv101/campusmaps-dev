@@ -11,15 +11,18 @@ define([
 
     beforeEach(function() {
 
-      //var div = document.createElement('div');
+      spyOn(AppController.prototype, 'init');
 
-      //document.getElementsByTagName('body')[0].appendChild(div);
-      
+      spyOn(AppController.prototype, 'getData');
 
+      spyOn(AppController.prototype, 'setTheTruth');
+
+      spyOn(AppController.prototype, 'handleTruthChange');
+
+      // Return a fake router with some fake settings 
+      spyOn(AppController.prototype, 'startRouter').andReturn({ settings: { campusid: 'grafton', vizpath: 'googlemap' }});
 
       controller = new AppController();
-
-      spyOn(controller, 'attrChangeDispatch');
       
       controller.init();
 
@@ -28,8 +31,6 @@ define([
     afterEach(function(){
 
         controller = null;
-
-        Backbone.history.stop();
 
     });
 
@@ -41,30 +42,34 @@ define([
 
       });
 
-      it('should have an init method', function () {
-
-        expect( controller.init ).toBeDefined();
-
-      });
-
-/*      it('should have a root dom element', function () {
-
-        expect( controller.$root ).toBeDefined();
-
-      });*/
-
       it('should have a reference to the router', function () {
 
         expect(controller.router).toBeDefined();
 
       });
+ 
+    });
 
-      it('should return a deferred object when getData called', function () {
+    describe('Functions', function () {
 
-        //expect( controller.getData().promise ).toBeDefined();
+      it('should have an init method', function () {
+
+        expect( AppController.prototype.init ).toBeDefined();
 
       });
- 
+
+      it('should have a getData method', function () {
+
+        expect( AppController.prototype.getData ).toBeDefined();
+
+      });
+
+      it('should have a startRouter method', function () {
+
+        expect( AppController.prototype.startRouter ).toBeDefined();
+
+      });
+
     });
 
   });

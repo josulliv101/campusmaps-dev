@@ -1,169 +1,103 @@
 
 define([
 
-  'jquery',
+  'jquery'
 
-  '../scripts/DomManager'
+  , '../scripts/DomManager'
 
 ], function ($, DomManager) {
 
   describe('DomManager Tests', function () {
 
-    var dm;
+  	
+
+  	var dm, events;
 
     beforeEach(function() {
 
-      spyOn(DomManager.prototype, 'handleDomResizeEventDebounced');
+    	
 
-      dm = DomManager.getInstance();
+		dm = DomManager.getInstance();
 
-      
+		events = $._data( window, 'events' );
 
-      $('html').removeClass();
+		spyOn(events['resize'][0], 'handler').andCallThrough();
+		
+
+		$('<div></div>').attr('id', 'mydiv').appendTo($('body'));
 
     });
 
     afterEach(function(){
 
-      //$(window).unbind('resize');
-
-      el = null;
+    	$('#mydiv').remove();
 
     });
 
     describe('Basic', function () {
 
-      it('should exist', function () {
+		it('should exist', function () {
 
-        expect( dm ).toBeDefined();
+			expect( $('body').length ).toEqual(1);
 
-      });
+		});
 
-      it('should have a $root element set', function () {
+		it('should get a singleton of the DomManager', function () {
 
-        expect( dm.$root ).toBeDefined();
+        	expect( dm ).toBeDefined();
 
-      });
+        	expect( dm ).toBe(DomManager.getInstance());
 
-    });
+		});
 
-    describe('Adding/Removing Classes', function () {
+		it('should have a default root dom element set', function () {
 
-      it('should be able to add a class to the root element', function () {
+        	expect( dm.$root  ).toBeDefined();
 
-        dm.cssFlag('myflag');
+        	console.log('dm.$root', dm.$root );
 
-console.log('DomManager.$root', dm.$root);
+        	expect( dm.$root[0].nodeType  ).toBeDefined();
 
-        expect( dm.$root ).toHaveClass('myflag');
+        	//expect( dm ).toBe(DomManager.getInstance());
 
-      });
+		});
 
-      it('should be able to add multiple classes to the root element at once', function () {
+		it('should be able to change the root element', function () {
 
-        dm.cssFlag('myflagA myflagB');
+			dm.setAppRoot(document.getElementById('mydiv'));
 
-        expect( dm.$root ).toHaveClass('myflagA');
+        	expect( dm.$root.attr('id')  ).toEqual('mydiv');
 
-        expect( dm.$root ).toHaveClass('myflagB');
-
-      });
-
-      it('should be able to remove a class from the root element', function () {
-
-        dm.$root.addClass('myflag');
-
-        dm.cssFlag('myflag', { remove: true });
-
-        expect( dm.$root ).not.toHaveClass('myflag');
-
-      });
-
-      it('should be able to remove multiple classes from the root element', function () {
-
-        dm.$root.addClass('myflagA myflagB');
-
-        dm.cssFlag('myflagA myflagB', { remove: true });
-
-        expect( dm.$root ).not.toHaveClass('myflagA');
-
-        expect( dm.$root ).not.toHaveClass('myflagB');
-
-      });
-
-      it('should be able to add a class to the <html> tag', function () {
-
-        dm.cssFlag('myflag', { el: 'html' });
-
-        expect( $('html') ).toHaveClass('myflag');
-
-      });
-
-      it('should be able to remove a class from the <html> tag', function () {
-
-        $('html').addClass('myflagA myflagB');
-
-        dm.cssFlag('myflagA', { el: 'html', remove: true });
-
-        console.log('html', $('html'));
-
-        expect( $('html').hasClass('myflagA') ).toBe(false);
-
-        expect( $('html').hasClass('myflagB') ).toBe(true);
-
-      });
+		});
 
     });
+
 
     describe('Events', function () {
 
-      it('should have a window resize listener', function () {
+		it('should have a window resize listener', function () {
 
-        //var instance = new constructor();
+			var events = $._data( window, 'events' );
 
-        var events = $._data( window, 'events' );
- 
-        console.log('window', events['resize']);
+			console.log('window', events['resize']);
 
-        expect( events['resize'] ).toBeDefined();
+			expect( events['resize'] ).toBeDefined();
 
-      });
+		});
 
-      it('should listen for a resize dom event', function () {
+		it('should listen for a resize dom event', function () {
 
-        
+			$(window).trigger('resize');
 
-        //var instance = new constructor();
+			events = $._data( window, 'events' );
 
-        $(window).trigger('resize');
+			expect( events['resize'][0].handler ).toHaveBeenCalled();
 
-        waits(800);
+		});
 
-        runs(function () {
-
-          expect( DomManager.prototype.handleDomResizeEventDebounced ).toHaveBeenCalled();
-
-        });
-
-        
-
-      });
-
-    })
+	});
 
   });
 
 });
 
-if(!Object.getPrototypeOf) {
-  if(({}).__proto__===Object.prototype&&([]).__proto__===Array.prototype) {
-    Object.getPrototypeOf=function getPrototypeOf(object) {
-      return object.__proto__;
-    };
-  } else {
-    Object.getPrototypeOf=function getPrototypeOf(object) {
-      // May break if the constructor has been changed or removed
-      return object.constructor?object.constructor.prototype:void 0;
-    };
-  }
-}

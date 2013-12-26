@@ -11,15 +11,18 @@ define([
 
     'use strict';
 
-    var theSettings;
+
+    var theSettings, 
+
+        fnError = function() { throw new Error('Error initializing App.')};
+
 
     function App(el, settings) {
 
-        if (!el || !el.nodeType) throw new Error('A root DOM element is required.');
+        // A root DOM element is required
+        el && el.nodeType ?  this.setRootElement(el) : fnError();
 
         theSettings = settings;
-
-        DomManager.getInstance().setAppRoot(el);
 
         this.controller = new AppController();
 
@@ -46,11 +49,13 @@ define([
 
          })
 
-         .fail(function() {
+         .fail(fnError);
 
-            throw new Error('Error fetching data.');
-            
-         });
+    }
+
+    App.prototype.setRootElement = function(el) {
+
+        DomManager.getInstance().setAppRoot(el);
 
     }
  

@@ -12,7 +12,6 @@ define([
 
     var instance = null;
 
-
     function DomManager() {
 
         if (instance !== null) {
@@ -21,16 +20,15 @@ define([
         
         }
 
-        _.bindAll(this,  'getRootEl', 'handleDomResizeEvent');
+        _.bindAll(this,  'getRootEl', 'handleDomResizeEvent', 'handleDomResizeEventDebounced');
 
         this.$root = $('body') || $(window);
 
         this.getElement = _.dispatch(this.getHtmlEl, this.getRootEl);
 
-$(window).unbind('resize');
+        //$(window).unbind('resize');
 
-
-console.log('DomManager', this.$root);
+        console.log('DomManager', this.$root);
 
     };
 
@@ -40,10 +38,13 @@ console.log('DomManager', this.$root);
 
             instance = new DomManager();
 
-            alert('instance');
             //// DOM Event handlers ////
-            
-            $(window).on('resize', instance.handleDomResizeEventDebounced);
+
+            console.log('!!!', DomManager.prototype);
+
+            //instance.handleDomResizeEventDebounced = function(){};
+
+            $(window).on('resize', DomManager.prototype.handleDomResizeEventDebounced);
 
         }
 
@@ -57,7 +58,7 @@ console.log('DomManager', this.$root);
         this.$root = $(el);
 
 console.log('DomManager::setAppRoot', this.$root);
-
+//debugger;
     }
 
     DomManager.prototype.cssFlag = function (name, options) {
@@ -104,6 +105,5 @@ console.log('DomManager::setAppRoot', this.$root);
     DomManager.prototype.getElement = function() {}
 
     return DomManager;
-
 
 });

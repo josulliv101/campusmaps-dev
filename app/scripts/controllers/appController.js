@@ -58,12 +58,6 @@ define([
 
     }
 
-    AppController.prototype.getTheTruth = function() {
-
-        return theTruth;
-
-    }
-
     // Always use 'set' to update the model's truth. This ensures that the changedAttributes method is always accurate.
     AppController.prototype.handleTruthChange = function(model, options) { 
 
