@@ -47,15 +47,21 @@ define([
             $(window).on('resize', DomManager.prototype.handleDomResizeEventDebounced);
 
             // Listen for clicks from elements with a 'data'cmd' attribute, and forward to router
-            $('body').on('click', '[data-cmd]', function(ev) {
+            $('body').on('click', '[data-campusmap]', function(ev) {
 
-                console.log('data-cmd', ev);
+                var attr = $(this).data('campusmap').split(':'), setting = {};
+
+                console.log('data-campusmap', ev);
+
+                if (attr.length !== 2) return;
+
+                setting[attr[0]] = attr[1];
 
                 // In case the element happens to be a link
                 ev.preventDefault();
 
                 // These will fisrt pass through the App Controller so the Truth can stay up-to-date
-                EventDispatcher.trigger('truthupdate', { cmd: $(this).data('cmd') });
+                EventDispatcher.trigger('truthupdate', setting);
 
             });
 
@@ -91,6 +97,18 @@ define([
         $el = this.getElement(options);
 
         options.remove !== true ? $el.addClass(name) : $el.removeClass(name);
+
+    }
+
+    DomManager.prototype.clearFlags = function (options) {
+
+        var $el;
+
+        options || (options = {});
+
+        $el = this.getElement(options);
+
+        $el.removeClass();
 
     }
  

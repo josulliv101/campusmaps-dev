@@ -14,8 +14,9 @@ define([
     'use strict';
 
     // L object is now available
+var map;
 
-    var createMap = _.once(createMap_), isInit = false, map;
+    //var createMap = _.once(createMap_), isInit = false, map;
 
     function init_(map) {
 
@@ -30,21 +31,42 @@ define([
             el = document.getElementById('map-canvas');
 
 
-        if (map) return map.invalidateSize(false);
 
-        createMap(map, el, latlng, zoom);
+       // var p = $('#map-canvas').parent();
+
+       // var e = $('#map-canvas').remove();
+
+       // p.append(e);
+
+        //if (L.map(el)) L.map(el).remove();
+ 
+
+        
+
+
+//L.map(el).remove();
+
+        if (map) map.remove();
+
+        $(el).parent().append($('<div id="map-canvas"/>'));
+
+        $(el).remove();
+        
+ 
+        createMap_(map, document.getElementById('map-canvas'), latlng, zoom);
         
     }
 
     function createMap_(map, el, latlng, zoom) {
 
-        if (isInit) {
 
-            map.invalidateSize(false);
+ 
+        map = new L.Map(el);
 
-        }
 
-        map = L.map(el).setView(latlng, zoom);
+        //map = L.map(el);
+
+        map.setView(latlng, zoom);
         //https://b.tiles.mapbox.com/v3/examples.a3cad6da/13/2411/3078.png
         //http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy
         //https://a.tiles.mapbox.com/v3/examples.bc17bb2a/13/2413/3079.png
@@ -57,8 +79,8 @@ define([
             maxZoom: 19,
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
         }).addTo(map);
-
-        isInit = true;
+/*
+        isInit = true;*/
 
     }
 

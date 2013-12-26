@@ -91,6 +91,8 @@ console.log('DomManager!!', $root);
 
             require([ val ], function (Viz) { Viz.init(); });
             
+            domManager.clearFlags();
+
             domManager.cssFlag(prefix + val);
 
             return true;

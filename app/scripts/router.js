@@ -13,6 +13,8 @@ define([
 
     var settingsUrl,
 
+        urlAttrWhiteList = ['campusid', 'vizpath'],
+
         AppRouter = Backbone.Router.extend({
 
             routes: {
@@ -46,6 +48,8 @@ define([
             toQueryString: function(truth) {
 
                 return  _.chain(truth)
+
+                        //.pick(urlAttrWhiteList)
 
                          // Watch XSS/urlencode
                          .map(function(val, key) { return key + '=' + val; })
