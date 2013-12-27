@@ -29,6 +29,8 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrLatLng,
 
+                controller.handleAttrMapType,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrStreetview,
@@ -79,7 +81,9 @@ console.log('DomManager!!', $root);
 
             var prefix = 'viz-',
 
-                forced = model.attributes['vizpath!'];
+                forced = model.attributes['vizpath!'],
+
+                classname = 'hide-overlay';
 
             if (key !== 'vizpath') return;
 
@@ -97,17 +101,21 @@ console.log('DomManager!!', $root);
 
             domManager.cssFlag(prefix + val);
 
+            domManager.cssFlag(classname, { remove: val !== 'directory' });
+
             return true;
 
         }
 
         AppController.prototype.handleAttrStreetview = function(model, val, key) {
 
+            var classname = 'hide-overlay';
+
             if (key !== 'streetview') return;
 
             console.log('...handleAttrStreetview', model.cid, val, key);
 
-            domManager.cssFlag(key, { remove: val });
+            domManager.cssFlag(classname, { remove: !val });
 
             return true;
 
@@ -160,6 +168,22 @@ console.log('DomManager!!', $root);
             console.log('...handleAttrLatLng', model.cid, val, key);
 
             Datastore.latlng = val;
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrMapType = function(model, val, key) {
+
+            var classname = 'hide-overlay';
+
+            if (key !== 'maptype') return;
+
+            console.log('...handleAttrMapType', model.cid, val, key);
+
+            domManager.cssFlag(classname, { remove: val !== 'satellite' });
+
+            EventDispatcher.trigger('maptype', val);
 
             return true;
 

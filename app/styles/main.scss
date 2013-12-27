@@ -55,20 +55,19 @@ button {
   height: 520px;
   max-width: 890px;
 
-  &.viz-googlemap {
+
     
-    &.streetview {
-      
-      #ui-search {
+  &.hide-overlay {
+    
+    #ui-search {
 
-        /*left: -420px;*/
-        opacity: 0;
-
-      }
+      top: -200px;
+      /*opacity: 0;*/
 
     }
 
   }
+
 
 }
 
@@ -116,8 +115,8 @@ button {
 
   opacity: 1;
 
-  transition: opacity .6s;
-  -webkit-transition: opacity .6s; /* Safari */
+  transition: top .6s;
+  -webkit-transition: top .6s; /* Safari */
 
   transition-delay: 0s;
   -webkit-transition-delay: 0s;

@@ -92,6 +92,16 @@ define([
 
         });
 
+        EventDispatcher.on('maptype', function(maptype) {
+
+            //var maptype = (type === 'satellite' ? google.maps.MapTypeId.SATELLITE : google.maps.MapTypeId.ROADMAP);
+
+            console.log('heard maptype event', maptype);
+
+            gMap.setMapTypeId(maptype);
+
+        });
+
     }
 
 

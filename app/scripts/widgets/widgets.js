@@ -37,7 +37,7 @@ define([
 
             DM.render(root, sbView);
 
-            theSettings = _.extend({ vizpath: vizpath }, settings);
+            theSettings = _.extend({ vizpath: vizpath, maptype: 'roadmap' }, settings);
 
             app = new App(root, theSettings);
 

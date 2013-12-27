@@ -75,12 +75,17 @@ var map;
         //https://a.tiles.mapbox.com/v3/pinterest.map-ho21rkos
         // http://somebits.com:8001/rivers/
         //L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/83612/256/{z}/{x}/{y}.png', {
-        L.tileLayer('http://d.tiles.mapbox.com/v3/examples.a4c252ab/{z}/{x}/{y}.png', {
+ /*       L.tileLayer('http://d.tiles.mapbox.com/v3/examples.a4c252ab/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
         }).addTo(map);
-/*
+
+
         isInit = true;*/
+        L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+        }).addTo(map);
 
     }
 
