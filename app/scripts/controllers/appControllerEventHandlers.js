@@ -4,11 +4,13 @@ define([
 
     , 'scripts/moduleManager'
 
+    , 'scripts/controllers/vizController'
+
     , 'datastore'
 
     , 'eventdispatcher'
 
-], function(DomManager, ModuleManager, Datastore, EventDispatcher) {
+], function(DomManager, ModuleManager, VizController, Datastore, EventDispatcher) {
 
     'use strict';
 
@@ -93,9 +95,23 @@ console.log('DomManager!!', $root);
 
             console.log('...handleVizPathChange', model.cid, val, key);
 
+            if (controller.vizController === undefined) {
+
+                controller.vizController = new VizController();
+
+                controller.vizController.init();
+
+            }
             //AppController.prototype.loadViz.call(null, val);
 
-            require([ val ], function (Viz) { Viz.init(); });
+            require([ val ], function (Viz) { 
+
+                Viz.init();
+
+                // A controller for all viz's is listening
+                EventDispatcher.trigger('change:viz', Viz);
+
+            });
             
             domManager.clearFlags();
 
@@ -127,7 +143,11 @@ console.log('DomManager!!', $root);
 
             console.log('...handleAttrCampusId', model.cid, val, key);
 
+            // Select the campus
             Datastore.campus(val, { id: 'campusid', select: true });
+
+            // Let an views listening know
+            EventDispatcher.trigger('change:campus', Datastore.campus());
 
             return true;
 

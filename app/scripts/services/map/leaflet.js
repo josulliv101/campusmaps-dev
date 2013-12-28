@@ -7,9 +7,11 @@ define([
 
     'datastore',
 
+    'eventdispatcher',
+
     'http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'
 
-], function($, _, Datastore) {
+], function($, _, Datastore, EventDispatcher) {
 
     'use strict';
 
@@ -57,13 +59,27 @@ var map;
         
     }
 
+    function refresh_(latlng) {    
+        
+/*        var campus = Datastore.campus(),
+
+            zoom = campus.get('zoom'),
+
+            latlng = _.latLng(campus.get('latlng'));
+
+console.log('refresh', L.campusmap);*/
+
+        L.campusmap.panTo(new L.LatLng(latlng[0], latlng[1]));
+        
+    }
+
     function createMap_(map, el, latlng, zoom) {
 
 
  
         map = new L.Map(el);
 
-
+L.campusmap = map;
         //map = L.map(el);
 
         map.setView(latlng, zoom);
@@ -75,18 +91,28 @@ var map;
         //https://a.tiles.mapbox.com/v3/pinterest.map-ho21rkos
         // http://somebits.com:8001/rivers/
         //L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/83612/256/{z}/{x}/{y}.png', {
- /*       L.tileLayer('http://d.tiles.mapbox.com/v3/examples.a4c252ab/{z}/{x}/{y}.png', {
+       L.tileLayer('http://d.tiles.mapbox.com/v3/examples.a4c252ab/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
         }).addTo(map);
 
+       map.on('moveend', function(ev) {
 
-        isInit = true;*/
+            var latlng = map.getCenter();
+
+            console.log('leaflet dragend', latlng.lat);
+
+            EventDispatcher.trigger('truthupdate', { latlng: latlng.lat + ',' + latlng.lng });
+
+       });
+
+/* 
+        isInit = true;
         L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
         }).addTo(map);
-
+*/
     }
 
 
@@ -94,7 +120,7 @@ var map;
 
         init: init_,
 
-        refresh: function() {}
+        refresh: refresh_
 
     };
 

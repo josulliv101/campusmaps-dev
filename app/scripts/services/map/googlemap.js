@@ -36,6 +36,20 @@ define([
         
     }
 
+    function refresh_(latlng) {    
+        
+/*        var campus = Datastore.campus(),
+
+            zoom = campus.get('zoom'),
+
+            latlng = _.latLng(campus.get('latlng'));
+
+console.log('refresh', latlng);*/
+
+        gMap.panTo(new google.maps.LatLng(latlng[0], latlng[1]));
+        
+    }
+
     function createMap_(el, latlng, zoom) {
 
         var thePanorama;
@@ -109,7 +123,7 @@ define([
 
         init: init_,
 
-        refresh: function() {}
+        refresh: refresh_
 
     };
 

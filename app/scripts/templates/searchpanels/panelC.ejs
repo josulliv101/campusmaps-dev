@@ -1,5 +1,11 @@
 <div class="shadow panel">
 	<div class="bd">
-		<p><strong>Panel C: </strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		<h3>Campuses</h3> 
+		<ul>
+			<% _.each(campuses, function(campus) { %> 
+			    <li><a href="#" data-campusmap="campusid:<%= campus.campusid %>">${campus.name}</a></li>
+			<% }); %>
+			<% if (campuses === undefined || campuses.length ===0) { %><li>No campuses yet.</li><% } %>
+		</ul>
 	</div>
 </div>
