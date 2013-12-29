@@ -137,14 +137,20 @@ console.log('DomManager!!', $root);
 
         }
 
-        AppController.prototype.handleAttrCampusId = function(model, val, key) {
+        AppController.prototype.handleAttrCampusId = function(theTruth, val, key) {
 
             if (key !== 'campusid') return;
 
-            console.log('...handleAttrCampusId', model.cid, val, key);
+            console.log('...handleAttrCampusId', theTruth, val, key);
 
-            // Select the campus
+            // Make sure Datastore is updated before views get notified of change
             Datastore.campus(val, { id: 'campusid', select: true });
+
+            // The Truth's campus map attr needs to be in step with the campus change
+            //theTruth.set({ mapid: 'medford-main' });
+
+
+            console.log('...handleAttrCampusId (map)', Datastore.map());
 
             // Let an views listening know
             EventDispatcher.trigger('change:campus', Datastore.campus());
@@ -152,6 +158,17 @@ console.log('DomManager!!', $root);
             return true;
 
         }
+
+/*        AppController.prototype.handleAttrMapId = function(theTruth, val, key) {
+
+            if (key !== 'mapid') return;
+
+            console.log('...handleAttrMapId', theTruth, val, key);
+ 
+
+            return true;
+
+        }*/
 
         AppController.prototype.handleResize = function(model, val, key) {
 
@@ -195,12 +212,16 @@ console.log('DomManager!!', $root);
 
         AppController.prototype.handleAttrMapType = function(model, val, key) {
 
-            var classname = 'hide-overlay';
+            var classname = 'hide-overlay', opts = { silent: true };
 
             if (key !== 'maptype') return;
 
-            console.log('...handleAttrMapType', model.cid, val, key);
+            console.log('...handleAttrMapType', model, val, key);
 
+            // Only want this attribute handled when vizpath is googlemap
+            if (model.get('vizpath') !== 'googlemap') return model.set('maptype', model.previous('maptype'), opts);
+
+            // Toggle the hide-overlay class which has a css transition for hide/show
             domManager.cssFlag(classname, { remove: val !== 'satellite' });
 
             EventDispatcher.trigger('maptype', val);

@@ -72,14 +72,14 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       });
 
-      it('should return undefined if none if no map selected and no id passed in even if campus selected', function () {
+      it('should return the default if none if no map selected and no id passed in even if campus selected', function () {
 
         // Select a campus, still no map selected
         Datastore.campus('hij', { select: true });
 
         expect(Datastore.campus().id).toBe('hij');
 
-        expect(Datastore.map()).toBeUndefined();
+        expect(Datastore.map().attributes.mapid).toBe('medford-main');
 
       });
 
@@ -107,17 +107,22 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
         Datastore.campus('abc', { select: true });
 
-        expect(Datastore.map()).toBeUndefined();
-
-        expect(Datastore.map('bosmap', { select: true }).id).toBe('bosmap');
-
+        // Default map
         expect(Datastore.map().id).toBe('bosmap');
 
-        Datastore.campus('hij', { select: true });
+        // Get map for passed in campus
+        expect(Datastore.map( Datastore.campus('hij') ).id).toBe('engmap');
 
-        expect(Datastore.map().id).toBe('engmap');
+        //expect(Datastore.campus('hij').id).toBe('hij');
 
+        // Medford campus should still have engmap selected
+        //expect(Datastore.map( Datastore.campus('hij') ).id).toBe('engmap');
+debugger;
+        //Datastore.campus('hij', { select: true });
+console.log('Datastore.campus()', Datastore.campus('hij') );
+console.log('Datastore.maps()', Datastore.map( Datastore.campus('hij') ));
 
+        //expect(Datastore.map().id).toBe('engmap');
 
       });
 

@@ -44,9 +44,13 @@ define([
 
             function mapsMatchingCampus_(campus) {
 
-                if (_.exists(campus)) {
+                if (_.isObject(campus)) {
 
-                    return _.filter(maps_.models, function(map) { return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
+                    var f = _.filter(maps_.models, function(map) { return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
+
+                    console.log('@matching maps for campus', f);
+
+                    return f;
 
                 }
             }
@@ -67,7 +71,15 @@ define([
 
             }
 
-/*            function selectDefaultMapForCampus_(campus) {
+            function selectFirstCampus_() {
+
+                if (campuses_.models.length === 0) return;
+
+                return _.getItemAt(campuses_.models, 0, { select: true });
+
+            }
+
+            function selectDefaultMapForCampus_(campus) {
 
                 var mapid;
 
@@ -75,9 +87,11 @@ define([
 
                 mapid = campus.get("defaultmap");
 
+console.log('selectDefaultMapForCampus_!!!');
+
                 return _.getItemById(maps_.models, mapid, { id: 'mapid', select: true });
 
-            }*/
+            }
 
             // The Data Interface which every Datastore will implement
             return {
@@ -89,23 +103,27 @@ define([
                     _.partial(_.getItemById, campuses_.models),
 
                     // Return the selected campus if no match found
-                    getSelectedCampus_
+                    getSelectedCampus_,
+
+                    // Return the first in list and select it
+                    selectFirstCampus_
 
                 ),
 
                 // A function to get a map, or if none found the selected one of selected campus is returned
                 map: _.dispatch(
 
-                    // Bind the map models to getItemById so only an id & options need to be passed in
-                    _.wrap(_.getItemById, getItemByIdWrapForMap_),
-
                     // A campus object is passed in
                     _.compose(_.getSelectedItem, mapsMatchingCampus_),
 
-                    // Return the selected map if no match found
-                    _.compose(_.getSelectedItem, mapsMatchingCampus_, getSelectedCampus_)//,
+                    // Bind the map models to getItemById so only an id & options need to be passed in
+                    _.wrap(_.getItemById, getItemByIdWrapForMap_),
 
-                    //_.compose(selectDefaultMapForCampus_, getSelectedCampus_)
+                    // Return the selected map if no match found
+                    _.compose( _.getSelectedItem, mapsMatchingCampus_, getSelectedCampus_),
+
+                    // Return the default map if none selected
+                    _.compose(selectDefaultMapForCampus_, getSelectedCampus_)
 
                 ),
 
