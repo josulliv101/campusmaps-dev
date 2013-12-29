@@ -6,42 +6,66 @@ define([
 
     'backbone',
 
-    'templates'
+    'templates',
 
-], function($, _, Backbone, JST) {
+    'datastore'
+
+], function($, _, Backbone, JST, Datastore) {
 
     'use strict';
 
-    var SearchPanelView = Backbone.View.extend({
+    var path, SearchPanelBaseView;
 
-        events: {
 
-        },
+    path = 'app/scripts/templates/searchpanels/';
 
-        className: '',
+    SearchPanelBaseView = Backbone.View.extend({
 
-        template: JST['app/scripts/templates/searchpanel.ejs'],
+        id: 'base',
 
         initialize: function() {
+
+            _.bindAll(this, 'render');
+
+            if (!this.id) throw new Error('A search panel view requires an id.');
+
+            this.template = JST[SearchPanelBaseView.path(this.id)];
+
+            console.log('Datastore::campuses', Datastore.campuses);
+
+            this.$el.attr({ tabindex: 0, role: 'presentation' }).addClass('panel-container');
 
         },
 
         render: function() {
 
+            var json = this.getJSON();
+
             console.log('searchpanel model', this.model.get);
 
-            this.$el.html(this.template({
+            if (!this.template) return this;
 
+            console.log('datastore json', json);
 
-            }));
-
-            this.$el.attr({ tabindex: 0, role: 'presentation' }).addClass('in-queue');
+            this.$el.html(this.template(json));
 
             return this;
+        },
+
+        refresh: function () {},
+
+        getJSON: function() {
+
+            // Having data wrapper makes tesing for undefined easier in template
+            return { data: {}};
+
         }
 
     });
 
-    return SearchPanelView;
+    SearchPanelBaseView.path = function(template) { return path + template + '.ejs'}
+
+    return SearchPanelBaseView;
 
 });
+

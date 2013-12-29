@@ -1,11 +1,11 @@
 <div class="shadow panel">
 	<div class="bd">
-		<h3>Campuses</h3> 
+		<h3>Campuses ${data.test}</h3> 
 		<ul>
-			<% _.each(campuses, function(campus) { %> 
+			<% _.each(data.campuses, function(campus) { %> 
 			    <li><a href="#" data-campusmap="campusid:<%= campus.campusid %>">${campus.name}</a></li>
 			<% }); %>
-			<% if (campuses === undefined || campuses.length ===0) { %><li>No campuses yet.</li><% } %>
+			<% if (!data.campuses) { %><li>No campuses yet.</li><% } %>
 		</ul>
 	</div>
 </div>

@@ -145,7 +145,7 @@ button {
 
             }
         }
-        .in-queue {
+        .panel-container {
 
             display: none;
             margin-right: 0;
@@ -170,6 +170,15 @@ button {
               /* Specify how to apply style before/after animation*/
               animation-fill-mode: both; 
               -webkit-animation-fill-mode: both; 
+              
+              .active {
+                
+                a {
+                  background: #333;
+                  color: #FFF;                  
+                }
+
+              }
 
               &.slideDown {
 

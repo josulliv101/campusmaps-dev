@@ -124,7 +124,11 @@ define([
 
                 JSON: {
 
-                    campuses: function() { return _.map(campuses_.models, function(model) { return model.toJSON(); }); }
+                    campuses: function() { return _.map(campuses_.models, function(model) { 
+
+                        return _.extend(model.toJSON(), { selected: model.selected }); 
+
+                    }); }
 
                 }
 

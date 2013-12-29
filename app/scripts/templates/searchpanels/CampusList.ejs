@@ -1,0 +1,11 @@
+<div class="shadow panel">
+	<div class="bd">
+		<h3>Campuses ${data.test}</h3> 
+		<ul>
+			<% _.each(data.campuses, function(campus) { %> 
+			    <li id="<%= campus.campusid %>" <% if (campus.selected) { %>class="active"<% } %>><a href="#" data-campusmap="campusid:<%= campus.campusid %>">${campus.name}</a></li>
+			<% }); %>
+			<% if (!data.campuses) { %><li>No campuses yet.</li><% } %>
+		</ul>
+	</div>
+</div>

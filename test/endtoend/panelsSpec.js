@@ -5,7 +5,7 @@ define([
 
   , 'eventdispatcher'
 
-  , 'animation' // animationCSS3 animationBase
+  , 'animationCSS' // animationCSS3 animationBase
 
   , '../../scripts/controllers/searchboxController'
 
@@ -171,14 +171,14 @@ define([
 
       it('should create multiple panels in response to the cmd', function () {
 
-        EventDispatcher.trigger('cmd', 'panelA_panelB_panelC');
+        EventDispatcher.trigger('cmd', 'panelA_panelB_CampusList');
 
         // General panel container created when searchbox view rendered
         expect( view.$('#panels') ).toExist();
 
         waitsFor(function () {
 
-          return isPanelOpen(view, 'panelA') && isPanelOpen(view, 'panelB') && isPanelOpen(view, 'panelC');
+          return isPanelOpen(view, 'panelA') && isPanelOpen(view, 'panelB') && isPanelOpen(view, 'CampusList');
 
         });
 
@@ -188,7 +188,7 @@ define([
 
           expectVisible(view, 'panelB');
 
-          expectVisible(view, 'panelC');
+          expectVisible(view, 'CampusList');
 
         });
         
@@ -213,7 +213,7 @@ define([
 
           waitsFor(function () {
 
-            return isPanelClosed(view, 'panelA') && isPanelOpen(view, 'panelB');
+            return isCampusListlosed(view, 'panelA') && isPanelOpen(view, 'panelB');
 
           });
 
@@ -272,7 +272,7 @@ define([
 
           waitsFor(function () {
 
-            return isPanelClosed(view, 'panelA') && isPanelOpen(view, 'panelB');
+            return isCampusListlosed(view, 'panelA') && isPanelOpen(view, 'panelB');
 
           });
 
@@ -297,7 +297,7 @@ define([
 function expectVisible(view, panelid) {
 
   expect( view.$('#' + panelid) ).toExist();
-  expect( view.$('#' + panelid) ).toHaveClass('in-queue');
+  expect( view.$('#' + panelid) ).toHaveClass('panel-container');
   expect( view.$('#' + panelid) ).toHaveCss({ display: 'block' });
 
 }
@@ -305,7 +305,7 @@ function expectVisible(view, panelid) {
 function expectNotVisible(view, panelid) {
 
   expect( view.$('#' + panelid) ).toExist();
-  expect( view.$('#' + panelid) ).toHaveClass('in-queue');
+  expect( view.$('#' + panelid) ).toHaveClass('panel-container');
   expect( view.$('#' + panelid) ).toHaveCss({ display: 'none' });
 
 }
@@ -316,7 +316,7 @@ function isPanelOpen(view, panelid) {
 
 }
 
-function isPanelClosed(view, panelid) {
+function isCampusListlosed(view, panelid) {
 
   return view.cache[panelid] && view.cache[panelid].model.get('state') === 'close';
 
