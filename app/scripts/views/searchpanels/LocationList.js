@@ -17,8 +17,12 @@ define([
         initialize: function() {
 
             Base.prototype.initialize.call(this);
-1
-            this.listenTo(EventDispatcher, 'change:campus', this.render);
+
+            _.bindAll(this, 'handleOpenPreState');
+
+            this.handleStateChange = _.dispatch(this.handleOpenPreState);
+
+            this.listenTo(this.model, 'change:state', this.handleStateChange);
 
         },
 
@@ -29,12 +33,24 @@ define([
                 json = Datastore.JSON.campus(campus);
 
             _.extend(json, { map: _.find(json.maps, function(map) { return map.selected === true; })});
-            
+
             console.log('LocationList json', campus, json);
 
             return { data: json };
 
-        }
+        },
+
+        handleOpenPreState: function() {
+
+            var state = this.model.get('state');
+
+            if (state !== 'openPre') return;
+
+            this.render();
+
+        },
+
+        handleStateChange: null
 
     });
 
