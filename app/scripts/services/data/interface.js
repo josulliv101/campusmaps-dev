@@ -44,11 +44,23 @@ define([
 
             function mapsMatchingCampus_(campus) {
 
+
+                
+                var maps;                
+
+                if (!campus) return;
+
+                maps = _.getAttr(campus, 'maps');
+
+console.log('@maps', maps);
+
                 if (_.isObject(campus)) {
 
-                    var f = _.filter(maps_.models, function(map) { return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
+                    var f = _.filter(maps, function(map) { 
+console.log('@@', _.getAttr(map, 'campusid'), _.getAttr(campus, 'campusid'));
+                        return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
 
-                    console.log('@matching maps for campus', f);
+                    console.log('@matching maps for campus', campus, f);
 
                     return f;
 
@@ -81,15 +93,17 @@ define([
 
             function selectDefaultMapForCampus_(campus) {
 
-                var mapid;
+                var mapid, maps;
 
                 if (!_.exists(campus)) return;
 
                 mapid = campus.get("defaultmap");
 
-console.log('selectDefaultMapForCampus_!!!');
+                maps = _.getAttr(campus, 'maps');
 
-                return _.getItemById(maps_.models, mapid, { id: 'mapid', select: true });
+console.log('selectDefaultMapForCampus_!!!', mapid, maps);
+
+                return _.getItemById(maps, mapid, { id: 'mapid', select: true });
 
             }
 
@@ -120,7 +134,7 @@ console.log('selectDefaultMapForCampus_!!!');
                     _.wrap(_.getItemById, getItemByIdWrapForMap_),
 
                     // Return the selected map if no match found
-                    _.compose( _.getSelectedItem, mapsMatchingCampus_, getSelectedCampus_),
+                    _.compose( _.getSelectedItem, mapsMatchingCampus_, function(arg) { console.log('arg', arg); return arg;}, getSelectedCampus_),
 
                     // Return the default map if none selected
                     _.compose(selectDefaultMapForCampus_, getSelectedCampus_)

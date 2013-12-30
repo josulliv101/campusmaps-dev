@@ -79,7 +79,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
         expect(Datastore.campus().id).toBe('hij');
 
-        expect(Datastore.map().attributes.mapid).toBe('medford-main');
+        expect(Datastore.map().mapid).toBe('medford-main');
 
       });
 
@@ -92,8 +92,8 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
         expect(Datastore.map('engmap').selected).toBe(true);
 
-        //console.info('test', Datastore.map());
-
+        console.info('test', Datastore.campuses());
+debugger;
         expect(Datastore.map().id).toBe('engmap');
 
       });
@@ -117,7 +117,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
         // Medford campus should still have engmap selected
         //expect(Datastore.map( Datastore.campus('hij') ).id).toBe('engmap');
-debugger;
+
         //Datastore.campus('hij', { select: true });
 console.log('Datastore.campus()', Datastore.campus('hij') );
 console.log('Datastore.maps()', Datastore.map( Datastore.campus('hij') ));
