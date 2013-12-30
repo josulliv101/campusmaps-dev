@@ -4,7 +4,9 @@ define([
 
     , 'searchpanels/base'
 
-], function(Datastore, Base) {
+    , 'eventdispatcher'
+
+], function(Datastore, Base, EventDispatcher) {
 
     'use strict';
 
@@ -12,11 +14,23 @@ define([
 
         id: 'LocationList',
 
+        initialize: function() {
+
+            Base.prototype.initialize.call(this);
+1
+            this.listenTo(EventDispatcher, 'change:campus', this.render);
+
+        },
+
         getJSON: function() {
 
-            var json = { campuses: Datastore.JSON.campuses() };
+            var campus = Datastore.campus(),
 
-            console.log('LocationList', Datastore.campuses());
+                json = Datastore.JSON.campus(campus);
+
+            _.extend(json, { map: _.find(json.maps, function(map) { return map.selected === true; })});
+            
+            console.log('LocationList json', campus, json);
 
             return { data: json };
 

@@ -44,8 +44,6 @@ define([
 
             function mapsMatchingCampus_(campus) {
 
-
-                
                 var maps;                
 
                 if (!campus) return;
@@ -57,7 +55,9 @@ console.log('@maps', maps);
                 if (_.isObject(campus)) {
 
                     var f = _.filter(maps, function(map) { 
+
 console.log('@@', _.getAttr(map, 'campusid'), _.getAttr(campus, 'campusid'));
+
                         return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
 
                     console.log('@matching maps for campus', campus, f);
@@ -65,6 +65,14 @@ console.log('@@', _.getAttr(map, 'campusid'), _.getAttr(campus, 'campusid'));
                     return f;
 
                 }
+            }
+
+            function getCampusMaps_(campus) {
+
+                if (!_.isObject(campus)) return;
+
+                return _.getAttr(campus, 'maps');
+
             }
 
             function getItemByIdWrapForMap_(fn) {
@@ -88,6 +96,16 @@ console.log('@@', _.getAttr(map, 'campusid'), _.getAttr(campus, 'campusid'));
                 if (campuses_.models.length === 0) return;
 
                 return _.getItemAt(campuses_.models, 0, { select: true });
+
+            }
+
+            function selectFirstMap_(campus) {
+
+                var maps = _.getAttr(campus, 'maps');
+
+                if (maps.length === 0) return;
+
+                return _.getItemAt(maps, 0, { select: true });
 
             }
 
@@ -127,26 +145,37 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
                 // A function to get a map, or if none found the selected one of selected campus is returned
                 map: _.dispatch(
 
-                    // A campus object is passed in
-                    _.compose(_.getSelectedItem, mapsMatchingCampus_),
-
                     // Bind the map models to getItemById so only an id & options need to be passed in
-                    _.wrap(_.getItemById, getItemByIdWrapForMap_),
+                    _.wrap(_.getItemById, getItemByIdWrapForMap_, function(arg) { console.log('try map fn 1'); return arg; }),
+
+                    // A campus object is passed in
+                    _.compose(_.getSelectedItem, getCampusMaps_, function(arg) { console.log('try map fn 2'); return arg; }),
 
                     // Return the selected map if no match found
-                    _.compose( _.getSelectedItem, mapsMatchingCampus_, function(arg) { console.log('arg', arg); return arg;}, getSelectedCampus_),
+                    _.compose( _.getSelectedItem, getCampusMaps_, getSelectedCampus_, function(arg) { console.log('try map fn 3'); return arg; }),
 
                     // Return the default map if none selected
-                    _.compose(selectDefaultMapForCampus_, getSelectedCampus_)
+                    _.compose(selectDefaultMapForCampus_, getSelectedCampus_, function(arg) { console.log('try map fn 4'); return arg; }),
+
+                    // If all else fails, just return the first map and select it
+                    _.compose(
+
+                        function(campusmaps) { if (campusmaps && campusmaps.length > 0 ) return _.getItemAt(campusmaps, 0, { select: true }); }, 
+
+                        getCampusMaps_,
+
+                        function(arg) { console.log('try map fn 5'); return arg; }
+
+                    )
 
                 ),
-
-                maps: function() { return maps_; },
 
                 // Each datastore will overwrite this with its own way of fetching data
                 fetch: function() { return campuses_; },
 
-                campuses: function() { return campuses_; },
+                mapList: function() { return maps_; },
+
+                campusList: function() { return campuses_; },
 
                 Factory: {
 
@@ -160,8 +189,66 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                         return _.extend(model.toJSON(), { selected: model.selected }); 
 
-                    }); }
+                    }); },
 
+                    maps: function(campus) { 
+
+                        var maps = getCampusMaps_(campus);
+
+                        return maps;
+                    },
+
+                    map: function(map) { 
+
+                        var locations = map.get('locations');
+
+                        
+
+                        return map;
+                    },
+
+                    campus: function(campus) { 
+
+                        var json = _.extend(campus.toJSON(), { 
+
+                                selected: campus.selected,
+
+                                maps: _.map(campus.get('maps'), function(map) { 
+
+                                    var locList = map.get('locations'),
+
+                                        jsonLocs = _.map(locList, function(loc) { return loc.toJSON()});
+
+                                    console.log('jsonLocs', jsonLocs);
+
+                                    return _.extend(map.toJSON(), { selected: map.selected, locations: jsonLocs }); 
+                                })
+
+                            });
+
+                        return json;
+                    }
+
+                },
+
+                // Exposed for test purposes
+                _: {
+
+                    mapsMatchingCampus: mapsMatchingCampus_,
+
+                    createMapList: createMapList_,
+
+                    getItemByIdWrapForMap: getItemByIdWrapForMap_,
+
+                    getSelectedCampus: getSelectedCampus_,
+
+                    selectFirstCampus: selectFirstCampus_,
+
+                    selectFirstMap: selectFirstMap_,
+
+                    getCampusMaps: getCampusMaps_,
+
+                    selectDefaultMapForCampus: selectDefaultMapForCampus_
                 }
 
             };

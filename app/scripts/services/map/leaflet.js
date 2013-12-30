@@ -32,22 +32,6 @@ var map;
 
             el = document.getElementById('map-canvas');
 
-
-
-       // var p = $('#map-canvas').parent();
-
-       // var e = $('#map-canvas').remove();
-
-       // p.append(e);
-
-        //if (L.map(el)) L.map(el).remove();
- 
-
-        
-
-
-//L.map(el).remove();
-
         if (map) map.remove();
 
         $(el).parent().append($('<div id="map-canvas"/>'));
@@ -60,14 +44,7 @@ var map;
     }
 
     function refresh_(latlng) {    
-        
-/*        var campus = Datastore.campus(),
 
-            zoom = campus.get('zoom'),
-
-            latlng = _.latLng(campus.get('latlng'));
-
-console.log('refresh', L.campusmap);*/
 
         L.campusmap.panTo(new L.LatLng(latlng[0], latlng[1]));
         

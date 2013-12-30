@@ -9,15 +9,39 @@ define([
 
         {
             "campusid": "boston",
-            "id" : "abc",
-            "defaultmap": "boston-main",
+            "id" : "campus-boston",
+            "defaultmap": "boston-main2",
             "latlng": "42.407678,-71.120939",
             "maps": [{
-                "id": "bosmap",
+                "id": "bosmap1",
                 "extendsdata": "",
                 "latlng": "42.407678,-71.120939",
                 "locations": [],
-                "mapid": "boston-main",
+                "mapid": "boston-main1",
+                "campusid": "boston",
+                "name": "Main Boston Campus",
+                "zoom": "18",
+                "objectId": "bostonmap",
+                "__type": "Object",
+                "className": "Map"
+            },{
+                "id": "bosmap2",
+                "extendsdata": "",
+                "latlng": "42.407678,-71.120939",
+                "locations": [],
+                "mapid": "boston-main2",
+                "campusid": "boston",
+                "name": "Main Boston Campus",
+                "zoom": "18",
+                "objectId": "bostonmap",
+                "__type": "Object",
+                "className": "Map"
+            },{
+                "id": "bosmap3",
+                "extendsdata": "",
+                "latlng": "42.407678,-71.120939",
+                "locations": [],
+                "mapid": "boston-main3",
                 "campusid": "boston",
                 "name": "Main Boston Campus",
                 "zoom": "18",
@@ -30,14 +54,14 @@ define([
             "objectId": "4ITKheBPqs"
         }, {
             "campusid": "grafton",
-            "id" : "xyz",
+            "id" : "campus-grafton",
             "latlng": "42.39253,-71.124802",
             "name": "Grafton",
             "zoom": 13,
             "objectId": "Pi8dCQgLvN"
         }, {
             "campusid": "medford",
-            "id" : "hij",
+            "id" : "campus-medford",
             "defaultmap": "medford-main",
             "latlng": "42.405967,-71.117506",
             "maps": [{

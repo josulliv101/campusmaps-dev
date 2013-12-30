@@ -18,9 +18,9 @@ define([
 
         maps_ = new Backbone.Collection(DataInterface.utils.createMapList(campuses_));
 
-    console.log('Data injected::campuses', campuses_.models.length);
+    console.log('Data injected::campuses', campuses_);
 
-    console.log('Data injected::maps', maps_.models.length);
+    console.log('Data injected::maps', maps_);
 
     //// Public ////
     
