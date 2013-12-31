@@ -28,11 +28,25 @@ define([
 
         EventDispatcher.on('change:campus', function(campus) {
 
-        	var latlng = _.latLng(campus.get('latlng'));
+        	var latlng;
+
+            if (!campus) return;
+
+            latlng = _.getAttr(campus, 'latlng'); //_.latLng(campus.get('latlng'));
 
             console.log('VizController heard change campus', campus, latlng);
 
             if (!!viz && !!latlng) viz.refresh(latlng);
+
+        });
+
+        EventDispatcher.on('change:campusmap', function(campusmap) {
+
+            if (!campusmap) return;
+
+            console.log('VizController heard change campusmap', viz, campusmap);
+
+            if (viz) viz.render();
 
         });
 

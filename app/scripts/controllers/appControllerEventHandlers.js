@@ -33,6 +33,8 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrMapType,
 
+                controller.handleAttrCampusMap,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrStreetview,
@@ -159,16 +161,30 @@ console.log('DomManager!!', $root);
 
         }
 
-/*        AppController.prototype.handleAttrMapId = function(theTruth, val, key) {
+        // val can be <String> id or object
+        AppController.prototype.handleAttrCampusMap = function(theTruth, val, key) {
 
-            if (key !== 'mapid') return;
+            var campusmap;
 
-            console.log('...handleAttrMapId', theTruth, val, key);
- 
+            if (key !== 'campusmap') return;
+
+            if (!(_.isObject(val) || _.isString(val))) return;
+
+            // Convert a string id to map object if needed; always update Datastore before app-wide events triggered
+            campusmap = _.isObject(val) ? val : Datastore.map(val, { id: 'mapid', select: true });
+
+            // Select campus map
+            Datastore.map(Datastore.campus(), { id: 'mapid', select: true })
+            
+            console.log('...handleAttrCampusMap', theTruth, val, key);
+
+            console.log('...handleAttrCampusMap campus',  Datastore.campus(), Datastore.map(Datastore.campus()));
+            
+            if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
 
             return true;
 
-        }*/
+        }
 
         AppController.prototype.handleResize = function(model, val, key) {
 

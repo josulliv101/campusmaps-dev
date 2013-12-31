@@ -12,7 +12,7 @@ define([
 
     return Base.extend({
 
-        id: 'LocationList',
+        id: 'CampusMapList',
 
         initialize: function() {
 
@@ -32,14 +32,7 @@ define([
 
                 json = Datastore.JSON.campus(campus);
 
-            _.extend(json, { map: _.find(json.maps, function(map) { return map.selected === true; })});
-
-            // Sort the locations
-            json.map.locations = _.sortBy(json.map.locations, function(loc){ return _.getAttr(loc, 'name'); });
-
-            console.log('LocationList json', campus, json);
-
-            console.log('LocationList maps', Datastore.mapList());
+            console.log('CampusMapList json', campus, json);
 
             return { data: json };
 

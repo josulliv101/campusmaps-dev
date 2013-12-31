@@ -1,0 +1,11 @@
+<div class="shadow panel">
+	<div class="bd">
+		<h3>${data.name} Campus Maps</h3>
+		<ul>
+			<% _.each(data.maps, function(map) { %> 
+			    <li <% if (map.selected) { %>class="active"<% } %>><a href="#<%= map.mapid %>" data-campusmap="campusmap:<%= map.mapid %>,cmd:LocationList">${map.name}</a> (${map.locationTotal})</li>
+			<% }); %>
+			<% if (data.maps.length === 0) { %><li>No maps yet.</li><% } %>
+		</ul>
+	</div>
+</div>

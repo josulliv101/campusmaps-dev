@@ -49,19 +49,15 @@ define([
             // Listen for clicks from elements with a 'data'cmd' attribute, and forward to router
             $('body').on('click', '[data-campusmap]', function(ev) {
 
-                var attr = $(this).data('campusmap').split(':'), setting = {};
+                var data = $(this).data('campusmap');
 
-                console.log('data-campusmap', ev);
-
-                if (attr.length !== 2) return;
-
-                setting[attr[0]] = attr[1];
+                console.log('data-campusmap', _.stringToObject(data));
 
                 // In case the element happens to be a link
                 ev.preventDefault();
 
                 // These will fisrt pass through the App Controller so the Truth can stay up-to-date
-                EventDispatcher.trigger('truthupdate', setting);
+                EventDispatcher.trigger('truthupdate', _.stringToObject(data));
 
             });
 

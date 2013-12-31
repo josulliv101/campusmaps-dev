@@ -52,7 +52,9 @@ define([
             return this;
         },
 
-        refresh: function () {},
+        refresh: function() {},
+
+        handleStateChange: function () {},
 
         getJSON: function() {
 

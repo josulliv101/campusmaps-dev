@@ -236,16 +236,16 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
             map = Datastore.map(campus);
 
+        // This is the default map
         expect(map.id).toBe('bosmap2');
 
-        Datastore.map('bosmap1', { select: true });
+        Datastore.map('bosmap1', { restrictItemsToCampus: true, select: true });
 
         map = Datastore.map(campus);
 
         console.log('@all maps', Datastore.mapList());
 
-
-        //expect(map.id).toBe('bosmap1');
+        expect(map.id).toBe('bosmap1');
 
       });
 
@@ -351,7 +351,6 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
       });
 
     });
-
 
   });
 

@@ -22,7 +22,7 @@ define([
     var gMap;
 
     function init_() {    
-        
+
         var campus = Datastore.campus(),
 
             zoom = campus.get('zoom'),
@@ -37,17 +37,39 @@ define([
     }
 
     function refresh_(latlng) {    
-        
-/*        var campus = Datastore.campus(),
 
-            zoom = campus.get('zoom'),
+        gMap.panTo(getLatLng(latlng));
 
-            latlng = _.latLng(campus.get('latlng'));
+    }
 
-console.log('refresh', latlng);*/
+    function getLatLng(latlng) {
 
-        gMap.panTo(new google.maps.LatLng(latlng[0], latlng[1]));
-        
+        var ll = _.latLng(latlng);
+
+        return new google.maps.LatLng(ll[0], ll[1]);
+
+    }
+
+    function render_() {
+
+        var marker, campus = Datastore.campus(),
+
+            json = Datastore.JSON.campus(campus),
+
+            map = _.find(json.maps, function(map) { return map.selected === true; }),
+
+            latlng = getLatLng(map.latlng);
+
+            if (!latlng) return;
+
+            marker = new google.maps.Marker({
+
+                position: latlng,
+
+                map: gMap
+
+            });
+
     }
 
     function createMap_(el, latlng, zoom) {
@@ -123,7 +145,9 @@ console.log('refresh', latlng);*/
 
         init: init_,
 
-        refresh: refresh_
+        refresh: refresh_,
+
+        render: render_
 
     };
 

@@ -49,7 +49,7 @@ define([
 
                 return  _.chain(truth)
 
-                         .pick(urlAttrWhiteList)
+                         //.pick(urlAttrWhiteList)
 
                          // Watch XSS/urlencode
                          .map(function(val, key) { return key + '=' + val; })

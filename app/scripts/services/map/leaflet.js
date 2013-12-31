@@ -28,7 +28,7 @@ var map;
 
             zoom = campus.get('zoom'),
 
-            latlng = _.latLng(_.isString(Datastore.latlng) ? Datastore.latlng : campus.get('latlng')),
+            latlng = getLatLng(_.isString(Datastore.latlng) ? Datastore.latlng : campus.get('latlng')),
 
             el = document.getElementById('map-canvas');
 
@@ -38,22 +38,44 @@ var map;
 
         $(el).remove();
         
- 
+        L.Icon.Default.imagePath = '/app/images';
+
         createMap_(map, document.getElementById('map-canvas'), latlng, zoom);
         
     }
 
+    function getLatLng(latlng) {
+
+        var ll = _.latLng(latlng);
+
+        return ll; //new L.LatLng(ll[0], ll[1]);
+
+    }
+
     function refresh_(latlng) {    
 
+        var latlng = getLatLng(latlng);
 
-        L.campusmap.panTo(new L.LatLng(latlng[0], latlng[1]));
+        L.campusmap.panTo(latlng);
         
+    }
+
+    function render_() {
+
+        var marker, campus = Datastore.campus(),
+
+            json = Datastore.JSON.campus(campus),
+
+            latlng = getLatLng(json.latlng);
+
+            if (!latlng) return;
+
+            marker = L.marker(latlng).addTo(L.campusmap);
+
     }
 
     function createMap_(map, el, latlng, zoom) {
 
-
- 
         map = new L.Map(el);
 
 L.campusmap = map;
@@ -97,7 +119,9 @@ L.campusmap = map;
 
         init: init_,
 
-        refresh: refresh_
+        refresh: refresh_,
+
+        render: render_
 
     };
 

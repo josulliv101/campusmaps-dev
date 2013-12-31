@@ -2,9 +2,11 @@ define([
 
     '_mixins',
 
-    'backbone'
+    'backbone',
 
-], function(_, Backbone) {
+    'eventdispatcher'
+
+], function(_, Backbone, EventDispatcher) {
 
     'use strict';
 
@@ -50,13 +52,9 @@ define([
 
                 maps = _.getAttr(campus, 'maps');
 
-console.log('@maps', maps);
-
                 if (_.isObject(campus)) {
 
-                    var f = _.filter(maps, function(map) { 
-
-console.log('@@', _.getAttr(map, 'campusid'), _.getAttr(campus, 'campusid'));
+                    var f = _.filter(maps_.models, function(map) { 
 
                         return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
 
@@ -71,7 +69,7 @@ console.log('@@', _.getAttr(map, 'campusid'), _.getAttr(campus, 'campusid'));
 
                 if (!_.isObject(campus)) return;
 
-                return _.getAttr(campus, 'maps');
+                return mapsMatchingCampus_(campus); //_.getAttr(campus, 'maps');
 
             }
 
@@ -120,8 +118,28 @@ console.log('@@', _.getAttr(map, 'campusid'), _.getAttr(campus, 'campusid'));
                 maps = _.getAttr(campus, 'maps');
 
 console.log('selectDefaultMapForCampus_!!!', mapid, maps);
+                
+                EventDispatcher.trigger('truthupdate', { campusmap: mapid });
 
+                // to do: move selection to truth handler
                 return _.getItemById(maps, mapid, { id: 'mapid', select: true });
+
+            }
+
+            function getDefaultMap_(campus) {
+
+                var defaultid, campusmaps, campusmap;
+
+                if (!_.isObject(campus)) return;
+
+                defaultid = campus.get('defaultmap');
+
+                campusmaps = getCampusMaps_(campus);
+
+                campusmap = _.getItemById(campusmaps, defaultid, { id: 'mapid' });
+
+                // Returns both for easy chaining with selectItem method
+                return campusmap;
 
             }
 
@@ -146,25 +164,44 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
                 map: _.dispatch(
 
                     // Bind the map models to getItemById so only an id & options need to be passed in
-                    _.wrap(_.getItemById, getItemByIdWrapForMap_, function(arg) { console.log('try map fn 1'); return arg; }),
+                    _.wrap(_.getItemById, getItemByIdWrapForMap_),
 
-                    // A campus object is passed in
-                    _.compose(_.getSelectedItem, getCampusMaps_, function(arg) { console.log('try map fn 2'); return arg; }),
+                    // A campus object is passed in, and one is selected
+                    _.compose(_.getSelectedItem, getCampusMaps_),
+
+                    // A campus is passed-in
+                    _.compose(
+
+                        _.wrap(_.selectItem, function(fn) { 
+
+                            var args = _.chain(arguments)
+
+                                        .rest()
+
+                                        .cat({ restrictItemsToCampus: true })
+
+                                        .value()
+
+                            return fn.apply(null, args); 
+
+                        }) 
+
+                        , getDefaultMap_
+
+                    ),
 
                     // Return the selected map if no match found
-                    _.compose( _.getSelectedItem, getCampusMaps_, getSelectedCampus_, function(arg) { console.log('try map fn 3'); return arg; }),
+                    _.compose( _.getSelectedItem, getCampusMaps_, getSelectedCampus_),
 
                     // Return the default map if none selected
-                    _.compose(selectDefaultMapForCampus_, getSelectedCampus_, function(arg) { console.log('try map fn 4'); return arg; }),
+                    _.compose(selectDefaultMapForCampus_, getSelectedCampus_),
 
                     // If all else fails, just return the first map and select it
                     _.compose(
 
                         function(campusmaps) { if (campusmaps && campusmaps.length > 0 ) return _.getItemAt(campusmaps, 0, { select: true }); }, 
 
-                        getCampusMaps_,
-
-                        function(arg) { console.log('try map fn 5'); return arg; }
+                        getCampusMaps_
 
                     )
 
@@ -195,7 +232,7 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                         var maps = getCampusMaps_(campus);
 
-                        return maps;
+                        return _.map(maps, function(map) { return map.toJSON(); });
                     },
 
                     map: function(map) { 
@@ -209,19 +246,21 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                     campus: function(campus) { 
 
+
+
                         var json = _.extend(campus.toJSON(), { 
 
                                 selected: campus.selected,
 
-                                maps: _.map(campus.get('maps'), function(map) { 
+                                maps: _.map(maps_.models, function(map) { 
 
-                                    var locList = map.get('locations'),
+                                    var locList = map.get('locations') || { length: 0 },
 
                                         jsonLocs = _.map(locList, function(loc) { return loc.toJSON()});
 
-                                    console.log('jsonLocs', jsonLocs);
+                                    //console.log('jsonLocs', jsonLocs);
 
-                                    return _.extend(map.toJSON(), { selected: map.selected, locations: jsonLocs }); 
+                                    return _.extend(map.toJSON(), { selected: map.selected, locationTotal: locList.length, locations: jsonLocs }); 
                                 })
 
                             });

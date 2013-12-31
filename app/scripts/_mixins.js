@@ -137,7 +137,11 @@ define([
 
         selectItem: function(targetItem, items, options) {
 
-            var coll = targetItem.collection;
+            var coll;
+
+            if (!targetItem) return;
+
+            coll = targetItem.collection;
 
             options || (options = {});
 
@@ -156,6 +160,8 @@ define([
 
             targetItem.selected = true;
 
+            console.log('restrictItemsToCampus selected', targetItem, targetItem.selected);
+
             return targetItem;
 
         },
@@ -165,6 +171,22 @@ define([
             var coords = txtLatLng.replace(/ /g,'').split(",");
 
             return _.map(coords, function(coord) { return parseFloat(coord); });
+        },
+
+        stringToObject: function(txt, delimitPairs, delimitKeyVal) {
+
+            var delimPairs = delimitPairs || ',',
+
+                delimKeyVal = delimitKeyVal || ':';
+
+            return _.chain(txt.split(delimPairs))
+
+                    .map(function(pair) { return pair.split(delimKeyVal); })
+
+                    .object()
+
+                    .value();
+
         }
 
     });
