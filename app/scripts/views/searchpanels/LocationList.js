@@ -18,12 +18,12 @@ define([
 
             Base.prototype.initialize.call(this);
 
-            _.bindAll(this, 'handleOpenPreState');
+  /*          _.bindAll(this, 'handleOpenPreState');
 
             this.handleStateChange = _.dispatch(this.handleOpenPreState);
 
             this.listenTo(this.model, 'change:state', this.handleStateChange);
-
+*/
         },
 
         getJSON: function() {
@@ -34,6 +34,8 @@ define([
 
             _.extend(json, { map: _.find(json.maps, function(map) { return map.selected === true; })});
 
+            if (!json.map || !json.map.locations) return { data: {}};
+
             // Sort the locations
             json.map.locations = _.sortBy(json.map.locations, function(loc){ return _.getAttr(loc, 'name'); });
 
@@ -43,7 +45,7 @@ define([
 
             return { data: json };
 
-        },
+        }/*,
 
         handleOpenPreState: function() {
 
@@ -53,7 +55,7 @@ define([
 
             this.render();
 
-        }
+        }*/
 
     });
 

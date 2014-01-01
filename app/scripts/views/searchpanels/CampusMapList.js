@@ -17,13 +17,13 @@ define([
         initialize: function() {
 
             Base.prototype.initialize.call(this);
-
+/*
             _.bindAll(this, 'handleOpenPreState');
 
             this.handleStateChange = _.dispatch(this.handleOpenPreState);
 
             this.listenTo(this.model, 'change:state', this.handleStateChange);
-
+*/
         },
 
         getJSON: function() {
@@ -36,7 +36,7 @@ define([
 
             return { data: json };
 
-        },
+        }/*,
 
         handleOpenPreState: function() {
 
@@ -46,7 +46,7 @@ define([
 
             this.render();
 
-        }
+        }*/
 
     });
 

@@ -239,7 +239,11 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
         // This is the default map
         expect(map.id).toBe('bosmap2');
 
-        Datastore.map('bosmap1', { restrictItemsToCampus: true, select: true });
+        //Datastore.map('bosmap1', { restrictItemsToCampus: true, select: true });
+
+        Datastore.map('boston-main1', { id: 'mapid', restrictItemsToCampus: true, select: true });
+
+        
 
         map = Datastore.map(campus);
 

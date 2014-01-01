@@ -22,12 +22,6 @@ define([
 
             Base.prototype.initialize.call(this);
 
-            _.bindAll(this, 'handleOpenState', 'handleCloseState', 'handleOpenPreState');
-
-            this.handleStateChange = _.dispatch(this.handleOpenState, this.handleCloseState, this.handleOpenPreState);
-
-            this.listenTo(this.model, 'change:state', this.handleStateChange);
-
         },
 
         getJSON: function() {
@@ -54,15 +48,16 @@ define([
 
         },
 
-        handleOpenPreState: function() {
+       handleOpenPreState: function() {
 
             var state = this.model.get('state');
 
             if (state !== 'openPre') return;
 
-            this.refresh();
+            // Skips refresh the first time -- all should be in order from render
+            if (this.init === true) this.refresh();
 
-        },
+        }/* ,
 
         handleOpenState: function() {
 
@@ -85,7 +80,7 @@ define([
         },
 
         handleStateChange: null
-
+*/
     });
 
 });

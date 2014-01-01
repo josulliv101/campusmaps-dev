@@ -50,7 +50,7 @@ define([
 
                 if (!campus) return;
 
-                maps = _.getAttr(campus, 'maps');
+                maps = campus.get('maps');
 
                 if (_.isObject(campus)) {
 
@@ -232,7 +232,7 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                         var maps = getCampusMaps_(campus);
 
-                        return _.map(maps, function(map) { return map.toJSON(); });
+                        return maps;//_.map(maps, function(map) { return map.toJSON(); });
                     },
 
                     map: function(map) { 
@@ -246,24 +246,26 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                     campus: function(campus) { 
 
+                        var json, campusmaps = campus.get('maps');
 
+console.log('@campusmaps', campus, campusmaps);
 
-                        var json = _.extend(campus.toJSON(), { 
+                        json = _.extend(campus.toJSON(), { 
 
-                                selected: campus.selected,
+                            selected: campus.selected,
 
-                                maps: _.map(maps_.models, function(map) { 
+                            maps: _.map(campusmaps, function(map) { 
 
-                                    var locList = map.get('locations') || { length: 0 },
+                                var locList = map.get('locations') || { length: 0 },
 
-                                        jsonLocs = _.map(locList, function(loc) { return loc.toJSON()});
+                                    jsonLocs = _.map(locList, function(loc) { return loc.toJSON()});
 
-                                    //console.log('jsonLocs', jsonLocs);
+                                //console.log('jsonLocs', jsonLocs);
 
-                                    return _.extend(map.toJSON(), { selected: map.selected, locationTotal: locList.length, locations: jsonLocs }); 
-                                })
+                                return _.extend(map.toJSON(), { selected: map.selected, locationTotal: locList.length, locations: jsonLocs }); 
+                            })
 
-                            });
+                        });
 
                         return json;
                     }

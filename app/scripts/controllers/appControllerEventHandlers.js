@@ -35,13 +35,13 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrCampusMap,
 
+                controller.handleAttrCampusId,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrStreetview,
 
-                controller.handleAttrFullscreen,
-
-                controller.handleAttrCampusId,
+                controller.handleAttrFullscreen,                
 
                 controller.handleResize
 
@@ -95,7 +95,7 @@ console.log('DomManager!!', $root);
             if (forced) val = forced;
 
 
-            console.log('...handleVizPathChange', model.cid, val, key);
+            console.log('...handleVizPathChange', model, val, key);
 
             if (controller.vizController === undefined) {
 
@@ -152,7 +152,7 @@ console.log('DomManager!!', $root);
             //theTruth.set({ mapid: 'medford-main' });
 
 
-            console.log('...handleAttrCampusId (map)', Datastore.map());
+            //console.log('...handleAttrCampusId (map)', Datastore.map());
 
             // Let an views listening know
             EventDispatcher.trigger('change:campus', Datastore.campus());
@@ -171,16 +171,18 @@ console.log('DomManager!!', $root);
             if (!(_.isObject(val) || _.isString(val))) return;
 
             // Convert a string id to map object if needed; always update Datastore before app-wide events triggered
-            campusmap = _.isObject(val) ? val : Datastore.map(val, { id: 'mapid', select: true });
+            //campusmap = _.isObject(val) ? val : Datastore.map(val, { id: 'mapid', select: true, restrictItemsToCampus: true });
 
             // Select campus map
-            Datastore.map(Datastore.campus(), { id: 'mapid', select: true })
+            //Datastore.map(Datastore.campus(), { id: 'mapid', select: true })
             
+            //Datastore.map('green', { id: 'mapid', select: true, restrictItemsToCampus: true })
+
             console.log('...handleAttrCampusMap', theTruth, val, key);
 
-            console.log('...handleAttrCampusMap campus',  Datastore.campus(), Datastore.map(Datastore.campus()));
+            console.log('...handleAttrCampusMap campus',  Datastore.JSON.maps(), Datastore.mapList());
             
-            if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
+            //if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
 
             return true;
 
