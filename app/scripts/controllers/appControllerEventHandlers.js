@@ -37,6 +37,8 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrCampusId,
 
+                controller.handleAttrLocationId,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrStreetview,
@@ -161,6 +163,27 @@ console.log('DomManager!!', $root);
 
             // Let an views listening know
             EventDispatcher.trigger('change:campus', campus);
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrLocationId = function(theTruth, val, key) {
+
+            // When a locationid change happens, it's assumed that the change applies to the currently selected map
+            var map, location;
+
+            if (key !== 'locationid') return;
+
+            map = Datastore.map(Datastore.campus());
+
+            location = Datastore.location(map, val);
+
+            console.log('...handleAttrLocationId', theTruth, val, key);
+
+            console.log('...handleAttrLocationId map', map);
+
+            map.location = location;
 
             return true;
 

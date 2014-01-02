@@ -89,7 +89,11 @@ define([
         // Handle each changed attribute in the most appropriate manner, determined by dispatch function
         _.each(model.changedAttributes(), function(val, key) { this.attrChangeDispatch(model, val, key); }, this);
 
-        if (_.intersection(_.keys(changed), ['cmd', 'campusid', 'campusmap', 'vizpath']).length > 0) this.router.navigate(querystring, { trigger: false });
+        // not needed? use router whitelist instead.if (_.intersection(_.keys(changed), ['cmd', 'campusid', 'campusmap', 'vizpath', 'locationid']).length > 0) 
+
+        console.log('querystring', querystring, theTruth.attributes);
+
+        this.router.navigate(querystring, { trigger: true });
 
         /* * * * * * * * * * * * * * * * * * * * *
 

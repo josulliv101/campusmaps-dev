@@ -220,6 +220,24 @@ function() {   },
 
                 ),
 
+                location: 
+
+                    function(map, locationid) {
+
+                        var locations, location;
+
+                        if (!map) return;
+
+                        locations = map.get('locations');
+
+                        location = _.find(locations, function(loc) { return _.getAttr(loc, 'locationid') === locationid; });
+
+                        return location;
+
+                    }
+
+                ,
+
                 // Each datastore will overwrite this with its own way of fetching data
                 fetch: function() { return campuses_; },
 
@@ -255,6 +273,12 @@ function() {   },
                         
 
                         return map;
+                    },
+
+                    location: function(loc) { 
+
+                        return loc.toJSON();
+
                     },
 
                     campus: function(campus) { 

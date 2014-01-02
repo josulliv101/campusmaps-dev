@@ -7,7 +7,7 @@
 
 		<ul>
 			<% _.each(data.map.locations, function(loc) { %> 
-			    <li><a href="#">${loc.name}</a></li>
+			    <li><a href="#${loc.name}" data-campusmap="cmd:Location,locationid:<%= loc.locationid %>">${loc.name}</a></li>
 			<% }); %>
 			<% if (data.map.locations.length === 0) { %><li>No locations yet.</li><% } %>
 		</ul>
