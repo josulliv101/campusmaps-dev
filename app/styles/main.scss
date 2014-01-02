@@ -153,6 +153,10 @@ button {
                 background: #fff;
                 padding: 12px;
                 border: 1px #999 solid;
+                
+                .back {
+                  float: right;
+                }
 
             }
             &.showing {

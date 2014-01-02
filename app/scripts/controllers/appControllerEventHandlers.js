@@ -141,12 +141,17 @@ console.log('DomManager!!', $root);
 
         AppController.prototype.handleAttrCampusId = function(theTruth, val, key) {
 
+            var campus;
+
             if (key !== 'campusid') return;
 
             console.log('...handleAttrCampusId', theTruth, val, key);
 
             // Make sure Datastore is updated before views get notified of change
-            Datastore.campus(val, { id: 'campusid', select: true });
+            campus = Datastore.campus(val, { id: 'campusid', select: true });
+
+            // Ensure there's a map selected for this campus
+            Datastore.map();
 
             // The Truth's campus map attr needs to be in step with the campus change
             //theTruth.set({ mapid: 'medford-main' });
@@ -155,7 +160,7 @@ console.log('DomManager!!', $root);
             //console.log('...handleAttrCampusId (map)', Datastore.map());
 
             // Let an views listening know
-            EventDispatcher.trigger('change:campus', Datastore.campus());
+            EventDispatcher.trigger('change:campus', campus);
 
             return true;
 
@@ -176,7 +181,7 @@ console.log('DomManager!!', $root);
             // Select campus map
             //Datastore.map(Datastore.campus(), { id: 'mapid', select: true })
             
-            //Datastore.map('green', { id: 'mapid', select: true, restrictItemsToCampus: true })
+            Datastore.map(val, { id: 'mapid', select: true, restrictItemsToCampus: true })
 
             console.log('...handleAttrCampusMap', theTruth, val, key);
 

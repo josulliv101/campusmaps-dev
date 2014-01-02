@@ -46,23 +46,21 @@ define([
 
             function mapsMatchingCampus_(campus) {
 
-                var maps;                
+                var maps, ret;                
 
-                if (!campus) return;
+                if (!_.isObject(campus)) return;
 
                 maps = campus.get('maps');
 
-                if (_.isObject(campus)) {
 
-                    var f = _.filter(maps_.models, function(map) { 
+                ret = _.filter(maps_.models, function(map) { 
 
-                        return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
+                    return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
 
-                    console.log('@matching maps for campus', campus, f);
+                console.log('@matching maps for campus', campus, ret);
 
-                    return f;
+                return ret;
 
-                }
             }
 
             function getCampusMaps_(campus) {
@@ -162,7 +160,7 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                 // A function to get a map, or if none found the selected one of selected campus is returned
                 map: _.dispatch(
-
+function() {   },
                     // Bind the map models to getItemById so only an id & options need to be passed in
                     _.wrap(_.getItemById, getItemByIdWrapForMap_),
 
@@ -194,14 +192,29 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
                     _.compose( _.getSelectedItem, getCampusMaps_, getSelectedCampus_),
 
                     // Return the default map if none selected
-                    _.compose(selectDefaultMapForCampus_, getSelectedCampus_),
+                    //_.compose(selectDefaultMapForCampus_, getSelectedCampus_),
 
-                    // If all else fails, just return the first map and select it
+                    // If all else fails and a campus was passed-in, just return the first map and select it
                     _.compose(
 
                         function(campusmaps) { if (campusmaps && campusmaps.length > 0 ) return _.getItemAt(campusmaps, 0, { select: true }); }, 
 
                         getCampusMaps_
+
+                    ),
+
+                    // If all else fails and no campus as arg, use selected
+                    _.compose( 
+
+                        function(campusmaps) {  if (campusmaps && campusmaps.length > 0 ) return _.getItemAt(campusmaps, 0, { select: true }); }
+
+                        , function(arg2) { return arg2; }
+
+                        , getCampusMaps_
+
+                        , function(arg) { return arg; }
+
+                        , getSelectedCampus_
 
                     )
 
@@ -232,7 +245,7 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                         var maps = getCampusMaps_(campus);
 
-                        return maps;//_.map(maps, function(map) { return map.toJSON(); });
+                        return _.map(maps, function(map) { return map.toJSON(); });
                     },
 
                     map: function(map) { 

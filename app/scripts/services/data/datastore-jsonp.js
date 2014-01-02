@@ -20,7 +20,7 @@ define([
 
         campuses_ = new Backbone.Collection(),
 
-        maps_ = new Backbone.Collection(DataInterface.utils.createMapList(campuses_));
+        maps_ = new Backbone.Collection();
 
 
     fns_ = DataInterface.initialize(campuses_, maps_);
@@ -35,6 +35,8 @@ define([
             jsonpCallback: 'cb',  dataType: 'jsonp',
 
             success: function(coll, data){
+
+                maps_.add(DataInterface.utils.createMapList(campuses_), { silent: true });
 
                 return campuses_.reset(data.results, { silent: true });
             }

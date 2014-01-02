@@ -59,6 +59,9 @@ define([
                 // These will fisrt pass through the App Controller so the Truth can stay up-to-date
                 EventDispatcher.trigger('truthupdate', _.stringToObject(data));
 
+                // Must return false as well to keep Router Back Button integration working
+                return false;
+
             });
 
         }

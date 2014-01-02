@@ -13,7 +13,7 @@ define([
 
     var settingsUrl,
 
-        urlAttrWhiteList = ['campusid', 'vizpath'],
+        urlAttrWhiteList = ['cmd', 'campusid', 'campusmap', 'vizpath'],
 
         AppRouter = Backbone.Router.extend({
 
@@ -22,7 +22,7 @@ define([
                 //'_:cmd': 'command',
 
                 // Default
-                '*params': 'processDefaults'
+                '*params': 'handleRoute'
 
             },
 
@@ -45,11 +45,25 @@ define([
 
             },
 
+            handleRoute: function(q) {
+                
+                var settings = _.extend(this.settings, this.getDefaults(q));
+
+                //settingsUrl = _.isString() ? this.getDefaults(q) : q;
+
+                console.log('route:handleRoute', settings);
+
+                //this.settings = settingsUrl;
+
+                EventDispatcher.trigger('truthupdate', settings);
+
+            },
+
             toQueryString: function(truth) {
 
                 return  _.chain(truth)
 
-                         //.pick(urlAttrWhiteList)
+                         .pick(urlAttrWhiteList)
 
                          // Watch XSS/urlencode
                          .map(function(val, key) { return key + '=' + val; })
@@ -88,7 +102,7 @@ define([
 
         var appRouter = new AppRouter();
 
-        appRouter.on('route:processDefaults', function(q) {
+/*        appRouter.on('route:processDefaults', function(q) {
 
             settingsUrl = this.getDefaults(q);
 
@@ -99,7 +113,7 @@ define([
             // DataManager is listening
             //EventDispatcher.trigger('set:defaults', defaults);
 
-        });
+        });*/
 
         return appRouter;
 
@@ -111,7 +125,7 @@ define([
 
         settingsUrl: settingsUrl,
 
-        start: function() { Backbone.history.start(); }
+        start: function(options) { Backbone.history.start(options); }
 
     };
 });

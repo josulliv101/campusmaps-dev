@@ -39,11 +39,14 @@ define([
          .done(function(data) { 
 
             // Parses the current route into settings
-            var router = controller.startRouter();
+            var router = controller.startRouter(theSettings);
 
-            _.extend(theSettings, router.settings);
+            //_.extend(theSettings, router.settings);
 
-            controller.setTheTruth(theSettings);
+            //controller.setTheTruth(theSettings);
+
+            // The handleRoute methods sets theTruth which kicks things off. Handling this way makes the Back Button integration smoother.
+            //router.handleRoute(theSettings);
 
          })
 

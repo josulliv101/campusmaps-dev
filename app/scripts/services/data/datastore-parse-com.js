@@ -24,7 +24,8 @@ define([
 
     var campuses_ = new Parse.Collection(),
 
-        maps_ = new Backbone.Collection(DataInterface.utils.createMapList(campuses_)),
+        // To do: campuses have no data yet, this needs to move.
+        maps_ = new Parse.Collection(),
 
         fns_ = DataInterface.initialize(campuses_, maps_);
 
@@ -44,6 +45,12 @@ define([
             success: function(list) {
 
                 campuses_.add(list, { silent: true });
+
+                var m = DataInterface.utils.createMapList(campuses_);
+
+                
+                
+                maps_.add(m, { silent: true });
 
                 dfd.resolve( 'success' );
                 

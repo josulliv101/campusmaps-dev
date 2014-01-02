@@ -27,6 +27,8 @@ define([
 
         this.router = Router.init();
 
+        console.log('Datastore this', Datastore);
+
     }
 
     AppController.prototype.init = function() {
@@ -49,6 +51,9 @@ define([
     }
 
     AppController.prototype.getData = function() {
+
+        // debugging
+        window.Datastore = Datastore;
 
         return Datastore.fetch();
 
@@ -84,7 +89,7 @@ define([
         // Handle each changed attribute in the most appropriate manner, determined by dispatch function
         _.each(model.changedAttributes(), function(val, key) { this.attrChangeDispatch(model, val, key); }, this);
 
-        this.router.navigate(querystring);
+        if (_.intersection(_.keys(changed), ['cmd', 'campusid', 'campusmap', 'vizpath']).length > 0) this.router.navigate(querystring, { trigger: false });
 
         /* * * * * * * * * * * * * * * * * * * * *
 
@@ -103,7 +108,9 @@ define([
 
     }
 
-    AppController.prototype.startRouter = function() {
+    AppController.prototype.startRouter = function(settings) {
+
+        this.router.settings = settings;
 
         Router.start();
 
