@@ -204,13 +204,13 @@ console.log('DomManager!!', $root);
             // Select campus map
             //Datastore.map(Datastore.campus(), { id: 'mapid', select: true })
             
-            Datastore.map(val, { id: 'mapid', select: true, restrictItemsToCampus: true })
+            campusmap = Datastore.map(val, { id: 'mapid', select: true, restrictItemsToCampus: true })
 
             console.log('...handleAttrCampusMap', theTruth, val, key);
 
             console.log('...handleAttrCampusMap campus',  Datastore.JSON.maps(), Datastore.mapList());
             
-            //if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
+            if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
 
             return true;
 

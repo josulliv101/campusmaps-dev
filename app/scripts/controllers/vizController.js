@@ -42,11 +42,19 @@ define([
 
         EventDispatcher.on('change:campusmap', function(campusmap) {
 
-            if (!campusmap) return;
+            var locations, json;
 
-            console.log('VizController heard change campusmap', viz, campusmap);
+            if (!campusmap || !viz) return;
 
-            if (viz) viz.render();
+            json = Datastore.JSON.map(campusmap);
+
+            locations = Datastore.locations(campusmap);
+
+            console.log('VizController heard change campusmap', viz, json);
+
+            viz.clear();
+
+            viz.render(json);
 
         });
 

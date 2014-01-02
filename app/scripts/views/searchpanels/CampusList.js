@@ -22,6 +22,8 @@ define([
 
             Base.prototype.initialize.call(this);
 
+            this.listenTo(EventDispatcher, 'change:campus', this.refresh);
+
         },
 
         getJSON: function() {

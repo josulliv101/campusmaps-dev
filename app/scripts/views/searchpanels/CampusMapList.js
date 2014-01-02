@@ -17,13 +17,9 @@ define([
         initialize: function() {
 
             Base.prototype.initialize.call(this);
-/*
-            _.bindAll(this, 'handleOpenPreState');
 
-            this.handleStateChange = _.dispatch(this.handleOpenPreState);
+            this.listenTo(EventDispatcher, 'change:campusmap', this.refresh);
 
-            this.listenTo(this.model, 'change:state', this.handleStateChange);
-*/
         },
 
         getJSON: function() {
@@ -36,17 +32,23 @@ define([
 
             return { data: json };
 
-        }/*,
+        },
 
-        handleOpenPreState: function() {
+        refresh: function () {
 
-            var state = this.model.get('state');
+            var mapid, map = Datastore.map();
 
-            if (state !== 'openPre') return;
+            if (!_.isObject(map)) return;
 
-            this.render();
+            mapid = '#' + map.get('mapid');
 
-        }*/
+            // Remove existing active flag
+            this.$('.active').removeClass('active');
+
+            // Add it
+            this.$(mapid).addClass('active');
+
+        }
 
     });
 

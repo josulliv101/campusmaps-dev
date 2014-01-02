@@ -220,6 +220,18 @@ function() {   },
 
                 ),
 
+                locations: 
+
+                    function(map) {
+
+                        if (!map) return;
+
+                        return map.get('locations');
+
+                    }
+
+                ,
+
                 location: 
 
                     function(map, locationid) {
@@ -268,16 +280,29 @@ function() {   },
 
                     map: function(map) { 
 
-                        var locations = map.get('locations');
+                        var map, locations;
 
+                        if (!map) return;
                         
+                        locations = _.chain(map.get('locations'))
 
-                        return map;
+                                     .map(function(loc) { return loc.toJSON(); })
+
+                                     .value();
+
+                        return _.extend(map.toJSON(), { locations: locations });
+
                     },
 
                     location: function(loc) { 
 
                         return loc.toJSON();
+
+                    },
+
+                    locations: function(locs) { 
+
+                        return _.map(locs, function(loc) { return loc.toJSON(); });
 
                     },
 

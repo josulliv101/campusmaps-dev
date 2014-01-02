@@ -50,9 +50,33 @@ define([
 
     }
 
-    function render_() {
+    function render_(json) {
 
-        var marker, campus = Datastore.campus(),
+        //alert(json.locations.length);
+
+        _.each(json.locations, function(loc) {
+
+            var marker, latlng;
+
+            if (!_.isObject(loc) || !_.isString(loc.latlng)) return;
+
+            latlng = getLatLng(loc.latlng);
+
+            if (!latlng) return;
+
+            marker = new google.maps.Marker({
+
+                position: latlng,
+
+                map: gMap
+
+            });
+
+            gMap.markers.push(marker);
+
+        })
+
+/*        var marker, campus = Datastore.campus(),
 
             json = Datastore.JSON.campus(campus),
 
@@ -68,7 +92,15 @@ define([
 
                 map: gMap
 
-            });
+            });*/
+
+    }
+
+    function clear_() {
+
+        //alert(gMap.markers.length);
+
+        _.each(gMap.markers, function(marker) { marker.setMap(null); });
 
     }
 
@@ -97,6 +129,8 @@ define([
             panControl: false
 
         });
+
+        gMap.markers = [];
 
         thePanorama = gMap.getStreetView();
 
@@ -147,7 +181,9 @@ define([
 
         refresh: refresh_,
 
-        render: render_
+        render: render_,
+
+        clear: clear_
 
     };
 

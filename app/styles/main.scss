@@ -176,7 +176,29 @@ button {
               /* Specify how to apply style before/after animation*/
               animation-fill-mode: both; 
               -webkit-animation-fill-mode: both; 
-              
+
+              &.panel-campuses {
+                
+                .maps {
+                  
+                  float: right;
+                  
+                  display: none;
+
+                }
+
+                .active {
+
+                  .maps {
+
+                    display: inline-block;
+
+                  }
+
+                }
+                
+              }  
+
               .active {
                 
                 a {
@@ -185,6 +207,8 @@ button {
                 }
 
               }
+
+
 
               &.slideDown {
 

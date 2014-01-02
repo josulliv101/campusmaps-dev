@@ -52,6 +52,12 @@ var map;
 
     }
 
+    function clear_() {
+
+        if (L.layers['markers']) L.campusmap.removeLayer(L.layers['markers']);
+
+    }
+
     function refresh_(latlng) {    
 
         var latlng = getLatLng(latlng);
@@ -60,17 +66,23 @@ var map;
         
     }
 
-    function render_() {
+    function render_(json) {
 
-        var marker, campus = Datastore.campus(),
 
-            json = Datastore.JSON.campus(campus),
+        var markers, layer;
 
-            latlng = getLatLng(json.latlng);
+        markers = _.chain(json.locations)
 
-            if (!latlng) return;
+                   .reject(function(loc) { return !_.isString(loc.latlng); })
 
-            marker = L.marker(latlng).addTo(L.campusmap);
+                   .map(function(loc) { return getLatLng(loc.latlng); })
+
+                   .map(function(latlng) { return L.marker(latlng); })
+
+                   .value();
+
+        L.layers['markers'] = L.layerGroup(markers).addTo(L.campusmap);
+
 
     }
 
@@ -79,6 +91,9 @@ var map;
         map = new L.Map(el);
 
 L.campusmap = map;
+
+L.layers = {};
+
         //map = L.map(el);
 
         map.setView(latlng, zoom);
@@ -121,7 +136,9 @@ L.campusmap = map;
 
         refresh: refresh_,
 
-        render: render_
+        render: render_,
+
+        clear: clear_
 
     };
 
