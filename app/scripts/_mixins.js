@@ -187,6 +187,11 @@ define([
 
                     .value();
 
+        },
+
+        orderAttributes: function() {
+
+
         }
 
     });

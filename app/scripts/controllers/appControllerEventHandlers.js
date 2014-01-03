@@ -97,7 +97,7 @@ console.log('DomManager!!', $root);
             if (forced) val = forced;
 
 
-            console.log('...handleVizPathChange', model, val, key);
+            console.log('...handleVizPathChange', model, val, key, model.changedAttributes());
 
             if (controller.vizController === undefined) {
 
@@ -107,13 +107,18 @@ console.log('DomManager!!', $root);
 
             }
             //AppController.prototype.loadViz.call(null, val);
+var log = console.log;
 
             require([ val ], function (Viz) { 
+
+console.log('handleVizPathChange require returned', controller, model);
 
                 Viz.init();
 
                 // A controller for all viz's is listening
                 EventDispatcher.trigger('change:viz', Viz);
+
+                if (_.size(model.changedAttributes()) > 1) controller.dispatchTruth(model);
 
             });
             

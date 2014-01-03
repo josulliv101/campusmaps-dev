@@ -18,6 +18,8 @@ define([
 
     	var viz = this.viz;
 
+        console.log('VizController.prototype.init');
+
         EventDispatcher.on('change:viz', function(currentViz) {
 
             console.log('VizController heard change viz', currentViz);
