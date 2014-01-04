@@ -14,6 +14,14 @@ define([
 
     var theSettings, 
 
+        defaults = {
+
+            cmd: ''
+
+            , iconstrategy: 'default'
+
+        },
+
         fnError = function() { throw new Error('Error initializing App.')};
 
 
@@ -22,7 +30,8 @@ define([
         // A root DOM element is required
         el && el.nodeType ?  this.setRootElement(el) : fnError();
 
-        theSettings = settings;
+        // The settings eventually turn into the Truth (definitive App state)
+        theSettings = _.defaults(settings, defaults);
 
         this.controller = new AppController();
 
@@ -40,13 +49,6 @@ define([
 
             // Parses the current route into settings
             var router = controller.startRouter(theSettings);
-
-            //_.extend(theSettings, router.settings);
-
-            //controller.setTheTruth(theSettings);
-
-            // The handleRoute methods sets theTruth which kicks things off. Handling this way makes the Back Button integration smoother.
-            //router.handleRoute(theSettings);
 
          })
 

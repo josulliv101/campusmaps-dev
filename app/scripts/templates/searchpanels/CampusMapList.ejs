@@ -1,10 +1,10 @@
-<div class="shadow panel">
+<div class="shadow panel panel-campusmaps">
 	<div class="bd">
 		<button class="back" onclick="window.history.back()">back</button>
 		<h3>${data.name} Campus Maps</h3>
 		<ul>
 			<% _.each(data.maps, function(map) { %> 
-			    <li id="<%= map.mapid %>" <% if (map.selected) { %>class="active"<% } %>><a href="#<%= map.mapid %>" data-campusmap="campusmap:<%= map.mapid %>">${map.name}</a> (${map.locationTotal})</li>
+			    <li id="<%= map.mapid %>" <% if (map.selected) { %>class="active"<% } %>><a href="#<%= map.mapid %>" data-campusmap="campusmap:<%= map.mapid %>">${map.name}</a> <button data-campusmap="cmd:LocationList" class="maps">View locations (${map.locationTotal})</button></li>
 			<% }); %>
 			<% if (data.maps.length === 0) { %><li>No maps yet.</li><% } %>
 		</ul>

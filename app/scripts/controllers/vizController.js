@@ -1,10 +1,12 @@
 define([
 
-    'underscore',
+      'underscore'
 
-    'eventdispatcher'
+    , 'strategies/iconStrategy'
 
-], function(_, EventDispatcher) {
+    , 'eventdispatcher'
+
+], function(_, IconStrategy, EventDispatcher) {
 
     'use strict';
 
@@ -12,11 +14,15 @@ define([
 
     	this.viz;
 
+        this.iconStrategy = null;
+
     }
 
     VizController.prototype.init = function() {
 
-    	var viz = this.viz;
+    	var viz = this.viz, iconStrategy = 1;
+
+        this.setDefaultIconStrategy();
 
         console.log('VizController.prototype.init');
 
@@ -44,6 +50,24 @@ define([
 
         EventDispatcher.on('change:campusmap', function(campusmap) {
 
+            var strategy = IconStrategy.getStrategy();
+
+            renderCampusMap(campusmap, strategy);
+
+        });
+
+        EventDispatcher.on('change:iconstrategy', function(iconstrategy) {
+
+            var map = Datastore.map();
+
+            renderCampusMap(map, iconstrategy);
+
+            // To do: make more efficient in cases where this is called multiple times
+
+        });
+
+        function renderCampusMap(campusmap, iconstrategy) {
+
             var locations, json;
 
             if (!campusmap || !viz) return;
@@ -56,11 +80,107 @@ define([
 
             viz.clear();
 
-            viz.render(json);
+            viz.render(json, iconstrategy);
+
+        }
+
+    };
+
+    VizController.prototype.setDefaultIconStrategy = function() {
+
+        IconStrategy.create({ 
+
+            id: 'default', 
+
+            isDefault: true, 
+
+            icons: {
+
+                small: 'marker-icon.png', 
+
+                big: 'marker-icon.png'
+
+            },
+
+            strategy: [
+
+                function(model) { // Location Model
+
+                    var emphasis = parseInt(_.getAttr(model, 'emphasis'));
+
+                    if (emphasis > 3) return;
+
+                    return IconStrategy.getIconPath('circle_outline_center.png');;
+
+                },
+
+                function(model) { // Location Model
+
+                    var emphasis = parseInt(_.getAttr(model, 'emphasis'));
+
+                    if (emphasis <= 3) return;
+
+                    return IconStrategy.getIconPath('circle_solid_center.png');;
+
+                }
+
+            ]
 
         });
 
-    };
+        IconStrategy.create({ 
+
+            id: 'fletcher', 
+
+            icons: {
+
+                small: 'marker-icon.png', 
+
+                big: 'marker-icon.png'
+
+            },
+
+            strategy: [
+
+                function(model) { // Location Model
+
+                    var tags = model.tags;
+
+                    if (!tags || tags.indexOf('fletcher') === -1 ) return;
+
+                    return IconStrategy.getIconPath('circle_solid_center.png');
+
+                },
+
+                function(model) { // Location Model
+
+                    return IconStrategy.getIconPath('circle_outline_center.png');;
+
+                }
+
+            ]
+
+        });
+
+        IconStrategy.create({ 
+
+            id: 'clear', 
+
+            icons: {},
+
+            strategy: [
+
+                function(model) { // Location Model
+
+                    return IconStrategy.getIconPath('clear.png');;
+
+                }
+
+            ]
+
+        });
+
+    }
 
     return VizController;
 

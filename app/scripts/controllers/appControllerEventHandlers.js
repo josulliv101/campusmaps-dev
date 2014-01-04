@@ -8,9 +8,11 @@ define([
 
     , 'datastore'
 
+    , 'strategies/iconStrategy'
+
     , 'eventdispatcher'
 
-], function(DomManager, ModuleManager, VizController, Datastore, EventDispatcher) {
+], function(DomManager, ModuleManager, VizController, Datastore, IconStrategy, EventDispatcher) {
 
     'use strict';
 
@@ -43,7 +45,9 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrStreetview,
 
-                controller.handleAttrFullscreen,                
+                controller.handleAttrFullscreen,
+
+                controller.handleAttrIconStrategy,             
 
                 controller.handleResize
 
@@ -216,6 +220,22 @@ console.log('handleVizPathChange require returned', controller, model);
             console.log('...handleAttrCampusMap campus',  Datastore.JSON.maps(), Datastore.mapList());
             
             if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrIconStrategy = function(model, val, key) {
+
+            var strategy;
+
+            if (key !== 'iconstrategy') return;
+
+            strategy = IconStrategy.getStrategy(val);
+
+            console.log('...handleAttrIconStrategy', model, val, key, strategy);
+
+            EventDispatcher.trigger('change:iconstrategy', strategy);
 
             return true;
 

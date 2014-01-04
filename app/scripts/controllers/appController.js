@@ -89,6 +89,8 @@ define([
 
         this.attrChangeDispatch(model, changed.vizpath, 'vizpath');
 
+        return true;
+
     }
 
     AppController.prototype.dispatchTruth = function(model, options) { 
@@ -110,7 +112,9 @@ define([
 
         console.log('querystring', querystring, theTruth.attributes);
 
-        this.router.navigate(querystring, { trigger: true });
+        this.router.navigate(querystring, { trigger: false });
+
+        return true;
 
     }
 

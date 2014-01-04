@@ -73,11 +73,9 @@ requirejs.onError = function (err) {
 
 				new Widgets.CampusMap(el, {
 
-            		campusid: 'medford'
+            		  campusid: 'medford'
 
-            		//, campusmap: 'green'
-
-            		, cmd: 'panelB'
+            		, campusmap: 'medford-main'
 
 				});
 
@@ -98,12 +96,12 @@ requirejs.onError = function (err) {
 	<button data-campusmap='cmd:'>View None</button>
 
 	<button data-campusmap='cmd:error'>View Invalid</button>
+	
+	<button data-campusmap='iconstrategy:default'>Icons Default</button>
 
-	<button data-campusmap='vizpath:directory'>Directory</button>
+	<button data-campusmap='iconstrategy:fletcher'>Icons Fletcher</button>
 
-	<button data-campusmap='maptype:roadmap'>MapType: Road</button>
-
-	<button data-campusmap='maptype:satellite'>MapType: Satellite</button>
+	<button data-campusmap='maptype:satellite,iconstrategy:clear'>MapType: Satellite</button>
 
 	<button class="back" onclick="window.history.back()">back</button>
 	

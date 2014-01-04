@@ -86,6 +86,8 @@
 
             'searchpanels': './scripts/views/searchpanels', // A short-cut
 
+            'strategies': './scripts/strategies',
+
             'map': './scripts/services/map/leaflet', // leaflet googlemap directory
 
             'leaflet': './scripts/services/map/leaflet',

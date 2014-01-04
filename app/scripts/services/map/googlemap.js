@@ -50,13 +50,12 @@ define([
 
     }
 
-    function render_(json) {
+    function render_(json, icons) {
 
-        //alert(json.locations.length);
 
         _.each(json.locations, function(loc) {
 
-            var marker, latlng;
+            var marker, latlng, icon;
 
             if (!_.isObject(loc) || !_.isString(loc.latlng)) return;
 
@@ -64,13 +63,21 @@ define([
 
             if (!latlng) return;
 
+            icon = icons.strategy(loc);
+
             marker = new google.maps.Marker({
 
                 position: latlng,
 
-                map: gMap
+                map: gMap,
+
+                icon: icons.strategy(loc)
 
             });
+
+            marker.setIcon(new google.maps.MarkerImage(icon));
+
+console.log('loc..', loc);
 
             gMap.markers.push(marker);
 
