@@ -34,7 +34,7 @@ define([
 
         });
 
-        EventDispatcher.on('change:campus', function(campus) {
+/*        EventDispatcher.on('change:campus', function(campus) {
 
         	var latlng;
 
@@ -46,15 +46,15 @@ define([
 
             if (!!viz && !!latlng) viz.refresh(latlng);
 
-        });
+        });*/
 
-        EventDispatcher.on('change:campusmap', function(campusmap) {
+/*        EventDispatcher.on('change:campusmap', function(campusmap) {
 
             var strategy = IconStrategy.getStrategy();
 
             renderCampusMap(campusmap, strategy);
 
-        });
+        });*/
 
         EventDispatcher.on('change:zoom', function(zoom) {
 

@@ -244,6 +244,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at local controller level
         AppController.prototype.handleAttrIconStrategy = function(model, val, key) {
 
             var strategy;
@@ -260,6 +261,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleResize = function(model, val, key) {
 
             var path = ModuleManager.getVizPath();
@@ -275,6 +277,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at a local controller level
         AppController.prototype.handleAttrCmd = function(model, val, key) {
 
             if (key !== 'cmd') return;
@@ -288,6 +291,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at global controller level
         AppController.prototype.handleAttrLatLng = function(model, val, key) {
 
             if (key !== 'latlng') return;
@@ -300,6 +304,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleAttrMapType = function(model, val, key) {
 
             var classname = 'hide-overlay', opts = { silent: true };

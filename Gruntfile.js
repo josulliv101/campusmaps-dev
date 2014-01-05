@@ -54,7 +54,7 @@ module.exports = function (grunt) {
       test: {
         src: ['app/**/*.js', '!app/main.js'],
         options: {
-          specs: 'test/**/*Spec.js', //
+          specs: 'test/**/strategy*Spec.js', //
           helpers: 'test/**/*Helper.js',
           vendor: 'bower_components/modernizr/modernizr.js',
           keepRunner: true,
