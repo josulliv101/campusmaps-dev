@@ -44,15 +44,23 @@ define([
             
             success: function(list) {
 
+                var campus, defaults;
+
                 campuses_.add(list, { silent: true });
 
                 var m = DataInterface.utils.createMapList(campuses_);
 
-                
-                
                 maps_.add(m, { silent: true });
 
-                dfd.resolve( 'success' );
+                campus = _.find(campuses_.models, function(model) { return _.getAttr(model, 'default') === true; });
+
+                defaults = !!campus ? _.pick(campus.toJSON(), 'campusid', 'defaultmap', 'latlng', 'zoom') : {};
+
+                defaults.campusmap = defaults.defaultmap;
+
+                delete defaults.defaultmap;
+
+                dfd.resolve( defaults );
                 
             },
             

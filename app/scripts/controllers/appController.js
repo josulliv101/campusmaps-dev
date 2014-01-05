@@ -60,11 +60,11 @@ define([
 
     }
 
-    AppController.prototype.setTheTruth = function(obj) {
+    AppController.prototype.setTheTruth = function(obj, options) {
 
-        console.log('setTheTruth', obj);
+        console.log('setTheTruth', obj, options);
 
-        theTruth.set(obj);
+        theTruth.set(obj, options);
 
     }
 

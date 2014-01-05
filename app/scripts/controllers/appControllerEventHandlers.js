@@ -39,6 +39,8 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrCampusId,
 
+                controller.handleAttrZoom,
+
                 controller.handleAttrLocationId,
 
                 controller.handleVizPathChange,
@@ -220,6 +222,18 @@ console.log('handleVizPathChange require returned', controller, model);
             console.log('...handleAttrCampusMap campus',  Datastore.JSON.maps(), Datastore.mapList());
             
             if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrZoom = function(model, val, key) {
+
+            if (key !== 'zoom') return;
+
+            console.log('...handleAttrZoom', model, val, key, model.previous('maptype'));
+
+            EventDispatcher.trigger('change:zoom', parseInt(val));
 
             return true;
 

@@ -56,6 +56,14 @@ define([
 
         });
 
+        EventDispatcher.on('change:zoom', function(zoom) {
+
+            console.log('VizController heard change zoom', zoom);
+
+            viz.setZoom(zoom);
+
+        });
+
         EventDispatcher.on('change:iconstrategy', function(iconstrategy) {
 
             var map = Datastore.map();
@@ -104,7 +112,13 @@ define([
 
             strategy: [
 
-                function(model) { // Location Model
+/*                function(model, zoom) { // Location Model
+
+                    if (zoom === 15) return IconStrategy.getIconPath('clear.png');
+
+                },*/
+
+                function(model, zoom) { // Location Model
 
                     var emphasis = parseInt(_.getAttr(model, 'emphasis'));
 
@@ -114,7 +128,7 @@ define([
 
                 },
 
-                function(model) { // Location Model
+                function(model, zoom) { // Location Model
 
                     var emphasis = parseInt(_.getAttr(model, 'emphasis'));
 
@@ -142,7 +156,13 @@ define([
 
             strategy: [
 
-                function(model) { // Location Model
+/*                function(model, zoom) { // Location Model
+
+                    if (zoom === 15) return IconStrategy.getIconPath('clear.png');
+
+                },*/
+
+                function(model, zoom) { // Location Model
 
                     var tags = model.tags;
 
@@ -152,7 +172,7 @@ define([
 
                 },
 
-                function(model) { // Location Model
+                function(model, zoom) { // Location Model
 
                     return IconStrategy.getIconPath('circle_outline_center.png');;
 
@@ -170,7 +190,7 @@ define([
 
             strategy: [
 
-                function(model) { // Location Model
+                function(model, zoom) { // Location Model
 
                     return IconStrategy.getIconPath('clear.png');;
 

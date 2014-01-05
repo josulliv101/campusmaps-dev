@@ -52,6 +52,7 @@ define([
 
     function render_(json, icons) {
 
+        var zoom = gMap.getZoom();
 
         _.each(json.locations, function(loc) {
 
@@ -63,7 +64,7 @@ define([
 
             if (!latlng) return;
 
-            icon = icons.strategy(loc);
+            icon = icons.strategy(loc, zoom);
 
             marker = new google.maps.Marker({
 
@@ -71,35 +72,23 @@ define([
 
                 map: gMap,
 
-                icon: icons.strategy(loc)
+                icon: icon
 
             });
 
             marker.setIcon(new google.maps.MarkerImage(icon));
 
-console.log('loc..', loc);
-
             gMap.markers.push(marker);
 
         })
 
-/*        var marker, campus = Datastore.campus(),
+    }
 
-            json = Datastore.JSON.campus(campus),
+    function setZoom_(level) {
 
-            map = _.find(json.maps, function(map) { return map.selected === true; }),
+        console.log('gmap setZoom_..', level);
 
-            latlng = getLatLng(map.latlng);
-
-            if (!latlng) return;
-
-            marker = new google.maps.Marker({
-
-                position: latlng,
-
-                map: gMap
-
-            });*/
+        gMap.setZoom(level);
 
     }
 
@@ -169,6 +158,12 @@ console.log('loc..', loc);
 
         });
 
+        google.maps.event.addListener(gMap, 'zoom_changed', function(ev) {
+
+            EventDispatcher.trigger('truthupdate', { zoom: this.getZoom() });
+
+        });
+
         EventDispatcher.on('maptype', function(maptype) {
 
             //var maptype = (type === 'satellite' ? google.maps.MapTypeId.SATELLITE : google.maps.MapTypeId.ROADMAP);
@@ -189,6 +184,8 @@ console.log('loc..', loc);
         refresh: refresh_,
 
         render: render_,
+
+        setZoom: setZoom_,
 
         clear: clear_
 

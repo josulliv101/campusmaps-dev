@@ -48,7 +48,7 @@ define([
          .done(function(data) { 
 
             // Parses the current route into settings
-            var router = controller.startRouter(theSettings);
+            var router = controller.startRouter( _.defaults(theSettings, data) );
 
          })
 

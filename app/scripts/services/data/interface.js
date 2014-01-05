@@ -57,7 +57,7 @@ define([
 
                     return _.getAttr(map, 'campusid') === _.getAttr(campus, 'campusid'); });
 
-                console.log('@matching maps for campus', campus, ret);
+                //console.log('@matching maps for campus', campus, ret);
 
                 return ret;
 
