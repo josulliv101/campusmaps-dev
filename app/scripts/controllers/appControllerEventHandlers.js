@@ -138,6 +138,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at local controller level
         AppController.prototype.handleAttrStreetview = function(model, val, key) {
 
             var classname = 'hide-overlay';
@@ -152,6 +153,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleAttrCampusId = function(theTruth, val, key) {
 
             var campus;
@@ -179,6 +181,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleAttrLocationId = function(theTruth, val, key) {
 
             // When a locationid change happens, it's assumed that the change applies to the currently selected map
@@ -201,6 +204,7 @@ console.log('handleVizPathChange require returned', controller, model);
         }
 
         // val can be <String> id or object
+        // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleAttrCampusMap = function(theTruth, val, key) {
 
             var campusmap;
@@ -227,6 +231,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
+        // Handle at global controller level, if needed, then delegate --- +/- logic
         AppController.prototype.handleAttrZoom = function(model, val, key) {
 
             if (key !== 'zoom') return;

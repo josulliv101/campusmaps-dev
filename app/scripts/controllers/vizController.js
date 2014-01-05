@@ -22,7 +22,7 @@ define([
 
     	var viz = this.viz, iconStrategy = 1;
 
-        this.setDefaultIconStrategy();
+        this.setIconStrategies();
 
         console.log('VizController.prototype.init');
 
@@ -74,6 +74,14 @@ define([
 
         });
 
+        EventDispatcher.on('viz:refreshView', function(campusmap, iconstrategy) {
+
+            renderCampusMap(campusmap, iconstrategy);
+
+            // To do: make more efficient in cases where this is called multiple times
+
+        });
+
         function renderCampusMap(campusmap, iconstrategy) {
 
             var locations, json;
@@ -94,7 +102,7 @@ define([
 
     };
 
-    VizController.prototype.setDefaultIconStrategy = function() {
+    VizController.prototype.setIconStrategies = function() {
 
         IconStrategy.create({ 
 

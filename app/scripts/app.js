@@ -20,6 +20,8 @@ define([
 
             , iconstrategy: 'default'
 
+            , labelstrategy: 'default'
+
         },
 
         fnError = function() { throw new Error('Error initializing App.')};
