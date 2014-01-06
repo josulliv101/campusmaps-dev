@@ -3,37 +3,32 @@ define([
 
     'jquery'
 
+    , 'scripts/config'
+
     , 'scripts/controllers/appController'
 
     , 'scripts/domManager'
 
-], function($, AppController, DomManager) {
+], function($, Config, AppController, DomManager) {
+
 
     'use strict';
-
-
-    var theSettings, 
-
-        defaults = {
-
-            cmd: ''
-
-            , iconstrategy: 'default'
-
-            , labelstrategy: 'default'
-
-        },
-
-        fnError = function() { throw new Error('Error initializing App.')};
 
 
     function App(el, settings) {
 
         // A root DOM element is required
-        el && el.nodeType ?  this.setRootElement(el) : fnError();
+        el && el.nodeType 
 
-        // The settings eventually turn into the Truth (definitive App state)
-        theSettings = _.defaults(settings, defaults);
+            ? DomManager.getInstance().setAppRoot(el) 
+
+            : Config.throwError.appInit();
+
+
+        _.bindAll(this, 'start');
+
+        // The settings eventually turn into the Truth (the definitive App state)
+        this.theSettings = _.defaults(settings, Config.defaults.theTruth);
 
         this.controller = new AppController();
 
@@ -42,29 +37,23 @@ define([
     // A manual init call makes for nice insertion point for spies when testing
     App.prototype.init = function() {
 
-        var controller = this.controller.init();
+        this.controller.init();
 
         // Controller has reference to a Data Service module that defines how to fetch data.
-        $.when( controller.getData() )
+        $.when( this.controller.getData() )
 
-         .done(function(data) { 
+         .done(this.start)
 
-            // Parses the current route into settings
-            var router = controller.startRouter( _.defaults(theSettings, data) );
-
-         })
-
-         .fail(fnError);
+         .fail(Config.throwError.appInit);
 
     }
 
-    App.prototype.setRootElement = function(el) {
+    App.prototype.start = function(data) {
 
-        console.log('App::setRootElement', el);
-
-        DomManager.getInstance().setAppRoot(el);
+        this.controller.startRouter( _.defaults(this.theSettings, data) );
 
     }
+
  
     return App;
 

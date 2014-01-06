@@ -10,9 +10,11 @@ define([
 
     , 'strategies/iconStrategy'
 
+    , 'strategies/StrategyManager'
+
     , 'eventdispatcher'
 
-], function(DomManager, ModuleManager, VizController, Datastore, IconStrategy, EventDispatcher) {
+], function(DomManager, ModuleManager, VizController, Datastore, IconStrategy, StrategyManager, EventDispatcher) {
 
     'use strict';
 
@@ -247,11 +249,14 @@ console.log('handleVizPathChange require returned', controller, model);
         // Handle at local controller level
         AppController.prototype.handleAttrIconStrategy = function(model, val, key) {
 
-            var strategy;
+            var strategy, getStrategy = StrategyManager.getStrategy;
 
             if (key !== 'iconstrategy') return;
 
-            strategy = IconStrategy.getStrategy(val);
+            //strategy = IconStrategy.getStrategy(val);
+            
+            // Get strategy by id or the default for icons
+            strategy = getStrategy(val) || getStrategy('icon');
 
             console.log('...handleAttrIconStrategy', model, val, key, strategy);
 

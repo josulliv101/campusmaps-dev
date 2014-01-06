@@ -1,7 +1,7 @@
 
 define([
 
-    'underscore'
+    '_mixins'
 
 ], function(_) {
 

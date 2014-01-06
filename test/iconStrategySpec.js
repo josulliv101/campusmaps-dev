@@ -1,7 +1,7 @@
 
 define([
 
-  'strategies/iconStrategy'
+  'strategies/IconStrategy'
 
 ], function (IconStrategy) {
 

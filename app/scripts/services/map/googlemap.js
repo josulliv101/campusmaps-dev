@@ -50,9 +50,11 @@ define([
 
     }
 
-    function render_(json, icons) {
+    function render_(json, iconstrategy) {
 
         var zoom = gMap.getZoom();
+
+
 
         _.each(json.locations, function(loc) {
 
@@ -62,9 +64,13 @@ define([
 
             latlng = getLatLng(loc.latlng);
 
+
+
             if (!latlng) return;
 
-            icon = icons.strategy(loc, zoom);
+            icon = iconstrategy.strategy(loc, zoom);
+
+console.log('map render_ json', loc, latlng, icon);
 
             marker = new google.maps.Marker({
 

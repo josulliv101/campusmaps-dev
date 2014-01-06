@@ -49,11 +49,11 @@ define([
 
       });
 
-      it('should wrap the strategy array with a dispatch function', function () {
+      it('should create a strategy dispatch function', function () {
 
         var strategy = new Strategy('myid', 'icon', { fns: [ function() { return true; } ]});
 
-        expect(strategy.fns.prototype).toBeDefined()
+        expect(strategy.strategy.prototype).toBeDefined();
 
       });
 

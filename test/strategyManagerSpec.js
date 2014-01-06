@@ -49,13 +49,15 @@ define([
 
         StrategyManager.add({ id: 'obj2', type: 'icon' });
 
-        expect(_.size(StrategyManager.cache_.icon)).toBe(2);
+        // Size includes added default property
+        expect(_.size(StrategyManager.cache_.icon)).toBe(3);
 
         expect(StrategyManager.cache_.label).not.toBeDefined();
 
         StrategyManager.add({ id: 'obj3', type: 'label' });
 
-        expect(_.size(StrategyManager.cache_.label)).toBe(1);
+        // Size includes added default property
+        expect(_.size(StrategyManager.cache_.label)).toBe(2);
 
       });
 
@@ -79,19 +81,156 @@ define([
 
       });
 
+      it('should get all strategies associated with a type', function () {
+
+        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy3', type: 'label' });
+
+        // Size includes the default property
+        expect(_.size(StrategyManager.getStrategies('icon'))).toBe(3);
+
+        // Size includes the default property
+        expect(_.size(StrategyManager.getStrategies('label'))).toBe(2);
+
+      });
+
+      it('should get a strategy by id (getStrategy method)', function () {
+
+        var strategy;
+
+        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy3', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy4', type: 'label' });
+
+        StrategyManager.add({ id: 'strategy5', type: 'label' });
+
+        strategy = StrategyManager.getStrategy('strategy3');
+
+        expect(strategy.id).toBe('strategy3');
+
+        strategy = StrategyManager.getStrategy('strategy5');
+
+        expect(strategy.id).toBe('strategy5');
+
+      });
+
+      it('should get a default strategy if strategy id returns undefined (getStrategy method)', function () {
+
+        var strategy;
+
+        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy3', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy4', type: 'label' });
+
+        StrategyManager.add({ id: 'strategy5', type: 'label' });
+
+        strategy = StrategyManager.getStrategy('icon');
+
+        // The default strategy will be the first unless changed
+        expect(strategy.id).toBe('strategy1');
+
+        strategy = StrategyManager.getStrategy('label');
+
+        expect(strategy.id).toBe('strategy4');
+
+      });
+
+      it('should get a default strategy when default set manually (getStrategy method)', function () {
+
+        var strategy;
+
+        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy2', type: 'icon', default: true });
+
+        StrategyManager.add({ id: 'strategy3', type: 'icon' });
+
+        strategy = StrategyManager.getStrategy('icon');
+
+        expect(strategy.id).toBe('strategy2');
+
+      });
+
     });
 
     describe('Defaults', function () {
 
-      it('should be able to check if a type is empty (no strategies)', function () {
+      it('should mark the first strategy of a certain type as the default', function () {
 
-        expect( StrategyManager.isTypeEmpty('icon') ).toEqual(true);
+        var strategy;
+
+        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+
+        strategy = StrategyManager.getDefaultForType('icon');
+
+        expect(strategy.id).toBe('strategy1');
 
       });
 
+
+      it('should have a default for each type', function () {
+
+        var iconStrategy, labelStrategy;
+
+        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy3', type: 'label' });
+
+        StrategyManager.add({ id: 'strategy4', type: 'label' });
+
+        iconStrategy = StrategyManager.getDefaultForType('icon');
+
+        labelStrategy = StrategyManager.getDefaultForType('label');
+
+        expect(iconStrategy.id).toBe('strategy1');
+
+        expect(labelStrategy.id).toBe('strategy3');
+
+      });
+
+      it('should be able to set a specific strategy as a default', function () {
+
+        var strategy;
+
+        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+
+        strategy = StrategyManager.add({ id: 'strategy2', type: 'icon' });
+
+        StrategyManager.setDefault(strategy);
+
+        expect(strategy.id).toBe('strategy2');
+
+      });
+
+      it('should be able to set a specific strategy by strategy attribute', function () {
+
+        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+
+        StrategyManager.add({ id: 'strategy2', type: 'icon', default: true });
+
+        expect(StrategyManager.getDefaultForType('icon').id).toBe('strategy2');
+
+      });
+
+/*
       it('should return an empty obj if no strategies present for type', function () {
 
-        expect( StrategyManager.getDefault('icon') ).toEqual({});
+        expect( StrategyManager.getDefaultForType('icon') ).toEqual({});
 
       });
 
@@ -103,9 +242,9 @@ var c = StrategyManager.getCache();
 
         StrategyManager.add({ id: 'strategy2', type: 'label' });
 
-        expect( StrategyManager.getDefault('label') ).toEqual('strategy2');
+        expect( StrategyManager.getDefaultForType('label') ).toEqual('strategy2');
  
-      });/* */
+      }); */
 
     });
 

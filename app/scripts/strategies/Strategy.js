@@ -3,81 +3,42 @@ define([
 
     'underscore'
 
-], function(_) {
+    , 'scripts/config'
+
+], function(_, Config) {
 
     'use strict';
-
-    //var cache_ = {}, defaultStrategy_;
 
     function Strategy(id, type, options) {
 
         options || (options = {});
 
-        _.extend(this, options, { id: id, type: type });
+        if (arguments.length === 1) options = id;
 
-        _.defaults(this, { fns: [] });
+        _.extend(this, options);
+
+        _.defaults(this, { id: id, type: type, fns: [] });
 
         console.log('Strategy created', this);
 
-        if (!this.id || !this.type) throw new Error('Strategy requires an id and type');
+        if (!this.id || !this.type) Config.throwError.strategyCreation();
 
-        this.fns = _.dispatch.apply(this, this.fns);
+        //this.refreshStrategies();
 
-    }
-/*    
-    function clear_() { 
-
-        cache_ = {}; 
-
-        defaultStrategy_ = undefined;
-
-    } 
-
-    function getFromCache(id) { 
-
-        if (!_.isString(id) || !cache_[id]) return; 
-
-        return cache_[id];
-
-    } 
-
-    function create_(options) {
-
-        var strategy;
-
-        options || (options = {});
-
-        strategy = new LabelStrategy(options);
-
-        if (options.isDefault === true) setDefault(strategy);
-
-        return strategy;
+        this.strategy = _.dispatch.apply(this, this.fns);
 
     }
 
-    function setDefault(iconstrategy) {
+    Strategy.prototype.addFunction = function() {
 
-        return defaultStrategy_ = iconstrategy;
-
-    }
-
-    function getDefault_() {
-
-        return defaultStrategy_;
 
     }
 
-    function addToCache_(strategy) {
+    Strategy.prototype.refreshStrategies = function() {
 
-        return _.exists(strategy) 
-
-            // Overwrite any existing if needed
-            ? (cache_[strategy.id] = strategy)
-
-            : undefined;
+        this.strategy = _.dispatch.apply(this, this.fns);
 
     }
-*/
 
     return Strategy;
 
