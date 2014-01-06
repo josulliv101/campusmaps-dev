@@ -1,9 +1,11 @@
 
 define([
 
-  'strategies/StrategyManager'
+  'underscore'
 
-], function (StrategyManager) {
+  , 'strategies/StrategyManager'
+
+], function (_, StrategyManager) {
 
   describe('StrategyManager Tests', function () {
 
@@ -37,7 +39,8 @@ define([
         expect(StrategyManager.cache_.icon).toBeDefined();
 
         // Test function as part of compose
-        StrategyManager.add({ id: 'mystrategy', type: 'label' });
+        //StrategyManager.add( function() { return { id: 'mystrategy', type: 'label' }; });
+        StrategyManager.add(new FakeStrategy('mystrategy', 'label'));
 
         expect(StrategyManager.cache_.label).toBeDefined();
 
@@ -45,16 +48,16 @@ define([
 
       it('should add a new strategy in the correct location for its type to cache', function () {
 
-        StrategyManager.add({ id: 'obj1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('obj1', 'icon'));
 
-        StrategyManager.add({ id: 'obj2', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('obj2', 'icon'));
 
         // Size includes added default property
         expect(_.size(StrategyManager.cache_.icon)).toBe(3);
 
         expect(StrategyManager.cache_.label).not.toBeDefined();
 
-        StrategyManager.add({ id: 'obj3', type: 'label' });
+        StrategyManager.add(new FakeStrategy('obj3', 'label'));
 
         // Size includes added default property
         expect(_.size(StrategyManager.cache_.label)).toBe(2);
@@ -63,7 +66,7 @@ define([
 
       it('should be able to reset the cache', function () {
 
-        StrategyManager.add({ id: 'obj1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('obj1', 'icon'));
 
         StrategyManager.clearCache();
 
@@ -75,7 +78,7 @@ define([
 
         expect(StrategyManager.hasType('icon')).toBe(false);
 
-        StrategyManager.add({ id: 'obj1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('obj1', 'icon'));
 
         expect(StrategyManager.hasType('icon')).toBe(true);
 
@@ -83,11 +86,11 @@ define([
 
       it('should get all strategies associated with a type', function () {
 
-        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy1', 'icon'));
 
-        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy2', 'icon'));
 
-        StrategyManager.add({ id: 'strategy3', type: 'label' });
+        StrategyManager.add(new FakeStrategy('strategy3', 'label'));
 
         // Size includes the default property
         expect(_.size(StrategyManager.getStrategies('icon'))).toBe(3);
@@ -101,15 +104,15 @@ define([
 
         var strategy;
 
-        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy1', 'icon'));
 
-        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy2', 'icon'));
 
-        StrategyManager.add({ id: 'strategy3', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy3', 'icon'));
 
-        StrategyManager.add({ id: 'strategy4', type: 'label' });
+        StrategyManager.add(new FakeStrategy('strategy4', 'label'));
 
-        StrategyManager.add({ id: 'strategy5', type: 'label' });
+        StrategyManager.add(new FakeStrategy('strategy5', 'label'));
 
         strategy = StrategyManager.getStrategy('strategy3');
 
@@ -125,15 +128,15 @@ define([
 
         var strategy;
 
-        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy1', 'icon'));
 
-        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy2', 'icon'));
 
-        StrategyManager.add({ id: 'strategy3', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy3', 'icon'));
 
-        StrategyManager.add({ id: 'strategy4', type: 'label' });
+        StrategyManager.add(new FakeStrategy('strategy4', 'label'));
 
-        StrategyManager.add({ id: 'strategy5', type: 'label' });
+        StrategyManager.add(new FakeStrategy('strategy5', 'label'));
 
         strategy = StrategyManager.getStrategy('icon');
 
@@ -150,11 +153,11 @@ define([
 
         var strategy;
 
-        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy1', 'icon'));
 
-        StrategyManager.add({ id: 'strategy2', type: 'icon', default: true });
+        StrategyManager.add(new FakeStrategy('strategy2', 'icon', true));
 
-        StrategyManager.add({ id: 'strategy3', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy3', 'icon'));
 
         strategy = StrategyManager.getStrategy('icon');
 
@@ -170,9 +173,9 @@ define([
 
         var strategy;
 
-        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy1', 'icon'));
 
-        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy2', 'icon'));
 
         strategy = StrategyManager.getDefaultForType('icon');
 
@@ -185,13 +188,13 @@ define([
 
         var iconStrategy, labelStrategy;
 
-        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy1', 'icon'));
 
-        StrategyManager.add({ id: 'strategy2', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy2', 'icon'));
 
-        StrategyManager.add({ id: 'strategy3', type: 'label' });
+        StrategyManager.add(new FakeStrategy('strategy3', 'label'));
 
-        StrategyManager.add({ id: 'strategy4', type: 'label' });
+        StrategyManager.add(new FakeStrategy('strategy4', 'label'));
 
         iconStrategy = StrategyManager.getDefaultForType('icon');
 
@@ -207,9 +210,9 @@ define([
 
         var strategy;
 
-        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy1', 'icon'));
 
-        strategy = StrategyManager.add({ id: 'strategy2', type: 'icon' });
+        strategy = StrategyManager.add(new FakeStrategy('strategy2', 'icon'));
 
         StrategyManager.setDefault(strategy);
 
@@ -219,9 +222,9 @@ define([
 
       it('should be able to set a specific strategy by strategy attribute', function () {
 
-        StrategyManager.add({ id: 'strategy1', type: 'icon' });
+        StrategyManager.add(new FakeStrategy('strategy1', 'icon'));
 
-        StrategyManager.add({ id: 'strategy2', type: 'icon', default: true });
+        StrategyManager.add(new FakeStrategy('strategy2', 'icon', true));
 
         expect(StrategyManager.getDefaultForType('icon').id).toBe('strategy2');
 
@@ -252,3 +255,8 @@ var c = StrategyManager.getCache();
 
 });
 
+function FakeStrategy(id, type, isDefault) {
+
+  return function() { return { id: id, type: type, default: isDefault || false }; }
+
+}

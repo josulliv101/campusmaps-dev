@@ -1,162 +1,53 @@
 
 define([
 
-    '_mixins'
+    'underscore'
 
 ], function(_) {
 
     'use strict';
 
-    var base_ = '',
+    return function(StrategyManager) { 
 
-        dir_ = '/app/images/icons/map/', // to do: use Env module
+        return {
 
-        defaults = { icons: {}, strategy: [] },
+            id: 'icon-default', 
 
-        cache_ = {}, defaultId_ = 'default', defaultStrategy_;
+            type: 'icon',
 
-    function IconStrategy(options /* id, icons, array of functions as the strategy */) {
+            fns: [
 
-        options || (options = {});
+                function(model, zoom) {
 
-        _.defaults(this, options, defaults);
+                    //debugger;
 
-        if (!this.id) throw new Error('Icon Strategy requires an id');
+                },
 
-        this.strategy = _.dispatch.apply(this, this.strategy);
+                function(model, zoom) { // Location Model
 
-        console.log('IconStrategy created', this.icons, this.strategy);
+                    var emphasis = parseInt(_.getAttr(model, 'emphasis'));
 
-    }
+                    if (emphasis > 3) return;
 
-    function getIconPath_(icon, dir) { 
+                    return StrategyManager.getIconPath('circle_outline_center.png');
 
-        dir || (dir = dir_);
+                },
 
-        return base_ + dir + icon; 
+                function(model, zoom) { // Location Model
 
-    } 
+                    var emphasis = parseInt(_.getAttr(model, 'emphasis'));
 
-    function setIconPath_(path) { 
+                    if (emphasis <= 3) return;
 
-        return dir_ = path; 
+                    return StrategyManager.getIconPath('circle_solid_center.png');
 
-    } 
-    
-    function clear_() { 
+                }
 
-        cache_ = {}; 
+            ]
 
-        defaultStrategy_ = undefined;
-
-    } 
-
-    function getFromCache(id) { 
-
-        if (!_.isString(id) || !cache_[id]) return; 
-
-        return cache_[id];
-
-    } 
-
-    function create_(options) {
-
-        var strategy;
-
-        options || (options = {});
-
-        strategy = new IconStrategy(options);
-
-        if (options.isDefault === true) setDefault(strategy);
-
-        return strategy;
+        };
 
     }
 
-    function setDefault(iconstrategy) {
-
-        return defaultStrategy_ = iconstrategy;
-
-    }
-
-    function getDefaultId_() {
-
-        return defaultId_;
-
-    }
-
-    function setDefaultId_(id) {
-
-        return defaultId_ = id || defaultId_;
-
-    }
-
-    function getDefault_() {
-
-        return defaultStrategy_;
-
-    }
-
-    function addToCache_(strategy) {
-
-        return _.exists(strategy) 
-
-            // Overwrite any existing if needed
-            ? (cache_[strategy.id] = strategy)
-
-            : undefined;
-
-    }
-
-/*        function(id) {
-
-            var icons, strategy, path = IconStrategy.prototype.path;
-
-            icons = {
-
-                small: path('marker-icon.png'),
-
-                medium: path('marker-icon.png'),
-
-                large: path('marker-icon.png'),
-
-                xlarge: path('marker-icon.png')
-
-            };
-
-            return new IconStrategy(icons, strategy)
-
-        }*/
-
-    return {
-
-        getIconPath: getIconPath_,
-
-        setIconPath: setIconPath_,
-
-        getStrategy: _.dispatch(getFromCache, getDefault_),
-
-        setDefaultId: setDefaultId_,
-
-        getDefaultId: getDefaultId_,
-
-        getDefault: getDefault_,
-
-        // Always add new strategies to the cache
-        create: _.compose(addToCache_, create_),
-
-        _ : {
-
-              addToCache: addToCache_
-
-            , cache: function() { return cache_; }
-
-            , create: create_
-
-            , clear: clear_
-
-        }   
-
-    };
 
 });

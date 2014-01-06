@@ -2,15 +2,11 @@ define([
 
       'underscore'
 
-    , 'strategies/iconStrategy'
-
-    , 'strategies/iconStrategy2'
-
     , 'strategies/StrategyManager'
 
     , 'eventdispatcher'
 
-], function(_, IconStrategy, IconStrategy2, StrategyManager, EventDispatcher) {
+], function(_, StrategyManager, EventDispatcher) {
 
     'use strict';
 

@@ -7,9 +7,13 @@ define([
 
       , 'strategies/Strategy'
 
-      , 'strategies/IconStrategy2'
+      , 'strategies/IconStrategy'
 
-], function(_, Config, Strategy, IconStrategy2) {
+      , 'strategies/IconStrategyClear'
+
+      , 'strategies/IconStrategyFletcher'
+
+], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher) {
 
     'use strict';
 
@@ -19,13 +23,13 @@ define([
 
         options || (options = {});
 
-        _.bindAll(this, 'addTypeToCache', 'addStrategy', 'add', 'getDefaultForType', 'hasType', 'getStrategyById');
+        _.bindAll(this, 'addTypeToCache', 'addStrategy', 'createStrategy', 'add', 'getDefaultForType', 'hasType', 'getStrategyById');
 
         this.cache_ = {};
 
         _.extend(this, options);
 
-        this.add = _.compose(this.addStrategy, this.addTypeToCache);
+        this.add = _.compose(this.addStrategy, this.addTypeToCache, this.createStrategy);
 
         this.getStrategy = _.dispatch(
 
@@ -37,7 +41,19 @@ define([
 
         );
 
-        this.add(new Strategy(IconStrategy2));
+        this.add(IconStrategy);
+
+        this.add(IconStrategyClear);
+
+        this.add(IconStrategyFletcher);
+
+    }
+
+    StrategyManager.prototype.createStrategy = function(strategyFn) {
+
+        var json = strategyFn(this);
+
+        return new Strategy(json);
 
     }
 
