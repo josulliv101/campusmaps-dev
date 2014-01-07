@@ -84,6 +84,13 @@ console.log('map render_ json', loc, latlng, icon);
 
             marker.setIcon(new google.maps.MarkerImage(icon));
 
+            google.maps.event.addListener(marker, 'click', function() {
+
+                EventDispatcher.trigger('viz:locationSelected', loc);
+
+            });
+
+
             gMap.markers.push(marker);
 
         })
@@ -102,7 +109,15 @@ console.log('map render_ json', loc, latlng, icon);
 
         //alert(gMap.markers.length);
 
-        _.each(gMap.markers, function(marker) { marker.setMap(null); });
+        _.each(gMap.markers, function(marker) { 
+
+            google.maps.event.clearInstanceListeners(marker);
+
+            marker.setMap(null);
+
+            marker = null; 
+
+        });
 
     }
 
@@ -179,6 +194,7 @@ console.log('map render_ json', loc, latlng, icon);
             gMap.setMapTypeId(maptype);
 
         });
+
 
     }
 

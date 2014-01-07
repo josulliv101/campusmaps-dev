@@ -72,6 +72,26 @@ define([
 
         });
 
+        EventDispatcher.on('change:locationid', function(loc) {
+
+            var campusmap = Datastore.map(),
+
+                json = Datastore.JSON.map(campusmap);
+
+            if (json && _.exists(campusmap.iconstrategy)) renderCampusMap(campusmap, campusmap.iconstrategy);
+
+            console.log('new loc selected', loc);
+
+        });
+
+        EventDispatcher.on('viz:locationSelected', function(loc) {
+
+            console.log('new loc selected', loc);
+
+            EventDispatcher.trigger('truthupdate', { locationid: loc.locationid, cmd: { value: 'Location', forceClose: true, uid: _.uniqueId()  } });
+
+        });
+
         EventDispatcher.on('viz:refreshView', function(campusmap, iconstrategy) {
 
             renderCampusMap(campusmap, iconstrategy);

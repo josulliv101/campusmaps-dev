@@ -45,6 +45,8 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrLocationId,
 
+                controller.handleAttrLocs,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrStreetview,
@@ -187,19 +189,60 @@ console.log('handleVizPathChange require returned', controller, model);
         AppController.prototype.handleAttrLocationId = function(theTruth, val, key) {
 
             // When a locationid change happens, it's assumed that the change applies to the currently selected map
-            var map, location;
+            var campusmap, location, ids, locs;
 
             if (key !== 'locationid') return;
+
+            campusmap = Datastore.map(Datastore.campus());
+
+            locs = _.chain(val.split(','))
+
+                    .map(function(id) { return Datastore.location(campusmap, id); })
+
+                    //.each(function(loc) { loc.selected = true; })
+
+                    .tap(function (all) { _.each(all, function(loc) { loc.selected = true; }); })
+
+                    .value();
+//debugger;
+
+            _.each(locs, function() { EventDispatcher.trigger('change:locationid', location); });
+
+/*            location = Datastore.location(campusmap, val);
+
+            _.selectItem(location, Datastore.locations(campusmap));
+
+            console.log('...handleAttrLocationId', theTruth, val, key);
+
+            console.log('...handleAttrLocationId location', location);
+
+            location.selected = true;
+
+            campusmap.location = location;
+
+            if (location) EventDispatcher.trigger('change:locationid', location);
+*/
+            return true;
+
+        }
+
+        // Handle at global controller level, if needed, then delegate
+        AppController.prototype.handleAttrLocs = function(theTruth, val, key) {
+
+            // When a locationid change happens, it's assumed that the change applies to the currently selected map
+            var map, location;
+
+            if (key !== 'locs') return;
 
             map = Datastore.map(Datastore.campus());
 
             location = Datastore.location(map, val);
 
-            console.log('...handleAttrLocationId', theTruth, val, key);
+            location.selected = true;
 
-            console.log('...handleAttrLocationId map', map);
+            console.log('...handleAttrLocs', theTruth, val, key);
 
-            map.location = location;
+            console.log('...location', location);
 
             return true;
 
@@ -249,7 +292,7 @@ console.log('handleVizPathChange require returned', controller, model);
         // Handle at local controller level
         AppController.prototype.handleAttrIconStrategy = function(model, val, key) {
 
-            var strategy, getStrategy = StrategyManager.getStrategy;
+            var strategy, getStrategy = StrategyManager.getStrategy, map;
 
             if (key !== 'iconstrategy') return;
 
@@ -258,7 +301,11 @@ console.log('handleVizPathChange require returned', controller, model);
             // Get strategy by id or the default for icons
             strategy = getStrategy(val) || getStrategy('icon');
 
+            map = Datastore.map(Datastore.campus());
+
             console.log('...handleAttrIconStrategy', model, val, key, strategy);
+
+            map.iconstrategy = strategy;
 
             EventDispatcher.trigger('change:iconstrategy', strategy);
 

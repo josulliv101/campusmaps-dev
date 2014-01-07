@@ -40,7 +40,7 @@ define([
             
             if (state !== 'close') return;
 
-            EventDispatcher.trigger('truthupdate', { locationid: '' });
+            //EventDispatcher.trigger('truthupdate', { locationid: '' });
 
         }
 

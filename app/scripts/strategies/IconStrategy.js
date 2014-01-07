@@ -17,9 +17,11 @@ define([
 
             fns: [
 
-                function(model, zoom) {
+                function(model, zoom) { // Location Model
 
-                    //debugger;
+                    if (model.selected !== true) return;
+
+                    return StrategyManager.getIconPath('circle_solid_center-big.png');
 
                 },
 
@@ -48,6 +50,5 @@ define([
         };
 
     }
-
 
 });

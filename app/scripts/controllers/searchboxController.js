@@ -47,6 +47,16 @@ define([
 
     SearchboxController.prototype.handleCommand = function(cmds, options) {
 
+        var forceClose;
+
+        if (_.isObject(cmds)) {
+
+            forceClose = cmds.forceClose;
+
+            cmds = cmds.value;
+
+        }
+
         try
         
           {
@@ -56,7 +66,7 @@ define([
                 dfdsClose = _.chain(this.view.cache)
 
                                 // Don't close any that are open and need to be
-                                .reject(function(val, key) { return _.contains(this.cmds, key); }, this)
+                                .reject(function(val, key) { if (forceClose === true) return false; return _.contains(this.cmds, key); }, this)
 
                                 .map(function(val, key) { 
 

@@ -64,6 +64,11 @@ define([
 
         console.log('setTheTruth', obj, options);
 
+        options || (options = {});
+
+        // Gets cleared when router handles route -- for Back Button integration.
+        if (options.clear === true) theTruth.clear({ silent: true });
+
         theTruth.set(obj, options);
 
     }

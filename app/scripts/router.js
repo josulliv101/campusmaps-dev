@@ -13,7 +13,7 @@ define([
 
     var settingsUrl,
 
-        urlAttrWhiteList = ['cmd', 'campusid', 'campusmap', 'locationid', 'vizpath', 'zoom', 'latlng'],
+        urlAttrWhiteList = ['cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'vizpath', 'zoom', 'latlng'],
 
         AppRouter = Backbone.Router.extend({
 
@@ -55,7 +55,7 @@ define([
 
                 //this.settings = settingsUrl;
 
-                EventDispatcher.trigger('truthupdate', settings);
+                EventDispatcher.trigger('truthupdate', settings, { clear: true });
 
             },
 
@@ -66,7 +66,7 @@ define([
                          .pick(urlAttrWhiteList)
 
                          // Watch XSS/urlencode
-                         .map(function(val, key) { return key + '=' + val; })
+                         .map(function(val, key) { return key + '=' + (_.isObject(val) && val.value ? val.value : val); })
 
                          .value().join('&');
 

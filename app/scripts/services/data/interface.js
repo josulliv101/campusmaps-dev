@@ -286,7 +286,7 @@ function() {   },
                         
                         locations = _.chain(map.get('locations'))
 
-                                     .map(function(loc) { return loc.toJSON(); })
+                                     .map(function(loc) { return _.extend(loc.toJSON(), { selected: loc.selected }); })
 
                                      .value();
 
@@ -302,7 +302,11 @@ function() {   },
 
                     locations: function(locs) { 
 
-                        return _.map(locs, function(loc) { return loc.toJSON(); });
+                        return _.map(locs, function(loc) { 
+
+                            return _.extend(loc.toJSON(), { selected: loc.selected });
+
+                        });
 
                     },
 
