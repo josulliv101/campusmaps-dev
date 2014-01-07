@@ -41,7 +41,7 @@ define([
 
                     if (emphasis <= 3) return;
 
-                    return StrategyManager.getIconPath('circle_solid_center.png');
+                    return StrategyManager.getIconPath('square_solid_center.gif');
 
                 }
 

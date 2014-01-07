@@ -51,7 +51,7 @@ define([
 
                 //settingsUrl = _.isString() ? this.getDefaults(q) : q;
 
-                console.log('route:handleRoute', settings);
+                console.log('route:handleRoute', this.settings, this.getDefaults(q));
 
                 //this.settings = settingsUrl;
 

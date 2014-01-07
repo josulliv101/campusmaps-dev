@@ -16,7 +16,7 @@ define([
 
     //// Private ////
 
-    var fns_, url_ = 'http://s125381.gridserver.com/data/data.json',
+    var fns_, url_ = 'http://localhost:8000/app/data/data.json', //url_ = 'http://s125381.gridserver.com/data/data.json',
 
         campuses_ = new Backbone.Collection(),
 
@@ -30,17 +30,34 @@ define([
 
     function fetch_() {
 
-        return campuses_.fetch({ 
+        var dfd = $.Deferred();
 
-            jsonpCallback: 'cb',  dataType: 'jsonp',
+        // only want defaults settings returned, not all data. use custom deferred instead of the fetch's return value
+        campuses_.fetch({ 
+
+            jsonpCallback: 'cb',  
+
+            dataType: 'jsonp',
 
             success: function(coll, data){
 
                 maps_.add(DataInterface.utils.createMapList(campuses_), { silent: true });
 
-                return campuses_.reset(data.results, { silent: true });
+                campuses_.reset(data, { silent: true });
+
+                dfd.resolve( { deferred: 'defaults go here' });
+
+            },
+
+            error: function() {
+                
+                dfd.reject( 'error' );
+                
             }
+            
         });
+
+        return dfd.promise(); 
     }
 
     //// Public ////

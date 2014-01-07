@@ -64,6 +64,7 @@ define([
 
         EventDispatcher.on('change:iconstrategy', function(iconstrategy) {
 
+console.log('viz controller icon strategy change heard');
             var map = Datastore.map();
 
             renderCampusMap(map, iconstrategy);

@@ -16,7 +16,7 @@ define([
       // Don't want to really start the router
       spyOn(App.prototype, 'init');
 
-      spyOn(App.prototype, 'setRootElement');
+      //spyOn(App.prototype, 'setRootElement');
 
       // These settings get overridden by any router settings
       app = new App(document.getElementsByTagName('body')[0], { vizpath: 'leaflet' });
@@ -79,11 +79,11 @@ define([
 
       });
 
-      it('should be able to set a root dom element', function () {
+/*      it('should be able to set a root dom element', function () {
 
         expect( app.setRootElement ).toBeDefined();
 
-      });
+      });*/
 
     });
 
