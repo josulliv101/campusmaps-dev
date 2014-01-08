@@ -66,8 +66,64 @@ define([
 
 		});
 
+		it('should have a tmp div used for px measuring', function () {
+
+        	expect( dm.$root.find('#tmp')  ).toBeDefined();
+
+		});
+
     });
 
+    describe('Measuring', function () {
+
+		var ret, $div = $('<div/>'), items = [{ id: 1, txt: 'item1' }, { id: 2, txt: 'some other really really longer item' }, { id: 3, txt: 'small item' }];
+		
+		_.each(items, function(item) {
+
+			$('<label/>').attr('id', item.id).css({ 'min-width': '80px', 'max-width': '120px', display: 'inline-block' }).html(item.txt).appendTo($div);
+		});
+
+		it('should get an array back the same size as elements measuring', function () {
+
+			ret = dm.measure($div);
+
+			expect( _.size(ret) ).toBe(3);
+
+		});
+
+		it('should get an object with keys match element ids', function () {
+
+			ret = dm.measure($div);
+
+			expect( ret[1] ).toBeDefined();
+
+			expect( ret[2] ).toBeDefined();
+
+			expect( ret[3] ).toBeDefined();
+
+			expect( ret[4] ).not.toBeDefined();
+
+		});
+
+		it('should have width & height associated with each key', function () {
+
+			ret = dm.measure($div);
+
+			expect( ret[1].width ).toMatch(/\d{1,}/);
+
+			expect( ret[1].height ).toMatch(/\d{1,}/);
+
+			expect( ret[2].width ).toMatch(/\d{1,}/);
+
+			expect( ret[2].height ).toMatch(/\d{1,}/);
+
+			expect( ret[3].width ).toMatch(/\d{1,}/);
+
+			expect( ret[3].height ).toMatch(/\d{1,}/);
+
+		});
+
+	});
 
     describe('Events', function () {
 

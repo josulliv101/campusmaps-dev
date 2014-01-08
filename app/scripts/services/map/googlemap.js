@@ -9,11 +9,15 @@ define([
 
     'datastore',
 
+    'scripts/services/map/LabelMapType',
+
+    'scripts/services/map/MapUtils',
+
     'eventdispatcher',
 
     'async!http://maps.google.com/maps/api/js?sensor=false'
 
-], function($, _, MapStyles, Datastore, EventDispatcher) {
+], function($, _, MapStyles, Datastore, LabelMapType, MapUtils, EventDispatcher) {
 
     'use strict';
 
@@ -50,27 +54,32 @@ define([
 
     }
 
-    function render_(json, iconstrategy) {
+    function render_(json, iconstrategy, labelstrategy) {
 
         var zoom = gMap.getZoom();
 
-
-
         _.each(json.locations, function(loc) {
 
-            var marker, latlng, icon;
+            var marker, latlng, icon, label, tileOffset;
 
             if (!_.isObject(loc) || !_.isString(loc.latlng)) return;
 
             latlng = getLatLng(loc.latlng);
 
-
-
             if (!latlng) return;
 
             icon = iconstrategy.strategy(loc, zoom);
 
-console.log('map render_ json', loc, latlng, icon);
+            label = labelstrategy.strategy(loc, zoom);
+
+            if (label) {
+
+                // The latLngToTileOffset function caches the return value for future use
+                tileOffset = MapUtils.latLngToTileOffset({ lat: latlng.lat(), lng: latlng.lng() }, zoom);
+
+                MapUtils.addLocationToTileCache(tileOffset, loc);
+
+            }
 
             marker = new google.maps.Marker({
 
@@ -90,10 +99,11 @@ console.log('map render_ json', loc, latlng, icon);
 
             });
 
-
             gMap.markers.push(marker);
 
-        })
+        });
+
+        console.log('MapUtils.getCache', MapUtils.getTileCache());
 
     }
 
@@ -147,6 +157,11 @@ console.log('map render_ json', loc, latlng, icon);
 
         });
 
+        console.log('LabelMapType', LabelMapType);
+
+        // Insert this overlay map type
+        gMap.overlayMapTypes.insertAt(0, new LabelMapType(new google.maps.Size(256, 256)));
+
         gMap.markers = [];
 
         thePanorama = gMap.getStreetView();
@@ -197,7 +212,6 @@ console.log('map render_ json', loc, latlng, icon);
 
 
     }
-
 
     return {
 

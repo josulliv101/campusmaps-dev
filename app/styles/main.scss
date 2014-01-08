@@ -36,6 +36,12 @@ button {
     display: none;
 }
 
+#tmp {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 /* Layout */
 
 #map-wrap, #map-canvas { height: 100% }

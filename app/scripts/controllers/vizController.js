@@ -48,7 +48,11 @@ define([
 /* */ 
       EventDispatcher.on('change:campusmap', function(campusmap) {
 
-            if (campusmap.iconstrategy) renderCampusMap(campusmap, campusmap.iconstrategy);
+            var label = campusmap.labelstrategy,
+
+                icon = campusmap.iconstrategy;
+
+            if (icon && label) renderCampusMap(campusmap, icon, label);
 
         });
 
@@ -68,6 +72,19 @@ define([
             console.log('viz controller icon strategy change heard', map);
 
             renderCampusMap(map, iconstrategy);
+
+            // To do: make more efficient in cases where this is called multiple times
+
+        });
+
+        EventDispatcher.on('change:labelstrategy', function(labelstrategy) {
+
+
+            var map = Datastore.map();
+
+            console.log('viz controller label strategy change heard', map);
+
+            //renderCampusMap(map, iconstrategy);
 
             // To do: make more efficient in cases where this is called multiple times
 
@@ -101,13 +118,13 @@ define([
 
         });
 
-        function renderCampusMap(campusmap, iconstrategy) {
+        function renderCampusMap(campusmap, iconstrategy, labelstrategy) {
 
             var locations, json, v=viz;
 
 console.log('renderCampusMap renderCampusMap', campusmap, iconstrategy);
  
-            if (!campusmap) return;
+            if (!(campusmap && iconstrategy && labelstrategy)) return;
 
             json = Datastore.JSON.map(campusmap);
  
@@ -117,7 +134,7 @@ console.log('renderCampusMap renderCampusMap', campusmap, iconstrategy);
 
             viz.clear();
 
-            viz.render(json, iconstrategy);
+            viz.render(json, iconstrategy, labelstrategy);
 
         }
 

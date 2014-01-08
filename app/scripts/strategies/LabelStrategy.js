@@ -7,97 +7,30 @@ define([
 
     'use strict';
 
-    var cache_ = {}, defaultStrategy_;
+    return function(StrategyManager) { 
 
-    function LabelStrategy(options /* id, array of functions as the strategy */) {
+        return {
 
-        options || (options = {});
+            id: 'label-default', 
 
-        _.defaults(this, options, { strategy: [] });
+            type: 'label',
 
-        if (!this.id) throw new Error('Label Strategy requires an id');
+            fns: [
 
-        this.strategy = _.dispatch.apply(this, this.strategy);
+                function(model, zoom) { // Location Model
 
-        console.log('LabelStrategy created', this.strategy);
+                    return 'someLabel'; // Show all label
 
-    }
-    
-    function clear_() { 
+                    //if (model.selected !== true) return;
 
-        cache_ = {}; 
+                    //return StrategyManager.getIconPath('circle_solid_center-big.png');
 
-        defaultStrategy_ = undefined;
+                }
 
-    } 
+            ]
 
-    function getFromCache(id) { 
-
-        if (!_.isString(id) || !cache_[id]) return; 
-
-        return cache_[id];
-
-    } 
-
-    function create_(options) {
-
-        var strategy;
-
-        options || (options = {});
-
-        strategy = new LabelStrategy(options);
-
-        if (options.isDefault === true) setDefault(strategy);
-
-        return strategy;
+        };
 
     }
-
-    function setDefault(iconstrategy) {
-
-        return defaultStrategy_ = iconstrategy;
-
-    }
-
-    function getDefault_() {
-
-        return defaultStrategy_;
-
-    }
-
-    function addToCache_(strategy) {
-
-        return _.exists(strategy) 
-
-            // Overwrite any existing if needed
-            ? (cache_[strategy.id] = strategy)
-
-            : undefined;
-
-    }
-
-
-    return {
-
-        getStrategy: _.dispatch(getFromCache, getDefault_),
-
-        getDefault: getDefault_,
-
-        // Always add new strategies to the cache
-        create: _.compose(addToCache_, create_),
-
-        _ : {
-
-              addToCache: addToCache_
-
-            , cache: function() { return cache_; }
-
-            , create: create_
-
-            , clear: clear_
-
-        }   
-
-    };
 
 });

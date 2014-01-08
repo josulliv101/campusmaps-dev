@@ -24,6 +24,9 @@ define([
 
         this.$root = $('body') || $(window);
 
+        // Style here instead of css file to make testing easier
+        this.$tmp = $('<div/>').attr('id', 'tmp').css({ position: 'absolute', top: 0, left: 0 }).appendTo($('body'));
+
         this.getElement = _.dispatch(this.getHtmlEl, this.getRootEl);
 
         //$(window).unbind('resize');
@@ -74,6 +77,47 @@ define([
     DomManager.prototype.render = function(el, view) {
 
         view.render().$el.appendTo(el);
+
+    }
+
+    // Expect <div>
+    // 
+    //          <label id="item1">label1</label>
+    //          
+    //          <label id="item2">label2</label>
+    //          
+    //        </div>
+    DomManager.prototype.measure = function($el) {
+
+        var $elements = $el.children(), items = {};
+
+        this.$tmp.append($el);
+
+        $elements.each(function() {
+
+            var $el = $(this), id = $el.attr('id');
+
+            items[id] = { id: id, width: $el.outerWidth(), height: $el.outerHeight() };
+
+        });
+
+        return items;
+
+    }
+
+    DomManager.prototype.create = function(attrs) {
+
+        var $el, defaults = { tagname: 'div', html: '', style: {} };
+
+        attrs || (attrs = {});
+
+        _.defaults(attrs, defaults);
+
+        return $(document.createElement( attrs.tagname ))
+
+            .html(attrs.html)
+
+            .css(attrs.style);
 
     }
 

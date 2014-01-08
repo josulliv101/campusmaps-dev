@@ -13,7 +13,9 @@ define([
 
       , 'strategies/IconStrategyFletcher'
 
-], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher) {
+      , 'strategies/LabelStrategy'
+
+], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy) {
 
     'use strict';
 
@@ -46,6 +48,8 @@ define([
         this.add(IconStrategyClear);
 
         this.add(IconStrategyFletcher);
+
+        this.add(LabelStrategy);
 
     }
 

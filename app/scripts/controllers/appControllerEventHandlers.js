@@ -53,7 +53,9 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrFullscreen,
 
-                controller.handleAttrIconStrategy,             
+                controller.handleAttrIconStrategy,
+
+                controller.handleAttrLabelStrategy,          
 
                 controller.handleResize
 
@@ -303,6 +305,31 @@ console.log('handleVizPathChange require returned', controller, model);
             console.log('...handleAttrIconStrategy', model, val, key, strategy);
 
             map.iconstrategy = strategy;
+
+            //EventDispatcher.trigger('change:iconstrategy', strategy);
+            if (map) EventDispatcher.trigger('change:campusmap', map);
+
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrLabelStrategy = function(model, val, key) {
+
+            var strategy, getStrategy = StrategyManager.getStrategy, map;
+
+            if (key !== 'labelstrategy') return;
+
+            //strategy = IconStrategy.getStrategy(val);
+       
+            // Get strategy by id or the default for icons
+            strategy = getStrategy(val) || getStrategy('label');
+
+            map = Datastore.map(Datastore.campus());
+
+            console.log('...handleAttrLabelStrategy', model, val, key, strategy);
+
+            map.labelstrategy = strategy;
 
             //EventDispatcher.trigger('change:iconstrategy', strategy);
             if (map) EventDispatcher.trigger('change:campusmap', map);
