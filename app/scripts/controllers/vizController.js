@@ -45,14 +45,12 @@ define([
             if (!!viz && !!latlng) viz.refresh(latlng);
 
         });*/
+/* */ 
+      EventDispatcher.on('change:campusmap', function(campusmap) {
 
-/*        EventDispatcher.on('change:campusmap', function(campusmap) {
+            if (campusmap.iconstrategy) renderCampusMap(campusmap, campusmap.iconstrategy);
 
-            var strategy = IconStrategy.getStrategy();
-
-            renderCampusMap(campusmap, strategy);
-
-        });*/
+        });
 
         EventDispatcher.on('change:zoom', function(zoom) {
 
@@ -64,8 +62,10 @@ define([
 
         EventDispatcher.on('change:iconstrategy', function(iconstrategy) {
 
-console.log('viz controller icon strategy change heard');
+
             var map = Datastore.map();
+
+            console.log('viz controller icon strategy change heard', map);
 
             renderCampusMap(map, iconstrategy);
 
@@ -103,12 +103,14 @@ console.log('viz controller icon strategy change heard');
 
         function renderCampusMap(campusmap, iconstrategy) {
 
-            var locations, json;
+            var locations, json, v=viz;
 
-            if (!campusmap || !viz) return;
+console.log('renderCampusMap renderCampusMap', campusmap, iconstrategy);
+ 
+            if (!campusmap) return;
 
             json = Datastore.JSON.map(campusmap);
-
+ 
             locations = Datastore.locations(campusmap);
 
             console.log('VizController renderCampusMap', viz, json, iconstrategy);

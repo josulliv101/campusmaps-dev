@@ -168,15 +168,12 @@ console.log('handleVizPathChange require returned', controller, model);
 
             // Make sure Datastore is updated before views get notified of change
             campus = Datastore.campus(val, { id: 'campusid', select: true });
-var s = Datastore.campus();
-            // Ensure there's a map selected for this campus
-            var map = Datastore.map();
 
             // The Truth's campus map attr needs to be in step with the campus change
             //theTruth.set({ mapid: 'medford-main' });
 
 
-            //console.log('...handleAttrCampusId (map)', Datastore.map());
+            console.log('...handleAttrCampusId (map)', Datastore.campus());
 
             // Let an views listening know
             EventDispatcher.trigger('change:campus', campus);
@@ -307,8 +304,8 @@ var s = Datastore.campus();
 
             map.iconstrategy = strategy;
 
-            EventDispatcher.trigger('change:iconstrategy', strategy);
-
+            //EventDispatcher.trigger('change:iconstrategy', strategy);
+            if (map) EventDispatcher.trigger('change:campusmap', map);
 
 
             return true;

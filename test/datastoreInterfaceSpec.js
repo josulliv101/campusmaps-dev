@@ -1,4 +1,4 @@
-define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, Datastore) {
+define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, DatastoreInterface) {
 
   describe('Datastore Tests', function () {
 
@@ -7,9 +7,9 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       var campusList, mapList;
 
-      campuses = _.resetItems(Datastore.campusList().models);
+      campuses = _.resetItems(DatastoreInterface.campusList().models);
 
-      maps = _.resetItems(Datastore.mapList().models);
+      maps = _.resetItems(DatastoreInterface.mapList().models);
 
     });
 
@@ -21,31 +21,31 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should have a fetch method', function () {
 
-        expect(Datastore.fetch).toBeDefined();
+        expect(DatastoreInterface.fetch).toBeDefined();
 
       });
 
       it('should have a campus method', function () {
 
-        expect(Datastore.campus).toBeDefined();
+        expect(DatastoreInterface.campus).toBeDefined();
 
       });
 
       it('should have a map method', function () {
 
-        expect(Datastore.map).toBeDefined();
+        expect(DatastoreInterface.map).toBeDefined();
 
       });
 
       it('should have a campusList method', function () {
 
-        expect(Datastore.campusList).toBeDefined();
+        expect(DatastoreInterface.campusList).toBeDefined();
 
       });
 
       it('should have a mapList method', function () {
 
-        expect(Datastore.mapList).toBeDefined();
+        expect(DatastoreInterface.mapList).toBeDefined();
 
       });
 
@@ -55,7 +55,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should reset selections after each test', function () {
 
-        var campus = Datastore._.selectFirstCampus();
+        var campus = DatastoreInterface._.selectFirst(DatastoreInterface.campusList().models);
 
         console.info('\nInternal::should be able to get and select the first campus', campus);
 
@@ -66,7 +66,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should reset selections after each test', function () {
 
-        var campus = Datastore.campusList().at(0);
+        var campus = DatastoreInterface.campusList().at(0);
 
         console.info('\nInternal::should reset selections', campus);
 
@@ -80,7 +80,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should be able to get and select the first campus', function () {
 
-        var campus = Datastore._.selectFirstCampus();
+        var campus = DatastoreInterface._.selectFirst(DatastoreInterface.campusList().models);
 
         console.info('\nPrivate::should be able to get and select the first campus', campus);
 
@@ -92,9 +92,9 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should be able to get and select the first map of a campus', function () {
 
-        var campus = Datastore._.selectFirstCampus(),
+        var campus = DatastoreInterface._.selectFirst(DatastoreInterface.campusList().models),
 
-            map = Datastore._.selectFirstMap(campus);
+            map = DatastoreInterface._.selectFirstMap(campus);
 
         console.info('\nPrivate::should be able to get and select the first map', map);
 
@@ -106,13 +106,13 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should be able to get the maps of a specific campus', function () {
 
-        var campus1 = Datastore.campus('campus-boston'),
+        var campus1 = DatastoreInterface.campus('campus-boston'),
 
-            maps1 = Datastore._.getCampusMaps(campus1),
+            maps1 = DatastoreInterface._.getCampusMaps(campus1),
 
-            campus2 = Datastore.campus('campus-medford'),
+            campus2 = DatastoreInterface.campus('campus-medford'),
 
-            maps2 = Datastore._.getCampusMaps(campus2)
+            maps2 = DatastoreInterface._.getCampusMaps(campus2)
 
         console.info('\nPrivate::should be able to get the maps of a specific campus', maps1);
 
@@ -124,9 +124,9 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should generate a list of all maps (all campuses)', function () {
 
-        var campusList = Datastore.campusList();
+        var campusList = DatastoreInterface.campusList();
 
-            mapList = Datastore._.createMapList(campusList);
+            mapList = DatastoreInterface._.createMapList(campusList);
 
         console.info('\nPrivate::should generate a list of all maps (all campuses)', mapList, console);
 
@@ -136,9 +136,9 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should get a map marked as default for a campus', function () {
 
-        var campus = Datastore.campus('campus-boston'),
+        var campus = DatastoreInterface.campus('campus-boston', { select: true }),
 
-            map = Datastore._.selectDefaultMapForCampus(campus);
+            map = DatastoreInterface.map(campus);
 
         console.info('\nPrivate::should get a map marked as default for a campus', map);
 
@@ -150,9 +150,9 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
         var campus;
 
-        Datastore._.selectFirstCampus();
+        DatastoreInterface._.selectFirst(DatastoreInterface.campusList().models);
 
-        campus = Datastore._.getSelectedCampus();
+        campus = DatastoreInterface.campus();
 
         console.info('\nPrivate::should get a selected campus', campus);
 
@@ -166,63 +166,63 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should return all campuses', function () {
 
-        expect(Datastore.campusList().length).toBe(3);
+        expect(DatastoreInterface.campusList().length).toBe(3);
 
-        console.info('\nCampuses::should return all campuses', Datastore.campusList());
+        console.info('\nCampuses::should return all campuses', DatastoreInterface.campusList());
 
       });
 
       it('should return all maps', function () {
 
-        expect(Datastore.mapList().length).toBe(5);
+        expect(DatastoreInterface.mapList().length).toBe(5);
 
-        console.info('\nMaps::should return all maps', Datastore.mapList());
+        console.info('\nMaps::should return all maps', DatastoreInterface.mapList());
 
       });
 
       it('should only have 1 campus selected at a time', function () {
 
-        var campus = Datastore.campus();
+        var campus = DatastoreInterface.campus();
 
         expect(campus.id).toBe('campus-boston');
 
-        campus = Datastore.campus('campus-medford', { select: true });
+        campus = DatastoreInterface.campus('campus-medford', { select: true });
 
         expect(campus.id).toBe('campus-medford');
 
-        campus = Datastore.campus('campus-grafton', { select: true });
+        campus = DatastoreInterface.campus('campus-grafton', { select: true });
 
         expect(campus.id).toBe('campus-grafton');
 
         // Just getting the campus, not selecting it
-        campus = Datastore.campus('campus-boston');
+        campus = DatastoreInterface.campus('campus-boston');
 
         // Getting selected campus
-        expect(Datastore.campus().id).toBe('campus-grafton');
+        expect(DatastoreInterface.campus().id).toBe('campus-grafton');
 
       });
 
       it('should have selected map for each campus', function () {
 
         // Should return the first campus (boston)
-        var campus = Datastore.campus(),
+        var campus = DatastoreInterface.campus(),
 
-            map = Datastore.map(campus);
+            map = DatastoreInterface.map(campus);
 
         expect(map.id).toBe('bosmap2');
 
-        campus = Datastore.campus('campus-medford', { select: true });
+        campus = DatastoreInterface.campus('campus-medford', { select: true });
 
-        map = Datastore.map(campus);
+        map = DatastoreInterface.map(campus);
 
         console.log('@medford', campus, map);
         
         expect(map.id).toBe('medmap');
 
         // Boston map should still be selected
-        campus = Datastore.campus('campus-boston');
+        campus = DatastoreInterface.campus('campus-boston');
 
-        map = Datastore.map(campus);
+        map = DatastoreInterface.map(campus);
 
         console.log('@boston', campus, map);
 
@@ -232,22 +232,22 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should have only 1 selected map for each campus, never multiple', function () {
 
-        var campus = Datastore.campus('campus-boston'), 
+        var campus = DatastoreInterface.campus('campus-boston'), 
 
-            map = Datastore.map(campus);
+            map = DatastoreInterface.map(campus);
 
         // This is the default map
         expect(map.id).toBe('bosmap2');
 
-        //Datastore.map('bosmap1', { restrictItemsToCampus: true, select: true });
+        //DatastoreInterface.map('bosmap1', { restrictItemsToCampus: true, select: true });
 
-        Datastore.map('boston-main1', { id: 'mapid', restrictItemsToCampus: true, select: true });
+        DatastoreInterface.map('boston-main1', { id: 'mapid', restrictItemsToCampus: true, select: true });
 
         
 
-        map = Datastore.map(campus);
+        map = DatastoreInterface.map(campus);
 
-        console.log('@all maps', Datastore.mapList());
+        console.log('@all maps', DatastoreInterface.mapList());
 
         expect(map.id).toBe('bosmap1');
 
@@ -259,7 +259,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should grab the first campus if none selected', function () {
 
-        var campus = Datastore.campus();
+        var campus = DatastoreInterface.campus();
 
         expect(campus.id).toBe('campus-boston');
 
@@ -267,7 +267,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should select the first campus if none selected', function () {
 
-        var campus = Datastore.campus();
+        var campus = DatastoreInterface.campus();
 
         expect(campus.selected).toBe(true);
 
@@ -277,13 +277,13 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
         var map,
 
-          campus = Datastore.campus('campus-boston');
+          campus = DatastoreInterface.campus('campus-boston');
 
         campus.set('defaultmap', null);
 
-        _.resetItems(Datastore._.getCampusMaps(campus));
+        _.resetItems(DatastoreInterface._.getCampusMaps(campus));
 
-        map = Datastore.map(campus);
+        map = DatastoreInterface.map(campus);
 
         expect(map.id).toBe('bosmap1');
 
@@ -297,11 +297,11 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should return any campus by id', function () {
 
-          var boston = Datastore.campus('campus-boston'),
+          var boston = DatastoreInterface.campus('campus-boston'),
 
-            medford = Datastore.campus('campus-medford'),
+            medford = DatastoreInterface.campus('campus-medford'),
 
-            grafton = Datastore.campus('campus-grafton');
+            grafton = DatastoreInterface.campus('campus-grafton');
 
           expect(boston.id).toBe('campus-boston');
 
@@ -313,9 +313,9 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should return any map by id', function () {
 
-          var map1 = Datastore.map('engmap'),
+          var map1 = DatastoreInterface.map('engmap'),
 
-            map2 = Datastore.map('bosmap2');
+            map2 = DatastoreInterface.map('bosmap2');
 
           expect(map1.id).toBe('engmap');
 
@@ -329,7 +329,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should return any array of JSON objects for campuses', function () {
 
-          var json = Datastore.JSON.campuses();
+          var json = DatastoreInterface.JSON.campuses();
 
           console.log('json', json);
 
@@ -341,9 +341,9 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should return any array of JSON objects for maps of a campus', function () {
 
-          var campus = Datastore.campus('campus-boston'),
+          var campus = DatastoreInterface.campus('campus-boston'),
 
-              json = Datastore.JSON.maps(campus);
+              json = DatastoreInterface.JSON.maps(campus);
 
           console.log('map json', json);
 

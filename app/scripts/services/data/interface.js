@@ -294,7 +294,7 @@ function() {   },
                         
                         locations = _.chain(_.getAttr(map, 'locations'))
 
-                                     .map(function(loc) { return _.extend(loc.toJSON(), { selected: loc.selected }); })
+                                     .map(function(loc) { var json = !!loc.toJSON ? loc.toJSON() : loc; var selected = loc.selected && loc.selected === true ? true : false;  return json; })
 
                                      .value();
 
@@ -304,7 +304,7 @@ function() {   },
 
                     location: function(loc) { 
 
-                        return loc.toJSON();
+                        return loc.toJSON ? loc.toJSON() : loc;
 
                     },
 

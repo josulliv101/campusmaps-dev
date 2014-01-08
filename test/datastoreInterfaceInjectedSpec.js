@@ -55,10 +55,10 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should reset selections after each test', function () {
 
-        var campus = Datastore._.selectFirst();
+        var campus = Datastore._.selectFirst(Datastore.campusList().models);
 
         console.info('\nInternal::should be able to get and select the first campus', campus);
-
+debugger;
         expect(campus.selected).toBe(true);
 
       });
@@ -80,7 +80,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should be able to get and select the first campus', function () {
 
-        var campus = Datastore._.selectFirst();
+        var campus = Datastore._.selectFirst(Datastore.campusList().models);
 
         console.info('\nPrivate::should be able to get and select the first campus', campus);
 
@@ -92,7 +92,7 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
       it('should be able to get and select the first map of a campus', function () {
 
-        var campus = Datastore._.selectFirst(),
+        var campus = Datastore._.selectFirst(Datastore.campusList().models),
 
             map = Datastore._.selectFirstMap(campus);
 
@@ -150,9 +150,9 @@ define(['_mixins', '../scripts/services/data/datastore-injected'], function (_, 
 
         var campus;
 
-        Datastore._.selectFirst();
+        Datastore._.selectFirst(Datastore.campusList().models);
 
-        campus = Datastore._.getSelectedCampus();
+        campus = Datastore.campus();
 
         console.info('\nPrivate::should get a selected campus', campus);
 
