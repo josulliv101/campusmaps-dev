@@ -15,7 +15,9 @@ define([
 
       , 'strategies/LabelStrategy'
 
-], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy) {
+      , 'strategies/LabelStrategyBig'
+
+], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig) {
 
     'use strict';
 
@@ -50,6 +52,10 @@ define([
         this.add(IconStrategyFletcher);
 
         this.add(LabelStrategy);
+
+        this.add(LabelStrategyBig);
+
+       
 
     }
 

@@ -67,12 +67,12 @@ define([
             latlng = getLatLng(loc.latlng);
 
             if (!latlng) return;
-
+debugger;
             icon = iconstrategy.strategy(loc, zoom);
 
             label = labelstrategy.strategy(loc, zoom);
 
-            if (label) {
+            if (label === true) {
 
                 // The latLngToTileOffset function caches the return value for future use
                 tileOffset = MapUtils.latLngToTileOffset({ lat: latlng.lat(), lng: latlng.lng() }, zoom);

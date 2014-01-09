@@ -11,13 +11,15 @@ define([
 
         return {
 
-            id: 'label-default', 
+            id: 'big', 
 
             type: 'label',
 
             fns: [
 
                 function(model, zoom) { // Location Model
+
+                    if (parseInt(_.getAttr(model, 'emphasis')) < 4) return; 
 
                     return true; // Show all label
 

@@ -80,11 +80,15 @@ define([
         EventDispatcher.on('change:labelstrategy', function(labelstrategy) {
 
 
-            var map = Datastore.map();
+            var campusmap = Datastore.map();
 
-            console.log('viz controller label strategy change heard', map);
+            console.log('viz controller label strategy change heard', campusmap);
+            
+            var label = campusmap.labelstrategy,
 
-            //renderCampusMap(map, iconstrategy);
+                icon = campusmap.iconstrategy;
+
+            if (icon && label) renderCampusMap(campusmap, icon, label);
 
             // To do: make more efficient in cases where this is called multiple times
 
