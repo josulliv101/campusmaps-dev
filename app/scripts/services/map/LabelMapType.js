@@ -39,7 +39,7 @@ define([
 
               position: 'absolute', 
 
-              //background: '#fff',
+              'font-weight': 700,
 
               top: px(offset.y), 
 
