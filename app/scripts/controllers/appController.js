@@ -18,6 +18,8 @@ define([
 
     function AppController(options) {
 
+        console.log('AppController');
+
         _.bindAll(this, 'handleTruthChange', 'setTheTruth', 'dispatchVizTruth', 'dispatchTruth');
 
         _.extend(this, options);

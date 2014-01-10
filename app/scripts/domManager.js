@@ -107,13 +107,15 @@ define([
 
     DomManager.prototype.create = function(attrs) {
 
-        var $el, defaults = { tagname: 'div', html: '', style: {} };
+        var $el, defaults = { tagname: 'div', classname: '', html: '', style: {} };
 
         attrs || (attrs = {});
 
         _.defaults(attrs, defaults);
 
         return $(document.createElement( attrs.tagname ))
+
+            .addClass(attrs.classname)
 
             .html(attrs.html)
 

@@ -55,7 +55,7 @@
 
             'jquery': '../bower_components/jquery/jquery',
 
-            'underscore': '../bower_components/underscore/underscore', 
+            'underscore': '../bower_components/lodash/dist/lodash', 
             // lodash/dist/lodash || underscore/underscore
             
             'isotope' : 'http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/1.5.25/jquery.isotope.min',

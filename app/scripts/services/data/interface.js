@@ -115,7 +115,7 @@ console.log('maps....$', campus, maps);
 
                 if (!_.exists(campus)) return;
 
-                mapid = campus.get("defaultmap");
+                mapid = _.getAttr(campus, "defaultmap");
 
                 maps = _.getAttr(campus, 'maps');
 
@@ -320,7 +320,7 @@ function() {   },
 
                     campus: function(campus) { 
 
-                        var json, campusmaps = campus.get('maps');
+                        var json, campusmaps = _.getAttr(campus, 'maps');
 
 console.log('@campusmaps', campus, campusmaps);
 

@@ -138,7 +138,9 @@ L.layers = {};
 
         render: render_,
 
-        clear: clear_
+        clear: clear_,
+
+        setZoom: function() {}
 
     };
 

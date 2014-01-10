@@ -31,6 +31,8 @@ define([
 
             tagname: 'div', 
 
+            classname: 'label bg-lite',
+
             html: _.getAttr(loc, 'name'), 
 
             style: { 
@@ -39,7 +41,9 @@ define([
 
               position: 'absolute', 
 
-              'font-weight': 700,
+              'font-weight': 400,
+
+              //'background': '#fff',
 
               top: px(offset.y), 
 

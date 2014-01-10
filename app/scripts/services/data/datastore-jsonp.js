@@ -32,6 +32,8 @@ define([
 
         var dfd = $.Deferred();
 
+console.log('fetching data');
+
         // only want defaults settings returned, not all data. use custom deferred instead of the fetch's return value
         campuses_.fetch({ 
 

@@ -66,7 +66,9 @@ define([
 
         init: init_,
 
-        refresh: function() {}
+        refresh: function() {},
+
+        setZoom: function() {}
 
     };
 

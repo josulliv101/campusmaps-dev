@@ -128,8 +128,6 @@ define([
 
 				expect( _.size(cache) ).toBe(2);
 
-				debugger;
-
 			});
 
 			it('should store different lat/lngs in different spots in cache when just zoom is same, but coords are different', function () {

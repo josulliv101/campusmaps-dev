@@ -49,15 +49,15 @@ console.log('DomManager!!', $root);
 
                 controller.handleVizPathChange,
 
-                controller.handleAttrStreetview,
+                controller.handleAttrFullscreen,         
 
-                controller.handleAttrFullscreen,
+                controller.handleResize,
+
+                controller.handleAttrStreetview,
 
                 controller.handleAttrIconStrategy,
 
-                controller.handleAttrLabelStrategy,          
-
-                controller.handleResize
+                controller.handleAttrLabelStrategy
 
             ];
 
