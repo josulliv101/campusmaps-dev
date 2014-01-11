@@ -8,12 +8,12 @@ define([
     'use strict';
 
     return function(StrategyManager) { 
-
+console.log(StrategyManager);
         return {
 
             id: 'icon-default', 
 
-            type: 'icon',
+            type: StrategyManager.TYPE.ICON,
 
             fns: [
 

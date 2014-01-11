@@ -53,11 +53,11 @@ console.log('DomManager!!', $root);
 
                 controller.handleResize,
 
-                controller.handleAttrStreetview,
+                //controller.handleAttrStreetview,
 
-                controller.handleAttrIconStrategy,
+                //controller.handleAttrIconStrategy,
 
-                controller.handleAttrLabelStrategy
+                //controller.handleAttrLabelStrategy
 
             ];
 
@@ -144,7 +144,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
-        // Handle at local controller level
+/*        // Handle at local controller level
         AppController.prototype.handleAttrStreetview = function(model, val, key) {
 
             var classname = 'hide-overlay';
@@ -157,7 +157,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
             return true;
 
-        }
+        }*/
 
         // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleAttrCampusId = function(theTruth, val, key) {
@@ -288,7 +288,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
-        // Handle at local controller level
+/*        // Handle at local controller level
         AppController.prototype.handleAttrIconStrategy = function(model, val, key) {
 
             var strategy, getStrategy = StrategyManager.getStrategy, map;
@@ -312,9 +312,9 @@ console.log('handleVizPathChange require returned', controller, model);
 
             return true;
 
-        }
+        }*/
 
-        AppController.prototype.handleAttrLabelStrategy = function(model, val, key) {
+/*        AppController.prototype.handleAttrLabelStrategy = function(model, val, key) {
 
             var strategy, getStrategy = StrategyManager.getStrategy, map,
 
@@ -342,7 +342,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
             return true;
 
-        }
+        }*/
 
         // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleResize = function(model, val, key) {
@@ -408,7 +408,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
-        _.bindAll(controller, 'handleVizPathChange', 'handleAttrStreetview', 'handleAttrFullscreen', 'handleAttrCampusId');
+        _.bindAll(controller, 'handleVizPathChange', 'handleAttrFullscreen', 'handleAttrCampusId');
     }
 
     return AppControllerEventHandlers;

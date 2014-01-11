@@ -17,7 +17,9 @@ define([
 
       , 'strategies/LabelStrategyBig'
 
-], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig) {
+      , 'strategies/TruthHandlerStrategyViz'
+
+], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, TruthHandlerStrategyViz) {
 
     'use strict';
 
@@ -45,6 +47,18 @@ define([
 
         );
 
+        this.TYPE = { 
+
+            ICON: 'icon', 
+
+            LABEL: 'label', 
+
+            TRUTH_HANDLER_VIZ: 'truth_handler_viz' 
+
+        };
+
+        this.DEFAULT = 'default';
+
         this.add(IconStrategy);
 
         this.add(IconStrategyClear);
@@ -54,6 +68,8 @@ define([
         this.add(LabelStrategy);
 
         this.add(LabelStrategyBig);
+
+        this.add(TruthHandlerStrategyViz);
 
     }
 
@@ -89,7 +105,7 @@ define([
 
         strategy = _.chain(this.getCache())
 
-                    // Don't include the default keys. These are references to existing strategy objects.
+                    // Don't include the default keys. These are references to existing objects (so would be dups)
                     .map(function(type) { return _.omit(type, 'default'); })
 
                     .map(function(type) { return _.values(type); })
@@ -181,22 +197,19 @@ define([
 
     StrategyManager.prototype.add = function() {}
 
-    StrategyManager.getInstance = function() {
-        // summary:
-        // Gets an instance of the singleton. It is better to use
-        if (instance === null){
+
+    function getInstance() {
+
+        if (instance === null) {
 
             instance = new StrategyManager();
-
-            instance.TYPE = { ICON: 'icon', LABEL: 'label' };
-
-            instance.DEFAULT = 'default';
 
         }
 
         return instance;
     };
 
-    return StrategyManager.getInstance();
+
+    return getInstance();
 
 });

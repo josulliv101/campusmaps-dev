@@ -13,7 +13,7 @@ define([
 
             id: 'big', 
 
-            type: 'label',
+            type: StrategyManager.TYPE.LABEL,
 
             fns: [
 

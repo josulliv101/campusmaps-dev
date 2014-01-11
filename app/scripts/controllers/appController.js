@@ -41,7 +41,8 @@ define([
 
         this.handleTruthChange = _.dispatch(this.dispatchVizTruth, this.dispatchTruth);
 
-        //// App-level Event Listeners ////
+
+        //// Add App-level Event Listeners ////
 
         // Allow loosely-coupled objects to update the Truth
         EventDispatcher.on('truthupdate', this.setTheTruth);
@@ -119,6 +120,9 @@ define([
 
         this.router.navigate(querystring, { trigger: false });
 
+        // The Truth changes get sent to Component-level controllers for further handling
+        EventDispatcher.trigger('delegateTruth', changed);
+
         return true;
 
     }
@@ -144,7 +148,7 @@ define([
 
     AppController.prototype.startRouter = function(settings) {
 
-        // Ensure there's a campus selected
+        // Ensure there's a campus & campusmap selected
         Datastore.campus();
 
         Datastore.map();

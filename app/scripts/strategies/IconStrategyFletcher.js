@@ -13,7 +13,7 @@ define([
 
             id: 'fletcher', 
 
-            type: 'icon',
+            type: StrategyManager.TYPE.ICON,
 
             fns: [
 

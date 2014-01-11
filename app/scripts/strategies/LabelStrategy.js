@@ -13,7 +13,7 @@ define([
 
             id: 'label-default', 
 
-            type: 'label',
+            type: StrategyManager.TYPE.LABEL,
 
             fns: [
 

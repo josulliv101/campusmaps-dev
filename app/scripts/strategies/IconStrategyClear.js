@@ -13,7 +13,7 @@ define([
 
             id: 'clear', 
 
-            type: 'icon',
+            type: StrategyManager.TYPE.ICON,
 
             fns: [
 
