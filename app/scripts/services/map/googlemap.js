@@ -35,9 +35,48 @@ define([
 
             el = document.getElementById('map-canvas');
 
-
         createMap_(el, latlng, zoom);
-        
+
+    }
+
+    // To do: move all strategies to vizcontroller
+    function refreshLabels_(json, labelstrategy) {    
+
+        var zoom = gMap.getZoom();
+
+        labelstrategy || (labelstrategy = gMap.labelStrategy);
+
+        if (!labelstrategy) return;
+
+        console.log('refreshLabels_', json, labelstrategy, gMap.overlayMapTypes);
+
+       _.each(json.locations, function(loc) {
+
+            var marker, latlng, icon, label, tileOffset;
+
+            if (!_.isObject(loc) || !_.isString(loc.latlng)) return;
+
+            latlng = getLatLng(loc.latlng);
+
+            if (!latlng) return;
+
+            label = labelstrategy.strategy(loc, zoom);
+
+             if (label === true) {
+
+                // The latLngToTileOffset function caches the return value for future use
+                tileOffset = MapUtils.latLngToTileOffset({ lat: latlng.lat(), lng: latlng.lng() }, zoom);
+
+                MapUtils.addLocationToTileCache(tileOffset, loc);
+
+            }           
+
+        });
+
+        if (gMap.overlayMapTypes.length === 1) gMap.overlayMapTypes.removeAt(0);
+
+        gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);
+
     }
 
     function refresh_(latlng) {    
@@ -58,6 +97,8 @@ define([
 
         var zoom = gMap.getZoom();
 
+console.log('render__');
+
         _.each(json.locations, function(loc) {
 
             var marker, latlng, icon, label, tileOffset;
@@ -70,7 +111,7 @@ define([
 
             icon = iconstrategy.strategy(loc, zoom);
 
-            label = labelstrategy.strategy(loc, zoom);
+/*            label = labelstrategy.strategy(loc, zoom);
 
             if (label === true) {
 
@@ -79,7 +120,7 @@ define([
 
                 MapUtils.addLocationToTileCache(tileOffset, loc);
 
-            }
+            }*/
 
             marker = new google.maps.Marker({
 
@@ -159,8 +200,9 @@ define([
 
         console.log('LabelMapType', LabelMapType);
 
-        // Insert this overlay map type
-        gMap.overlayMapTypes.insertAt(0, new LabelMapType(new google.maps.Size(256, 256)));
+        gMap.labelStrategy = new LabelMapType(new google.maps.Size(256, 256));
+
+        //gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);
 
         gMap.markers = [];
 
@@ -218,6 +260,8 @@ define([
         init: init_,
 
         refresh: refresh_,
+
+        refreshLabels: refreshLabels_,
 
         render: render_,
 

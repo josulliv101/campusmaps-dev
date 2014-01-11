@@ -316,7 +316,9 @@ console.log('handleVizPathChange require returned', controller, model);
 
         AppController.prototype.handleAttrLabelStrategy = function(model, val, key) {
 
-            var strategy, getStrategy = StrategyManager.getStrategy, map;
+            var strategy, getStrategy = StrategyManager.getStrategy, map,
+
+                json;
 
             if (key !== 'labelstrategy') return;
 
@@ -331,9 +333,12 @@ console.log('handleVizPathChange require returned', controller, model);
 
             map.labelstrategy = strategy;
 
-            //EventDispatcher.trigger('change:iconstrategy', strategy);
-            if (map) EventDispatcher.trigger('change:campusmap', map);
+            json = json = Datastore.JSON.map(map);
 
+            //EventDispatcher.trigger('change:iconstrategy', strategy);
+            //if (map) EventDispatcher.trigger('change:campusmap', map);
+
+            EventDispatcher.trigger('change:labelstrategy', json, strategy);
 
             return true;
 

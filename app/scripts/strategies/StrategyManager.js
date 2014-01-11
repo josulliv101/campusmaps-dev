@@ -55,8 +55,6 @@ define([
 
         this.add(LabelStrategyBig);
 
-       
-
     }
 
     StrategyManager.prototype.createStrategy = function(strategyFn) {

@@ -77,20 +77,12 @@ define([
 
         });
 
-        EventDispatcher.on('change:labelstrategy', function(labelstrategy) {
+        EventDispatcher.on('change:labelstrategy', function(campusmap, labelstrategy) {
 
 
-            var campusmap = Datastore.map();
+console.log('viz label strategy change', campusmap, labelstrategy);
 
-            console.log('viz controller label strategy change heard', campusmap);
-            
-            var label = campusmap.labelstrategy,
-
-                icon = campusmap.iconstrategy;
-
-            if (icon && label) renderCampusMap(campusmap, icon, label);
-
-            // To do: make more efficient in cases where this is called multiple times
+            viz.refreshLabels(campusmap, labelstrategy);
 
         });
 
@@ -121,6 +113,10 @@ define([
             // To do: make more efficient in cases where this is called multiple times
 
         });
+
+        function refreshLabels(campusmap, iconstrategy, labelstrategy) {
+
+        }
 
         function renderCampusMap(campusmap, iconstrategy, labelstrategy) {
 

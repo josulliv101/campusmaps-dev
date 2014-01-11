@@ -79,8 +79,6 @@ define([
 
         console.log('revertTheTruth', attributes);
 
-        //theTruth.set(obj);
-
     }
 
     // A vizpath change is the only truth change that can require async loading. Once the vizpath is loaded,
@@ -145,6 +143,11 @@ define([
 
 
     AppController.prototype.startRouter = function(settings) {
+
+        // Ensure there's a campus selected
+        Datastore.campus();
+
+        Datastore.map();
 
         this.router.settings = settings;
 
