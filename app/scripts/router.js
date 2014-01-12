@@ -55,7 +55,7 @@ define([
 
                 //this.settings = settingsUrl;
 
-                EventDispatcher.trigger('truthupdate', settings, { clear: true });
+                EventDispatcher.trigger('truthupdate', settings, { clear: false });
 
             },
 

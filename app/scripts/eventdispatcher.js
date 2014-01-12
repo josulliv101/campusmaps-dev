@@ -22,7 +22,7 @@ define([
 
 	MySingleton.prototype = {
 
-		initialize: function(){
+		initialize: function() {
 
 			// summary:
 			// Initializes the singleton.
@@ -31,6 +31,7 @@ define([
 			this.bar = 1;
 
 		}
+		
 	};
 
 	MySingleton.getInstance = function() {

@@ -129,22 +129,7 @@ define([
 
     // Always use 'set' to update the model's truth. This ensures that the changedAttributes method is always accurate.
     AppController.prototype.handleTruthChange = function(model, options) {}
- 
-
-    /* * * * * * * * * * * * * * * * * * * * *
-
-     --  You want answers?
-
-     --- I think I'm entitled to.
-
-     --  * You want answers? *
-
-     --- * I want the truth! *
-
-     --  * You can't handle the truth! *
-    
-    * * * * * * * * * * * * * * * * * * * * */
-
+        
 
     AppController.prototype.startRouter = function(settings) {
 

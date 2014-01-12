@@ -123,9 +123,7 @@ var log = console.log;
 
             require([ val ], function (Viz) { 
 
-console.log('handleVizPathChange require returned', controller, model);
-
-                Viz.init();
+                console.log('handleVizPathChange require returned', controller, model);
 
                 // A controller for all viz's is listening
                 EventDispatcher.trigger('change:viz', Viz);
@@ -269,7 +267,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
             console.log('...handleAttrCampusMap campus',  Datastore.JSON.maps(), Datastore.mapList());
             
-            if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
+            //if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
 
             return true;
 
@@ -278,11 +276,17 @@ console.log('handleVizPathChange require returned', controller, model);
         // Handle at global controller level, if needed, then delegate --- +/- logic
         AppController.prototype.handleAttrZoom = function(model, val, key) {
 
+            var campus;
+
             if (key !== 'zoom') return;
+
+            campus = Datastore.campus();
+
+            campus.zoom = parseInt(val);
 
             console.log('...handleAttrZoom', model, val, key, model.previous('maptype'));
 
-            EventDispatcher.trigger('change:zoom', parseInt(val));
+            //EventDispatcher.trigger('change:zoom', parseInt(val));
 
             return true;
 
@@ -387,7 +391,7 @@ console.log('handleVizPathChange require returned', controller, model);
 
         }
 
-        // Handle at global controller level, if needed, then delegate
+        // Handle at global controller level, then delegate to viz controller
         AppController.prototype.handleAttrMapType = function(model, val, key) {
 
             var classname = 'hide-overlay', opts = { silent: true };
@@ -402,7 +406,7 @@ console.log('handleVizPathChange require returned', controller, model);
             // Toggle the hide-overlay class which has a css transition for hide/show
             domManager.cssFlag(classname, { remove: val !== 'satellite' });
 
-            EventDispatcher.trigger('maptype', val);
+            //EventDispatcher.trigger('maptype', val);
 
             return true;
 

@@ -45,8 +45,6 @@ console.log('App controller.init 2');
 
         this.controller.init();
 
-
-
         // Controller has reference to a Data Service module that defines how to fetch data.
         $.when( this.controller.getData() )
 

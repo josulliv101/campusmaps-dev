@@ -25,17 +25,17 @@ define([
     
     var gMap;
 
-    function init_() {    
+    function init_(el, latlng, zoom) {    
 
-        var campus = Datastore.campus(),
+/*        var campus = Datastore.campus(),
 
             zoom = campus.get('zoom'),
 
             latlng = _.latLng(_.isString(Datastore.latlng) ? Datastore.latlng : campus.get('latlng')),
 
-            el = document.getElementById('map-canvas');
+            el = document.getElementById('map-canvas');*/
 
-        createMap_(el, latlng, zoom);
+        createMap_.apply(this, arguments);
 
     }
 
@@ -87,9 +87,27 @@ define([
 
     function getLatLng(latlng) {
 
-        var ll = _.latLng(latlng);
+        var ll = _.isString(latlng) ? _.latLng(latlng) : latlng;
 
         return new google.maps.LatLng(ll[0], ll[1]);
+
+    }
+
+    function renderIcons_(models) {
+
+        console.log('render models', models);
+
+        var markers  = _.chain(models)
+
+                        .map(function(model) {
+
+                           var m = _.extend(model, { map: gMap, position: getLatLng(model.latlng) });
+
+                           return new google.maps.Marker(m);
+
+                        })
+
+                        .value();
 
     }
 
@@ -150,9 +168,19 @@ console.log('render__');
 
     function setZoom_(level) {
 
+        level = parseInt(level);
+
         console.log('gmap setZoom_..', level);
 
         gMap.setZoom(level);
+
+    }
+
+    function setMapType_(maptype) {
+
+        console.log('gmap setMapType_..', maptype);
+
+        gMap.setMapTypeId(maptype);
 
     }
 
@@ -242,7 +270,7 @@ console.log('render__');
 
         });
 
-        EventDispatcher.on('maptype', function(maptype) {
+/*        EventDispatcher.on('maptype', function(maptype) {
 
             //var maptype = (type === 'satellite' ? google.maps.MapTypeId.SATELLITE : google.maps.MapTypeId.ROADMAP);
 
@@ -250,7 +278,7 @@ console.log('render__');
 
             gMap.setMapTypeId(maptype);
 
-        });
+        });*/
 
 
     }
@@ -261,11 +289,15 @@ console.log('render__');
 
         refresh: refresh_,
 
+        renderIcons: renderIcons_,
+
         refreshLabels: refreshLabels_,
 
         render: render_,
 
         setZoom: setZoom_,
+
+        setMapType: setMapType_,
 
         clear: clear_
 
