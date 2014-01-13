@@ -55,9 +55,9 @@ console.log('DomManager!!', $root);
 
                 //controller.handleAttrStreetview,
 
-                //controller.handleAttrIconStrategy,
+                controller.handleAttrIconStrategy,
 
-                //controller.handleAttrLabelStrategy
+                controller.handleAttrLabelStrategy
 
             ];
 
@@ -292,61 +292,34 @@ var log = console.log;
 
         }
 
-/*        // Handle at local controller level
+        // Handle at local controller level
         AppController.prototype.handleAttrIconStrategy = function(model, val, key) {
 
-            var strategy, getStrategy = StrategyManager.getStrategy, map;
+            var campus, strategy = StrategyManager.getStrategy;
 
             if (key !== 'iconstrategy') return;
 
-            //strategy = IconStrategy.getStrategy(val);
-       
-            // Get strategy by id or the default for icons
-            strategy = getStrategy(val) || getStrategy('icon');
+            campus = Datastore.campus();
 
-            map = Datastore.map(Datastore.campus());
-
-            console.log('...handleAttrIconStrategy', model, val, key, strategy);
-
-            map.iconstrategy = strategy;
-
-            //EventDispatcher.trigger('change:iconstrategy', strategy);
-            if (map) EventDispatcher.trigger('change:campusmap', map);
-
+            campus.iconStrategy = strategy(val) || strategy(StrategyManager.TYPE.ICON);
 
             return true;
 
-        }*/
+        }
 
-/*        AppController.prototype.handleAttrLabelStrategy = function(model, val, key) {
+        AppController.prototype.handleAttrLabelStrategy = function(model, val, key) {
 
-            var strategy, getStrategy = StrategyManager.getStrategy, map,
-
-                json;
+            var campus, strategy = StrategyManager.getStrategy;
 
             if (key !== 'labelstrategy') return;
 
-            //strategy = IconStrategy.getStrategy(val);
-       
-            // Get strategy by id or the default for icons
-            strategy = getStrategy(val) || getStrategy('label');
+            campus = Datastore.campus();
 
-            map = Datastore.map(Datastore.campus());
-
-            console.log('...handleAttrLabelStrategy', model, val, key, strategy);
-
-            map.labelstrategy = strategy;
-
-            json = json = Datastore.JSON.map(map);
-
-            //EventDispatcher.trigger('change:iconstrategy', strategy);
-            //if (map) EventDispatcher.trigger('change:campusmap', map);
-
-            EventDispatcher.trigger('change:labelstrategy', json, strategy);
+            campus.labelStrategy = strategy(val) || strategy(StrategyManager.TYPE.LABEL);
 
             return true;
 
-        }*/
+        }
 
         // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleResize = function(model, val, key) {

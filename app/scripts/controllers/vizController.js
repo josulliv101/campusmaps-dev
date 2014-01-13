@@ -34,7 +34,7 @@ define([
 
         var campus = Datastore.campus(),
 
-            zoom = campus.get('zoom'),
+            zoom = campus.zoom || _.getAttr(campus, 'zoom'),
 
             latlng = _.latLng(_.isString(Datastore.latlng) ? Datastore.latlng : _.getAttr(campus, 'latlng')),
 
@@ -57,10 +57,14 @@ define([
 
             zoom = campus.zoom || 5,
 
-            models = this.getMarkerModels(campusmap, zoom);
+            iconStrategy = campus.iconStrategy,
 
-        console.log('VizController handleTheTruth', attrs);
+            labelStrategy = campus.labelStrategy,
 
+            models = this.getMarkerModels(campusmap, zoom, iconStrategy, labelStrategy);
+
+        console.log('VizController labelStrategy', attrs);
+debugger;
         // Any Datastore updates have all been completed at the App Controller level
 
         // Strategy will take the appropriate action based on the Truth attributes that changed
@@ -69,13 +73,13 @@ define([
     }
 
     // To do: memoize this fn in init()
-    VizController.prototype.getMarkerModels = function(campusmap, zoom) {
+    VizController.prototype.getMarkerModels = function(campusmap, zoom, iconStrategy, labelStrategy) {
 
-        var locations = Datastore.locations(campusmap),
+        var locations = Datastore.locations(campusmap);
 
-            iconStrategy = StrategyManager.getStrategy(StrategyManager.TYPE.ICON),
+            //iconStrategy = campus.iconStrategy || StrategyManager.getStrategy(StrategyManager.TYPE.ICON),
 
-            labelStrategy = StrategyManager.getStrategy(StrategyManager.TYPE.LABEL);
+            //labelStrategy = StrategyManager.getStrategy(StrategyManager.TYPE.LABEL);
 
         return _.chain(locations)
 
@@ -91,9 +95,13 @@ define([
 
                         latlng: _.latLng(latlng),
 
+                        emphasis: parseInt(_.getAttr(loc, 'emphasis')),
+
                         icon: iconStrategy.strategy(loc, zoom),
 
-                        label: labelStrategy.strategy(loc, zoom)
+                        label: labelStrategy.strategy(loc, zoom),
+
+                        zoom: zoom
 
                     }
 

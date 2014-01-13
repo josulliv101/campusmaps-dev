@@ -27,14 +27,6 @@ define([
 
     function init_(el, latlng, zoom) {    
 
-/*        var campus = Datastore.campus(),
-
-            zoom = campus.get('zoom'),
-
-            latlng = _.latLng(_.isString(Datastore.latlng) ? Datastore.latlng : campus.get('latlng')),
-
-            el = document.getElementById('map-canvas');*/
-
         createMap_.apply(this, arguments);
 
     }
@@ -42,7 +34,7 @@ define([
     // To do: move all strategies to vizcontroller
     function refreshLabels_(json, labelstrategy) {    
 
-        var zoom = gMap.getZoom();
+/*        var zoom = gMap.getZoom();
 
         labelstrategy || (labelstrategy = gMap.labelStrategy);
 
@@ -75,7 +67,7 @@ define([
 
         if (gMap.overlayMapTypes.length === 1) gMap.overlayMapTypes.removeAt(0);
 
-        gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);
+        gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);*/
 
     }
 
@@ -93,26 +85,58 @@ define([
 
     }
 
+    function renderLabels_(models) {
+
+        var tileOffset;
+
+        _.each(models, function(model) {
+
+            var latlng;
+
+            if (model.label === true) {
+
+console.log('doing label', model, model.name);
+
+                latlng = model.latlng;
+
+                // The latLngToTileOffset function caches the return value for future use
+                tileOffset = MapUtils.latLngToTileOffset({ lat: latlng[0], lng: latlng[1] }, model.zoom);
+
+                MapUtils.addLocationToTileCache(tileOffset, model);
+//
+            }           
+
+        });
+debugger;
+        if (gMap.overlayMapTypes.length === 1) gMap.overlayMapTypes.removeAt(0);
+
+        gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);    
+
+    }
+
     function renderIcons_(models) {
+
+        var markers;
 
         console.log('render models', models);
 
-        var markers  = _.chain(models)
+        clear_();
+
+        gMap.markers = _.chain(models)
 
                         .map(function(model) {
 
-                           var m = _.extend(model, { map: gMap, position: getLatLng(model.latlng) });
+                            var m = _.extend(model, { map: gMap, position: getLatLng(model.latlng) });
 
-                           return new google.maps.Marker(m);
+                            return new google.maps.Marker(m);
 
                         })
 
                         .value();
-
     }
 
     function render_(json, iconstrategy, labelstrategy) {
-
+/*
         var zoom = gMap.getZoom();
 
 console.log('render__');
@@ -129,16 +153,7 @@ console.log('render__');
 
             icon = iconstrategy.strategy(loc, zoom);
 
-/*            label = labelstrategy.strategy(loc, zoom);
 
-            if (label === true) {
-
-                // The latLngToTileOffset function caches the return value for future use
-                tileOffset = MapUtils.latLngToTileOffset({ lat: latlng.lat(), lng: latlng.lng() }, zoom);
-
-                MapUtils.addLocationToTileCache(tileOffset, loc);
-
-            }*/
 
             marker = new google.maps.Marker({
 
@@ -163,7 +178,7 @@ console.log('render__');
         });
 
         console.log('MapUtils.getCache', MapUtils.getTileCache());
-
+*/
     }
 
     function setZoom_(level) {
@@ -288,6 +303,8 @@ console.log('render__');
         init: init_,
 
         refresh: refresh_,
+
+        renderLabels: renderLabels_,
 
         renderIcons: renderIcons_,
 

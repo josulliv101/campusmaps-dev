@@ -19,7 +19,7 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    if (parseInt(_.getAttr(model, 'emphasis')) < 4) return; 
+                    if (model.emphasis < 4) return; 
 
                     return true; // Show all label
 

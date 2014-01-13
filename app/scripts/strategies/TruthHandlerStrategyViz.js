@@ -55,10 +55,25 @@ define([
 
                     viz.renderIcons(models);
 
+                    viz.renderLabels(models);
+
                     console.log('viz strategy - vizpath changed', viz, changedAttrs, models);
 //debugger;
                     return true;
                     
+                },
+
+                // Label Strategy has changed
+                function(viz, changedAttrs, models) { 
+
+                    var keys = _.keys(changedAttrs);
+
+                    if (keys.length !== 1 || !_.contains(keys, 'labelstrategy')) return;
+
+                    viz.renderLabels(models);
+
+                    return true;
+
                 },
 
                 // Icon Strategy has changed
@@ -95,6 +110,10 @@ define([
                     if (keys.length !== 1 || !_.contains(keys, 'zoom')) return;
 
                     viz.setZoom(changedAttrs['zoom']);
+
+                    viz.renderIcons(models);
+
+                    viz.renderLabels(models);
 
                     return true;
 

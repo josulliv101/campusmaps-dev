@@ -77,9 +77,9 @@ requirejs.onError = function (err) {
 
             		, campusmap: 'medford-main'
 
-            		//, 'vizpath!': 'googlemap'
+            		, 'vizpath!': 'googlemap'
 
-            		//, 'vizpath': 'googlemap'
+            		, 'vizpath': 'googlemap'
 
             		, zoom: 18
 
@@ -91,33 +91,40 @@ requirejs.onError = function (err) {
 
 	</script>
 
-	<button data-campusmap='cmd:CampusList'>View CampusList</button>
+	<div id="controls">
+		
+		<button data-campusmap='cmd:CampusList'>View CampusList</button>
 
-	<button data-campusmap='cmd:panelA'>View A</button>
+		<button data-campusmap='cmd:panelA'>View A</button>
 
-	<button data-campusmap='cmd:panelB'>View B</button>
+		<button data-campusmap='cmd:panelB'>View B</button>
 
-	<button data-campusmap='cmd:LocationList'>View LocationList</button>
+		<button data-campusmap='cmd:LocationList'>View LocationList</button>
 
-	<button data-campusmap='cmd:'>View None</button>
+		<button data-campusmap='cmd:'>View None</button>
 
-	<button data-campusmap='cmd:error'>View Invalid</button>
-	
-	<button data-campusmap='iconstrategy:default'>Icons Default</button>
+		<button data-campusmap='cmd:error'>View Invalid</button>
+		
+		<button data-campusmap='iconstrategy:default'>Icons Default</button>
 
-	<button data-campusmap='iconstrategy:fletcher'>Icons Fletcher</button>
+		<button data-campusmap='iconstrategy:fletcher'>Icons Fletcher</button>
 
-	<button data-campusmap='labelstrategy:default'>Labels Default</button>
+		<button data-campusmap='iconstrategy:clear'>Icons Clear</button>
 
-	<button data-campusmap='labelstrategy:big'>Labels Fletcher</button>
+		<button data-campusmap='labelstrategy:default'>Labels Default</button>
 
-	<button data-campusmap='zoom:17'>Z17</button>
+		<button data-campusmap='labelstrategy:big'>Labels Fletcher</button>
 
-	<button data-campusmap='zoom:16'>Z16</button>
+		<button data-campusmap='zoom:17'>Z17</button>
 
-	<button data-campusmap='maptype:satellite,iconstrategy:clear'>MapType: Satellite</button>
+		<button data-campusmap='zoom:16'>Z16</button>
 
-	<button class="back" onclick="window.history.back()">back</button>
+		<button data-campusmap='maptype:satellite,iconstrategy:clear'>MapType: Satellite</button>
+
+		<button class="back" onclick="window.history.back()">back</button>
+
+	</div>
+
 	
 </body>
 </html>

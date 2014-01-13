@@ -8,7 +8,11 @@ define([
     'use strict';
 
     return function(StrategyManager) { 
+        
 console.log(StrategyManager);
+
+        var path = StrategyManager.getIconPath;
+
         return {
 
             id: 'icon-default', 
@@ -21,7 +25,15 @@ console.log(StrategyManager);
 
                     if (model.selected !== true) return;
 
-                    return StrategyManager.getIconPath('circle_solid_center-big.png');
+                    return path('circle_solid_center-big.png');
+
+                },
+
+                function(model, zoom) { // Location Model
+
+                    if (zoom > 15) return;
+
+                    return path('clear.png');
 
                 },
 
@@ -31,7 +43,7 @@ console.log(StrategyManager);
 
                     if (emphasis > 3) return;
 
-                    return StrategyManager.getIconPath('circle_outline_center.png');
+                    return path('circle_outline_center.png');
 
                 },
 
@@ -41,7 +53,7 @@ console.log(StrategyManager);
 
                     if (emphasis <= 3) return;
 
-                    return StrategyManager.getIconPath('diamond_solid_center.png');
+                    return path('diamond_solid_center.png');
 
                 }
 
