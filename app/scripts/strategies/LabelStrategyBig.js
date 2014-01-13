@@ -19,9 +19,9 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    if (model.emphasis < 4) return; 
+                    if (!model.tags) return; 
 
-                    return true; // Show all label
+                    return model.tags.indexOf('fletcher') > -1 ? true : undefined; // Show all label
 
                     //if (model.selected !== true) return;
 

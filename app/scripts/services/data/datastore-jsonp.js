@@ -16,7 +16,7 @@ define([
 
     //// Private ////
 
-    var fns_, url_ = 'http://josephs-macbook-pro.local/maps4/app/data/data.json', //url_ = 'http://s125381.gridserver.com/data/data.json',
+    var fns_, url_ = '/app/data/data.json', //url_ = 'http://s125381.gridserver.com/data/data.json',
 
         campuses_ = new Backbone.Collection(),
 

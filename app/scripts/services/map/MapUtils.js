@@ -108,9 +108,9 @@ define([
     // Done this way so it can reset easily when testing
     Utils.prototype.memoizeFunctions = function() {
 
-      this.latLngToTileOffset = _.memoize( this.latLngToTileOffset_, function(latLng, zoom) { return getLatLngZoomId(latLng, zoom); });
+      this.latLngToTileOffset = this.latLngToTileOffset_; //_.memoize( this.latLngToTileOffset_, function(latLng, zoom) { return getLatLngZoomId(latLng, zoom); });
 
-      this.addLocationToTileCache = _.memoize( this.addLocationToTileCache_, function(tileOffset, loc) { return _.getAttr(loc, 'locationid') + getTileZoomId(tileOffset.tile, tileOffset.zoom); });
+      this.addLocationToTileCache = this.addLocationToTileCache_; //_.memoize( this.addLocationToTileCache_, function(tileOffset, loc) { return _.getAttr(loc, 'locationid') + getTileZoomId(tileOffset.tile, tileOffset.zoom); });
 
     }
 

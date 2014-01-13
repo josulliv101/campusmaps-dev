@@ -128,6 +128,15 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
             }
 
+            // Can take a campus object or campusmaps object
+            function getStrategies_(campus) {
+
+                if (!_.isObject(campus)) return {};
+
+                return { icon: campus.iconStrategy, label: campus.labelStrategy };
+
+            }
+
             function getDefaultMap_(campus) {
 
                 var defaultid, campusmaps, campusmap;
@@ -260,6 +269,8 @@ function() {   },
 
                 // Each datastore will overwrite this with its own way of fetching data
                 fetch: function() { return campuses_; },
+
+                getStrategies: getStrategies_,
 
                 mapList: function() { return maps_; },
 

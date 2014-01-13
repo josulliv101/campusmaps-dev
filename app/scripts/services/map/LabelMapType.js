@@ -25,6 +25,8 @@ define([
 
       $labels = _.map(locs, function(loc) {
 
+        if (loc.label !== true) return;
+
         var tile = loc.tileCache[zoom], offset = tile.offset,
 
           $lbl = DomManager.getInstance().create({ 
@@ -37,7 +39,11 @@ define([
 
             style: { 
 
-              'min-width': '100px', 
+              'min-width': '140px',
+
+              'text-align': 'left',
+
+              width: 'auto', 
 
               position: 'absolute', 
 
@@ -49,11 +55,15 @@ define([
 
               left: px(offset.x),
 
-              'font-size': '14px'
+              'font-size': '18px',
+
+              'margin': '-1.15em 0 0 0'
 
             }
             
           });
+
+        div.className = 'label-tile fade-in';
 
         $lbl.appendTo(div);
 

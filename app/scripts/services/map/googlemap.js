@@ -31,46 +31,6 @@ define([
 
     }
 
-    // To do: move all strategies to vizcontroller
-    function refreshLabels_(json, labelstrategy) {    
-
-/*        var zoom = gMap.getZoom();
-
-        labelstrategy || (labelstrategy = gMap.labelStrategy);
-
-        if (!labelstrategy) return;
-
-        console.log('refreshLabels_', json, labelstrategy, gMap.overlayMapTypes);
-
-       _.each(json.locations, function(loc) {
-
-            var marker, latlng, icon, label, tileOffset;
-
-            if (!_.isObject(loc) || !_.isString(loc.latlng)) return;
-
-            latlng = getLatLng(loc.latlng);
-
-            if (!latlng) return;
-
-            label = labelstrategy.strategy(loc, zoom);
-
-             if (label === true) {
-
-                // The latLngToTileOffset function caches the return value for future use
-                tileOffset = MapUtils.latLngToTileOffset({ lat: latlng.lat(), lng: latlng.lng() }, zoom);
-
-                MapUtils.addLocationToTileCache(tileOffset, loc);
-
-            }           
-
-        });
-
-        if (gMap.overlayMapTypes.length === 1) gMap.overlayMapTypes.removeAt(0);
-
-        gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);*/
-
-    }
-
     function refresh_(latlng) {    
 
         gMap.panTo(getLatLng(latlng));
@@ -87,7 +47,7 @@ define([
 
     function renderLabels_(models) {
 
-        var tileOffset;
+/*        var tileOffset;
 
         _.each(models, function(model) {
 
@@ -103,11 +63,11 @@ console.log('doing label', model, model.name);
                 tileOffset = MapUtils.latLngToTileOffset({ lat: latlng[0], lng: latlng[1] }, model.zoom);
 
                 MapUtils.addLocationToTileCache(tileOffset, model);
-//
+
             }           
 
-        });
-debugger;
+        });*/
+
         if (gMap.overlayMapTypes.length === 1) gMap.overlayMapTypes.removeAt(0);
 
         gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);    
@@ -307,8 +267,6 @@ console.log('render__');
         renderLabels: renderLabels_,
 
         renderIcons: renderIcons_,
-
-        refreshLabels: refreshLabels_,
 
         render: render_,
 

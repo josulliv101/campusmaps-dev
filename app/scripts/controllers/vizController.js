@@ -6,13 +6,17 @@ define([
 
     , 'strategies/StrategyManager'
 
+    , 'scripts/services/map/MapUtils'
+
     , 'eventdispatcher'
 
-], function(_, Datastore, StrategyManager, EventDispatcher) {
+], function(_, Datastore, StrategyManager, MapUtils, EventDispatcher) {
 
     'use strict';
 
     function VizController() {
+
+        this.viz;
 
     }
 
@@ -51,24 +55,83 @@ define([
     VizController.prototype.handleTruthChange = function(attrs) {
 
         // A campusmap can also be created dynamically - an example would be map of locations tagged as 'dorm'
-        var campus = Datastore.campus(),
+        var campus = Datastore.campus(), campusmap = Datastore.map(campus),
 
-            campusmap = Datastore.map(campus),
+            locations = Datastore.locations(campusmap), strategies = Datastore.getStrategies(campus), 
 
-            zoom = campus.zoom || 5,
+            zoom = campus.zoom,
 
-            iconStrategy = campus.iconStrategy,
+            iconStrategy = strategies.icon,
 
-            labelStrategy = campus.labelStrategy,
+            labelStrategy = strategies.label,
 
-            models = this.getMarkerModels(campusmap, zoom, iconStrategy, labelStrategy);
+            models = this.setIconsAndLabels(locations, iconStrategy, labelStrategy, zoom); //this.getMarkerModels(campusmap, zoom, iconStrategy, labelStrategy);
 
         console.log('VizController labelStrategy', attrs);
-debugger;
+
+MapUtils.resetCache();
+
+        this.setTileCache(models);
+
+
         // Any Datastore updates have all been completed at the App Controller level
 
         // Strategy will take the appropriate action based on the Truth attributes that changed
         if (this.viz) this.handleTruthStrategy.strategy(this.viz, attrs, models);
+
+    }
+
+    VizController.prototype.setTileCache = function(locations) {
+
+        _.each(locations, function(loc) {
+
+            var tileOffset;
+
+            if (loc.label !== true) return;
+
+            // The latLngToTileOffset function caches the return value for future use
+            tileOffset = MapUtils.latLngToTileOffset({ lat: loc.latlng[0], lng: loc.latlng[1] }, loc.zoom);
+
+            MapUtils.addLocationToTileCache(tileOffset, loc); 
+
+        });
+
+    }
+
+    VizController.prototype.setIconsAndLabels = function(locations, iconStrategy, labelStrategy, zoom) {
+
+        if (!_.isArray(locations)) return [];
+
+        return  _.chain(locations)
+
+                 .map(function(loc) {
+
+                    var strategies = {}, latlng = _.getAttr(loc, 'latlng');
+
+                    if (!latlng) return;
+
+                    strategies = { 
+
+                        latlng: _.latLng(latlng), 
+
+                        icon: iconStrategy.strategy(loc, zoom), 
+
+                        label: labelStrategy.strategy(loc, zoom), 
+
+                        zoom: zoom  
+
+                    };
+                    
+                    // Don't alter the original model
+                    return _.extend({}, loc, strategies);
+
+                    //return loc;
+
+                 })
+
+                 .reject(function(loc) { return loc === undefined; })
+
+                 .value();
 
     }
 

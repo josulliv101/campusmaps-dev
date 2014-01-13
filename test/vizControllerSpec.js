@@ -15,6 +15,8 @@ define([
 
       spyOn(VizController.prototype, 'handleTruthChange');
 
+      spyOn(VizController.prototype, 'handleChangeViz');
+
       controller = new VizController();
 
       controller.init();
@@ -34,12 +36,6 @@ define([
         expect( controller ).toBeDefined();
 
       });
-
-      it('should have a reference to the router', function () {
-
-        //expect(controller.router).toBeDefined();
-
-      });
  
     });
 
@@ -47,33 +43,23 @@ define([
 
      it('should have an init method', function () {
 
-        expect( VizController.prototype.handleTruthChange ).toBeDefined();
-
-      });
-/* 
-      it('should have a getData method', function () {
-
-        expect( AppController.prototype.getData ).toBeDefined();
+        expect( VizController.prototype.init ).toBeDefined();
 
       });
 
-      it('should have a startRouter method', function () {
+     it('should have a method to update a location model icon & label', function () {
 
-        expect( AppController.prototype.startRouter ).toBeDefined();
+        var locations = [];
 
-      });*/
+        expect( VizController.prototype.setIconsAndLabels ).toBeDefined();
+
+      });
 
     });
 
     describe('Events', function () {
 
-      it('should have alistener for AppLevelTruthHandled', function () {
-
-        expect( controller ).toBeDefined();
-
-      });
-
-      it('should handle theTruth change', function () {
+      it('should have a listener for the App Controller forwarding on the changed ruth attrs', function () {
 
         // Events aren't ansync (unless the handling itself  involves an async method)
         EventDispatcher.trigger('delegateTruth', { 'test': 123 });
@@ -82,6 +68,15 @@ define([
 
       });
  
+      it('should have a listener for a new viz', function () {
+
+        // Events aren't ansync (unless the handling itself  involves an async method)
+        EventDispatcher.trigger('change:viz', { 'id': 'myviz' });
+
+        expect( VizController.prototype.handleChangeViz ).toHaveBeenCalled();
+
+      });
+
     });
 
   });
