@@ -25,9 +25,9 @@ define([
 
       $labels = _.map(locs, function(loc) {
 
-        if (loc.label !== true) return;
+        // not needed since tilecache reset each time? if (loc.label !== true) return;
 
-        var tile = loc.tileCache[zoom], offset = tile.offset,
+        var tile = loc.tileCache[zoom], label = _.getAttr(loc, 'label'), offset = tile.offset,
 
           $lbl = DomManager.getInstance().create({ 
 
@@ -55,9 +55,9 @@ define([
 
               left: px(offset.x),
 
-              'font-size': '18px',
+              'font-size': (1.5*parseInt(_.getAttr(loc, 'emphasis')) + 10) + 'px',
 
-              'margin': '-1.15em 0 0 0'
+              'margin': '-1.15em 0 0 12px'
 
             }
             
@@ -65,7 +65,12 @@ define([
 
         div.className = 'label-tile fade-in';
 
+        $lbl.prepend('<i style="color:#5e9bb8;font-size:10px;font-weight:700;margin-right:4px;" class="fa fa-circle-o"></i> ');
+
         $lbl.appendTo(div);
+
+        // Value may be space delimited list of classes
+        if (_.isString(label)) $lbl.addClass(label);
 
         return $lbl;
 

@@ -73,7 +73,6 @@ MapUtils.resetCache();
 
         this.setTileCache(models);
 
-
         // Any Datastore updates have all been completed at the App Controller level
 
         // Strategy will take the appropriate action based on the Truth attributes that changed
@@ -87,7 +86,8 @@ MapUtils.resetCache();
 
             var tileOffset;
 
-            if (loc.label !== true) return;
+            // Label may be a <String> -- force it into a boolean value
+            if (!!loc.label !== true) return;
 
             // The latLngToTileOffset function caches the return value for future use
             tileOffset = MapUtils.latLngToTileOffset({ lat: loc.latlng[0], lng: loc.latlng[1] }, loc.zoom);

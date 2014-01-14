@@ -17,9 +17,11 @@ define([
 
       , 'strategies/LabelStrategyBig'
 
+      , 'strategies/LabelStrategyFletcher'
+
       , 'strategies/TruthHandlerStrategyViz'
 
-], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, TruthHandlerStrategyViz) {
+], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyFletcher, TruthHandlerStrategyViz) {
 
     'use strict';
 
@@ -59,9 +61,11 @@ define([
 
         this.DEFAULT = 'default';
 
-        this.add(IconStrategy);
+         this.add(IconStrategyClear);       
 
-        this.add(IconStrategyClear);
+         this.add(IconStrategy);
+
+
 
         this.add(IconStrategyFletcher);
 
@@ -69,6 +73,8 @@ define([
 
         this.add(LabelStrategyBig);
 
+        this.add(LabelStrategyFletcher);
+        
         this.add(TruthHandlerStrategyViz);
 
     }

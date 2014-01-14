@@ -467,6 +467,26 @@ button {
   border-radius: 6px;
   */
 
+  &.mute {
+
+    color: #999;
+
+  }
+
+  &.fletcher {
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    /*color: #5e9bb8;
+
+    &:hover {
+      color: red;
+    }*/
+
+  }
+
 }
 
 /* make keyframes that tell the start state and the end state of our object */
