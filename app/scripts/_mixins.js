@@ -127,6 +127,17 @@ define([
             });
         },
 
+        getSelectedItems: function(items) {
+
+            if (!_.exists(items)) return;
+            
+            return _.reject(items, function(item) {
+
+                return item.selected !== true;
+
+            });
+        },
+
         resetItems: function(items) {
 
             // Unselect

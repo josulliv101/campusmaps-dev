@@ -59,13 +59,11 @@ define([
 
         };
 
-        this.DEFAULT = 'default';
+        this.DEFAULT = 'defaultStrategy';
 
-         this.add(IconStrategyClear);       
+        this.add(IconStrategy);
 
-         this.add(IconStrategy);
-
-
+        this.add(IconStrategyClear);  
 
         this.add(IconStrategyFletcher);
 
@@ -112,7 +110,7 @@ define([
         strategy = _.chain(this.getCache())
 
                     // Don't include the default keys. These are references to existing objects (so would be dups)
-                    .map(function(type) { return _.omit(type, 'default'); })
+                    .map(function(type) { return _.omit(type, 'defaultStrategy'); })
 
                     .map(function(type) { return _.values(type); })
 
@@ -148,7 +146,7 @@ define([
 
         typeObject[strategy.id] = strategy;
 
-        if (_.size(typeObject) === 1 || strategy.default === true) this.setDefault(strategy);;
+        if (_.size(typeObject) === 1 || strategy.isDefault === true) this.setDefault(strategy);;
 
         return strategy;
 
@@ -175,7 +173,7 @@ define([
 
         if (!type) return;
 
-        typeObject['default'] = strategy;
+        typeObject['defaultStrategy'] = strategy;
 
         return strategy;
 
@@ -191,7 +189,7 @@ define([
 
         typeObject = this.getCache(type);
 
-        return typeObject['default'];
+        return typeObject['defaultStrategy'];
 
     }
 
@@ -215,7 +213,7 @@ define([
         return instance;
     };
 
-
+console.log('@strategymanager');
     return getInstance();
 
 });

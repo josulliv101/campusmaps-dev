@@ -21,7 +21,7 @@ define([
     }
 
     VizController.prototype.init = function() {
-
+console.log('type', StrategyManager);
         // Get the default for the Viz strategies
         this.handleTruthStrategy = StrategyManager.getStrategy(StrategyManager.TYPE.TRUTH_HANDLER_VIZ);
 
@@ -59,6 +59,8 @@ define([
 
             locations = Datastore.locations(campusmap), strategies = Datastore.getStrategies(campus), 
 
+            selectedLocations = campusmap.selectedLocations || [],
+
             zoom = campus.zoom,
 
             iconStrategy = strategies.icon,
@@ -76,7 +78,7 @@ MapUtils.resetCache();
         // Any Datastore updates have all been completed at the App Controller level
 
         // Strategy will take the appropriate action based on the Truth attributes that changed
-        if (this.viz) this.handleTruthStrategy.strategy(this.viz, attrs, models);
+        if (this.viz) this.handleTruthStrategy.strategy(this.viz, attrs, models, campus, campusmap, selectedLocations);
 
     }
 

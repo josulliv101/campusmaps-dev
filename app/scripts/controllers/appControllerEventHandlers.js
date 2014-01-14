@@ -176,7 +176,7 @@ var log = console.log;
             console.log('...handleAttrCampusId (map)', Datastore.campus());
 
             // Let an views listening know
-            EventDispatcher.trigger('change:campus', campus);
+            //EventDispatcher.trigger('change:campus', campus);
 
             return true;
 
@@ -186,11 +186,14 @@ var log = console.log;
         AppController.prototype.handleAttrLocationId = function(theTruth, val, key) {
 
             // When a locationid change happens, it's assumed that the change applies to the currently selected map
-            var campusmap, location, ids, locs;
+            var campusmap, location, ids, locs, selected;
 
             if (key !== 'locationid') return;
 
             campusmap = Datastore.map(Datastore.campus());
+
+            // Reset selected
+            selected = _.resetItems(Datastore.locations(campusmap));
 
             locs = _.chain(val.split(','))
 
@@ -201,9 +204,11 @@ var log = console.log;
                     .tap(function (all) { _.each(all, function(loc) { loc.selected = true; }); })
 
                     .value();
-//debugger;
 
-            _.each(locs, function() { EventDispatcher.trigger('change:locationid', location); });
+            campusmap.selectedLocations = locs;
+
+
+            //_.each(locs, function() { EventDispatcher.trigger('change:locationid', location); });
 
 /*            location = Datastore.location(campusmap, val);
 
@@ -266,7 +271,7 @@ var log = console.log;
             console.log('...handleAttrCampusMap', theTruth, val, key);
 
             console.log('...handleAttrCampusMap campus',  Datastore.JSON.maps(), Datastore.mapList());
-            
+
             //if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
 
             return true;
@@ -345,7 +350,7 @@ var log = console.log;
             console.log('...handleAttrCmd', model.cid, val, key);
 
             // let the searchbox controller handle it
-            EventDispatcher.trigger('cmd', val);
+            //EventDispatcher.trigger('cmd', val);
 
             return true;
 

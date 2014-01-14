@@ -1,12 +1,14 @@
 define([
 
-    '_mixins',
+     '_mixins'
 
-    'backbone',
+    , 'backbone'
 
-    'eventdispatcher'
+    , 'strategies/StrategyManager'
 
-], function(_, Backbone, EventDispatcher) {
+    , 'eventdispatcher'
+
+], function(_, Backbone, StrategyManager, EventDispatcher) {
 
     'use strict';
 
@@ -133,7 +135,13 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                 if (!_.isObject(campus)) return {};
 
-                return { icon: campus.iconStrategy, label: campus.labelStrategy };
+                return { 
+
+                    icon: campus.iconStrategy || StrategyManager.getStrategy(StrategyManager.TYPE.ICON), 
+
+                    label: campus.labelStrategy || StrategyManager.getStrategy(StrategyManager.TYPE.LABEL)
+
+                };
 
             }
 
@@ -331,7 +339,7 @@ function() {   },
 
                     campus: function(campus) { 
 
-                        var json, campusmaps = _.getAttr(campus, 'maps');
+                        var json, campusmaps = getCampusMaps_(campus);
 
 console.log('@campusmaps', campus, campusmaps);
 
@@ -343,11 +351,11 @@ console.log('@campusmaps', campus, campusmaps);
 
                                 var locList = _.getAttr(map, 'locations') || { length: 0 },
 
-                                    jsonLocs = _.map(locList, function(loc) { return loc.toJSON()});
+                                    jsonLocs = _.map(locList, function(loc) { return !!loc.toJSON ? loc.toJSON() : loc; });
 
                                 //console.log('jsonLocs', jsonLocs);
 
-                                return _.extend(map.toJSON(), { selected: map.selected, locationTotal: locList.length, locations: jsonLocs }); 
+                                return _.extend(!!map.toJSON ? map.toJSON() : map, { selected: map.selected, locationTotal: locList.length, locations: jsonLocs }); 
                             })
 
                         });

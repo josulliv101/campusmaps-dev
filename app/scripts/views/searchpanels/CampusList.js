@@ -28,28 +28,27 @@ define([
 
         getJSON: function() {
 
-            var json = { campuses: Datastore.JSON.campuses() };
+            var json = { campuses: Datastore.JSON.campuses() },
+
+            campuses = Datastore.campusList();
 
             return { data: json };
 
         },
 
-        refresh: function () {
+        refresh: function (campusid) {
 
-            var campusid, campus = Datastore.campus();
-
-            if (!_.isObject(campus)) return;
-
-            campusid = '#' + campus.get('campusid');
+            if (!_.isString(campusid)) return;
 
             // Remove existing active flag
             this.$('.active').removeClass('active');
 
             // Add it
-            this.$(campusid).addClass('active');
+            this.$('#' + campusid).addClass('active');
 
         },
 
+       // Refresh before opening in case the campus changed since last display
        handleOpenPreState: function() {
 
             var state = this.model.get('state');
@@ -59,30 +58,7 @@ define([
             // Skips refresh the first time -- all should be in order from render
             if (this.init === true) this.refresh();
 
-        }/* ,
-
-        handleOpenState: function() {
-
-            var state = this.model.get('state');
-
-            if (state !== 'open') return;
-
-            this.listenTo(EventDispatcher, 'change:campus', this.refresh);
-
-        },
-
-        handleCloseState: function() {
-
-            var state = this.model.get('state');
-            
-            if (state !== 'close') return;
-
-            this.stopListening(EventDispatcher, 'change:campus');
-
-        },
-
-        handleStateChange: null
-*/
+        }
     });
 
 });

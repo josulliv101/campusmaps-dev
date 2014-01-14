@@ -34,19 +34,15 @@ define([
 
         },
 
-        refresh: function () {
+        refresh: function (mapid) {
 
-            var mapid, map = Datastore.map();
-
-            if (!_.isObject(map)) return;
-
-            mapid = '#' + map.get('mapid');
+            if (!_.isString(mapid)) return;
 
             // Remove existing active flag
             this.$('.active').removeClass('active');
 
             // Add it
-            this.$(mapid).addClass('active');
+            this.$('#' + mapid).addClass('active');
 
         }
 

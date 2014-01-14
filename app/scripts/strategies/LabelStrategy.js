@@ -19,7 +19,19 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    return true; // Show all label
+                    if (zoom < 17) return;
+
+                    return model.selected !== true ? true : 'active'; // Show all label
+                    
+
+                    //return StrategyManager.getIconPath('circle_solid_center-big.png');
+
+                },
+
+                function(model, zoom) { // Location Model
+
+                    
+                    return model.selected !== true ? undefined : 'active';
 
                     //if (model.selected !== true) return;
 

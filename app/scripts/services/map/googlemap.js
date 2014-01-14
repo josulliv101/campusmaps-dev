@@ -47,27 +47,6 @@ define([
 
     function renderLabels_(models) {
 
-/*        var tileOffset;
-
-        _.each(models, function(model) {
-
-            var latlng;
-
-            if (model.label === true) {
-
-console.log('doing label', model, model.name);
-
-                latlng = model.latlng;
-
-                // The latLngToTileOffset function caches the return value for future use
-                tileOffset = MapUtils.latLngToTileOffset({ lat: latlng[0], lng: latlng[1] }, model.zoom);
-
-                MapUtils.addLocationToTileCache(tileOffset, model);
-
-            }           
-
-        });*/
-
         if (gMap.overlayMapTypes.length === 1) gMap.overlayMapTypes.removeAt(0);
 
         gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);    
@@ -89,6 +68,18 @@ console.log('doing label', model, model.name);
                             var m = _.extend(model, { map: gMap, position: getLatLng(model.latlng) });
 
                             return new google.maps.Marker(m);
+
+                        })
+
+                        .each(function(marker) {
+
+                            google.maps.event.addListener(marker, 'click', function() {
+
+                                console.log('click', this);
+
+                                EventDispatcher.trigger('truthupdate', { locationid: _.getAttr(marker, 'locationid') });
+
+                            });
 
                         })
 

@@ -45,8 +45,8 @@ console.log('fetching data');
 
                 maps_.add(DataInterface.utils.createMapList(campuses_), { silent: true });
 
-                campuses_.reset(data, { silent: true });
-
+                //campuses_.add(data, { silent: true });
+                
                 dfd.resolve( { deferred: 'defaults go here' });
 
             },

@@ -4,9 +4,11 @@ define([
 
     'underscore',
 
+    'datastore',
+
     'eventdispatcher'
 
-], function($, _, EventDispatcher) {
+], function($, _, Datastore, EventDispatcher) {
 
     'use strict';
 
@@ -41,7 +43,21 @@ define([
         //// Event Listeners ////
         
         // Handle when the Event Dispatcher triggers a cmd
+        //EventDispatcher.on('cmd', this.handleCommand, this);
+
         EventDispatcher.on('cmd', this.handleCommand, this);
+
+        EventDispatcher.on('delegateTruth', function(changedAttributes) {
+
+            //if (_.has(changedAttributes, 'cmd')) this.handleCommand(changedAttributes.cmd);
+
+            if (_.has(changedAttributes, 'cmd')) EventDispatcher.trigger('cmd', changedAttributes.cmd);
+
+            if (_.has(changedAttributes, 'campusid')) EventDispatcher.trigger('change:campus', changedAttributes.campusid);
+
+            if (_.has(changedAttributes, 'campusmap')) EventDispatcher.trigger('change:campusmap', changedAttributes.campusmap);
+
+        }, this);
 
     }
 

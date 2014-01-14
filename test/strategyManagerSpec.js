@@ -257,6 +257,6 @@ var c = StrategyManager.getCache();
 
 function FakeStrategy(id, type, isDefault) {
 
-  return function() { return { id: id, type: type, default: isDefault || false }; }
+  return function() { return { id: id, type: type, isDefault: isDefault || false }; }
 
 }

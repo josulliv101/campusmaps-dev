@@ -55,7 +55,7 @@ define([
 
               left: px(offset.x),
 
-              'font-size': (1.5*parseInt(_.getAttr(loc, 'emphasis')) + 10) + 'px',
+              'font-size': (1.5*parseInt(_.getAttr(loc, 'emphasis')) + 14) + 'px',
 
               'margin': '-1.15em 0 0 12px'
 
@@ -65,7 +65,7 @@ define([
 
         div.className = 'label-tile fade-in';
 
-        $lbl.prepend('<i style="color:#5e9bb8;font-size:10px;font-weight:700;margin-right:4px;" class="fa fa-circle-o"></i> ');
+        //$lbl.prepend('<i style="color:#5e9bb8;font-size:10px;font-weight:700;margin-right:4px;" class="fa fa-circle-o"></i> ');
 
         $lbl.appendTo(div);
 
