@@ -1,4 +1,4 @@
-<div class="shadow panel">
+<div class="shadow panel panel-locations">
 	<div class="bd">
 		<button class="back" onclick="window.history.back()">back</button>
 		<h3>Campus: ${data.name}</h3>
@@ -7,7 +7,7 @@
 
 		<ul>
 			<% _.each(data.map.locations, function(loc) { %> 
-			    <li><a href="#${loc.name}" data-campusmap="locationid:<%= loc.locationid %>">${loc.name}</a></li>
+			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>><a href="#${loc.name}" data-campusmap="locationid:<%= loc.locationid %>">${loc.name}</a> <button data-campusmap="cmd:Location" class="locations">View details</button></li>
 			<% }); %>
 			<% if (data.map.locations.length === 0) { %><li>No locations yet.</li><% } %>
 		</ul>

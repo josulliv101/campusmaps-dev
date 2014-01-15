@@ -18,12 +18,8 @@ define([
 
             Base.prototype.initialize.call(this);
 
-  /*          _.bindAll(this, 'handleOpenPreState');
+            this.listenTo(EventDispatcher, 'change:locationid', this.refresh);
 
-            this.handleStateChange = _.dispatch(this.handleOpenPreState);
-
-            this.listenTo(this.model, 'change:state', this.handleStateChange);
-*/
         },
 
         getJSON: function() {
@@ -45,17 +41,19 @@ define([
 
             return { data: json };
 
-        }/*,
+        },
 
-        handleOpenPreState: function() {
+        refresh: function (locationid) {
+debugger;
+            if (!_.isString(locationid)) return;
 
-            var state = this.model.get('state');
+            // Remove existing active flag
+            this.$('.active').removeClass('active');
 
-            if (state !== 'openPre') return;
+            // Add it
+            this.$('#' + locationid).addClass('active');
 
-            this.render();
-
-        }*/
+        }
 
     });
 

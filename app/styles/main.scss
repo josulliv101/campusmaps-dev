@@ -191,9 +191,9 @@ button {
               animation-fill-mode: both; 
               -webkit-animation-fill-mode: both; 
 
-              &.panel-campuses, &.panel-campusmaps {
+              &.panel-campuses, &.panel-campusmaps, &.panel-locations {
                 
-                .maps {
+                .maps, .locations {
                   
                   float: right;
                   
@@ -203,7 +203,7 @@ button {
 
                 .active {
 
-                  .maps {
+                  .maps, .locations {
 
                     display: inline-block;
 

@@ -57,6 +57,9 @@ define([
 
             if (_.has(changedAttributes, 'campusmap')) EventDispatcher.trigger('change:campusmap', changedAttributes.campusmap);
 
+            if (_.has(changedAttributes, 'locationid')) EventDispatcher.trigger('change:locationid', changedAttributes.locationid);
+
+
         }, this);
 
     }

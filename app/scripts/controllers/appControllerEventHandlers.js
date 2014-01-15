@@ -297,6 +297,18 @@ var log = console.log;
 
         }
 
+        // Handle at global controller level
+        AppController.prototype.handleAttrMapCenter = function(model, val, key) {
+
+            if (key !== 'mapcenter') return;
+
+            alert('map center');
+
+            return true;
+
+        }
+
+
         // Handle at local controller level
         AppController.prototype.handleAttrIconStrategy = function(model, val, key) {
 
