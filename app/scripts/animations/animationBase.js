@@ -63,6 +63,8 @@ define([
 
             openFn(view);
 
+            if (view.deferred) view.deferred.resolve( 'animation complete' );
+
         });
 
     };
@@ -116,7 +118,12 @@ define([
 
         if (view.$el) view.$el.addClass('animating');
 
+        // Needs to be created before triggering openPre_
+        view.deferred = new $.Deferred();
+
         this.openPre_(view);
+
+        return view.deferred.promise(); 
 
     };
 

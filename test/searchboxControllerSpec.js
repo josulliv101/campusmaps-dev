@@ -5,11 +5,13 @@ define([
 
   '../scripts/controllers/searchboxController', 
 
+  '../scripts/domManager',
+
   'eventdispatcher', 
 
   '../../bower_components/jasmine-jquery/lib/jasmine-jquery'
 
-], function ($, SearchboxController, EventDispatcher) {
+], function ($, SearchboxController, DomManager, EventDispatcher) {
 
   describe('Searchbox Controller Tests', function () {
 
@@ -115,7 +117,7 @@ define([
 
       });
 
-      it('should be called in response to a cmd event.', function () {
+      it('should be called in response to a cmd event (fake view).', function () {
 
         controller.doCommands({ fakeCmd: FakeView });
 
@@ -232,7 +234,17 @@ define([
   });
 
 
-  function FakeView() {}
+  function FakeView() { 
+
+    var attrs = { width: function() { return 100; }, height: function() { return 100; }};
+
+    this.el = attrs;
+
+    this.$el = attrs;
+
+    this.$panels = attrs;
+
+  }
 
   FakeView.prototype.closePanels = function() {};
 

@@ -99,6 +99,57 @@ define([
 
     };
 
+    Utils.prototype.worldPointToLatLng = function(point) {
+
+      var origin = PX_ORIGIN;
+
+      var lng = (point.x - origin.x) / PX_PER_LON_DEGREE;
+
+      var latRadians = (point.y - origin.y) / -PX_PER_LON_RADIAN;
+
+      var lat = radiansToDegrees(2 * Math.atan(Math.exp(latRadians)) - Math.PI / 2);
+
+      return { lat: lat, lng: lng };
+
+    }
+
+    Utils.prototype.pixelCoordinateToWorldPoint = function(pxCoord, zoom) {
+
+      var numTiles = 1 << zoom;
+
+      return { x: pxCoord.x / numTiles, y: pxCoord.y / numTiles };
+
+    }
+
+    Utils.prototype.worldPointToPixelCoordinate = function(worldCoordinate, zoom) {
+
+      var numTiles = 1 << zoom;
+
+      return { x: worldCoordinate.x * numTiles, y: worldCoordinate.y * numTiles };
+
+    }
+
+    Utils.prototype.offsetLatLngByPixels = function(latLng, zoom, offset) {
+
+      var worldPoint = this.latLngToWorldPoint(latLng),
+
+          pxCoord = this.worldPointToPixelCoordinate(worldPoint, zoom),
+
+          newWorldPoint, newLatLng;
+
+      // Adjust px coords by offsets
+      pxCoord.x = pxCoord.x - (offset.x || 0);
+
+      pxCoord.y = pxCoord.y - (offset.y || 0);
+
+      newWorldPoint = this.pixelCoordinateToWorldPoint(pxCoord, zoom);
+
+      newLatLng = this.worldPointToLatLng(newWorldPoint);
+
+      return newLatLng;
+
+    }
+
     Utils.prototype.getTileCache = function() {
 
       return tileCache;

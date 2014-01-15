@@ -34,7 +34,9 @@ define([
 
                 , iconstrategy: 'default'
 
-                , labelstrategy: 'default'  
+                , labelstrategy: 'default'
+
+                , mapcenteroffset: { x: 0, y: 0 }
                               
             }
 

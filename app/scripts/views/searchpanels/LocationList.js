@@ -44,7 +44,7 @@ define([
         },
 
         refresh: function (locationid) {
-debugger;
+
             if (!_.isString(locationid)) return;
 
             // Remove existing active flag
@@ -52,6 +52,22 @@ debugger;
 
             // Add it
             this.$('#' + locationid).addClass('active');
+
+        },
+
+        handleOpenPreState: function() {
+
+            //EventDispatcher.trigger('truthupdate', { mapcenteroffset: { x: 120, y: -150 }});
+
+            Base.prototype.handleOpenPreState.call(this);
+
+        },
+
+        handleCloseState: function() {
+
+            //EventDispatcher.trigger('truthupdate', { mapcenteroffset: { x: 0, y: 0 }});
+
+            Base.prototype.handleCloseState.call(this);
 
         }
 

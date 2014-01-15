@@ -37,11 +37,29 @@ define([
 
     }
 
+    function setCenter_(latlng, offset, zoom) {    
+
+        var ll = _.latLng(latlng), offsetLatLng;
+
+        zoom || (zoom = gMap.getZoom());
+
+        offset || (offset = { x: 0, y: 0 });
+
+        if (!ll) return;
+
+        ll = { lat: ll[0], lng: ll[1] };
+
+        offsetLatLng = MapUtils.offsetLatLngByPixels(ll, zoom, offset);
+
+        gMap.panTo(getLatLng(offsetLatLng));
+
+    }
+
     function getLatLng(latlng) {
 
         var ll = _.isString(latlng) ? _.latLng(latlng) : latlng;
 
-        return new google.maps.LatLng(ll[0], ll[1]);
+        return _.isArray(ll) ? new google.maps.LatLng(ll[0], ll[1]) : new google.maps.LatLng(ll.lat, ll.lng);
 
     }
 
@@ -262,6 +280,8 @@ console.log('render__');
         render: render_,
 
         setZoom: setZoom_,
+
+        setCenter: setCenter_,
 
         setMapType: setMapType_,
 

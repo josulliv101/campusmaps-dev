@@ -60,6 +60,55 @@ define([
 
 			});
 
+
+			it('should convert a world point to lat/lng', function () {
+
+				var point = { x: 77.42553742222222, y: 94.64404255574121 },
+
+					latlng = MapUtils.worldPointToLatLng(point);
+
+				expect( latlng.lat ).toBe(42.403686);
+
+				expect( latlng.lng ).toBe(-71.120338);
+
+			});
+
+			it('should convert a world point to px coord', function () {
+
+				var point = { x: 77.42553742222222, y: 94.64404255574121 },
+
+					pxCoord = MapUtils.worldPointToPixelCoordinate(point, 17);
+
+				expect( pxCoord.x ).toBe(10148320.04100551);
+
+				expect( pxCoord.y ).toBe(12405183.945866112);
+
+			});
+
+			it('should convert a px coord to world point', function () {
+
+				var pxCoord = { x: 10148320.04100551, y: 12405183.945866112 },
+
+					worldPoint = MapUtils.pixelCoordinateToWorldPoint(pxCoord, 17);
+					
+				expect( worldPoint.x ).toBe(77.42553742222222);
+
+				expect( worldPoint.y ).toBe(94.64404255574121);
+
+			});
+
+			it('should offset a latlng by certain number of pixels', function () {
+
+				var latlng = { lat: 42.403686, lng: -71.120338 },
+
+				  newlatLng = MapUtils.offsetLatLngByPixels(latlng, 17, { x: 100, y: 100 });
+
+				expect( newlatLng.lat ).toBe(42.404478225083665);
+
+				expect( newlatLng.lng ).toBe(-71.12141088360596);
+
+			});
+
 			it('should convert a lat/lng to a tile', function () {
 
 				var latlng = { lat: 42.403686, lng: -71.120338 },

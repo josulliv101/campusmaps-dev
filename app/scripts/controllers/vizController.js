@@ -63,6 +63,10 @@ console.log('type', StrategyManager);
 
             zoom = campus.zoom,
 
+            center = Datastore.latlng,
+
+            offset = Datastore.mapCenterOffset,
+
             iconStrategy = strategies.icon,
 
             labelStrategy = strategies.label,
@@ -78,7 +82,7 @@ MapUtils.resetCache();
         // Any Datastore updates have all been completed at the App Controller level
 
         // Strategy will take the appropriate action based on the Truth attributes that changed
-        if (this.viz) this.handleTruthStrategy.strategy(this.viz, attrs, models, campus, campusmap, selectedLocations);
+        if (this.viz) this.handleTruthStrategy.strategy(this.viz, attrs, models, campus, campusmap, selectedLocations, center, offset);
 
     }
 

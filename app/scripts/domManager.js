@@ -123,6 +123,25 @@ define([
 
     }
 
+    // Compares width or height of attrs of 2 elements. Returns a ratio.
+    DomManager.prototype.compareDimensions = function(el1, el2) {
+
+        var w, h; // Dimensions
+
+        if (!(el1 && el2)) return;
+
+        w = el1.width() / el2.width();
+
+        h = el1.height() / el2.height();
+
+        if (!_.isNumber(h)) h = 0;
+
+        if (!_.isNumber(w)) w = 0;
+
+        return { width: w, height: h };
+
+    }
+
     DomManager.prototype.setAppRoot = function(el) {
 
         if (!el || !el.nodeType) throw new Error('A root DOM element is required.');

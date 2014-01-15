@@ -6,9 +6,11 @@ define([
 
     'datastore',
 
+    'scripts/domManager',
+
     'eventdispatcher'
 
-], function($, _, Datastore, EventDispatcher) {
+], function($, _, Datastore, DomManager, EventDispatcher) {
 
     'use strict';
 
@@ -190,25 +192,39 @@ define([
         console.log('panel model', Constructor, viewid);
 
         // Panel must be in close state in order to open
-        if (state === 'close') AnimationConstructor.prototype.open.call(anim, panel, position);
+        if (state === 'close') return AnimationConstructor.prototype.open.call(anim, panel, position);
 
     };
 
     SearchboxController.prototype.doCommands = function(constructors) {
 
-        console.log('doing commands Constructors', constructors);
+        console.log('doing commands Constructors', this.view, constructors);
 
-        var i = 0;
+        var i = 0, view = this.view, dm = DomManager.getInstance(), dfdsOpen;
 
         if (!_.isObject(constructors)) return;
 
-        _.each(constructors, function(val, key) {
+        dfdsOpen = _.map(constructors, function(val, key) {
 
-            console.log('panel', val, key);
+                        console.log('panel', val, key);
 
-            this.doView(val, key, i++);
+                        return this.doView(val, key, i++);
 
-        }, this);
+                    }, this);
+
+        // Need to know when all panels are open so logic can decide if the map center should shift
+        $.when.apply( $,  dfdsOpen ).done( function() { 
+
+            var dimensions = dm.compareDimensions(view.$search, view.$el),
+
+                offset = _.has(dimensions, 'height') && dimensions.height > .4 ? { x: 120, y: -10 } : { x: 0, y: 0 };
+
+           // console.log('view.el', offset); 
+
+            // If the panels take up more than 40% of space, adjust center
+            EventDispatcher.trigger('truthupdate', { mapcenteroffset: offset });
+
+        });
 
     };
 

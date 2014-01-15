@@ -20,7 +20,7 @@ define([
             fns: [
 
                 // If multiple attributes change at once, process them individually with same strategy
-                function(viz, changedAttrs, models, campus, campusmap, locations) { 
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
 
                     var keys = _.keys(changedAttrs);
 
@@ -36,7 +36,7 @@ define([
 
                         attr[key] = val;
                         
-                        strategy.strategy(viz, attr, models, campus, campusmap, locations);
+                        strategy.strategy(viz, attr, models, campus, campusmap, locations, center, centerOffset);
 
                         //debugger;
 
@@ -47,7 +47,7 @@ define([
                 },
 
                 // A full refreshing (labels & icons) of the map is needed if campus or campusmap changes
-                function(viz, changedAttrs, models, campus, campusmap, locations) {
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) {
 
                     var attrs = ['campusmap'],
 
@@ -72,7 +72,7 @@ define([
                 },
 
                 // A full refreshing (labels & icons) of the map is needed if campus or campusmap changes
-                function(viz, changedAttrs, models, campus, campusmap, locations) {
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) {
 
                     var attrs = ['campusid'],
 
@@ -93,7 +93,7 @@ define([
                 },
 
                 // Label Strategy has changed
-                function(viz, changedAttrs, models, campus, campusmap, locations) { 
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
 
                     var keys = _.keys(changedAttrs);
 
@@ -106,7 +106,7 @@ define([
                 },
 
                 // Selected location(s)
-                function(viz, changedAttrs, models, campus, campusmap, locations) { 
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
 
                     var keys = _.keys(changedAttrs), latlng;
 
@@ -114,7 +114,7 @@ define([
 
                     latlng = _.getAttr(campus, 'latlng');
 
-                    //viz.renderLabels(models);
+                    viz.renderLabels(models);
 
                     //viz.renderIcons(models);
 
@@ -122,7 +122,31 @@ define([
 
                         latlng = _.getAttr(_.first(locations), 'latlng');
 
-                        if (latlng) viz.refresh(latlng);
+                        if (latlng) viz.setCenter(latlng, centerOffset);
+
+                    }
+
+                    return true;
+
+                },
+
+                // Map center offset
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+
+                    var keys = _.keys(changedAttrs), latlng;
+
+                    if (keys.length !== 1 || !_.contains(keys, 'mapcenteroffset')) return;
+
+                    // Don't like this, handle better way
+                    if (locations && _.size(locations) === 1) {
+
+                        latlng = _.getAttr(_.first(locations), 'latlng');
+
+                        if (latlng) viz.setCenter(latlng, centerOffset);
+
+                    } else if (center) {
+
+                        viz.setCenter(center, centerOffset);
 
                     }
 
@@ -131,7 +155,7 @@ define([
                 },
 
                 // Icon Strategy has changed
-                function(viz, changedAttrs, models, campus, campusmap, locations) { 
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
 
                     var keys = _.keys(changedAttrs);
 
@@ -144,7 +168,7 @@ define([
                 },
 
                 // Maptype has changed
-                function(viz, changedAttrs, models, campus, campusmap, locations) { 
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
 
                     var keys = _.keys(changedAttrs);
 
@@ -157,7 +181,7 @@ define([
                 },
 
                 // Zoom has changed
-                function(viz, changedAttrs, models, campus, campusmap, locations) { 
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
 
                     var keys = _.keys(changedAttrs);
 

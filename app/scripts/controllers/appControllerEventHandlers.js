@@ -53,11 +53,13 @@ console.log('DomManager!!', $root);
 
                 controller.handleResize,
 
-                //controller.handleAttrStreetview,
+                controller.handleAttrStreetview,
 
                 controller.handleAttrIconStrategy,
 
-                controller.handleAttrLabelStrategy
+                controller.handleAttrLabelStrategy,
+
+                controller.handleAttrMapCenterOffset
 
             ];
 
@@ -142,7 +144,7 @@ var log = console.log;
 
         }
 
-/*        // Handle at local controller level
+        // Handle at local controller level
         AppController.prototype.handleAttrStreetview = function(model, val, key) {
 
             var classname = 'hide-overlay';
@@ -155,7 +157,7 @@ var log = console.log;
 
             return true;
 
-        }*/
+        }
 
         // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleAttrCampusId = function(theTruth, val, key) {
@@ -186,7 +188,7 @@ var log = console.log;
         AppController.prototype.handleAttrLocationId = function(theTruth, val, key) {
 
             // When a locationid change happens, it's assumed that the change applies to the currently selected map
-            var campusmap, location, ids, locs, selected;
+            var campusmap, location, ids, locs, selected, classname = 'location-details';
 
             if (key !== 'locationid') return;
 
@@ -207,23 +209,10 @@ var log = console.log;
 
             campusmap.selectedLocations = locs;
 
+            domManager.cssFlag(classname, { remove: locs.length !== 1 });
 
-            //_.each(locs, function() { EventDispatcher.trigger('change:locationid', location); });
+            EventDispatcher.trigger('truthupdate', { mapcenter: 'right' });
 
-/*            location = Datastore.location(campusmap, val);
-
-            _.selectItem(location, Datastore.locations(campusmap));
-
-            console.log('...handleAttrLocationId', theTruth, val, key);
-
-            console.log('...handleAttrLocationId location', location);
-
-            location.selected = true;
-
-            campusmap.location = location;
-
-            if (location) EventDispatcher.trigger('change:locationid', location);
-*/
             return true;
 
         }
@@ -298,11 +287,11 @@ var log = console.log;
         }
 
         // Handle at global controller level
-        AppController.prototype.handleAttrMapCenter = function(model, val, key) {
+        AppController.prototype.handleAttrMapCenterOffset = function(model, val, key) {
 
-            if (key !== 'mapcenter') return;
+            if (key !== 'mapcenteroffset') return;
 
-            alert('map center');
+            Datastore.mapCenterOffset = val;
 
             return true;
 

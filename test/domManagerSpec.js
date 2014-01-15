@@ -123,6 +123,20 @@ define([
 
 		});
 
+		it('should compare the size of 2 elements', function () {
+
+			var el1 = $('<div/>').html('el1').height(100).width(20),
+
+				el2 = $('<div/>').html('el2').height(200).width(20),
+
+				ratio = dm.compareDimensions(el1, el2);
+
+			expect( ratio.width ).toBe(1);
+
+			expect( ratio.height ).toBe(.5);
+
+		});
+
 	});
 
     describe('Events', function () {
