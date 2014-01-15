@@ -23,6 +23,11 @@ button {
 
 }
 
+ul {
+  padding:0;
+  margin:0;
+  list-style-type: none;
+}
 /* Dev */
 
 #log {
@@ -136,10 +141,10 @@ button {
   -webkit-transition-delay: 0s;
 
 	position: absolute;
-	width: 400px;
+	width: 300px;
 	z-index: 101;
 	top: 12px;
-	left: 64px;
+	left: 12px;
     .panel {
         margin-right: 4px;
     }

@@ -114,9 +114,9 @@ define([
 
                     latlng = _.getAttr(campus, 'latlng');
 
-                    viz.renderLabels(models);
+                    //viz.renderLabels(models);
 
-                    viz.renderIcons(models);
+                    //viz.renderIcons(models);
 
                     if (locations && _.size(locations) === 1) {
 
