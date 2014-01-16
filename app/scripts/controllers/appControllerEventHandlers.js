@@ -270,13 +270,25 @@ var log = console.log;
         // Handle at global controller level, if needed, then delegate --- +/- logic
         AppController.prototype.handleAttrZoom = function(model, val, key) {
 
-            var campus;
+            var campus, previousZoom;
 
             if (key !== 'zoom') return;
+/*
+            previousZoom = model.previous('zoom');
+debugger;
+            if (val < 0 && _.exists(previousZoom)) {
+
+                previousZoom = previousZoom - 1;
+
+                val = previousZoom;
+debugger;
+                controller.setTheTruth({ zoom: val }, { silent: true });
+
+            }*/
 
             campus = Datastore.campus();
 
-            campus.zoom = parseInt(val);
+            campus.zoom = _.isString(val) ? parseInt(val) : val;
 
             console.log('...handleAttrZoom', model, val, key, model.previous('maptype'));
 

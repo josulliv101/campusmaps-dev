@@ -72,7 +72,28 @@ define([
         // Gets cleared when router handles route -- for Back Button integration.
         if (options.clear === true) theTruth.clear({ silent: true });
 
+        this.validateTheTruth(obj);
+
         theTruth.set(obj, options);
+
+    }
+
+    AppController.prototype.validateTheTruth = function(attrs) {
+
+        var zoom = theTruth.get('zoom');
+
+        console.log('validateTheTruth', attrs);
+
+        // Zoom is always an integer
+        if (_.has(attrs, 'zoom')) {
+
+            if (attrs.zoom === '+' && _.isNumber(zoom)) attrs.zoom = ++zoom;
+
+            else if (attrs.zoom === '-' && _.isNumber(zoom)) attrs.zoom = --zoom;
+
+            else if (_.isString(attrs.zoom)) attrs.zoom = parseInt(attrs.zoom);
+
+        }
 
     }
 

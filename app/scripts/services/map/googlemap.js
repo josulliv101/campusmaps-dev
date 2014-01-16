@@ -65,6 +65,8 @@ define([
 
     function renderLabels_(models) {
 
+console.log('gMap.overlayMapTypes', gMap.overlayMapTypes);
+
         if (gMap.overlayMapTypes.length === 1) gMap.overlayMapTypes.removeAt(0);
 
         gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);    
@@ -206,7 +208,11 @@ console.log('render__');
                 
             },
 
-            panControl: false
+            panControl: false,
+
+            zoomControl: false,
+
+            mapTypeControl: false
 
         });
 

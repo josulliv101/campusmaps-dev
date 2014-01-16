@@ -51,9 +51,9 @@ define([
 
             // Listen for clicks from elements with a 'data'cmd' attribute, and forward to router
             $('body').on('click', '[data-campusmap]', function(ev) {
-
+debugger;
                 var data = $(this).data('campusmap');
-
+debugger;
                 console.log('data-campusmap', _.stringToObject(data));
 
                 // In case the element happens to be a link
