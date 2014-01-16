@@ -26,16 +26,22 @@ define([
 
     function campusmap_(el, settings) {
 
-        require(['scripts/views/searchbox', 'scripts/controllers/searchboxController', 'animationCSS'], function (SearchboxView, SearchboxController, Animation) {
+        require([ 'scripts/views/locationdetails', 'scripts/controllers/locationDetailsController', 'scripts/views/searchbox', 'scripts/controllers/searchboxController', 'animationCSS'], function (LocationDetailsView, LocationDetailsController, SearchboxView, SearchboxController, Animation) {
 
             var app, theSettings, root = el,
 
                 sbView = new SearchboxView({ el: root, model: Datastore.Factory.model() }),
 
-                sbController = new SearchboxController(sbView, Animation);
+                locDetailsView = new LocationDetailsView({ el: root, model: Datastore.Factory.model() }),
+
+                sbController = new SearchboxController(sbView, Animation),
+
+                locDetailsController = new LocationDetailsController(locDetailsView);
 
 
             DM.render(root, sbView);
+
+            DM.render(root, locDetailsView);
 
             theSettings = _.extend({ vizpath: vizpath, maptype: 'roadmap' }, settings);
 

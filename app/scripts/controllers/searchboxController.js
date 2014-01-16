@@ -217,7 +217,7 @@ define([
 
             var dimensions = dm.compareDimensions(view.$search, view.$el),
 
-                offset = _.has(dimensions, 'height') && dimensions.height > .4 ? { x: 120, y: -10 } : { x: 0, y: 0 };
+                offset = _.has(dimensions, 'height') && dimensions.height > .4 ? { x: 80, y: 60 } : { x: 0, y: 0 };
 
            // console.log('view.el', offset); 
 

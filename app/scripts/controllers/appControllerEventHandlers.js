@@ -45,6 +45,8 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrLocationId,
 
+                controller.handleAttrLocationDetails,
+
                 controller.handleAttrLocs,
 
                 controller.handleVizPathChange,
@@ -184,11 +186,32 @@ var log = console.log;
 
         }
 
+
+        AppController.prototype.handleAttrLocationDetails = function(theTruth, val, key) {
+
+            var campus, campusmap, location;
+
+            if (key !== 'locationdetails') return;
+/*
+            campus = Datastore.campus();
+
+            campusmap = Datastore.map(Datastore.campus());
+
+            location = Datastore.location(campusmap, val);
+
+            campusmap.locationDetails = location;
+
+            EventDispatcher.trigger('cmd', 'Location');
+*/
+            return true;
+
+        }
+
         // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleAttrLocationId = function(theTruth, val, key) {
 
             // When a locationid change happens, it's assumed that the change applies to the currently selected map
-            var campusmap, location, ids, locs, selected, classname = 'location-details';
+            var campusmap, location, ids, locs, selected, classname = 'location-details', view = theTruth.get('cmd');
 
             if (key !== 'locationid') return;
 
@@ -211,7 +234,7 @@ var log = console.log;
 
             domManager.cssFlag(classname, { remove: locs.length !== 1 });
 
-            EventDispatcher.trigger('truthupdate', { mapcenter: 'right' });
+            //EventDispatcher.trigger('truthupdate', { mapcenter: 'right' });
 
             return true;
 

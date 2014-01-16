@@ -35,11 +35,15 @@ define([
 
             classname: 'label bg-lite',
 
-            html: _.getAttr(loc, 'name'), 
+            html: _.getAttr(loc, 'name') + '<div class="loc-details">View details</div>', 
 
             style: { 
 
-              'min-width': '140px',
+              //'min-width': '140px',
+              
+              padding: '4px 8px 4px 26px',
+
+              'border-radius': '4px',
 
               'text-align': 'left',
 
@@ -57,7 +61,7 @@ define([
 
               'font-size': (1.5*parseInt(_.getAttr(loc, 'emphasis')) + 14) + 'px',
 
-              'margin': '-1.15em 0 0 12px'
+              'margin': '-1.4em 0 0 -12px'
 
             }
             

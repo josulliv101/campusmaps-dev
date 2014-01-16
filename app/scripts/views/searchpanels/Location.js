@@ -26,7 +26,7 @@ define([
 
                 map = Datastore.map(campus),
 
-                location = map.location,
+                location = map.locationDetails,
 
                 json = Datastore.JSON.location(location);
 

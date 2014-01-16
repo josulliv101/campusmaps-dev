@@ -13,7 +13,7 @@ define([
 
     var settingsUrl,
 
-        urlAttrWhiteList = ['cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'vizpath!', 'zoom', 'latlng'], // 'vizpath',
+        urlAttrWhiteList = ['cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'locationdetails', 'vizpath!', 'zoom', 'latlng'], // 'vizpath',
 
         AppRouter = Backbone.Router.extend({
 

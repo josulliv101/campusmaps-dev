@@ -21,7 +21,7 @@ define([
 
                     if (zoom < 17) return;
 
-                    return model.selected !== true ? true : 'active'; // Show all label
+                    return model.selected !== true ? true : 'active shadow'; // Show all label
                     
 
                     //return StrategyManager.getIconPath('circle_solid_center-big.png');
@@ -31,7 +31,7 @@ define([
                 function(model, zoom) { // Location Model
 
                     
-                    return model.selected !== true ? undefined : 'active';
+                    return model.selected !== true ? undefined : 'active shadow';
 
                     //if (model.selected !== true) return;
 
