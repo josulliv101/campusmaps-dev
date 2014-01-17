@@ -82,6 +82,8 @@ define([
 
         var zoom = theTruth.get('zoom');
 
+        if (!theTruth) return;
+
         console.log('validateTheTruth', attrs);
 
         // Zoom is always an integer
@@ -92,6 +94,19 @@ define([
             else if (attrs.zoom === '-' && _.isNumber(zoom)) attrs.zoom = --zoom;
 
             else if (_.isString(attrs.zoom)) attrs.zoom = parseInt(attrs.zoom);
+
+        }
+
+        // Used when map is clicked on empty area
+        if (_.has(attrs, 'locationid') && !_.isString(attrs.locationid)) {
+
+            attrs.locationid = '-1';
+
+        }
+
+        if (_.has(attrs, 'locationid') && attrs.locationid !== '-1' && theTruth.get('cmd') === 'Location') {
+
+            attrs.cmd = '';
 
         }
 

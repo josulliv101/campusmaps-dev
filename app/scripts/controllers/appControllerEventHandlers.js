@@ -201,7 +201,8 @@ var log = console.log;
 
             campusmap.locationDetails = location;
 
-            EventDispatcher.trigger('cmd', 'Location');
+            // Open the Location Details panel
+            EventDispatcher.trigger('truthupdate', { cmd: 'Location'}, { forceClose: true });
 */
             return true;
 
@@ -224,6 +225,7 @@ var log = console.log;
 
                     .map(function(id) { return Datastore.location(campusmap, id); })
 
+                    .reject(function(loc) { return loc === undefined; })
                     //.each(function(loc) { loc.selected = true; })
 
                     .tap(function (all) { _.each(all, function(loc) { loc.selected = true; }); })

@@ -61,6 +61,8 @@ define([
 
             if (_.has(changedAttributes, 'locationid')) EventDispatcher.trigger('change:locationid', changedAttributes.locationid);
 
+            //if (_.has(changedAttributes, 'locationdetails')) EventDispatcher.trigger('change:locationdetails', changedAttributes.locationdetails);
+
 
         }, this);
 

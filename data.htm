@@ -1,0 +1,110 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js ie lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js ie lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js ie lt-ie9"> <![endif]-->
+<!--[if IE ]>         <html class="no-js ie"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Campus Map</title>
+	<meta name="description" content="">
+	<!-- <meta name="viewport" content="width=device-width"> google -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /><!-- leaflet -->
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+</head>
+<body>
+	<h1>Data Transform</h1>
+	<script type="text/javascript">
+
+		function transformLocationData(data) {
+
+			var defaultFeature = { "type" : "Feature", "properties": {}, "geometry": { "type": "Point", "coordinates": [] }},
+
+				omittedKeys = ['label', 'fid', 'map', 'parkinguid', 'addr1'];
+
+				_.chain(data)
+
+				 .each(function(val, key, obj) { 
+
+				 	if (key === 'addr1') obj.adress1 = val;
+
+				 	if (key === 'addr2') obj.address2 = val;
+
+					if (key === 'label') obj.name = val;
+
+					if (key === 'fid') obj.locationid = obj.id = val;
+
+					if (key === 'map') {
+
+						defaultFeature.geometry.coordinates = [val.lat, val.lng];
+
+					}
+
+				 })
+
+				 .value();
+
+			_.extend(data, { 
+
+				emphasis: _.random(1, 5),
+
+				mapid: 'medford-main',
+
+				state: 'MA',
+
+				country: 'United States',
+
+				latlng: defaultFeature.geometry.coordinates[0] + ',' + defaultFeature.geometry.coordinates[1]
+
+			});
+
+			//return _.extend(defaultFeature, { properties: _.omit(data, omittedKeys) });
+
+			return _.omit(data, omittedKeys);
+
+		}
+
+		function getLocationsForCategory(data) {
+
+			var categories = data.campus.locationdata.children, 
+
+				featureCollection = { "type": "FeatureCollection" }, 
+				locs;
+
+			locs = _.chain(categories)
+
+					.reject(function(category) { return category.label === 'Parking' || category.label === 'Miscellaneous' })
+
+					.map(function(category) { return category.children; })
+
+					.flatten()
+
+					.map(function(loc) { return transformLocationData(loc); })
+
+					.value();
+
+			console.log('locs', locs.length, JSON.stringify(locs));
+
+		}
+
+		$.ajax({
+
+			url: "/app/data/current.json",
+
+			// tell jQuery we're expecting JSONP
+			dataType: "json",
+
+			// work with the response
+			success: function( campus ) {
+
+				getLocationsForCategory(campus);
+
+			}
+		});
+
+	</script>
+</body>
+</html>

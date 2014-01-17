@@ -62,7 +62,7 @@ define([
         },
 
         doDeferredClick: function(model, state) {
-
+alert('doDeferredClick');
             var data = model.get('deferredData');
 
             if (_.isString(data) && state === 'close') {

@@ -95,9 +95,11 @@ console.log('gMap.overlayMapTypes', gMap.overlayMapTypes);
 
                             google.maps.event.addListener(marker, 'click', function() {
 
+                                var locationid = _.getAttr(marker, 'locationid');
+
                                 console.log('click', this);
 
-                                EventDispatcher.trigger('truthupdate', { locationid: _.getAttr(marker, 'locationid') });
+                                EventDispatcher.trigger('truthupdate', { locationid: locationid, cmd: 'LocationList' });
 
                             });
 
@@ -257,6 +259,12 @@ console.log('render__');
         google.maps.event.addListener(gMap, 'zoom_changed', function(ev) {
 
             EventDispatcher.trigger('truthupdate', { zoom: this.getZoom() });
+
+        });
+
+        google.maps.event.addListener(gMap, 'click', function(ev) {
+
+            EventDispatcher.trigger('truthupdate', { locationid: -1, cmd: 'LocationList' });
 
         });
 
