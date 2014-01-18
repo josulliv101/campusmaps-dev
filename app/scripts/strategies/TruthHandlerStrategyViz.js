@@ -122,7 +122,7 @@ define([
 
                         latlng = _.getAttr(_.first(locations), 'latlng');
 
-                        if (latlng) viz.setCenter(latlng, centerOffset);
+                        //if (latlng) viz.setCenter(latlng, centerOffset);
 
                     }
 

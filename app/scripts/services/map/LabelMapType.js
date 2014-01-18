@@ -71,6 +71,18 @@ define([
 
         //$lbl.prepend('<i style="color:#5e9bb8;font-size:10px;font-weight:700;margin-right:4px;" class="fa fa-circle-o"></i> ');
 
+        if (_.getAttr(loc, 'thumbnail')) {
+
+          $('<div/>')
+
+            .addClass('thumb')
+
+            .html('<img class="shadow" src="./app/images/thumbs/' + _.getAttr(loc, 'thumbnail') + '"/>')
+
+            .prependTo($lbl);
+
+        }
+
         $lbl.appendTo(div);
 
         // Value may be space delimited list of classes

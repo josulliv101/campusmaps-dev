@@ -534,10 +534,33 @@ ul {
 .label {
 
   color: #666;
-
+  min-height: 44px;
   white-space: nowrap;
-
+  border: 2px transparent solid;
   background: transparent;
+
+  .thumb {
+    display: none;
+    position: relative;
+    top: -6px;
+    left: -28px;
+    background: #999;
+    margin-left: 4px;
+
+    img {
+      
+      position: absolute;
+      display: block;
+      top: 0;
+      left: -64px;
+      max-height: 52px;
+      width: auto;
+      border: 2px solid #fff;
+      border-radius: 4px;
+
+    }
+
+  }
 
   .loc-details {
 
@@ -553,7 +576,7 @@ ul {
 
     color: #1c92c9;
 
-    background: rgba(232, 232, 232, 0.76);
+    background: rgba(232, 232, 232, 0.56);
 
     border-style: solid;
 
@@ -562,6 +585,9 @@ ul {
     border-width: 2px;
 
     /*text-shadow: 0px 1px 3px rgba(255, 255, 255, 1);*/
+    .thumb {
+      display: block;
+    }
 
     .loc-details { 
 
@@ -599,7 +625,22 @@ ul {
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
  
 .fade-in {
+    opacity:0;  /* make things invisible upon start */
+    -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+    -moz-animation:fadeIn ease-in 1;
+    animation:fadeIn ease-in 1;
 
+    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+
+    -webkit-animation-duration:.1s;
+    -moz-animation-duration:.1s;
+    animation-duration:.1s;
+
+    -webkit-animation-delay: 0.0s;
+    -moz-animation-delay: 0.0s;
+    animation-delay: 0.0s;
 }
 
 .ie {
