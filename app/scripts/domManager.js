@@ -115,6 +115,8 @@ define([
 
         return $(document.createElement( attrs.tagname ))
 
+            .attr('id', attrs.id)
+
             .addClass(attrs.classname)
 
             .html(attrs.html)
@@ -149,6 +151,18 @@ define([
         this.$root = $(el);
 
         console.log('dom root', this.$root);
+
+    }
+
+    DomManager.prototype.refreshLabel = function(location) {
+
+        var id = _.getAttr(location, 'locationid');
+
+        console.log('refreshLabel', location);
+
+        if (!id) return;
+
+        this.$root.find('#' + id).addClass('active fade-in shadow');
 
     }
 

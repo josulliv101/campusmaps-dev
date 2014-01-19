@@ -35,6 +35,8 @@ define([
 
             classname: 'label bg-lite',
 
+            id: _.getAttr(loc, 'locationid'),
+
             html: _.getAttr(loc, 'name') + '<div class="loc-details">View details</div>', 
 
             style: { 

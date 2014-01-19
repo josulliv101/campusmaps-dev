@@ -573,8 +573,12 @@ ul {
   }
 
   &.active {
+    
+    opacity: 1;
 
     color: #1c92c9;
+
+    display:  block;
 
     background: rgba(232, 232, 232, 0.56);
 
@@ -592,6 +596,19 @@ ul {
     .loc-details { 
 
       display: block;
+
+    }
+
+  }
+
+  &.hide {
+
+    display: none;
+    opacity: 0;
+
+    &.active {
+      opacity: 1;
+      display:  block;
 
     }
 
@@ -634,9 +651,9 @@ ul {
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
 
-    -webkit-animation-duration:.1s;
-    -moz-animation-duration:.1s;
-    animation-duration:.1s;
+    -webkit-animation-duration:.2s;
+    -moz-animation-duration:.2s;
+    animation-duration:.2s;
 
     -webkit-animation-delay: 0.0s;
     -moz-animation-delay: 0.0s;

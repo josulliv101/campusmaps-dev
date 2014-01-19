@@ -106,7 +106,7 @@ define([
 
         if (_.has(attrs, 'locationid') && attrs.locationid !== '-1' && theTruth.get('cmd') === 'Location') {
 
-            attrs.cmd = '';
+            //attrs.cmd = '';
 
         }
 

@@ -13,11 +13,13 @@ define([
 
     'scripts/services/map/MapUtils',
 
+    'scripts/domManager',
+
     'eventdispatcher',
 
     'async!http://maps.google.com/maps/api/js?sensor=false'
 
-], function($, _, MapStyles, Datastore, LabelMapType, MapUtils, EventDispatcher) {
+], function($, _, MapStyles, Datastore, LabelMapType, MapUtils, DomManager, EventDispatcher) {
 
     'use strict';
 
@@ -63,6 +65,18 @@ define([
 
     }
 
+    function refreshLabels_(models) {  
+
+        DomManager.getInstance().$root.find('.label.active').removeClass('active fade-in shadow');
+
+        _.each(models, function(loc) {
+
+            DomManager.getInstance().refreshLabel(loc);
+
+        });
+
+    }
+
     function renderLabels_(models) {
 
 console.log('gMap.overlayMapTypes', gMap.overlayMapTypes);
@@ -99,7 +113,19 @@ console.log('gMap.overlayMapTypes', gMap.overlayMapTypes);
 
                                 console.log('click', this);
 
-                                EventDispatcher.trigger('truthupdate', { locationid: locationid, cmd: 'LocationList' });
+                                EventDispatcher.trigger('truthupdate', { locationid: locationid, cmd: 'Location' });
+
+                            });
+
+                            google.maps.event.addListener(marker, 'mouseover', function() {
+
+                                refreshLabels_([marker]);
+
+                            });
+
+                            google.maps.event.addListener(marker, 'mouseout', function() {
+
+                                refreshLabels_([]);
 
                             });
 
@@ -264,7 +290,7 @@ console.log('render__');
 
         google.maps.event.addListener(gMap, 'click', function(ev) {
 
-            EventDispatcher.trigger('truthupdate', { locationid: -1, cmd: 'LocationList' });
+            EventDispatcher.trigger('truthupdate', { locationid: -1, cmd: '' });
 
         });
 
@@ -286,6 +312,8 @@ console.log('render__');
         init: init_,
 
         refresh: refresh_,
+
+        refreshLabels: refreshLabels_,
 
         renderLabels: renderLabels_,
 

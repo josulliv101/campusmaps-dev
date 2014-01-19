@@ -114,7 +114,9 @@ define([
 
                     latlng = _.getAttr(campus, 'latlng');
 
-                    viz.renderLabels(models);
+                    //viz.renderLabels(models);
+
+                    viz.refreshLabels(campusmap.selectedLocations);
 
                     //viz.renderIcons(models);
 
