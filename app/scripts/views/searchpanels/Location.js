@@ -26,7 +26,7 @@ define([
 
                 map = Datastore.map(campus),
 
-                location = _.first(map.selectedLocations), //map.locationDetails,
+                location = map.details, //_.first(map.selectedLocations), //map.locationDetails,
 
                 json = Datastore.JSON.location(location);
 
@@ -38,9 +38,9 @@ define([
 
             var state = this.model.get('state');
 
-            this.stopListening(EventDispatcher, 'change:locationid');
+            this.stopListening(EventDispatcher, 'change:details');
 
-            this.listenTo(EventDispatcher, 'change:locationid', function() {
+            this.listenTo(EventDispatcher, 'change:details', function() {
 
                 if (state !== 'open') return;
 
@@ -56,7 +56,7 @@ define([
 
        handleClosePostState: function() {
 
-            this.stopListening(EventDispatcher, 'change:locationid');
+            this.stopListening(EventDispatcher, 'change:details');
 
             Base.prototype.handleClosePostState.call(this);
 

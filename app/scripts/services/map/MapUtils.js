@@ -137,6 +137,8 @@ define([
 
           newWorldPoint, newLatLng;
 
+      offset || (offset = {});
+
       // Adjust px coords by offsets
       pxCoord.x = pxCoord.x - (offset.x || 0);
 
@@ -190,7 +192,7 @@ define([
 
       tileCache[key].push(loc);
 
-console.log('tileCache', tileCache);
+//console.log('tileCache', tileCache);
 
       // Give the loc a reference by zoom
       loc.tileCache || (loc.tileCache = {});

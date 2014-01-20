@@ -45,7 +45,7 @@ console.log('DomManager!!', $root);
 
                 controller.handleAttrLocationId,
 
-                controller.handleAttrLocationDetails,
+                controller.handleAttrDetails,
 
                 controller.handleAttrLocs,
 
@@ -187,23 +187,46 @@ var log = console.log;
         }
 
 
-        AppController.prototype.handleAttrLocationDetails = function(theTruth, val, key) {
+        AppController.prototype.handleAttrDetails = function(theTruth, val, key) {
 
             var campus, campusmap, location;
 
-            if (key !== 'locationdetails') return;
-/*
+            if (key !== 'details') return;
+
+            
+
             campus = Datastore.campus();
 
             campusmap = Datastore.map(Datastore.campus());
 
+            
+
+            _.chain(Datastore.locations(campusmap))
+
+             .reject(function(loc) { return loc.featured !== true; })
+
+             .tap(function (all) { _.each(all, function(loc) { loc.details = false; }); })
+
+             .value();
+
+            if (_.isObject(campusmap.details)) {    
+
+                campusmap.detailsPrevious = campusmap.details;
+
+                campusmap.detailsPrevious.details = false;
+
+            }
+
             location = Datastore.location(campusmap, val);
 
-            campusmap.locationDetails = location;
+            if (_.isObject(location)) {
 
-            // Open the Location Details panel
-            EventDispatcher.trigger('truthupdate', { cmd: 'Location'}, { forceClose: true });
-*/
+                location.details = true;
+
+                campusmap.details = location;
+
+            }
+
             return true;
 
         }

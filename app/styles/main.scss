@@ -138,9 +138,9 @@ ul {
   width: 100%;
   margin: 20px auto;
   height: 100%;
-  max-width: 100%; /* 890px */
+  max-width: 890px; /* 100% */
 
-  max-height: 100%;
+  max-height: 500px;
 
 
     
@@ -572,13 +572,13 @@ ul {
 
   }
 
-  &.active {
-    
+  &.details {
+
     opacity: 1;
 
     color: #1c92c9;
 
-    display:  block;
+    display: block;
 
     background: rgba(232, 232, 232, 0.56);
 
@@ -588,7 +588,6 @@ ul {
 
     border-width: 2px;
 
-    /*text-shadow: 0px 1px 3px rgba(255, 255, 255, 1);*/
     .thumb {
       display: block;
     }
@@ -601,12 +600,28 @@ ul {
 
   }
 
+  &.active {
+    
+    opacity: 1;
+
+    display: block;
+
+    /*text-shadow: 0px 1px 3px rgba(255, 255, 255, 1);*/
+
+  }
+
   &.hide {
 
     display: none;
     opacity: 0;
 
     &.active {
+      opacity: 1;
+      display:  block;
+
+    }
+
+    &.details {
       opacity: 1;
       display:  block;
 

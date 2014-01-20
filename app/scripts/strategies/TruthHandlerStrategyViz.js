@@ -132,6 +132,24 @@ define([
 
                 },
 
+                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+
+                    var keys = _.keys(changedAttrs), loc, refreshLabels = [];
+
+                    if (keys.length !== 1 || !_.contains(keys, 'details')) return;
+
+                    if (_.isObject(campusmap.details)) refreshLabels.push(campusmap.details);
+
+                    if (_.isObject(campusmap.detailsPrevious)) refreshLabels.push(campusmap.detailsPrevious); 
+
+                    loc = campusmap.details;
+
+                    if (loc) viz.refreshLabels(refreshLabels);
+
+                    return true;
+
+                },
+
                 // Map center offset
                 function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
 

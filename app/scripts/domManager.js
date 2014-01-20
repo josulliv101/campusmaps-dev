@@ -156,13 +156,27 @@ define([
 
     DomManager.prototype.refreshLabel = function(location) {
 
-        var id = _.getAttr(location, 'locationid');
+        var id = _.getAttr(location, 'locationid'),
+
+            classnames = 'active fade-in ';
 
         console.log('refreshLabel', location);
 
         if (!id) return;
 
-        this.$root.find('#' + id).addClass('active fade-in shadow');
+        if (location.details && location.details === true) classnames = classnames + 'details shadow';
+
+        else if (location.details !== true) this.$root.find('#' + id).removeClass('details shadow');
+
+        this.$root.find('#' + id).addClass(classnames);
+
+        return this.$root.find('#' + id);
+
+    }
+
+    DomManager.prototype.getDimensions = function($el) {
+
+        return { width: $el.outerWidth(), height: $el.outerHeight() };
 
     }
 

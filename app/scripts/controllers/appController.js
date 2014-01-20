@@ -100,7 +100,9 @@ define([
         // Used when map is clicked on empty area
         if (_.has(attrs, 'locationid') && !_.isString(attrs.locationid)) {
 
-            attrs.locationid = '-1';
+            //attrs.locationid = '-1';
+
+            //debugger;
 
         }
 

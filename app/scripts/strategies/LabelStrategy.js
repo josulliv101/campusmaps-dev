@@ -19,7 +19,18 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    if (model.emphasis > 4 || model.selected === true) return;
+                    if (model.featured !== true) return;
+
+                    return 'active featured shadow'; // Show all label
+                    
+
+                    //return StrategyManager.getIconPath('circle_solid_center-big.png');
+
+                },
+
+                function(model, zoom) { // Location Model
+
+                    if (model.emphasis > 4 || model.featured === true || model.selected === true) return;
 
                     return 'hide'; // Show all label
                     
