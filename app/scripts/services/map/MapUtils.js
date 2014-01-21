@@ -80,6 +80,8 @@ define([
 
     }
 
+    Utils.prototype.getTileZoomId = getTileZoomId;
+
     Utils.prototype.point = function(x, y) { return new Point(x, y); };
 
     // See https://developers.google.com/maps/documentation/javascript/examples/map-coordinates?csw=1

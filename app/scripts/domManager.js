@@ -72,7 +72,12 @@ define([
         return instance;
     };
 
-    
+    DomManager.prototype.px = function(num) {
+
+        return num + 'px';
+
+    }
+
 
     DomManager.prototype.render = function(el, view) {
 
@@ -173,6 +178,47 @@ define([
         return this.$root.find('#' + id);
 
     }
+
+    // Setting tile divs innerHTML seems best performance
+    DomManager.prototype.createLabelHtml = function(model) {
+
+        var tile = model.tileCache[model.zoom],
+
+            offset = tile.offset, px = this.px,
+
+            iconSize = { width: 16, height: 16 },
+
+            id = _.getAttr(model, 'locationid'),
+
+            details = id === 'm029' ? 'details' : '',
+
+            img = id === 'm029' ? '<img class="img-th shadow" src="./app/images/thumbs/ballouhall-th.png" />' : '';
+
+        return "<div class='location " + details + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon'></div><div class='bd'><div class='txt shadow'>" + _.getAttr(model, 'name') + "</div><div class='thumb'>" + img + "</div></div></div>";
+
+    }
+
+    // Do I want to memoize here --- prevent DOM el from being released when offscreen? _.memoize()
+    DomManager.prototype.getLabelTile = function(id, ownerDocument, models) {
+
+        var div = ownerDocument.createElement('div'), labels;
+
+        labels = _.map(models, function(loc) { return DomManager.getInstance().createLabelHtml(loc); });
+
+        div.className = 'label-tile';
+
+        div.innerHTML = labels.join('');
+
+        div.style.position = 'relative';
+
+        div.style.width = '256px';
+
+        div.style.height = '256px';
+
+        return div;
+
+    }
+
 
     DomManager.prototype.getDimensions = function($el) {
 

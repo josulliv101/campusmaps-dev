@@ -150,6 +150,8 @@ return this;
 
         var markers;
 
+return;
+
         console.log('renderIcons_', models.length);
 
         clear_();
@@ -345,12 +347,12 @@ return this;
             EventDispatcher.trigger('truthupdate', { zoom: this.getZoom() });
 
         });
-/* 
+ 
         google.maps.event.addListener(gMap, 'click', function(ev) {
 
-            EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
+            //EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
 
-        });*/
+        });
 
 /*        EventDispatcher.on('maptype', function(maptype) {
 

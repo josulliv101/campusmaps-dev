@@ -19,17 +19,18 @@ define([
 
     LabelMapType.prototype.getTile = function(coord, zoom, ownerDocument) {
 
+      // Native innerHTML for best performance
       var div = ownerDocument.createElement('div'),
 
-        locs = MapUtils.getLocationsFromTileCache(coord, zoom), $labels;
+        locs = MapUtils.getLocationsFromTileCache(coord, zoom), labels, html;
 
-      $labels = _.map(locs, function(loc) {
+        return DomManager.getInstance().getLabelTile(MapUtils.getTileZoomId(coord, zoom), ownerDocument, locs);
 
-        // not needed since tilecache reset each time? if (loc.label !== true) return;
+      //labels = _.map(locs, function(loc) { return DomManager.getInstance().createLabelHtml(loc); });
 
-        var tile = loc.tileCache[zoom], label = _.getAttr(loc, 'label'), offset = tile.offset,
+     // div.innerHTML = labels.join('');
 
-          $lbl = DomManager.getInstance().create({ 
+/*          $lbl = DomManager.getInstance().create({ 
 
             tagname: 'div', 
 
@@ -85,28 +86,12 @@ define([
 
             .prependTo($lbl);
 
-        //}
+        //}*/
 
-        $lbl.appendTo(div);
 
-        // Value may be space delimited list of classes
-        if (_.isString(label)) $lbl.addClass(label);
-
-        return $lbl;
-
-      });
 
       //div.innerHTML = locs.length;
-      
-      div.style.position = 'relative';
 
-      div.style.width = this.tileSize.width + 'px';
-
-      div.style.height = this.tileSize.height + 'px';
-
-      div.style.fontSize = '12';
-
-      return div;
 
     };
 

@@ -222,6 +222,7 @@ ul {
     position: relative;
 		margin-top: 12px;
         &> div {
+            -moz-box-sizing: border-box;
             box-sizing: border-box;
             padding: 0 3px 0 0;
             position: relative;
@@ -258,6 +259,7 @@ ul {
               max-height: 420px;
               overflow: hidden;
               overflow-y: auto;
+              -moz-box-sizing: border-box;
               box-sizing: border-box;
 
               /* Specify how to apply style before/after animation*/
@@ -531,6 +533,308 @@ ul {
 
 /* Map */
 
+.label-tile {
+  
+  position: relative;
+
+  width: 256px;
+
+  height: 256px;
+
+  font-size: 12px;
+
+  /* Labels */
+
+  .location {
+
+    position: absolute;
+
+    color: #666;
+
+    /* Icons */
+
+    .icon {
+
+      position: relative; /* For z-index */
+
+      width: 16px;
+
+      height: 16px;
+
+      background-image: url("../../app/images/icons/map/circle_outline_center.png");
+
+      background-repeat: no-repeat;
+
+      display: block;
+
+      height: 16px;
+
+      line-height: 16px;
+
+      vertical-align: text-top;
+
+      width: 16px;
+
+      z-index: 999;
+
+    }
+
+    /* Label Position */
+
+    .bd {
+
+      position: relative;
+
+      top: -18px;
+
+      left: 16px;
+
+      z-index: 998;
+
+/*
+      -webkit-transition: all 0.5s ease-out;
+
+      -moz-transition: all 0.5s ease-out;
+
+      -o-transition: all 0.5s ease-out;
+
+      transition: all 0.5s ease-out;
+*/    
+
+      .thumb {
+
+        display: none;
+
+        &.shadow {
+
+          -webkit-box-shadow: none;
+
+            -moz-box-shadow: none;
+
+              box-shadow: none;  
+
+        }
+
+      }
+
+      .txt {
+
+        position: relative;
+
+        display: block;
+
+        width: 100%;
+
+        top: 0;
+
+        left: 0;
+
+        white-space: nowrap;
+
+        border-style: solid;
+
+        border-color: transparent;
+
+        border-width: 2px;
+
+        border-radius: 4px;
+
+        vertical-align: top;
+
+        &.shadow {
+
+          -webkit-box-shadow: none;
+
+            -moz-box-shadow: none;
+
+              box-shadow: none;  
+
+        }
+
+/*
+        -webkit-transition: all 0.5s ease-out;
+
+        -moz-transition: all 0.5s ease-out;
+
+        -o-transition: all 0.5s ease-out;
+
+        transition: all 0.5s ease-out;
+*/
+      }
+
+    }
+
+    &.right {
+
+      .bd {
+
+        left: 0;
+
+        .txt {
+
+          top: 0;
+
+          left: 16px;
+
+        }
+
+      }
+
+    }
+
+    &.left {
+
+      .bd {
+
+        left: 0;
+
+        .txt {
+
+          left: -100%;
+
+        }
+
+      }
+
+    }
+
+    &.top {
+
+      .bd {
+
+        top: -2.7em;
+
+        left: 8px; /* Half the icon width */
+
+        .txt {
+
+          left: -50%;
+
+        }
+
+      }
+
+    }
+
+    &.details {
+
+      .bd {
+
+        left: -8px;
+
+        .txt {
+
+
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+
+          background: none repeat scroll 0 0 rgba(232, 232, 232, 0.56);
+          border-color: #FFFFFF;
+          color: #1C92C9;
+          
+          height: 44px;
+          
+          min-height: 44px;
+          opacity: 1;
+          overflow: visible;
+          padding: 0 24px;
+
+/*
+          min-height: 44px;
+
+          height: 44px;
+
+          overflow: visible;
+
+          opacity: 1;
+
+          color: #1c92c9;
+
+          display: table-cell;
+
+          background: rgba(232, 232, 232, 0.56);
+
+          border-color: #fff;
+
+          padding-left: 24px;
+
+          margin-left: -24px; */
+
+          &.shadow {
+
+            -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.22); 
+
+              -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,.22); 
+
+                box-shadow: 2px 2px 2px 0px rgba(0,0,0,.22);  
+
+          }
+
+        }
+
+        .thumb {
+
+          display: table-cell;
+
+          position: absolute;
+
+          height: 100%;
+
+          top: 0;
+
+          left: -4px;
+
+          /*left: -9px;*/
+
+          .img-th {
+
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+            background: none repeat scroll 0 0 #FFFFFF;
+            border-color: rgba(0, 0, 0, 0);
+            border-radius: 4px;
+            border-style: solid;
+            border-width: 2px;
+            height: 100%;
+            position: absolute;
+            right: 100%;
+            top: 0;
+            width: auto;
+
+/*
+            width: auto;
+
+            height: 100%;
+
+            position: relative;
+
+            top: 0;
+
+            left: -100%;
+
+            border-style: solid;
+
+            border-color: transparent;
+
+            border-width: 2px;
+
+            border-radius: 4px;*/
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
 .label {
 
   color: #666;
@@ -679,12 +983,12 @@ ul {
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
  
 .fade-in {
-    opacity:0;  /* make things invisible upon start */
-    -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
-    -moz-animation:fadeIn ease-in 1;
+/*
+    opacity:0;  
+    -webkit-animation:fadeIn ease-in 1; 
     animation:fadeIn ease-in 1;
 
-    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -webkit-animation-fill-mode:forwards;  
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
 
@@ -695,6 +999,7 @@ ul {
     -webkit-animation-delay: 0.0s;
     -moz-animation-delay: 0.0s;
     animation-delay: 0.0s;
+    */
 }
 
 .ie {
