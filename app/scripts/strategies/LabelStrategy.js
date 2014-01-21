@@ -30,7 +30,7 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    if (model.emphasis > 4 || model.featured === true || model.selected === true) return;
+                    if (model.emphasis > 3 || model.featured === true || model.selected === true) return;
 
                     return 'hide'; // Show all label
                     
@@ -41,7 +41,7 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    if (zoom < 17) return;
+                    if (zoom < 14) return;
 
                     return model.selected !== true ? true : 'active shadow'; // Show all label
                     

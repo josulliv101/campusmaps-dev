@@ -67,17 +67,21 @@ define([
 
     function refreshLabels_(models) {  
 
+return this;
+
+        console.log('refreshLabels_', models.length);
+
         _.each(models, function(loc) {
 
             var dm = DomManager.getInstance(),
 
-                $el = dm.refreshLabel(loc),
+                $el = dm.refreshLabel(loc);//,
 
-                offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: loc.latlng[0], lng: loc.latlng[1] }, loc.zoom, { x: 12, y: 25 }),
+                //offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: loc.latlng[0], lng: loc.latlng[1] }, loc.zoom, { x: 12, y: 25 }),
 
-                d, neLL, swLL, bounds;
+                //d, neLL, swLL, bounds;
 
-            if (loc.details === true) {
+/*            if (loc.details === true) {
 
                 if (!$el) return;
 
@@ -104,41 +108,37 @@ define([
                     bounds: bounds
                 });
 
-                loc.setClickable(false);
+                //loc.setClickable(false);
 
                 var v = _.chain(gMap.markers)
 
                  .filter(function(m1) { var p = m1.getPosition(); var b = bounds.contains(p); return b; })
 
-                 //.tap(function (all) { _.each(all, function(m) { m.setMap(null); }); })
-
                  .value();
 
-                 //alert(v.length);
+                 _.each(v, function(m) { m.setMap(null); }); 
 
-                 _.each(v, function(m) { m.setMap(null); });
-
-/*                hideMarkers = _.filter(gMap.markers, function(m) { 
-
-                    var tileOffset = m.tileCache[m.zoom];
-
-                    if (m.locationid === marker.locationid) return false;
-
-                    return m.tileCache[m.zoom].tile.x === selectedTileOffset.tile.x && m.tileCache[m.zoom].tile.y === selectedTileOffset.tile.y;
-
-                })*/
-                //debugger;
-               
-
-            }
+            }*/
 
         });
 
     }
 
+    function refreshIcons_(models) { 
+
+        console.log('refreshIcons_', models.length);
+
+    }
+
+    function refreshAll_(models) { 
+
+        console.log('refreshAll_', models.length);
+
+    }
+
     function renderLabels_(models) {
 
-console.log('gMap.overlayMapTypes', gMap.overlayMapTypes);
+        console.log('renderLabels_', models.length);
 
         if (gMap.overlayMapTypes.length === 1) gMap.overlayMapTypes.removeAt(0);
 
@@ -150,19 +150,26 @@ console.log('gMap.overlayMapTypes', gMap.overlayMapTypes);
 
         var markers;
 
-        console.log('render models', models);
+        console.log('renderIcons_', models.length);
 
         clear_();
 
         gMap.markers = _.chain(models)
 
+                        .reject(function(model) {
+
+                            return model.icon === false;
+
+                        })
+
                         .map(function(model) {
 
-                            var m = _.extend(model, { map: gMap, position: getLatLng(model.latlng) });
+                            var m = _.extend(model, { visible: true, clickable: true, map: gMap, position: getLatLng(model.latlng) });
 
                             return new google.maps.Marker(m);
 
                         })
+
 
                         .each(function(marker) {
 
@@ -185,15 +192,7 @@ console.log('gMap.overlayMapTypes', gMap.overlayMapTypes);
 
                                     //cache = MapUtils.getLocationsFromTileCache(selectedTileOffset.tile, marker.zoom);
 
-/*                                    hideMarkers = _.filter(gMap.markers, function(m) { 
 
-                                        var tileOffset = m.tileCache[m.zoom];
-
-                                        if (m.locationid === marker.locationid) return false;
-
-                                        return m.tileCache[m.zoom].tile.x === selectedTileOffset.tile.x && m.tileCache[m.zoom].tile.y === selectedTileOffset.tile.y;
-
-                                    })*/
 
                                 //DomManager.getInstance().$root.find('.label.active').removeClass('active fade-in shadow');
 
@@ -219,55 +218,24 @@ console.log('gMap.overlayMapTypes', gMap.overlayMapTypes);
 
                             });
 
-                        })
+                        })/**/
 
                         .value();
+
+        return this;
+
     }
 
-    function render_(json, iconstrategy, labelstrategy) {
-/*
-        var zoom = gMap.getZoom();
+    function render_(models) {
 
-console.log('render__');
+        console.log('render_ (icons & labels)', models.length);
 
-        _.each(json.locations, function(loc) {
+        //renderIcons_(models);
 
-            var marker, latlng, icon, label, tileOffset;
+        //renderLabels_(models);
 
-            if (!_.isObject(loc) || !_.isString(loc.latlng)) return;
+        return this;
 
-            latlng = getLatLng(loc.latlng);
-
-            if (!latlng) return;
-
-            icon = iconstrategy.strategy(loc, zoom);
-
-
-
-            marker = new google.maps.Marker({
-
-                position: latlng,
-
-                map: gMap,
-
-                icon: icon
-
-            });
-
-            marker.setIcon(new google.maps.MarkerImage(icon));
-
-            google.maps.event.addListener(marker, 'click', function() {
-
-                EventDispatcher.trigger('viz:locationSelected', loc);
-
-            });
-
-            gMap.markers.push(marker);
-
-        });
-
-        console.log('MapUtils.getCache', MapUtils.getTileCache());
-*/
     }
 
     function setZoom_(level) {
@@ -276,7 +244,7 @@ console.log('render__');
 
         console.log('gmap setZoom_..', level);
 
-        gMap.setZoom(level);
+        gMap.setZoom(level);/**/
 
     }
 
@@ -340,17 +308,17 @@ console.log('render__');
 
         //gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);
 
-        gMap.markers = [];
+        //gMap.markers = [];
 
-        thePanorama = gMap.getStreetView();
+        //thePanorama = gMap.getStreetView();
 
-        thePanorama.setOptions({
+        //thePanorama.setOptions({
 
-          addressControl: false
+        //  addressControl: false
 
-        });
+        //});
 
-        google.maps.event.addListenerOnce(gMap, 'tilesloaded', function() {
+/*        google.maps.event.addListenerOnce(gMap, 'tilesloaded', function() {
 
             google.maps.event.addListener(thePanorama, 'visible_changed', function() {
 
@@ -364,25 +332,25 @@ console.log('render__');
             $("#map-canvas a").attr('tabindex', -1);
 
 
-        });
+        });*/
 
-        google.maps.event.addListener(gMap, 'dragend', function(ev) {
+/*        google.maps.event.addListener(gMap, 'dragend', function(ev) {
 
             EventDispatcher.trigger('truthupdate', { latlng: gMap.getCenter().toUrlValue() });
 
-        });
+        });*/
 
-        google.maps.event.addListener(gMap, 'zoom_changed', function(ev) {
+       google.maps.event.addListener(gMap, 'zoom_changed', function(ev) {
 
             EventDispatcher.trigger('truthupdate', { zoom: this.getZoom() });
 
         });
-
+/* 
         google.maps.event.addListener(gMap, 'click', function(ev) {
 
             EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
 
-        });
+        });*/
 
 /*        EventDispatcher.on('maptype', function(maptype) {
 
@@ -403,7 +371,11 @@ console.log('render__');
 
         refresh: refresh_,
 
+        refreshIcons: refreshIcons_,
+
         refreshLabels: refreshLabels_,
+
+        refreshAll: refreshAll_,
 
         renderLabels: renderLabels_,
 

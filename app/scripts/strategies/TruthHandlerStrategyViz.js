@@ -5,7 +5,9 @@ define([
 
     , 'datastore'
 
-], function(_, Datastore) {
+    , 'scripts/services/map/MapUtils'
+
+], function(_, Datastore, MapUtils) {
 
     'use strict';
 
@@ -20,7 +22,7 @@ define([
             fns: [
 
                 // If multiple attributes change at once, process them individually with same strategy
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+                function(controller,  viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
                     var keys = _.keys(changedAttrs);
 
@@ -36,7 +38,7 @@ define([
 
                         attr[key] = val;
                         
-                        strategy.strategy(viz, attr, models, campus, campusmap, locations, center, centerOffset);
+                        strategy.strategy(controller, viz, attr, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom);
 
                         //debugger;
 
@@ -47,32 +49,36 @@ define([
                 },
 
                 // A full refreshing (labels & icons) of the map is needed if campus or campusmap changes
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) {
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) {
 
-                    var attrs = ['campusmap'],
+                    var  keys = _.keys(changedAttrs),
 
-                        keys = _.keys(changedAttrs),
+                         latlng, locationModels = [];
 
-                        latlng;
+                    if (keys.length !== 1 || !_.contains(keys, 'campusmap')) return;
 
-                    if (_.intersection(keys, attrs).length === 0) return; 
+/*                    locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
+
+                    MapUtils.resetCache();
+
+                    controller.setTileCache(locationModels);
 
                     latlng = _.getAttr(campusmap, 'latlng');
 
                     if (latlng) viz.refresh(latlng);
 
-                    viz.renderIcons(models);
+                    viz.renderIcons(locationModels);
 
-                    viz.renderLabels(models);
+                    viz.renderLabels(locationModels);*/
 
-                    console.log('viz strategy - vizpath changed', viz, changedAttrs, models);
+                    console.log('viz strategy - vizpath changed', viz, changedAttrs, locationModels);
 //debugger;
                     return true;
                     
                 },
 
-                // A full refreshing (labels & icons) of the map is needed if campus or campusmap changes
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) {
+                // Campus changed
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) {
 
                     var attrs = ['campusid'],
 
@@ -93,26 +99,28 @@ define([
                 },
 
                 // Label Strategy has changed
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
-                    var keys = _.keys(changedAttrs);
+                    var keys = _.keys(changedAttrs), locationModels = [];
 
                     if (keys.length !== 1 || !_.contains(keys, 'labelstrategy')) return;
 
-                    viz.renderLabels(models);
+/*                    locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
+
+                    viz.renderLabels(locationModels);*/
 
                     return true;
 
                 },
 
                 // Selected location(s)
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
                     var keys = _.keys(changedAttrs), latlng;
 
                     if (keys.length !== 1 || !_.contains(keys, 'locationid')) return;
 
-                    latlng = _.getAttr(campus, 'latlng');
+/*                    latlng = _.getAttr(campus, 'latlng');
 
                     //viz.renderLabels(models);
 
@@ -126,32 +134,33 @@ define([
 
                         //if (latlng) viz.setCenter(latlng, centerOffset);
 
-                    }
+                    }*/
 
                     return true;
 
                 },
 
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+                // Details for location
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
                     var keys = _.keys(changedAttrs), loc, refreshLabels = [];
 
                     if (keys.length !== 1 || !_.contains(keys, 'details')) return;
 
-                    if (_.isObject(campusmap.details)) refreshLabels.push(campusmap.details);
+ /*                   if (_.isObject(campusmap.details)) refreshLabels.push(campusmap.details);
 
                     if (_.isObject(campusmap.detailsPrevious)) refreshLabels.push(campusmap.detailsPrevious); 
 
                     loc = campusmap.details;
 
-                    if (loc) viz.refreshLabels(refreshLabels);
+                    if (loc) viz.refreshLabels(refreshLabels);*/
 
                     return true;
 
                 },
 
                 // Map center offset
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
                     var keys = _.keys(changedAttrs), latlng;
 
@@ -175,20 +184,22 @@ define([
                 },
 
                 // Icon Strategy has changed
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
-                    var keys = _.keys(changedAttrs);
+                    var keys = _.keys(changedAttrs), locationModels = [];
 
                     if (keys.length !== 1 || !_.contains(keys, 'iconstrategy')) return;
 
-                    viz.renderIcons(models);
+/*                    locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
+
+                    viz.renderIcons(locationModels);*/
 
                     return true;
 
                 },
 
                 // Maptype has changed
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
                     var keys = _.keys(changedAttrs);
 
@@ -201,17 +212,24 @@ define([
                 },
 
                 // Zoom has changed
-                function(viz, changedAttrs, models, campus, campusmap, locations, center, centerOffset) { 
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
-                    var keys = _.keys(changedAttrs);
+                    var keys = _.keys(changedAttrs), locationModels = [];
 
                     if (keys.length !== 1 || !_.contains(keys, 'zoom')) return;
 
+                   locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
+
+                    MapUtils.resetCache();
+
+                    controller.setTileCache(locationModels);
+
+                    // Refresh needs to happen before zoom is updated
+                    viz.renderIcons(locationModels);
+/* */
+                    viz.renderLabels(locationModels);
+
                     viz.setZoom(changedAttrs['zoom']);
-
-                    viz.renderIcons(models);
-
-                    viz.renderLabels(models);
 
                     return true;
 

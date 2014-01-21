@@ -21,7 +21,11 @@ define([
 
       , 'strategies/TruthHandlerStrategyViz'
 
-], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyFletcher, TruthHandlerStrategyViz) {
+      , 'strategies/RenderStrategyViz'
+
+      , 'strategies/LocationsInvolvedStrategyViz'
+
+], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyFletcher, TruthHandlerStrategyViz, RenderStrategyViz, LocationsInvolvedStrategyViz) {
 
     'use strict';
 
@@ -55,7 +59,11 @@ define([
 
             LABEL: 'label', 
 
-            TRUTH_HANDLER_VIZ: 'truth_handler_viz' 
+            TRUTH_HANDLER_VIZ: 'truth_handler_viz',
+
+            RENDER_VIZ: 'render_viz',
+
+            LOCATIONS_INVOLVED_VIZ: 'locations-involved-viz'
 
         };
 
@@ -74,6 +82,10 @@ define([
         this.add(LabelStrategyFletcher);
         
         this.add(TruthHandlerStrategyViz);
+
+        this.add(RenderStrategyViz);
+
+        this.add(LocationsInvolvedStrategyViz);
 
     }
 

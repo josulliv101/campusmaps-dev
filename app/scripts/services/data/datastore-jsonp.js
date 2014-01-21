@@ -41,6 +41,8 @@ console.log('fetching data');
 
             dataType: 'jsonp',
 
+            cache: true,
+
             success: function(coll, data){
 
                 maps_.add(DataInterface.utils.createMapList(campuses_), { silent: true });

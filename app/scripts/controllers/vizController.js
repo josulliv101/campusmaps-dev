@@ -21,9 +21,13 @@ define([
     }
 
     VizController.prototype.init = function() {
-console.log('type', StrategyManager);
+
         // Get the default for the Viz strategies
         this.handleTruthStrategy = StrategyManager.getStrategy(StrategyManager.TYPE.TRUTH_HANDLER_VIZ);
+
+        this.renderStrategy = StrategyManager.getStrategy(StrategyManager.TYPE.RENDER_VIZ);
+
+        this.locationsInvolvedStrategy = StrategyManager.getStrategy(StrategyManager.TYPE.LOCATIONS_INVOLVED_VIZ);
 
         _.bindAll(this, 'handleTruthChange', 'handleChangeViz');
 
@@ -52,7 +56,7 @@ console.log('type', StrategyManager);
 
     }
 
-    VizController.prototype.handleTruthChange = function(attrs) {
+    VizController.prototype.handleTruthChange = function(attrs, previousAttrs) {
 
         // A campusmap can also be created dynamically - an example would be map of locations tagged as 'dorm'
         var campus = Datastore.campus(), campusmap = Datastore.map(campus),
@@ -67,22 +71,23 @@ console.log('type', StrategyManager);
 
             offset = Datastore.mapCenterOffset,
 
-            iconStrategy = strategies.icon,
-
-            labelStrategy = strategies.label,
-
-            models = this.setIconsAndLabels(locations, iconStrategy, labelStrategy, zoom); //this.getMarkerModels(campusmap, zoom, iconStrategy, labelStrategy);
+            fnRender, locationsInvolved;
 
         console.log('VizController labelStrategy', attrs);
 
-MapUtils.resetCache();
-
-        this.setTileCache(models);
-
-        // Any Datastore updates have all been completed at the App Controller level
 
         // Strategy will take the appropriate action based on the Truth attributes that changed
-        if (this.viz) this.handleTruthStrategy.strategy(this.viz, attrs, models, campus, campusmap, selectedLocations, center, offset);
+        if (this.viz) {
+
+            // Initial processing if of changed attributes
+            this.handleTruthStrategy.strategy(this, this.viz, attrs, previousAttrs, campus, campusmap, selectedLocations, locations, center, offset, zoom);
+
+            locationsInvolved = this.locationsInvolvedStrategy.strategy(attrs, previousAttrs, locations); 
+
+            // Get fn on how to refresh/render viz based on what has changed
+            this.renderStrategy.strategy(this, this.viz, locationsInvolved, campus, zoom, attrs, previousAttrs);
+
+        }
 
     }
 
@@ -131,54 +136,11 @@ MapUtils.resetCache();
                     // Don't alter the original model
                     return _.extend({}, loc, strategies);
 
-                    //return loc;
-
                  })
 
                  .reject(function(loc) { return loc === undefined; })
 
                  .value();
-
-    }
-
-    // To do: memoize this fn in init()
-    VizController.prototype.getMarkerModels = function(campusmap, zoom, iconStrategy, labelStrategy) {
-
-        var locations = Datastore.locations(campusmap);
-
-            //iconStrategy = campus.iconStrategy || StrategyManager.getStrategy(StrategyManager.TYPE.ICON),
-
-            //labelStrategy = StrategyManager.getStrategy(StrategyManager.TYPE.LABEL);
-
-        return _.chain(locations)
-
-                .map(function(loc) {
-
-                    var latlng = _.getAttr(loc, 'latlng');
-
-                    if (!latlng) return;
-
-                    return { 
-
-                        name: _.getAttr(loc, 'name'),
-
-                        latlng: _.latLng(latlng),
-
-                        emphasis: parseInt(_.getAttr(loc, 'emphasis')),
-
-                        icon: iconStrategy.strategy(loc, zoom),
-
-                        label: labelStrategy.strategy(loc, zoom),
-
-                        zoom: zoom
-
-                    }
-
-                })
-
-                .reject(function(loc) { return loc === undefined; })
-
-                .value();
 
     }
 

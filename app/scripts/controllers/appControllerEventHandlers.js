@@ -24,8 +24,6 @@ define([
 
         $root = domManager.$root;
 
-console.log('DomManager!!', $root);
-
         AppControllerEventHandlers.prototype.getHandlers = function() {
 
             // Order matters, return functions off controller so this keyword remains intact
@@ -46,8 +44,6 @@ console.log('DomManager!!', $root);
                 controller.handleAttrLocationId,
 
                 controller.handleAttrDetails,
-
-                controller.handleAttrLocs,
 
                 controller.handleVizPathChange,
 
@@ -122,8 +118,7 @@ console.log('DomManager!!', $root);
                 controller.vizController.init();
 
             }
-            //AppController.prototype.loadViz.call(null, val);
-var log = console.log;
+
 
             require([ val ], function (Viz) { 
 
@@ -173,15 +168,6 @@ var log = console.log;
             // Make sure Datastore is updated before views get notified of change
             campus = Datastore.campus(val, { id: 'campusid', select: true });
 
-            // The Truth's campus map attr needs to be in step with the campus change
-            //theTruth.set({ mapid: 'medford-main' });
-
-
-            console.log('...handleAttrCampusId (map)', Datastore.campus());
-
-            // Let an views listening know
-            //EventDispatcher.trigger('change:campus', campus);
-
             return true;
 
         }
@@ -193,14 +179,11 @@ var log = console.log;
 
             if (key !== 'details') return;
 
-            
-
             campus = Datastore.campus();
 
             campusmap = Datastore.map(Datastore.campus());
 
-            
-
+    
             _.chain(Datastore.locations(campusmap))
 
              .reject(function(loc) { return loc.featured !== true; })
@@ -259,30 +242,6 @@ var log = console.log;
 
             domManager.cssFlag(classname, { remove: locs.length !== 1 });
 
-            //EventDispatcher.trigger('truthupdate', { mapcenter: 'right' });
-
-            return true;
-
-        }
-
-        // Handle at global controller level, if needed, then delegate
-        AppController.prototype.handleAttrLocs = function(theTruth, val, key) {
-
-            // When a locationid change happens, it's assumed that the change applies to the currently selected map
-            var map, location;
-
-            if (key !== 'locs') return;
-
-            map = Datastore.map(Datastore.campus());
-
-            location = Datastore.location(map, val);
-
-            location.selected = true;
-
-            console.log('...handleAttrLocs', theTruth, val, key);
-
-            console.log('...location', location);
-
             return true;
 
         }
@@ -297,19 +256,11 @@ var log = console.log;
 
             if (!(_.isObject(val) || _.isString(val))) return;
 
-            // Convert a string id to map object if needed; always update Datastore before app-wide events triggered
-            //campusmap = _.isObject(val) ? val : Datastore.map(val, { id: 'mapid', select: true, restrictItemsToCampus: true });
-
-            // Select campus map
-            //Datastore.map(Datastore.campus(), { id: 'mapid', select: true })
-            
             campusmap = Datastore.map(val, { id: 'mapid', select: true, restrictItemsToCampus: true })
 
             console.log('...handleAttrCampusMap', theTruth, val, key);
 
             console.log('...handleAttrCampusMap campus',  Datastore.JSON.maps(), Datastore.mapList());
-
-            //if (campusmap) EventDispatcher.trigger('change:campusmap', campusmap);
 
             return true;
 
@@ -321,26 +272,12 @@ var log = console.log;
             var campus, previousZoom;
 
             if (key !== 'zoom') return;
-/*
-            previousZoom = model.previous('zoom');
-debugger;
-            if (val < 0 && _.exists(previousZoom)) {
-
-                previousZoom = previousZoom - 1;
-
-                val = previousZoom;
-debugger;
-                controller.setTheTruth({ zoom: val }, { silent: true });
-
-            }*/
 
             campus = Datastore.campus();
 
             campus.zoom = _.isString(val) ? parseInt(val) : val;
 
             console.log('...handleAttrZoom', model, val, key, model.previous('maptype'));
-
-            //EventDispatcher.trigger('change:zoom', parseInt(val));
 
             return true;
 
@@ -410,9 +347,6 @@ debugger;
 
             console.log('...handleAttrCmd', model.cid, val, key);
 
-            // let the searchbox controller handle it
-            //EventDispatcher.trigger('cmd', val);
-
             return true;
 
         }
@@ -444,8 +378,6 @@ debugger;
 
             // Toggle the hide-overlay class which has a css transition for hide/show
             domManager.cssFlag(classname, { remove: val !== 'satellite' });
-
-            //EventDispatcher.trigger('maptype', val);
 
             return true;
 

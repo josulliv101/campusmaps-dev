@@ -139,9 +139,11 @@ define([
 
     AppController.prototype.dispatchTruth = function(model, options) { 
 
-        var changed, querystring;
+        var changed, previous, querystring;
 
         changed = model.changedAttributes();
+        
+        previous = model.previousAttributes();
 
         if (_.isEmpty(changed)) return;
 
@@ -159,7 +161,7 @@ define([
         this.router.navigate(querystring, { trigger: false });
 
         // The Truth changes get sent to Component-level controllers for further handling
-        EventDispatcher.trigger('delegateTruth', changed);
+        EventDispatcher.trigger('delegateTruth', changed, previous);
 
         return true;
 

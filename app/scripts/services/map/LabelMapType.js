@@ -73,17 +73,19 @@ define([
 
         //$lbl.prepend('<i style="color:#5e9bb8;font-size:10px;font-weight:700;margin-right:4px;" class="fa fa-circle-o"></i> ');
 
-        if (_.getAttr(loc, 'thumbnail')) {
+        //if (_.getAttr(loc, 'thumbnail')) {
 
           $('<div/>')
 
-            .addClass('thumb')
+            .addClass('icon-test') //thumb
 
-            .html('<img class="shadow" src="./app/images/thumbs/' + _.getAttr(loc, 'thumbnail') + '"/>')
+            .html('<img src="./app/images/icons/map/circle_outline_center.png"/>')
+
+            //.html('<img class="shadow" src="./app/images/thumbs/' + _.getAttr(loc, 'thumbnail') + '"/>')
 
             .prependTo($lbl);
 
-        }
+        //}
 
         $lbl.appendTo(div);
 
