@@ -25,7 +25,9 @@ define([
 
     // google object is now available
     
-    var gMap;
+    var gMap, getMarker;
+
+    getMarker = _.memoize(getMarker_, function(model) { return _.getAttr(model, 'locationid'); });
 
     function init_(el, latlng, zoom) {    
 
@@ -103,8 +105,8 @@ define([
                     strokeColor: '#FF0000',
                     strokeOpacity: 0.31,
                     strokeWeight: 0,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.0,
+                    fillColor: '#6699cc',
+                    fillOpacity: 0.16,
                     map: gMap,
                     bounds: bounds
                 });
@@ -155,8 +157,32 @@ define([
 
     }
 
+    function getMarker_(model) {
+
+        var marker, icon = { 
+
+            url: model.icon,  
+
+            size: new google.maps.Size(16, 16),
+
+            origin: new google.maps.Point(0,0),
+
+            anchor: new google.maps.Point(8, 8)
+
+        };
+
+        //alert('creating marker');
+
+        marker = _.extend(model, { icon: _.isString(model.icon) ? icon : null, visible: false, clickable: true, map: gMap, position: getLatLng(model.latlng) });
+
+        return new google.maps.Marker(marker);
+
+    }
+
     function renderIcons_(models) {
 
+        _.each(models, getMarker);
+/*
         var markers;
 
 //return;
@@ -165,7 +191,9 @@ define([
 
         clear_();
 
-        gMap.markers = _.chain(models)
+        //gMap.markers = 
+
+                    _.chain(models)
 
                         .reject(function(model) {
 
@@ -173,29 +201,7 @@ define([
 
                         })
 
-                        .map(function(model) {
-
-                            var m, icon;
-
-                            icon = { 
-
-                                url: model.icon,  
-
-                                size: new google.maps.Size(16, 16),
-
-                                origin: new google.maps.Point(0,0),
-
-                                anchor: new google.maps.Point(8, 8)
-
-
-                            };
-
-                            m = _.extend(model, { icon: _.isString(model.icon) ? icon : null, visible: true, clickable: true, map: gMap, position: getLatLng(model.latlng) });
-
-                            return new google.maps.Marker(m);
-
-                        })
-
+                        .map(getMarker)
 
                         .each(function(marker) {
 
@@ -232,22 +238,22 @@ define([
 
                             google.maps.event.addListener(marker, 'mouseout', function() {
 
-/*                                DomManager.getInstance().$root.find('.label.active').removeClass('active fade-in shadow');
+                                // DomManager.getInstance().$root.find('.label.active').removeClass('active fade-in shadow');
 
-                                refreshLabels_([]);
+                                // refreshLabels_([]);
 
-                                _.each(gMap.markers, function(m) { 
+                                // _.each(gMap.markers, function(m) { 
 
-                                    if (!m.getMap()) m.setMap(gMap);
+                                //     if (!m.getMap()) m.setMap(gMap);
 
-                                })*/
+                                // })
 
                             });
 
-                        })/**/
+                        })
 
                         .value();
-
+*/
         return this;
 
     }
@@ -292,7 +298,7 @@ define([
 
             marker.setMap(null);
 
-            marker = null; 
+            //marker = null; 
 
         });
 
@@ -332,7 +338,7 @@ define([
 
         gMap.labelStrategy = new LabelMapType(new google.maps.Size(256, 256));
 
-        //gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);
+        gMap.overlayMapTypes.insertAt(0, gMap.labelStrategy);
 
         //gMap.markers = [];
 
@@ -377,6 +383,30 @@ define([
             EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
 
         });
+
+        google.maps.event.addListener(gMap, 'mousemove', _.throttle(function (e) {
+          
+          var zoom = gMap.getZoom(), tileoffset, locs, id;
+
+          //console.log(e.latLng);
+
+          tileoffset = MapUtils.latLngToTileOffset_({ lat: e.latLng.lat(), lng: e.latLng.lng() }, zoom);
+
+          //console.log('TileOffset', tileoffset);
+
+          locs = MapUtils.getLocationsFromTileCache(tileoffset.tile, zoom);
+
+          console.log('locid', id);
+
+          if (locs.length > 0) {
+
+            id = _.getAttr(_.first(locs), 'locationid');
+
+            EventDispatcher.trigger('truthupdate', { details: id });
+
+          }
+
+        }, 100));
 
 /*        EventDispatcher.on('maptype', function(maptype) {
 

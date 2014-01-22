@@ -57,7 +57,7 @@ define([
 
                     if (keys.length !== 1 || !_.contains(keys, 'campusmap')) return;
 
-                   locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
+/*                   locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
 
                     MapUtils.resetCache();
 
@@ -69,9 +69,9 @@ define([
 
                     //viz.renderIcons(locationModels);
 
-                    viz.renderLabels(locationModels);/* */
+                    viz.renderLabels(locationModels);
 
-                    console.log('viz strategy - vizpath changed', viz, changedAttrs, locationModels);
+                    console.log('viz strategy - vizpath changed', viz, changedAttrs, locationModels);*/
 //debugger;
                     return true;
                     
@@ -153,7 +153,7 @@ define([
 
                     loc = campusmap.details;
 
-                    if (loc) viz.refreshLabels(refreshLabels);
+                    if (loc) viz.refreshLabels(refreshLabels);/**/
 
                     return true;
 
@@ -217,7 +217,7 @@ define([
                     var keys = _.keys(changedAttrs), locationModels = [];
 
                     if (keys.length !== 1 || !_.contains(keys, 'zoom')) return;
-
+/*
                    locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
 
                     MapUtils.resetCache();
@@ -226,10 +226,10 @@ define([
 
                     // Refresh needs to happen before zoom is updated
                     viz.renderIcons(locationModels);
-/* */
+ 
                     viz.renderLabels(locationModels);
-
-                    viz.setZoom(changedAttrs['zoom']);
+*/
+                    //viz.setZoom(changedAttrs['zoom']);
 
                     return true;
 

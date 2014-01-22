@@ -851,6 +851,16 @@ ul {
 
     }
 
+    &.icon-hide {
+      
+      .icon {
+        
+        display: none;
+
+      }
+
+    }
+
   }
 
 }

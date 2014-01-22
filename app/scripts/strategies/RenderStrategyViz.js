@@ -53,26 +53,84 @@ define([
                     //return viz.refreshLabels;                
 
                 },
-
-                // The zoom changes, map will automatically do label map type update
+*/
+                // Zoom is always first. It always does a label refresh automatically since all new tiles are loaded.
                 function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 
 
-                    var keys = _.keys(changedAttrs), models;
+                    var models, keys;
 
-                    if (keys.length !== 1 || !_.contains(keys, 'zoom')) return;  
+                    keys = _.keys(changedAttrs);
+
+                    if (!_.contains(keys, 'zoom')) return;  
 
                     models = controller.setIconsAndLabels(locations, campus.iconStrategy, campus.labelStrategy, zoom);
 
-                    viz.setZoom(changedAttrs['zoom']);
+                    MapUtils.resetCache();
 
-                    viz.renderIcons(models);  
+                    controller.setTileCache(models);
+
+                    viz.renderIcons(models);
+                    
+                    // Label refresh gets taken care of since zoom requires all new tiles loaded
+                    //viz.renderLabels(models);
+                    
+                    // Handle here instead of TruthHandler because resetCache needs to happen before zoom changes.
+                    viz.setZoom(changedAttrs['zoom']);
 
                     return true;              
 
                 },
-*/
-                // The default, full render
+
+
+                // The details location changes
                 function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 
+
+                    var models, keys;
+
+                    keys = _.keys(changedAttrs);
+
+                    if (_.size(keys) !== 1 || !_.contains(keys, 'details')) return;  
+
+                    models = controller.setIconsAndLabels(locations, campus.iconStrategy, campus.labelStrategy, zoom);
+
+                    //MapUtils.resetCache();
+
+                    //controller.setTileCache(models);
+
+                    viz.renderIcons(models);
+                    
+                    viz.renderLabels(models);
+
+                    return true;                 
+
+                },
+
+
+                // The campusmap changes -- always refresh all
+                function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 
+
+                    var models, keys;
+
+                    keys = _.keys(changedAttrs);
+
+                    if (!_.contains(keys, 'campusmap')) return;  
+
+                    models = controller.setIconsAndLabels(locations, campus.iconStrategy, campus.labelStrategy, zoom);
+
+                    MapUtils.resetCache();
+
+                    controller.setTileCache(models);
+
+                    viz.renderIcons(models);
+                    
+                    viz.renderLabels(models);
+
+                    return true;                 
+
+                }
+
+                // There's no default, a render may not always be needed
+/*                function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 
 
                     //var models = controller.setIconsAndLabels(locations, campus.iconStrategy, campus.labelStrategy, zoom);
 
@@ -84,7 +142,7 @@ define([
 
                     return true;
 
-                }               
+                } */              
 
             ]
 

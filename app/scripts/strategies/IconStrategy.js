@@ -22,6 +22,42 @@ console.log(StrategyManager);
             fns: [
 
                 function(model, zoom) { // Location Model
+                    return path('clear16x16.png');
+                    if (model.emphasis === 3 || model.selected === true) return;
+                    
+                    //if (model.name.indexOf('Center') > -1) return path('clear16x16.png');;
+
+                    return false; // Show all label
+
+                },
+
+                function(model, zoom) { // Location Model
+
+                    if (zoom <= 15) return;
+
+                    return path('clear16x16.png'); // Show all label
+                    
+
+                    //return StrategyManager.getIconPath('circle_solid_center-big.png');
+
+                },
+
+                function(model, zoom) { // Location Model
+
+                    
+                    return model.details !== true ? false : path('clear16x16.png');
+
+                }
+/*
+                function(model, zoom) { 
+
+                    if (zoom > 15) return;
+
+                    return false; 
+
+                },
+
+                function(model, zoom) { // Location Model
 
                     return path('clear16x16.png');
 
@@ -62,7 +98,7 @@ console.log(StrategyManager);
                     return path('diamond_solid_center.png');
 
                 }
-
+*/
             ]
 
         };
