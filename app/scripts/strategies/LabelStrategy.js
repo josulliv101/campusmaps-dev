@@ -32,7 +32,7 @@ define([
 
                     if (model.emphasis > 3 || model.featured === true || model.selected === true) return;
 
-                    return 'hide'; // Show all label
+                    return 'label-hide'; // Show all label
                     
 
                     //return StrategyManager.getIconPath('circle_solid_center-big.png');

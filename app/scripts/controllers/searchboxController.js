@@ -224,7 +224,7 @@ define([
            // console.log('view.el', offset); 
 
             // If the panels take up more than 40% of space, adjust center
-            EventDispatcher.trigger('truthupdate', { mapcenteroffset: offset });
+            // EventDispatcher.trigger('truthupdate', { mapcenteroffset: offset });
 
         });
 

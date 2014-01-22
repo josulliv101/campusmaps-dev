@@ -57,7 +57,7 @@ define([
 
                     if (keys.length !== 1 || !_.contains(keys, 'campusmap')) return;
 
-/*                    locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
+                   locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
 
                     MapUtils.resetCache();
 
@@ -67,9 +67,9 @@ define([
 
                     if (latlng) viz.refresh(latlng);
 
-                    viz.renderIcons(locationModels);
+                    //viz.renderIcons(locationModels);
 
-                    viz.renderLabels(locationModels);*/
+                    viz.renderLabels(locationModels);/* */
 
                     console.log('viz strategy - vizpath changed', viz, changedAttrs, locationModels);
 //debugger;
@@ -147,13 +147,13 @@ define([
 
                     if (keys.length !== 1 || !_.contains(keys, 'details')) return;
 
- /*                   if (_.isObject(campusmap.details)) refreshLabels.push(campusmap.details);
+                    if (_.isObject(campusmap.details)) refreshLabels.push(campusmap.details);
 
                     if (_.isObject(campusmap.detailsPrevious)) refreshLabels.push(campusmap.detailsPrevious); 
 
                     loc = campusmap.details;
 
-                    if (loc) viz.refreshLabels(refreshLabels);*/
+                    if (loc) viz.refreshLabels(refreshLabels);
 
                     return true;
 

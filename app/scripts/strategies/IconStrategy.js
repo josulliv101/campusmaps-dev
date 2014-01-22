@@ -23,6 +23,12 @@ console.log(StrategyManager);
 
                 function(model, zoom) { // Location Model
 
+                    return path('clear16x16.png');
+
+                },
+
+                function(model, zoom) { // Location Model
+
                     if (model.selected !== true) return;
 
                     return path('circle_solid_center-big.png');

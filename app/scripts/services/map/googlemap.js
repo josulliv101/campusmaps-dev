@@ -67,25 +67,25 @@ define([
 
     function refreshLabels_(models) {  
 
-return this;
-
         console.log('refreshLabels_', models.length);
 
         _.each(models, function(loc) {
 
             var dm = DomManager.getInstance(),
 
-                $el = dm.refreshLabel(loc);//,
+                $el = dm.refreshLabel(loc),
 
-                //offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: loc.latlng[0], lng: loc.latlng[1] }, loc.zoom, { x: 12, y: 25 }),
+                offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: _.latLng(loc.latlng)[0], lng: _.latLng(loc.latlng)[1] }, loc.zoom, { x: 16, y: 10 }),
 
-                //d, neLL, swLL, bounds;
+                d, neLL, swLL, bounds;
 
-/*            if (loc.details === true) {
+            if (loc.details === true) {
 
                 if (!$el) return;
 
-                d = dm.getDimensions($el);
+                d = dm.getDimensions($el.find('.txt'));
+
+                if (!d.width || !d.height) return;
 
                 neLL = MapUtils.offsetLatLngByPixels(offsetLatLng, loc.zoom, { x: -d.width, y: 0 });
 
@@ -98,18 +98,27 @@ return this;
 
                 bounds = new google.maps.LatLngBounds(getLatLng(swLL), getLatLng(neLL));
 
+                // Don't recreate rect
                 gMap.eventRect = new google.maps.Rectangle({
                     strokeColor: '#FF0000',
-                    strokeOpacity: 0.0,
-                    strokeWeight: 2,
+                    strokeOpacity: 0.31,
+                    strokeWeight: 0,
                     fillColor: '#FF0000',
                     fillOpacity: 0.0,
                     map: gMap,
                     bounds: bounds
                 });
 
-                //loc.setClickable(false);
+                google.maps.event.addListener(gMap.eventRect, 'click', function() {
 
+                    console.log('rect clicked');
+
+                    EventDispatcher.trigger('truthupdate', { cmd: '' });
+
+                });
+
+                //loc.setClickable(false);
+/*
                 var v = _.chain(gMap.markers)
 
                  .filter(function(m1) { var p = m1.getPosition(); var b = bounds.contains(p); return b; })
@@ -117,8 +126,8 @@ return this;
                  .value();
 
                  _.each(v, function(m) { m.setMap(null); }); 
-
-            }*/
+*/
+            }
 
         });
 
@@ -150,7 +159,7 @@ return this;
 
         var markers;
 
-return;
+//return;
 
         console.log('renderIcons_', models.length);
 
@@ -166,7 +175,22 @@ return;
 
                         .map(function(model) {
 
-                            var m = _.extend(model, { visible: true, clickable: true, map: gMap, position: getLatLng(model.latlng) });
+                            var m, icon;
+
+                            icon = { 
+
+                                url: model.icon,  
+
+                                size: new google.maps.Size(16, 16),
+
+                                origin: new google.maps.Point(0,0),
+
+                                anchor: new google.maps.Point(8, 8)
+
+
+                            };
+
+                            m = _.extend(model, { icon: _.isString(model.icon) ? icon : null, visible: true, clickable: true, map: gMap, position: getLatLng(model.latlng) });
 
                             return new google.maps.Marker(m);
 
@@ -184,7 +208,7 @@ return;
                                 DomManager.getInstance().$root.find('.label.active').removeClass('active fade-in shadow');
 
 
-                                EventDispatcher.trigger('truthupdate', { details: locationid, cmd: 'Location' }); // locationid: locationid,
+                                EventDispatcher.trigger('truthupdate', { details: locationid }); // locationid: locationid,
 
                             });
 
@@ -198,7 +222,7 @@ return;
 
                                 //DomManager.getInstance().$root.find('.label.active').removeClass('active fade-in shadow');
 
-                                refreshLabels_([marker]);
+                               //... refreshLabels_([marker]);
 
                                 //_.each(hideMarkers, function(marker) { marker.setMap(null); });
 
@@ -208,7 +232,7 @@ return;
 
                             google.maps.event.addListener(marker, 'mouseout', function() {
 
-                                DomManager.getInstance().$root.find('.label.active').removeClass('active fade-in shadow');
+/*                                DomManager.getInstance().$root.find('.label.active').removeClass('active fade-in shadow');
 
                                 refreshLabels_([]);
 
@@ -216,7 +240,7 @@ return;
 
                                     if (!m.getMap()) m.setMap(gMap);
 
-                                })
+                                })*/
 
                             });
 
@@ -350,7 +374,7 @@ return;
  
         google.maps.event.addListener(gMap, 'click', function(ev) {
 
-            //EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
+            EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
 
         });
 

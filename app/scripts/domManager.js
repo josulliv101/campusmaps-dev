@@ -163,15 +163,15 @@ define([
 
         var id = _.getAttr(location, 'locationid'),
 
-            classnames = 'active fade-in ';
+            classnames = ' ';
 
         console.log('refreshLabel', location);
 
         if (!id) return;
 
-        if (location.details && location.details === true) classnames = classnames + 'details shadow';
+        if (location.details && location.details === true) classnames = classnames + 'details';
 
-        else if (location.details !== true) this.$root.find('#' + id).removeClass('details shadow');
+        else if (location.details !== true) this.$root.find('#' + id).removeClass('details');
 
         this.$root.find('#' + id).addClass(classnames);
 
@@ -190,11 +190,15 @@ define([
 
             id = _.getAttr(model, 'locationid'),
 
-            details = id === 'm029' ? 'details' : '',
+            thumbnail = _.getAttr(model, 'thumbnail'),
 
-            img = id === 'm029' ? '<img class="img-th shadow" src="./app/images/thumbs/ballouhall-th.png" />' : '';
+            labelClasses = _.getAttr(model, 'label'),
 
-        return "<div class='location " + details + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon'></div><div class='bd'><div class='txt shadow'>" + _.getAttr(model, 'name') + "</div><div class='thumb'>" + img + "</div></div></div>";
+            details = _.getAttr(model, 'details') ? 'details ' : '',
+
+            img = _.exists(thumbnail) ? '<img class="img-th shadow" src="./app/images/thumbs/' + thumbnail + '" />' : '';
+
+        return "<div class='location " + details + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon'></div><div class='bd'><div class='txt shadow'>" + _.getAttr(model, 'name') + "</div><div class='thumb'>" + img + "</div></div></div>";
 
     }
 

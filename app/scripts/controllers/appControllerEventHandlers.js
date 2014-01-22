@@ -186,7 +186,7 @@ define([
     
             _.chain(Datastore.locations(campusmap))
 
-             .reject(function(loc) { return loc.featured !== true; })
+             .reject(function(loc) { return loc.details !== true; })
 
              .tap(function (all) { _.each(all, function(loc) { loc.details = false; }); })
 
@@ -205,6 +205,8 @@ define([
             if (_.isObject(location)) {
 
                 location.details = true;
+
+                location.zoom = theTruth.get('zoom');
 
                 campusmap.details = location;
 

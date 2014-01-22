@@ -9,6 +9,8 @@ define([
 
     return function(StrategyManager) { 
 
+        var path = StrategyManager.getIconPath;
+        
         return {
 
             id: 'clear', 
@@ -19,7 +21,7 @@ define([
 
                 function(model, zoom) {
 
-                    return StrategyManager.getIconPath('clear.png');
+                    return StrategyManager.path('clear.png');
 
                 }
 

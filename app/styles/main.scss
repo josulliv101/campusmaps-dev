@@ -718,7 +718,19 @@ ul {
 
     &.details {
 
+      &.label-hide {
+        
+        .bd {
+          
+          display: block;
+
+        }
+
+      }
+
       .bd {
+        
+        display: block;
 
         left: -8px;
 
@@ -824,6 +836,16 @@ ul {
           }
 
         }
+
+      }
+
+    }
+
+    &.label-hide {
+      
+      .bd {
+        
+        display: none;
 
       }
 

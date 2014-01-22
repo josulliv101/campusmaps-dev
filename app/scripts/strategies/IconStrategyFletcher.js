@@ -9,6 +9,8 @@ define([
 
     return function(StrategyManager) { 
 
+        var path = StrategyManager.getIconPath;
+        
         return {
 
             id: 'fletcher', 
@@ -19,7 +21,7 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    return StrategyManager.getIconPath('circle_solid_center.png');
+                    return StrategyManager.path('circle_solid_center.png');
 
                 }
 
