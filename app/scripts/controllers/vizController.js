@@ -82,7 +82,7 @@ define([
             // Initial processing if of changed attributes
             this.handleTruthStrategy.strategy(this, this.viz, attrs, previousAttrs, campus, campusmap, selectedLocations, locations, center, offset, zoom);
 
-            locationsInvolved = this.locationsInvolvedStrategy.strategy(attrs, previousAttrs, locations); 
+            locationsInvolved = this.locationsInvolvedStrategy.strategy(attrs, previousAttrs, campusmap, locations); 
 
             // Get fn on how to refresh/render viz based on what has changed
             this.renderStrategy.strategy(this, this.viz, locationsInvolved, campus, zoom, attrs, previousAttrs);

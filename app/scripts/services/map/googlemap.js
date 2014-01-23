@@ -71,9 +71,13 @@ define([
 
         console.log('refreshLabels_', models.length);
 
+        var DM = DomManager.getInstance();
+
         _.each(models, function(loc) {
 
-            var dm = DomManager.getInstance(),
+            DM.refreshLabel(loc);
+
+/*            var dm = DomManager.getInstance(),
 
                 $el = dm.refreshLabel(loc),
 
@@ -102,13 +106,21 @@ define([
 
                 // Don't recreate rect
                 gMap.eventRect = new google.maps.Rectangle({
+
                     strokeColor: '#FF0000',
+
                     strokeOpacity: 0.31,
+
                     strokeWeight: 0,
+
                     fillColor: '#6699cc',
+
                     fillOpacity: 0.16,
+
                     map: gMap,
+
                     bounds: bounds
+                    
                 });
 
                 google.maps.event.addListener(gMap.eventRect, 'click', function() {
@@ -119,17 +131,7 @@ define([
 
                 });
 
-                //loc.setClickable(false);
-/*
-                var v = _.chain(gMap.markers)
-
-                 .filter(function(m1) { var p = m1.getPosition(); var b = bounds.contains(p); return b; })
-
-                 .value();
-
-                 _.each(v, function(m) { m.setMap(null); }); 
-*/
-            }
+            }*/
 
         });
 
@@ -270,6 +272,12 @@ define([
 
     }
 
+    function setCursor_(id) {
+
+        gMap.setOptions({ draggableCursor: id });
+
+    }
+
     function setZoom_(level) {
 
         level = parseInt(level);
@@ -384,9 +392,9 @@ define([
 
         });
 
-        google.maps.event.addListener(gMap, 'mousemove', _.throttle(function (e) {
+        google.maps.event.addListener(gMap, 'mousemove', function (e) { // _.throttle()
           
-          var zoom = gMap.getZoom(), tileoffset, locs, id;
+          var zoom = gMap.getZoom(), tileoffset, locs, id, closest;
 
           //console.log(e.latLng);
 
@@ -398,15 +406,39 @@ define([
 
           console.log('locid', id);
 
-          if (locs.length > 0) {
+          closest = _.chain(locs)
 
-            id = _.getAttr(_.first(locs), 'locationid');
+                     .map(function(loc) { 
 
-            EventDispatcher.trigger('truthupdate', { details: id });
+                        var latlng = loc.latlng;
+
+                        return { locationid: loc.locationid, offset: MapUtils.latLngToTileOffset_({ lat: latlng[0], lng: latlng[1] }, zoom).offset };
+
+                     })
+
+                     .filter(function(obj) {
+
+                        return Math.abs(tileoffset.offset.x - obj.offset.x) < 9 && Math.abs(tileoffset.offset.y - obj.offset.y) < 9;
+
+                     })
+
+                     .value();
+
+        
+
+          if (closest.length > 0) {
+
+            id = _.getAttr(_.first(closest), 'locationid');
+
+            EventDispatcher.trigger('truthupdate', { details: id, cursor: 'pointer' });
+
+          } else {
+
+            EventDispatcher.trigger('truthupdate', { cursor: '' });
 
           }
 
-        }, 100));
+        }, 20);
 
 /*        EventDispatcher.on('maptype', function(maptype) {
 
@@ -440,6 +472,8 @@ define([
         render: render_,
 
         setZoom: setZoom_,
+
+        setCursor: setCursor_,
 
         setCenter: setCenter_,
 

@@ -91,15 +91,17 @@ define([
 
                     if (_.size(keys) !== 1 || !_.contains(keys, 'details')) return;  
 
-                    models = controller.setIconsAndLabels(locations, campus.iconStrategy, campus.labelStrategy, zoom);
+                    //models = controller.setIconsAndLabels(locations, campus.iconStrategy, campus.labelStrategy, zoom);
 
                     //MapUtils.resetCache();
 
                     //controller.setTileCache(models);
 
-                    viz.renderIcons(models);
+                    //viz.renderIcons(models);
                     
-                    viz.renderLabels(models);
+                    //viz.renderLabels(models);
+
+                    viz.refreshLabels(locations);
 
                     return true;                 
 
