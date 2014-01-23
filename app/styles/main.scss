@@ -8,6 +8,56 @@ body {
   padding: 0; 
 }
 
+/* Animations */
+
+@-webkit-keyframes pulse {
+
+   0% {
+   -webkit-transform: scale(1, 1);
+  }
+
+  25% {
+   -webkit-transform: scale(1.1, 1.1);
+  }
+
+  50% {
+   -webkit-transform: scale(1.0, 1.0);
+  }
+
+  75% {
+   -webkit-transform: scale(1.13, 1.13);
+  }
+
+  100% {
+   -webkit-transform: scale(1, 1);
+  }
+
+}
+
+@keyframes pulse {
+
+   0% {
+   transform: scale(1, 1);
+  }
+
+  25% {
+   transform: scale(1.1, 1.1);
+  }
+
+  50% {
+   transform: scale(1.0, 1.0);
+  }
+
+  75% {
+   transform: scale(1.28, 1.28);
+  }
+
+  100% {
+   transform: scale(1, 1);
+  }
+
+}
+
 /* Global */
 
 button {
@@ -475,61 +525,6 @@ ul {
 
 }
 
-/**** Isotope Filtering ****/
-
-.isotope-item {
-  z-index: 2;
-}
-
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1;
-}
-
-/**** Isotope CSS3 transitions ****/
-
-.isotope,
-.isotope .isotope-item {
-  -webkit-transition-duration: 0.8s;
-     -moz-transition-duration: 0.8s;
-      -ms-transition-duration: 0.8s;
-       -o-transition-duration: 0.8s;
-          transition-duration: 0.8s;
-}
-
-.isotope {
-  -webkit-transition-property: height, width;
-     -moz-transition-property: height, width;
-      -ms-transition-property: height, width;
-       -o-transition-property: height, width;
-          transition-property: height, width;
-}
-
-.isotope .isotope-item {
-  -webkit-transition-property: -webkit-transform, opacity;
-     -moz-transition-property:    -moz-transform, opacity;
-      -ms-transition-property:     -ms-transform, opacity;
-       -o-transition-property:      -o-transform, opacity;
-          transition-property:         transform, opacity;
-}
-
-/**** disabling Isotope CSS3 transitions ****/
-
-.isotope.no-transition,
-.isotope.no-transition .isotope-item,
-.isotope .isotope-item.no-transition {
-  -webkit-transition-duration: 0s;
-     -moz-transition-duration: 0s;
-      -ms-transition-duration: 0s;
-       -o-transition-duration: 0s;
-          transition-duration: 0s;
-}
-
-
-.isotope-hidden.isotope-item {
-  pointer-events: none;
-  z-index: 1;
-}
 
 /* Map */
 
@@ -549,6 +544,8 @@ ul {
 
     position: absolute;
 
+    width: auto;
+
     color: #666;
 
     /* Icons */
@@ -561,9 +558,11 @@ ul {
 
       height: 16px;
 
-      background-image: url("../../app/images/icons/map/circle_outline_center.png");
+      background-image: url("../../app/images/icons/map/circle@2x.png"); /* circle_outline_center.png */
 
       background-repeat: no-repeat;
+
+      background-size: 16px 16px;
 
       display: block;
 
@@ -629,7 +628,7 @@ ul {
 
         left: 0;
 
-        white-space: nowrap;
+        /*white-space: nowrap;*/
 
         border-style: solid;
 
@@ -640,6 +639,15 @@ ul {
         border-radius: 4px;
 
         vertical-align: top;
+
+        -webkit-transition: color 0.2s linear;
+
+        -moz-transition: color 0.2s linear;
+
+        -o-transition: color 0.2s linear;
+
+        transition: color 0.2s linear;
+
 
         &.shadow {
 
@@ -716,6 +724,29 @@ ul {
 
     }
 
+    &.highlight {
+
+      .icon {
+
+        -webkit-animation: pulse .4s linear 1;
+        animation: pulse .4s linear 1;
+
+      }
+
+      .bd {
+
+        .txt {
+
+          /*color: #1C92C9;*/
+
+          text-decoration: underline;
+
+        }
+
+      }
+
+    }
+
     &.details {
 
       &.label-hide {
@@ -744,12 +775,18 @@ ul {
           border-color: #FFFFFF;
           color: #1C92C9;
           
-          height: 44px;
-          
           min-height: 44px;
           opacity: 1;
           overflow: visible;
           padding: 0 24px;
+
+          -webkit-transition: border-color 0.7s ease-out;
+
+          -moz-transition: border-color 0.7s ease-out;
+
+          -o-transition: border-color 0.7s ease-out;
+
+          transition: border-color 0.7s ease-out;
 
 /*
           min-height: 44px;
@@ -1013,9 +1050,9 @@ ul {
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
- 
+
 .fade-in {
-/*
+
     opacity:0;  
     -webkit-animation:fadeIn ease-in 1; 
     animation:fadeIn ease-in 1;
@@ -1031,7 +1068,7 @@ ul {
     -webkit-animation-delay: 0.0s;
     -moz-animation-delay: 0.0s;
     animation-delay: 0.0s;
-    */
+    
 }
 
 .ie {
@@ -1040,3 +1077,6 @@ ul {
     opacity: 1;
   }
 }
+
+
+

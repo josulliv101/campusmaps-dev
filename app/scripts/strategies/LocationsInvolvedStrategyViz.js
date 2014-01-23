@@ -21,20 +21,30 @@ define([
 
             fns: [
 
-                function(changedAttrs, previousAttrs, campusmap, locations) { 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
 
                     var models = [], keys;
 
                     keys = _.keys(changedAttrs);
 
                     if (_.size(keys) !== 1 || !_.contains(keys, 'details')) return;  
-debugger;
+
                     return [campusmap.details, campusmap.detailsPrevious];                 
 
                 },
 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
+
+                    var keys = _.keys(changedAttrs);
+
+                    if (!(_.size(keys) < 3) || !_.contains(keys, 'highlight')) return;  
+
+                    return campusmap.refreshLabels;                 
+
+                },
+
                 // The default, all locations associated with the campus map
-                function(changedAttrs, previousAttrs, campusmap, locations) { 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
 
                     return locations;                    
 

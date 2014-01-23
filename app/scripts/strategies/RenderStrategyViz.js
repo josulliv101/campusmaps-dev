@@ -107,6 +107,20 @@ define([
 
                 },
 
+                function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 
+
+                    var models, keys;
+
+                    keys = _.keys(changedAttrs);
+
+                    if (!_.contains(keys, 'highlight')) return;  
+
+                    viz.refreshLabels(locations);
+
+                    return true;        
+
+                },
+
 
                 // The campusmap changes -- always refresh all
                 function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 

@@ -312,6 +312,38 @@ define([
 
     }
 
+    function handleLatLng_(e, zoom) {
+
+        var latlng, tileoffset, locs, locAtLatLng;
+
+        latlng = e.latLng;
+
+        tileoffset = MapUtils.latLngToTileOffset_({ lat: latlng.lat(), lng: latlng.lng() }, zoom);
+
+        locs = MapUtils.getLocationsFromTileCache(tileoffset.tile, zoom);
+
+        locAtLatLng = _.chain(locs)
+
+                       .map(function(loc) { 
+
+                          var latlng = loc.latlng;
+
+                          return { locationid: loc.locationid, offset: MapUtils.latLngToTileOffset_({ lat: latlng[0], lng: latlng[1] }, zoom).offset };
+
+                       })
+
+                       .find(function(obj) {
+
+                          return Math.abs(tileoffset.offset.x - obj.offset.x) < 20 && Math.abs(tileoffset.offset.y - obj.offset.y) < 20;
+
+                       })
+
+                       .value();
+
+        return locAtLatLng;
+
+    }
+
     function createMap_(el, latlng, zoom) {
 
         var thePanorama;
@@ -388,23 +420,33 @@ define([
  
         google.maps.event.addListener(gMap, 'click', function(ev) {
 
-            EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
+            //EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
+            
+            var loc, id, attrs, zoom = gMap.getZoom();
+
+            loc = handleLatLng_(ev, zoom);
+
+            id = (loc && loc.locationid || '');
+
+            attrs = { details: id, highlight: id };
+
+            EventDispatcher.trigger('truthupdate', attrs);
 
         });
 
-        google.maps.event.addListener(gMap, 'mousemove', function (e) { // _.throttle()
+        google.maps.event.addListener(gMap, 'mousemove', function (ev) { // _.throttle()
           
-          var zoom = gMap.getZoom(), tileoffset, locs, id, closest;
+          var loc, attrs, zoom = gMap.getZoom(); //, tileoffset, locs, id, closest;
 
           //console.log(e.latLng);
-
+/*
           tileoffset = MapUtils.latLngToTileOffset_({ lat: e.latLng.lat(), lng: e.latLng.lng() }, zoom);
 
           //console.log('TileOffset', tileoffset);
 
           locs = MapUtils.getLocationsFromTileCache(tileoffset.tile, zoom);
 
-          console.log('locid', id);
+          //console.log('locid', id);
 
           closest = _.chain(locs)
 
@@ -422,23 +464,19 @@ define([
 
                      })
 
-                     .value();
+                     .value();*/
 
+          loc = handleLatLng_(ev, zoom);
         
+          attrs = _.isObject(loc) 
 
-          if (closest.length > 0) {
+                    ? { highlight: loc.locationid, cursor: 'pointer' } 
 
-            id = _.getAttr(_.first(closest), 'locationid');
+                    : { highlight: '', cursor: '' };
 
-            EventDispatcher.trigger('truthupdate', { details: id, cursor: 'pointer' });
+          EventDispatcher.trigger('truthupdate', attrs);
 
-          } else {
-
-            EventDispatcher.trigger('truthupdate', { cursor: '' });
-
-          }
-
-        }, 20);
+        }, 40);
 
 /*        EventDispatcher.on('maptype', function(maptype) {
 

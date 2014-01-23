@@ -169,9 +169,15 @@ define([
 
         if (!id) return;
 
-        if (location.details && location.details === true) classnames = classnames + 'details';
+
+        if (location.details && location.details === true) classnames = classnames + 'details ';
 
         else if (location.details !== true) this.$root.find('#' + id).removeClass('details');
+        
+
+        if (location.highlight && location.highlight === true) classnames = classnames + 'highlight ';
+
+        else if (location.highlight !== true) this.$root.find('#' + id).removeClass('highlight');
 
         this.$root.find('#' + id).addClass(classnames);
 
@@ -196,9 +202,11 @@ define([
 
             details = _.getAttr(model, 'details') ? 'details ' : '',
 
+            highlight = _.getAttr(model, 'highlight') ? 'highlight ' : '',
+
             img = _.exists(thumbnail) ? '<img class="img-th shadow" src="./app/images/thumbs/' + thumbnail + '" />' : '';
 
-        return "<div class='location " + details + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon'></div><div class='bd'><div class='txt shadow'>" + _.getAttr(model, 'name') + "</div><div class='thumb'>" + img + "</div></div></div>";
+        return "<div class='location " + details + highlight + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon'></div><div class='bd'><div class='txt shadow'>" + _.getAttr(model, 'name') + "</div><div class='thumb'>" + img + "</div></div></div>";
 
     }
 

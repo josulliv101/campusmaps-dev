@@ -20,9 +20,9 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    if (model.emphasis > 3 || model.selected === true) return;
+                    //if (model.emphasis > 3 || model.selected === true) return;
 
-                    return 'label-hide icon-hide'; // Show all label
+                    //return 'label-hide icon-hide'; // Show all label
 
                 },
 
@@ -41,10 +41,6 @@ define([
 
                     
                     return model.details !== true ? 'label-hide icon-hide' : 'details';
-
-                    //if (model.selected !== true) return;
-
-                    //return StrategyManager.getIconPath('circle_solid_center-big.png');
 
                 }
 

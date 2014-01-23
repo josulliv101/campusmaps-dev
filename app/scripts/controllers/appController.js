@@ -84,7 +84,7 @@ define([
 
         if (!theTruth) return;
 
-        console.log('validateTheTruth', attrs);
+        //console.log('validateTheTruth', attrs);
 
         // Zoom is always an integer
         if (_.has(attrs, 'zoom')) {

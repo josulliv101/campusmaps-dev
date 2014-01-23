@@ -57,7 +57,9 @@ define([
 
                 controller.handleAttrLabelStrategy,
 
-                controller.handleAttrMapCenterOffset
+                controller.handleAttrMapCenterOffset,
+
+                controller.handleAttrHighlight
 
             ];
 
@@ -172,7 +174,6 @@ define([
 
         }
 
-
         AppController.prototype.handleAttrDetails = function(theTruth, val, key) {
 
             var campus, campusmap, location;
@@ -211,6 +212,44 @@ define([
                 campusmap.details = location;
 
             }
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrHighlight = function(theTruth, val, key) {
+
+            var campus, campusmap, locations, highlightLocations, changedLocations = [];
+
+            if (key !== 'highlight') return;
+
+            campus = Datastore.campus();
+
+            campusmap = Datastore.map(Datastore.campus()),
+
+            locations = Datastore.locations(campusmap);
+
+    
+            changedLocations = _.chain(locations)
+
+                                .reject(function(loc) { return loc.highlight !== true; })
+
+                                .tap(function (all) { _.each(all, function(loc) { loc.highlight = false; }); })
+
+                                .value();
+
+
+            highlightLocations = _.chain(val.split(','))
+
+                                  .map(function(locid) { return Datastore.location(campusmap, locid); })
+
+                                  .reject(function(loc) { return loc === undefined; })
+
+                                  .tap(function (all) { _.each(all, function(loc) { loc.highlight = true; }); })
+
+                                  .value();
+
+            campusmap.refreshLabels = changedLocations.concat(highlightLocations);
 
             return true;
 

@@ -14,6 +14,36 @@ define([
 
         id: 'LocationList',
 
+        events: {
+
+            'mouseover .list li' : function(ev) {
+
+                var target = ev.currentTarget;
+
+                if (!(target && target.id)) return;
+
+                EventDispatcher.trigger('truthupdate', { highlight: target.id });
+
+            },
+
+            'focusin .list li' : function(ev) {
+
+                var target = ev.currentTarget;
+
+                if (!(target && target.id)) return;
+
+                EventDispatcher.trigger('truthupdate', { highlight: target.id });
+
+            },
+
+            'mouseout .list li' : function(ev) {
+
+                //EventDispatcher.trigger('truthupdate', { highlight: '' });
+
+            }
+
+        },
+
         initialize: function() {
 
             Base.prototype.initialize.call(this);
