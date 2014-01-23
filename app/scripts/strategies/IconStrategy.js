@@ -22,7 +22,9 @@ console.log(StrategyManager);
             fns: [
 
                 function(model, zoom) { // Location Model
+
                     return path('clear16x16.png');
+                    
                     if (model.emphasis === 3 || model.selected === true) return;
                     
                     //if (model.name.indexOf('Center') > -1) return path('clear16x16.png');;
