@@ -422,13 +422,15 @@ define([
 
             //EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
             
-            var loc, id, attrs, zoom = gMap.getZoom();
+            var loc, id, cmd, attrs, zoom = gMap.getZoom();
 
             loc = handleLatLng_(ev, zoom);
 
             id = (loc && loc.locationid || '');
 
-            attrs = { details: id, highlight: id };
+            cmd = (loc && loc.locationid ? 'Location' : '');
+
+            attrs = { details: id, highlight: id, cmd: cmd };
 
             EventDispatcher.trigger('truthupdate', attrs);
 
