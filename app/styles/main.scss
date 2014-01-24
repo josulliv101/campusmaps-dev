@@ -8,6 +8,12 @@ body {
   padding: 0; 
 }
 
+img {
+  
+  display: block;
+
+}
+
 /* Animations */
 
 @-webkit-keyframes pulse {
@@ -15,19 +21,19 @@ body {
    0% {
    -webkit-transform: scale(1, 1);
   }
-
+/*
   25% {
    -webkit-transform: scale(1.1, 1.1);
   }
-
+*/
   50% {
-   -webkit-transform: scale(1.0, 1.0);
+   -webkit-transform: scale(1.1, 1.1);
   }
-
+/*
   75% {
    -webkit-transform: scale(1.13, 1.13);
   }
-
+*/
   100% {
    -webkit-transform: scale(1, 1);
   }
@@ -39,19 +45,19 @@ body {
    0% {
    transform: scale(1, 1);
   }
-
+/*
   25% {
    transform: scale(1.1, 1.1);
   }
-
+*/
   50% {
-   transform: scale(1.0, 1.0);
+   transform: scale(1.1, 1.1);
   }
-
+/*
   75% {
    transform: scale(1.28, 1.28);
   }
-
+*/
   100% {
    transform: scale(1, 1);
   }
@@ -190,7 +196,7 @@ ul {
   height: 100%;
   max-width: 890px; /* 100% */
 
-  max-height: 100%;
+  max-height: 540px;
 
 
     
@@ -259,7 +265,8 @@ ul {
   -webkit-transition-delay: 0s;
 
 	position: absolute;
-	width: 280px;
+	width: 42%;
+  max-width: 400px;
 	z-index: 101;
 	top: 32px;
 	left: 32px;
@@ -280,7 +287,7 @@ ul {
             .panel {
                 margin: 0 0 12px 0;
                 position: relative;
-
+                background: #fff;
             }
         }
         .panel-container {
@@ -306,9 +313,8 @@ ul {
 
             .panel {
 
-              max-height: 420px;
+              
               overflow: hidden;
-              overflow-y: auto;
               -moz-box-sizing: border-box;
               box-sizing: border-box;
 
@@ -628,7 +634,7 @@ ul {
 
         left: 0;
 
-        /*white-space: nowrap;*/
+        white-space: nowrap;
 
         border-style: solid;
 
@@ -728,8 +734,8 @@ ul {
 
       .icon {
 
-        -webkit-animation: pulse .4s linear 1;
-        animation: pulse .4s linear 1;
+        -webkit-animation: pulse .3s linear 1;
+        animation: pulse .3s linear 1;
 
       }
 
@@ -823,7 +829,7 @@ ul {
 
         .thumb {
 
-          display: table-cell;
+          display: none; /* table-cell */
 
           position: absolute;
 
@@ -1079,4 +1085,175 @@ ul {
 }
 
 
+/* Navs */
+
+.nav-details li {
+  
+  display: inline-block;
+
+  font-size: 10px;
+
+}
+
+
+/* Panels */
+
+.panel-details {
+  
+  .content-container {
+
+    position: relative;
+
+    min-height: 140px;
+
+    overflow: hidden;
+
+    .panel-content {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 100%;
+
+      width: 100%;
+
+      min-height: 132px;
+
+      background: rgba(0,0,0,.04);
+
+      padding: 12px;
+
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+
+      -webkit-transition: left 0.5s linear;
+
+      -moz-transition: left 0.5s linear;
+
+      -o-transition: left 0.5s linear;
+
+      transition: left 0.5s linear;
+
+      &.active {
+
+        left: 0;
+
+      }
+
+      &#details {
+
+        left: -110%;
+
+        &.active {
+
+          left: 0;
+
+        }
+
+      }
+
+      &#offices {
+
+        left: 110%;
+
+        &.active {
+
+          left: 0;
+          
+        }
+
+      }
+
+      &#photo {
+
+        padding: 0;
+
+        left: 110%;
+
+        &.active {
+
+          left: 0;
+          
+        }
+
+      }
+
+      &#directions {
+
+        left: 110%;
+
+        &.active {
+
+          left: 0;
+          
+        }
+
+      }
+
+    }
+
+  }
+
+
+  #details {
+
+    .details-list {
+
+      position: relative;
+
+      li {
+
+        display: table-cell;
+
+        p {
+
+          margin: 6px 0;
+
+        }
+
+      }
+
+      &.has-thumbnail {
+
+        li {
+
+          padding-right: 30%;
+
+          &.thumbnail {
+
+            width: 30%;
+
+            padding-right: 0;
+
+            position: absolute;
+
+            top: 0;
+
+            right: 0;
+
+            img {
+
+              width: 100%;
+
+              height: auto;
+
+              border: #999 1px solid;
+
+              border-radius: 4px;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+
+  }
+
+}
 

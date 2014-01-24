@@ -169,7 +169,6 @@ define([
 
         if (!id) return;
 
-
         if (location.details && location.details === true) classnames = classnames + 'details ';
 
         else if (location.details !== true) this.$root.find('#' + id).removeClass('details');

@@ -65,7 +65,7 @@ define([
 
     AppController.prototype.setTheTruth = function(obj, options) {
 
-        console.log('setTheTruth', obj, options);
+        //console.log('setTheTruth', obj, options);
 
         options || (options = {});
 
@@ -94,6 +94,14 @@ define([
             else if (attrs.zoom === '-' && _.isNumber(zoom)) attrs.zoom = --zoom;
 
             else if (_.isString(attrs.zoom)) attrs.zoom = parseInt(attrs.zoom);
+
+        }
+
+        // Details View
+        if (_.has(attrs, 'detailsview')) {
+
+            if (attrs.detailsview === '+') attrs.detailsview = 'directions';
+
 
         }
 

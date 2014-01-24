@@ -16,7 +16,15 @@ define([
 
         initialize: function() {
 
+            //var model = this.model;
+
             Base.prototype.initialize.call(this);
+
+            this.listenTo(EventDispatcher, 'change:detailsview', function(panelid) {
+
+                model.set('detailsview', panelid, { silent: true });
+
+            });
 
         },
 
@@ -30,23 +38,49 @@ define([
 
                 json = Datastore.JSON.location(location);
 
+            json.detailsview = this.model.get('detailsview') || 'details';
+
             return { data: json };
+
+        },
+
+        refresh: function (panelid) {
+
+            var $el = this.$el, $panel = $el.find('#' + panelid);
+
+            panelid || (panelid = this.model.get('detailsview'));
+
+            $el.find('.panel-content').removeClass('active');
+
+            Base.prototype.refresh.call(this);
+
+            $panel.addClass('active');
 
         },
 
        handleOpenPreState: function() {
 
-            var state = this.model.get('state');
+            var state = this.model.get('state'), refresh = this.refresh, render = this.render;
 
             this.stopListening(EventDispatcher, 'change:details');
+
+            this.stopListening(EventDispatcher, 'change:detailsview');
 
             this.listenTo(EventDispatcher, 'change:details', function() {
 
                 if (state !== 'open') return;
 
-                //alert('heard change locids');
+                //EventDispatcher.trigger('cmd', { value: 'Location', forceClose: false });
+                
+                render.call(this);
 
-                EventDispatcher.trigger('cmd', { value: 'Location', forceClose: true });
+            });
+
+            this.listenTo(EventDispatcher, 'change:detailsview', function(panelid) {
+
+                if (state !== 'open') return;
+
+                refresh.call(this, panelid);
 
             });
 
@@ -57,6 +91,8 @@ define([
        handleClosePostState: function() {
 
             this.stopListening(EventDispatcher, 'change:details');
+
+            this.stopListening(EventDispatcher, 'change:detailsview');
 
             Base.prototype.handleClosePostState.call(this);
 

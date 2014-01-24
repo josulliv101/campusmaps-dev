@@ -184,6 +184,7 @@ define([
 
             campusmap = Datastore.map(Datastore.campus());
 
+console.log('...handleAttrDetails', theTruth, val, key);
     
             _.chain(Datastore.locations(campusmap))
 

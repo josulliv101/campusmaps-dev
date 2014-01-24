@@ -1,9 +1,67 @@
-<div class="shadow panel">
+<div class="shadow panel panel-details">
+
 	<div class="bd">
-		<button class="back" onclick="window.history.back()">back</button>
+
+		<nav class="nav-details">
+
+			<ul>
+
+				<li><button data-campusmap="detailsview:details" class="btn-details">Details</button></li>
+
+				<li><button data-campusmap="detailsview:offices" class="btn-departments_offices">Offices</button></li>
+
+				<li><button data-campusmap="detailsview:photo" class="btn-photo">Photos</button></li>
+
+				<li><button data-campusmap="detailsview:directions" class="btn-directions">Directions</button></li>
+
+				<li class="back"><button class="btn-back" onclick="window.history.back()">back</button></li>
+
+			</ul>
+
+		</nav>
+
+		
 		<h3>${data.name}</h3> 
-		<ul>
-			<li>LatLng: ${data.latlng}</li>
-		</ul>
+
+		<div class="content-container">
+
+			<div class="panel-content <%  if (data.detailsview === 'details') { %>active<% } %>" id="details">
+				<ul class="details-list <%  if (data.thumbnail) { %>has-thumbnail<% } %>">
+
+					<li>
+
+						<p>Medford, MA 02155</p>
+
+						<%  if (data.address1) { %><p>${data.address1}</p><% }  %>
+
+						<p>GPS Coordinates: ${data.latlng}</p>
+
+					</li>
+
+				
+					<%  if (data.thumbnail) { %><li class="thumbnail"><img class="shadow" src="./app/images/thumbs/${data.thumbnail}" /></li><% } %>
+					
+				</ul>
+
+				<div class="linkTo"><button>Link directly to this location</button></div>
+
+			</div>
+
+			<div class="panel-content <%  if (data.detailsview === 'offices') { %>active<% } %>" id="offices">
+				Offices
+			</div>
+
+			<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">
+				<img width="343" height="132" src="./app/images/goddardchapel.png" />
+			</div>
+
+			<div class="panel-content <%  if (data.detailsview === 'directions') { %>active<% } %>" id="directions">
+				Directions
+			</div>
+
+		</div>
+
+
 	</div>
+	
 </div>

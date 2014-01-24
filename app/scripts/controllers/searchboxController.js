@@ -27,6 +27,8 @@ define([
 
         this.panelAnimation = AnimationConstructor;
 
+        this.detailsview = '';
+
         // Defined here so this binding behaves when creating unit test spies
         this.loadViews = _.compose(
 
@@ -63,6 +65,13 @@ define([
 
             if (_.has(changedAttributes, 'details')) EventDispatcher.trigger('change:details', changedAttributes.details);
 
+            if (_.has(changedAttributes, 'detailsview')) {
+
+                this.detailsview = changedAttributes.detailsview;
+
+                EventDispatcher.trigger('change:detailsview', changedAttributes.detailsview);
+
+            }
 
         }, this);
 
@@ -190,6 +199,8 @@ define([
             AnimationConstructor = this.panelAnimation,
 
             anim = new AnimationConstructor();
+
+        panel.model.set('detailsview', this.detailsview, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 
