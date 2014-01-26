@@ -6,13 +6,13 @@
 
 			<ul>
 
-				<li><button data-campusmap="detailsview:details" class="btn-details">Details</button></li>
+				<li><button data-campusmap="detailsview:details,cmd:Location_panelA" class="btn-details">Details</button></li>
+
+				<li><button data-campusmap="detailsview:photo,cmd:Location" class="btn-photo">Photos</button></li>
 
 				<li><button data-campusmap="detailsview:offices" class="btn-departments_offices">Offices</button></li>
 
-				<li><button data-campusmap="detailsview:photo" class="btn-photo">Photos</button></li>
-
-				<li><button data-campusmap="detailsview:directions" class="btn-directions">Directions</button></li>
+				<li><button data-campusmap="detailsview:directions,cmd:Location" class="btn-directions">Directions</button></li>
 
 				<li class="back"><button class="btn-back" onclick="window.history.back()">back</button></li>
 
@@ -48,7 +48,24 @@
 			</div>
 
 			<div class="panel-content <%  if (data.detailsview === 'offices') { %>active<% } %>" id="offices">
-				Offices
+				
+
+					<button  data-campusmap="detailsview:offices,cmd:Location_panelA">Community Relations</button>
+
+					<button data-campusmap="detailsview:offices,cmd:Location_panelB">Office of Communications</button>
+
+					<button>Office of Advancement </button>
+					<button>Provost Office</button>
+					<button>Office of the Vice President </button>
+					<button>Office of Diversity</button>
+					<button>President's Office</button>
+
+					<button>Publications Office</button>
+					<button>Office 1 </button>
+					<button>Office 1 </button>
+					<button>Office 1 </button>
+					<button>Office 1 </button>                                                                            
+				 
 			</div>
 
 			<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">

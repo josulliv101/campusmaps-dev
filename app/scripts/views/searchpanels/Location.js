@@ -70,9 +70,9 @@ define([
 
                 if (state !== 'open') return;
 
-                //EventDispatcher.trigger('cmd', { value: 'Location', forceClose: false });
+                EventDispatcher.trigger('cmd', { value: 'Location', forceClose: true });
                 
-                render.call(this);
+                //render.call(this);
 
             });
 
