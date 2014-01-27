@@ -77,6 +77,8 @@ define([
 
             var offsetLatLng, $el, dimensions, southwestLatLng, northeastLatLng, bounds;
 
+            if (!loc) return;
+
             $el = DM.refreshLabel(loc);
 
             if (loc.details !== true || !$el) return;
@@ -95,7 +97,7 @@ define([
 
             gMap.clickRect.setBounds(bounds);
 
-            debugger;
+            //debugger;
 
 /*            var dm = DomManager.getInstance(),
 
@@ -356,7 +358,7 @@ define([
 
                        .find(function(obj) {
 
-                          return Math.abs(tileoffset.offset.x - obj.offset.x) < 20 && Math.abs(tileoffset.offset.y - obj.offset.y) < 20;
+                          return Math.abs(tileoffset.offset.x - obj.offset.x) < 12 && Math.abs(tileoffset.offset.y - obj.offset.y) < 12;
 
                        })
 
@@ -406,7 +408,7 @@ define([
 
             fillColor: '#6699cc',
 
-            fillOpacity: 0.16,
+            fillOpacity: 0.0,
 
             map: null,
 
@@ -487,34 +489,6 @@ define([
         google.maps.event.addListener(gMap, 'mousemove', function (ev) { // _.throttle()
           
           var loc, attrs, zoom = gMap.getZoom(); //, tileoffset, locs, id, closest;
-
-          //console.log(e.latLng);
-/*
-          tileoffset = MapUtils.latLngToTileOffset_({ lat: e.latLng.lat(), lng: e.latLng.lng() }, zoom);
-
-          //console.log('TileOffset', tileoffset);
-
-          locs = MapUtils.getLocationsFromTileCache(tileoffset.tile, zoom);
-
-          //console.log('locid', id);
-
-          closest = _.chain(locs)
-
-                     .map(function(loc) { 
-
-                        var latlng = loc.latlng;
-
-                        return { locationid: loc.locationid, offset: MapUtils.latLngToTileOffset_({ lat: latlng[0], lng: latlng[1] }, zoom).offset };
-
-                     })
-
-                     .filter(function(obj) {
-
-                        return Math.abs(tileoffset.offset.x - obj.offset.x) < 9 && Math.abs(tileoffset.offset.y - obj.offset.y) < 9;
-
-                     })
-
-                     .value();*/
 
           loc = handleLatLng_(ev, zoom);
         

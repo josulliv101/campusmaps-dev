@@ -185,7 +185,7 @@ define([
             campusmap = Datastore.map(Datastore.campus());
 
 console.log('...handleAttrDetails', theTruth, val, key);
-    
+        
             _.chain(Datastore.locations(campusmap))
 
              .reject(function(loc) { return loc.details !== true; })
@@ -211,6 +211,10 @@ console.log('...handleAttrDetails', theTruth, val, key);
                 location.zoom = theTruth.get('zoom');
 
                 campusmap.details = location;
+
+            } else {
+
+                campusmap.details = null;
 
             }
 

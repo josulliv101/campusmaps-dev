@@ -6,13 +6,13 @@
 
 			<ul>
 
-				<li><button data-campusmap="detailsview:details,cmd:Location" class="btn-details">Details</button></li>
+				<li class="nav-item details <%  if (data.detailsview === 'details') { %>active<% } %>"><button data-campusmap="detailsview:details,cmd:Location" class="btn-details">Details</button></li>
 
-				<li><button data-campusmap="detailsview:photo,cmd:Location" class="btn-photo">Photos</button></li>
+				<li class="nav-item photo <%  if (data.detailsview === 'photo') { %>active<% } %>"><button data-campusmap="detailsview:photo,cmd:Location" class="btn-photo">Photos</button></li>
 
-				<li><button data-campusmap="detailsview:offices" class="btn-departments_offices">Offices</button></li>
+				<li class="nav-item offices <%  if (data.detailsview === 'offices') { %>active<% } %>"><button data-campusmap="detailsview:offices" class="btn-departments_offices">Offices</button></li>
 
-				<li><button data-campusmap="detailsview:directions,cmd:Location" class="btn-directions">Directions</button></li>
+				<li class="nav-item directions <%  if (data.detailsview === 'directions') { %>active<% } %>"><button data-campusmap="detailsview:directions,cmd:Location" class="btn-directions">Directions</button></li>
 
 				<li class="back"><button class="btn-back" onclick="window.history.back()">back</button></li>
 
@@ -68,9 +68,11 @@
 				 
 			</div>
 
-			<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">
-				<img width="343" height="132" src="./app/images/goddardchapel.png" />
-			</div>
+			<%  if (data.urlphoto) { %>
+				<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">
+					<img width="343" height="132" src="./app/images/${data.urlphoto}" />
+				</div>
+			<%  } %>
 
 			<div class="panel-content <%  if (data.detailsview === 'directions') { %>active<% } %>" id="directions">
 				Directions

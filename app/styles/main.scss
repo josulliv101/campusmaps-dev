@@ -196,7 +196,7 @@ ul {
   height: 100%;
   max-width: 890px; /* 100% */
 
-  max-height: 100%;
+  max-height: 520px;
 
 
     
@@ -303,7 +303,7 @@ ul {
             margin-right: 0;
             .bd {
                 background: #fff;
-                padding: 12px;
+                padding: 3px 12px 12px;
                 border: 1px #999 solid;
                 
                 .back {
@@ -571,7 +571,7 @@ ul {
 
       height: 16px;
 
-      background-image: url("../../app/images/icons/map/circle@2x.png"); /* circle_outline_center.png */
+      background-image: url("../../app/images/icons/map/circle@2x.png"); /* marker-icon-2x.png circle@2x.png circle_outline_center.png */
 
       background-repeat: no-repeat;
 
@@ -672,6 +672,20 @@ ul {
 
         }
 
+        .more {
+
+          position: absolute;
+
+          right: 4px;
+
+          bottom: 4px;
+
+          font-size: 11px;
+
+          display: none;
+
+        }
+
 /*
         -webkit-transition: all 0.5s ease-out;
 
@@ -730,6 +744,26 @@ ul {
         .txt {
 
           left: -50%;
+
+        }
+
+      }
+
+      &.details {
+
+        .bd {
+
+          top: -18px;
+
+          left: -8px;
+
+          .txt {
+
+            top: 0;
+
+            left: 0;
+
+          }
 
         }
 
@@ -832,6 +866,12 @@ ul {
 
           }
 
+          .more {
+
+            display: block;
+
+          }
+
         }
 
         .thumb {
@@ -901,11 +941,71 @@ ul {
 
     }
 
+    /* Icon Overrides */
+
     &.icon-hide {
       
       .icon {
         
         display: none;
+
+      }
+
+    }
+
+    &.emphasis3 {
+
+      color: #237cc9;
+
+    }
+
+    &.emphasis1 {
+
+      .txt {
+
+        font-size: 11px;
+
+        padding-left: 6px;
+
+      }
+      
+    }
+
+    &.icon-marker {
+
+      .icon {
+
+        background-image: url("../../app/images/icons/map/marker-icon-2x.png");
+
+      }
+
+    }
+
+    &.icon-circle-small {
+
+      .icon {
+
+        background-image: url("../../app/images/icons/map/circle-small@2x.png");
+
+      }
+
+    }
+
+    &.icon-circle-xsmall {
+
+      .icon {
+
+        background-image: url("../../app/images/icons/map/circle-xsmall@2x.png");
+
+      }
+
+    }
+
+    &.icon-dot {
+
+      .icon {
+
+        background-image: url("../../app/images/icons/map/dot@2x.png");
 
       }
 
@@ -946,6 +1046,7 @@ ul {
 
     }
   }
+
 
   .thumb {
     display: none;
@@ -1106,6 +1207,42 @@ ul {
 /* Panels */
 
 .panel-details {
+  
+  .nav-details {
+
+    margin-left: 4px;
+
+    .nav-item {
+
+      button {
+
+        color: #1C92C9;
+
+        font-size: 11px;
+
+        background: none;
+
+        border: none;
+
+        padding: 3px 2px;
+
+      }
+
+      &.active {
+
+        button {
+
+          text-decoration: underline;
+
+          color: #669900;
+
+        }
+
+      }
+
+    }
+
+  }
 
   .content-container {
 

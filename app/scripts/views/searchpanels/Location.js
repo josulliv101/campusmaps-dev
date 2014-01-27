@@ -24,6 +24,8 @@ define([
 
                 model.set('detailsview', panelid, { silent: true });
 
+                this.refresh(panelid);
+
             });
 
         },
@@ -46,15 +48,21 @@ define([
 
         refresh: function (panelid) {
 
-            var $el = this.$el, $panel = $el.find('#' + panelid);
+            var $el = this.$el, $panel, $nav;
 
             panelid || (panelid = this.model.get('detailsview'));
 
-            $el.find('.panel-content').removeClass('active');
+            $el.find('.panel-content, .nav-details .nav-item').removeClass('active');
+
+            $panel = $el.find('#' + panelid);
+
+            $nav = $el.find('.nav-details .' + panelid);
 
             Base.prototype.refresh.call(this);
 
             $panel.addClass('active');
+
+            $nav.addClass('active');
 
         },
 

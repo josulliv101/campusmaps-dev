@@ -89,7 +89,9 @@ define([
 
                     keys = _.keys(changedAttrs);
 
-                    if (_.size(keys) !== 1 || !_.contains(keys, 'details')) return;  
+//_.size(keys) !== 1 || 
+//
+                    if (!_.contains(keys, 'details')) return;  
 
                     //models = controller.setIconsAndLabels(locations, campus.iconStrategy, campus.labelStrategy, zoom);
 

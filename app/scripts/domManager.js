@@ -161,9 +161,13 @@ define([
 
     DomManager.prototype.refreshLabel = function(location) {
 
-        var id = _.getAttr(location, 'locationid'),
+        var id, classnames;
 
-            classnames = ' ';
+        if (!location) return;
+
+        id = _.getAttr(location, 'locationid');
+
+        classnames = ' ';
 
         console.log('refreshLabel', location);
 
@@ -203,9 +207,11 @@ define([
 
             highlight = _.getAttr(model, 'highlight') ? 'highlight ' : '',
 
+            iconStyle = _.getAttr(model, 'iconstyle') ? 'background-image: url(' + _.getAttr(model, 'iconstyle') + ');' : '',
+
             img = _.exists(thumbnail) ? '<img class="img-th shadow" src="./app/images/thumbs/' + thumbnail + '" />' : '';
 
-        return "<div class='location " + details + highlight + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon'></div><div class='bd'><div class='txt shadow'>" + _.getAttr(model, 'name') + "</div><div class='thumb'>" + img + "</div></div></div>";
+        return "<div class='location " + details + highlight + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon' style='" + iconStyle + "'></div><div class='bd'><div class='txt shadow'>" + _.getAttr(model, 'name') + "<div class='more'>next &gt;</div></div><div class='thumb'>" + img + "</div></div></div>";
 
     }
 

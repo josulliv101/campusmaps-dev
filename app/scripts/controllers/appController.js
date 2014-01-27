@@ -82,7 +82,7 @@ define([
 
     AppController.prototype.validateTheTruth = function(attrs) {
 
-        var zoom = theTruth.get('zoom'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
+        var zoom = theTruth.get('zoom'), details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
 
         if (!theTruth) return;
 
@@ -99,6 +99,17 @@ define([
 
         }
 
+        // Always show first panel when details location changes
+        if (_.has(attrs, 'details')) {
+
+            if (attrs.details !== details) {
+
+                attrs.detailsview = '';
+
+            }
+
+        }
+
         // Details View
         if (_.has(attrs, 'detailsview')) {
 
@@ -106,9 +117,10 @@ define([
 
                 pos = _.find(detailsNav, function(item) { return detailsview === item.id; });
 
+                // Assume the first one is active
                 if (!pos) {
 
-                    attrs.detailsview = detailsNav[0].id;
+                    attrs.detailsview = detailsNav[1].id;
 
                 }
 
