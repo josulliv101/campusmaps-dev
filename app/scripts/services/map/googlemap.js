@@ -71,11 +71,31 @@ define([
 
         console.log('refreshLabels_', models.length);
 
-        var DM = DomManager.getInstance();
+        var DM = DomManager.getInstance(), hasDetails;
 
         _.each(models, function(loc) {
 
-            DM.refreshLabel(loc);
+            var offsetLatLng, $el, dimensions, southwestLatLng, northeastLatLng, bounds;
+
+            $el = DM.refreshLabel(loc);
+
+            if (loc.details !== true || !$el) return;
+
+            offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: _.latLng(loc.latlng)[0], lng: _.latLng(loc.latlng)[1] }, loc.zoom, { x: 16, y: 10 });
+
+            dimensions = DM.getDimensions($el.find('.txt'));
+
+            southwestLatLng = MapUtils.offsetLatLngByPixels(offsetLatLng, loc.zoom, { x: 0, y: -dimensions.height });
+
+            northeastLatLng = MapUtils.offsetLatLngByPixels(offsetLatLng, loc.zoom, { x: -dimensions.width, y: 0 });
+
+            hasDetails = true;
+
+            bounds = new google.maps.LatLngBounds(getLatLng(southwestLatLng), getLatLng(northeastLatLng));
+
+            gMap.clickRect.setBounds(bounds);
+
+            debugger;
 
 /*            var dm = DomManager.getInstance(),
 
@@ -134,6 +154,8 @@ define([
             }*/
 
         });
+
+        gMap.clickRect.setMap(hasDetails !== true ? null : gMap);
 
     }
 
@@ -371,6 +393,32 @@ define([
             zoomControl: false,
 
             mapTypeControl: false
+
+        });
+
+        gMap.clickRect = new google.maps.Rectangle({
+
+            strokeColor: '#FF0000',
+
+            strokeOpacity: 0.31,
+
+            strokeWeight: 0,
+
+            fillColor: '#6699cc',
+
+            fillOpacity: 0.16,
+
+            map: null,
+
+            bounds: null
+            
+        });
+
+        google.maps.event.addListener(gMap.clickRect, 'click', function() {
+
+            console.log('rect clicked');
+
+            EventDispatcher.trigger('truthupdate', { detailsview: '+' });
 
         });
 

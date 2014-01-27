@@ -196,7 +196,7 @@ ul {
   height: 100%;
   max-width: 890px; /* 100% */
 
-  max-height: 540px;
+  max-height: 100%;
 
 
     
@@ -364,8 +364,8 @@ ul {
 
               &.slideDown {
 
-                -webkit-animation: slideDownFrames 0.4s; /* Safari and Chrome */
-                animation: slideDownFrames 0.4s;
+                -webkit-animation: slideDownFrames 0.5s; /* Safari and Chrome */
+                animation: slideDownFrames 0.5s;
                 
                 -webkit-animation-timing-function:ease-in-out;
                 animation-timing-function:ease-in-out;
@@ -377,8 +377,8 @@ ul {
                 -webkit-animation-timing-function:ease-in-out;
                 animation-timing-function:ease-in-out;
 
-                -webkit-animation: slideUpFrames 0.4s; /* Safari and Chrome */
-                animation: slideUpFrames 0.4s;
+                -webkit-animation: slideUpFrames 0.5s; /* Safari and Chrome */
+                animation: slideUpFrames 0.5s;
                 
               }
             }

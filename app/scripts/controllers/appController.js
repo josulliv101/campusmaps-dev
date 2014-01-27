@@ -2,6 +2,8 @@ define([
 
     'underscore'
 
+    , 'scripts/config'
+
     , 'scripts/router'
 
     , 'datastore'
@@ -10,7 +12,7 @@ define([
 
     , 'eventdispatcher'
 
-], function(_, Router, Datastore, AppControllerEventHandlers, EventDispatcher) {
+], function(_, Config, Router, Datastore, AppControllerEventHandlers, EventDispatcher) {
 
     'use strict';
 
@@ -80,7 +82,7 @@ define([
 
     AppController.prototype.validateTheTruth = function(attrs) {
 
-        var zoom = theTruth.get('zoom');
+        var zoom = theTruth.get('zoom'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
 
         if (!theTruth) return;
 
@@ -100,8 +102,31 @@ define([
         // Details View
         if (_.has(attrs, 'detailsview')) {
 
-            if (attrs.detailsview === '+') attrs.detailsview = 'directions';
+            if (attrs.detailsview === '+') {
 
+                pos = _.find(detailsNav, function(item) { return detailsview === item.id; });
+
+                if (!pos) {
+
+                    attrs.detailsview = detailsNav[0].id;
+
+                }
+
+                // The last item is selected so return the first
+                else if (_.size(detailsNav) === pos.order) {
+
+                    attrs.detailsview = detailsNav[0].id;
+
+                } else {
+
+                    attrs.detailsview = detailsNav[pos.order].id;
+
+                } 
+
+
+            }
+
+//debugger;
 
         }
 
