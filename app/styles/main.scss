@@ -277,7 +277,7 @@ ul {
 		clear: both;
 		z-index: 100;
     position: relative;
-		margin-top: 12px;
+		margin-top: 6px;
         &> div {
             -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -288,11 +288,26 @@ ul {
                 margin: 0 0 12px 0;
                 position: relative;
                 
-                
+                &.panel-nav {
+                  
+                  margin-bottom: 6px;
+                  
+                }
                 
                 .bd {
                   
                   background: #f4f7f9;
+
+                  &.nav-details-container {
+/*
+                    border: none;
+
+                    background: transparent;
+                    */
+
+                    padding: 0;
+
+                  }
 
                 }
             }
@@ -1195,6 +1210,7 @@ ul {
 
 /* Navs */
 
+
 .nav-details li {
   
   display: inline-block;
@@ -1207,7 +1223,7 @@ ul {
 /* Panels */
 
 .panel-details {
-  
+
   .nav-details {
 
     margin-left: 4px;
@@ -1237,6 +1253,12 @@ ul {
           color: #669900;
 
         }
+
+      }
+
+      &.hide {
+
+        display: none;
 
       }
 
@@ -1307,24 +1329,36 @@ ul {
           left: 0;
           
         }
+        
+        .occupant-list {
 
-        button {
-
-          display: block;
-
-          width: 100%;
-
-          text-align: left;
-
-          background: none;
-
-          border: none;
-
-          padding: 6px 0;
-
-          &:hover {
+          overflow:scroll;
+          
+          h4 {
             
-            background: #eee;
+            margin-top: 0;
+
+          }
+
+          button {
+
+            display: block;
+
+            width: 100%;
+
+            text-align: left;
+
+            background: none;
+
+            border: none;
+
+            padding: 6px 0;
+
+            &:hover {
+              
+              background: #eee;
+
+            }
 
           }
 
