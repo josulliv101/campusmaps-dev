@@ -194,7 +194,7 @@ ul {
   width: 100%;
   margin: 20px auto;
   height: 100%;
-  max-width: 890px; /* 100% */
+  max-width: 890px; /* 100% 520px */
 
   max-height: 520px;
 
@@ -1274,6 +1274,120 @@ ul {
 
     overflow: hidden;
 
+    visibility: hidden;
+
+    &.active-details {
+
+      #details {
+
+        left: 0;
+
+      }
+
+      #photo {
+
+        left: 110%;
+
+      }
+
+      #offices {
+
+        left: 110%;
+
+      }
+
+      #directions {
+
+        left: 110%;
+
+      }
+
+    }
+
+    &.active-photo {
+
+      #details {
+
+        left: -100%;
+
+      }
+
+      #photo {
+
+        left: 0;
+
+      }
+
+      #offices {
+
+        left: 110%;
+
+      }
+
+      #directions {
+
+        left: 110%;
+
+      }
+
+    }
+
+    &.active-offices {
+
+      #details {
+
+        left: -100%;
+
+      }
+
+      #photo {
+
+        left: -100%;
+
+      }
+
+      #offices {
+
+        left: 0;
+
+      }
+
+      #directions {
+
+        left: 110%;
+
+      }
+
+    }
+
+    &.active-directions {
+
+      #details {
+
+        left: -100%;
+
+      }
+
+      #photo {
+
+        left: -100%;
+
+      }
+
+      #offices {
+
+        left: -100%;
+
+      }
+
+      #directions {
+
+        left: 0;
+
+      }
+
+    }
+
     .panel-content {
 
       position: absolute;
@@ -1306,10 +1420,18 @@ ul {
 
         left: 0;
 
+        visibility: visible;
+
+      }
+
+      &.active-previous {
+
+        visibility: visible;
+        
       }
 
       &#details {
-
+/*
         left: -110%;
 
         &.active {
@@ -1317,11 +1439,11 @@ ul {
           left: 0;
 
         }
-
+*/
       }
 
       &#offices {
-
+/*
         left: 110%;
 
         &.active {
@@ -1329,7 +1451,7 @@ ul {
           left: 0;
           
         }
-        
+        */
         .occupant-list {
 
           overflow:scroll;
@@ -1369,7 +1491,7 @@ ul {
       &#photo {
 
         padding: 0;
-
+/*
         left: 110%;
 
         &.active {
@@ -1377,11 +1499,11 @@ ul {
           left: 0;
           
         }
-
+*/
       }
 
       &#directions {
-
+/*
         left: 110%;
 
         &.active {
@@ -1389,7 +1511,7 @@ ul {
           left: 0;
           
         }
-
+*/
       }
 
     }

@@ -302,6 +302,65 @@ define([
 
     }
 
+    function showPanoramas_(objs) {
+
+        var thePanorama = gMap.thePanorama;
+
+        // Clear any existing
+        _.each(gMap.panoramas, function(marker) { 
+
+            google.maps.event.clearInstanceListeners(marker);
+
+            marker.setMap(null);
+
+            marker = null; 
+
+        });
+
+        _.each(objs, function(panorama) {
+
+            var marker;
+
+            if (!panorama.latlng) return;
+
+                marker = new google.maps.Marker({
+
+                    position: getLatLng(panorama.latlng),
+
+                    map: gMap,
+
+                    icon: './app/images/icons/map/pegman.png', 
+
+                    title: 'Streetview'
+
+                });
+
+                _.extend(marker, panorama);
+
+                google.maps.event.addListener(marker, 'click', function() {
+
+                    console.log('streetview marker clicked', thePanorama);
+
+                    thePanorama.setPosition(marker.getPosition());
+
+                    thePanorama.setPov({
+
+                        heading: marker.heading,
+
+                        pitch: marker.pitch
+
+                    });
+
+                    thePanorama.setVisible(true);
+
+                });
+
+              gMap.panoramas.push(marker);
+
+        });
+
+    }
+
     function setZoom_(level) {
 
         level = parseInt(level);
@@ -370,8 +429,6 @@ define([
 
     function createMap_(el, latlng, zoom) {
 
-        var thePanorama;
-
         gMap = new google.maps.Map(el, {
 
             center: new google.maps.LatLng(latlng[0], latlng[1]),
@@ -416,11 +473,15 @@ define([
             
         });
 
+        gMap.panoramas = [];
+
         google.maps.event.addListener(gMap.clickRect, 'click', function() {
 
             console.log('rect clicked');
 
-            EventDispatcher.trigger('truthupdate', { detailsview: '+' });
+            //EventDispatcher.trigger('truthupdate', { detailsview: '+' });
+
+            EventDispatcher.trigger('detailsview:increment');
 
         });
 
@@ -432,29 +493,29 @@ define([
 
         //gMap.markers = [];
 
-        //thePanorama = gMap.getStreetView();
+        gMap.thePanorama = gMap.getStreetView();
 
-        //thePanorama.setOptions({
+        gMap.thePanorama.setOptions({
 
-        //  addressControl: false
+          addressControl: false
 
-        //});
+        });
 
-/*        google.maps.event.addListenerOnce(gMap, 'tilesloaded', function() {
+        google.maps.event.addListenerOnce(gMap, 'tilesloaded', function() {
 
-            google.maps.event.addListener(thePanorama, 'visible_changed', function() {
+            google.maps.event.addListener(gMap.thePanorama, 'visible_changed', function() {
 
-                EventDispatcher.trigger('truthupdate', { streetview: thePanorama.getVisible() });
+                EventDispatcher.trigger('truthupdate', { streetview: gMap.thePanorama.getVisible() });
 
             });
-
+/*
             // Hack to give map keyboard focus
             //$("#map-canvas div:first div:first div:first").trigger('click');
 
             $("#map-canvas a").attr('tabindex', -1);
 
-
-        });*/
+*/
+        });
 
 /*        google.maps.event.addListener(gMap, 'dragend', function(ev) {
 
@@ -540,6 +601,8 @@ define([
         setCenter: setCenter_,
 
         setMapType: setMapType_,
+
+        showPanoramas: showPanoramas_,
 
         clear: clear_
 

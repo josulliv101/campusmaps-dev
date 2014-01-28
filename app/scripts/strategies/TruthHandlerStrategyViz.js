@@ -171,6 +171,18 @@ define([
 
                 },
 
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
+                    var keys = _.keys(changedAttrs);
+
+                    if (keys.length !== 1 || !_.contains(keys, 'panoramas')) return;
+
+                    viz.showPanoramas(changedAttrs.panoramas);
+
+                    return true;
+
+                },
+
                 // Map center offset
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 

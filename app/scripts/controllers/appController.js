@@ -106,6 +106,8 @@ define([
 
                 attrs.detailsview = '';
 
+                attrs.panoramas = [];
+
             }
 
         }
@@ -113,7 +115,7 @@ define([
         // Details View
         if (_.has(attrs, 'detailsview')) {
 
-            if (attrs.detailsview === '+') {
+/*            if (attrs.detailsview === '+') {
 
                 pos = _.find(detailsNav, function(item) { return detailsview === item.id; });
 
@@ -136,7 +138,7 @@ define([
                 } 
 
 
-            }
+            }*/
 
 //debugger;
 
