@@ -192,11 +192,21 @@ define([
 
                 model.set('activeprevious', nav.activePrevious.navid);
 
-                EventDispatcher.trigger('truthupdate', { panoramas: panoramas });
+                //EventDispatcher.trigger('truthupdate', { panoramas: panoramas });
 
                 _.each(location.detailsnav, function(item) { item.active = (item.navid === panelid ? 'active' : null); })
 
                 refresh.call(this, panelid);
+
+                if (panelid === 'photo') {
+
+                    _.delay(function() { EventDispatcher.trigger('truthupdate', { cmd: 'Location_Streetview' }); }, 200, {});
+
+                } else {
+
+                    EventDispatcher.trigger('truthupdate', { cmd: 'Location' });
+
+                }
 
             });
 
