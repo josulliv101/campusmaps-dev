@@ -98,6 +98,17 @@ define([
                     
                 },
 
+                // Tile mouse is over has changed
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
+                    var keys = _.keys(changedAttrs), val, locs;
+
+                    if (keys.length !== 1 || !_.contains(keys, 'tile')) return;
+
+                    return true;
+
+                },
+
                 // Label Strategy has changed
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 

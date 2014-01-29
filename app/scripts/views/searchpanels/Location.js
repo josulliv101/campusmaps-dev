@@ -22,6 +22,8 @@ define([
 
             Base.prototype.initialize.call(this);
 
+            this.photowide = '';
+
             this.nav = _.sortBy([
 
                             { navid: 'details', order: 1, navlabel: 'Details' },
@@ -111,6 +113,16 @@ define([
 
         },
 
+        refreshPhotoWide: function (url) {
+
+            var $el = this.$el;
+
+            url || (url = this.photowide !== '' ? this.photowide : $el.find('#photowide').data('photowide'));
+
+            $el.find('#photowide').attr('src', url);
+
+        },
+
         refresh: function (panelid) {
 
             var $el = this.$el, $panel, $nav, removeClasses, activePreviousId = this.model.get('activeprevious');
@@ -141,11 +153,12 @@ define([
 
             $nav.addClass('active');
 
+
         },
 
        handleOpenPreState: function() {
 
-            var state = this.model.get('state'), refresh = this.refresh, render = this.render, 
+            var state = this.model.get('state'), refresh = this.refresh, render = this.render, refreshPhotoWide = this.refreshPhotoWide,
 
                 campus = Datastore.campus(),
 
@@ -155,12 +168,14 @@ define([
 
                 fnNext = this.getNextNavItem,
 
-                model = this.model;
+                model = this.model, photowide = this.photowide;
 
             // No listeners should be present, but just in case
             this.stopListening(EventDispatcher, 'change:details');
 
             this.stopListening(EventDispatcher, 'change:detailsview');
+
+            this.stopListening(EventDispatcher, 'change:photowide');
 
             this.stopListening(EventDispatcher, 'detailsview:increment');
 
@@ -172,6 +187,20 @@ define([
                 EventDispatcher.trigger('cmd', { value: 'Location', forceClose: true });
                 
                 //render.call(this);
+
+            });
+
+            this.listenTo(EventDispatcher, 'change:photowide', function(url) {
+
+                var url;
+
+                if (state !== 'open') return;
+
+                url = decodeURIComponent(url);
+
+                console.log('photowide', url); // decode at router
+
+                refreshPhotoWide.call(this, url);
 
             });
 
@@ -220,7 +249,7 @@ define([
 
                 nextItem = fnNext(nav);
 
-                if (nextItem) EventDispatcher.trigger('truthupdate', { detailsview: nextItem.navid });
+                if (nextItem) EventDispatcher.trigger('truthupdate', { detailsview: nextItem.navid, cmd: 'Location' });
 
                 console.log('detailsview:increment', location, nextItem);
 
@@ -249,6 +278,8 @@ define([
             this.stopListening(EventDispatcher, 'change:details');
 
             this.stopListening(EventDispatcher, 'change:detailsview');
+
+            this.stopListening(EventDispatcher, 'change:photowide');
 
             this.stopListening(EventDispatcher, 'detailsview:increment');
 

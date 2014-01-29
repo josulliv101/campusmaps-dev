@@ -81,7 +81,10 @@
 
 			<%  if (data.urlphoto) { %>
 				<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">
-					<img width="343" height="132" src="./app/images/${data.urlphoto}" />
+					<div>
+						<img id="photowide" width="343" height="132" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
+						<div id="satellite"></div>
+					</div>
 				</div>
 			<%  } %>
 

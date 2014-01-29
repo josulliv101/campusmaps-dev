@@ -65,6 +65,8 @@ define([
 
             if (_.has(changedAttributes, 'details')) EventDispatcher.trigger('change:details', changedAttributes.details);
 
+            if (_.has(changedAttributes, 'photowide')) EventDispatcher.trigger('change:photowide', changedAttributes.photowide);
+
             if (_.has(changedAttributes, 'detailsview')) {
 
                 this.detailsview = changedAttributes.detailsview;

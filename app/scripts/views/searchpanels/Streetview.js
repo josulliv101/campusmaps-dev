@@ -6,6 +6,8 @@ define([
 
     , 'eventdispatcher'
 
+    , 'async!http://maps.google.com/maps/api/js?sensor=false'
+
 ], function(Datastore, Base, EventDispatcher) {
 
     'use strict';
@@ -20,13 +22,42 @@ define([
     
                 var campus = Datastore.campus(),
 
-                map = Datastore.map(campus),
+                    map = Datastore.map(campus),
 
-                location = map.details,
+                    location = map.details,
 
-                panoramas = !_.isEmpty(location.panoramas) ? location.panoramas : [];
+                    panoramas = !_.isEmpty(location.panoramas) ? location.panoramas : [];
 
                 if (panoramas) EventDispatcher.trigger('truthupdate', { panoramas: panoramas });
+
+            },
+
+
+            'click .btn-satellite' : function(ev) {
+
+                var campus = Datastore.campus(),
+
+                    map = Datastore.map(campus),
+
+                    location = map.details,
+
+                    mapOptions = {
+
+                        center: location.position,
+
+                        zoom: 18,
+
+                        mapTypeId: google.maps.MapTypeId.SATELLITE
+
+                    };
+
+                EventDispatcher.trigger('truthupdate', { satellite: true });
+
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+                map.setTilt(45);
+
+                google.maps.event.trigger(map, 'resize');
 
             }
 

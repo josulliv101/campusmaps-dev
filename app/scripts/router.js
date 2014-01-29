@@ -13,7 +13,7 @@ define([
 
     var settingsUrl,
 
-        urlAttrWhiteList = ['cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'details', 'detailsview', 'vizpath!', 'zoom', 'latlng', 'highlight'], // 'vizpath',
+        urlAttrWhiteList = ['photowide', 'satellite', 'tile', 'cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'details', 'detailsview', 'vizpath!', 'zoom', 'latlng', 'highlight'], // 'vizpath',
 
         AppRouter = Backbone.Router.extend({
 
@@ -28,7 +28,7 @@ define([
 
             processQueryString: function(qs) {
 
-                if (_.isString(qs)) qs = qs.replace(/[^a-zA-Z0-9-+_&=,!\.|]/g, '');
+                if (_.isString(qs)) qs = qs.replace(/[^a-zA-Z0-9-+_&=,!\.:/|]/g, '');
 
                 qs = qs || '';
 

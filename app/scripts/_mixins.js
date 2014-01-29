@@ -177,9 +177,13 @@ define([
 
         },
 
-        latLng: function(txtLatLng) {
+        latLng: function(latlng) {
 
-            var coords = txtLatLng.replace(/ /g,'').split(",");
+            var coords;
+
+            if (_.isArray(latlng)) return latlng;
+
+            coords = latlng.replace(/ /g,'').split(",");
 
             return _.map(coords, function(coord) { return parseFloat(coord); });
         },

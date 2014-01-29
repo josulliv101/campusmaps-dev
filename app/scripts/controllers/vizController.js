@@ -133,8 +133,8 @@ define([
 
                     };
                     
-                    // Don't alter the original model
-                    return _.extend({}, loc, strategies);
+                    // Don't alter the original model ... {},  remove for now
+                    return _.extend(loc, strategies);
 
                  })
 

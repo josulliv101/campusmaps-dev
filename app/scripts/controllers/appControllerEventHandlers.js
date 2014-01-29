@@ -51,6 +51,8 @@ define([
 
                 controller.handleResize,
 
+                controller.handleAttrSatellite,
+
                 controller.handleAttrStreetview,
 
                 controller.handleAttrIconStrategy,
@@ -151,6 +153,20 @@ define([
             if (key !== 'streetview') return;
 
             console.log('...handleAttrStreetview', model.cid, val, key);
+
+            domManager.cssFlag(classname, { remove: !val });
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrSatellite = function(model, val, key) {
+
+            var classname = 'satellite';
+
+            if (key !== 'satellite') return;
+
+            console.log('...handleAttrSatellite', model.cid, val, key);
 
             domManager.cssFlag(classname, { remove: !val });
 

@@ -145,7 +145,19 @@ define([
 
                     return true;                 
 
-                }
+                },
+
+                function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 
+
+                    var keys = _.keys(changedAttrs), val, locs;
+
+                    if (keys.length !== 1 || !_.contains(keys, 'tile')) return;
+
+                    viz.refreshLabels(locations);
+
+                    return true;
+
+                },
 
                 // There's no default, a render may not always be needed
 /*                function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 

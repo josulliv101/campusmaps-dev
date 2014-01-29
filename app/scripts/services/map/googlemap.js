@@ -69,7 +69,7 @@ define([
 
     function refreshLabels_(models) {  
 
-        console.log('refreshLabels_', models.length);
+        console.log('refreshLabels_', models.length, models[0]);
 
         var DM = DomManager.getInstance(), hasDetails;
 
@@ -81,9 +81,15 @@ define([
 
             $el = DM.refreshLabel(loc);
 
-            if (loc.details !== true || !$el) return;
+            //if (loc.details !== true || !$el) return;
 
-            offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: _.latLng(loc.latlng)[0], lng: _.latLng(loc.latlng)[1] }, loc.zoom, { x: 16, y: 10 });
+// Memoize setting bounds?
+
+            if (!$el) return;
+
+            if (loc.details === true) hasDetails = true;;
+
+            offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: _.latLng(loc.latlng)[0], lng: _.latLng(loc.latlng)[1] }, loc.zoom, { x: hasDetails ? 16 : -8, y: 10 });
 
             dimensions = DM.getDimensions($el.find('.txt'));
 
@@ -91,73 +97,23 @@ define([
 
             northeastLatLng = MapUtils.offsetLatLngByPixels(offsetLatLng, loc.zoom, { x: -dimensions.width, y: 0 });
 
-            hasDetails = true;
-
             bounds = new google.maps.LatLngBounds(getLatLng(southwestLatLng), getLatLng(northeastLatLng));
 
+            loc.bounds = bounds;
+
+            if (!hasDetails) return;
+
             gMap.clickRect.setBounds(bounds);
-
-            //debugger;
-
-/*            var dm = DomManager.getInstance(),
-
-                $el = dm.refreshLabel(loc),
-
-                offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: _.latLng(loc.latlng)[0], lng: _.latLng(loc.latlng)[1] }, loc.zoom, { x: 16, y: 10 }),
-
-                d, neLL, swLL, bounds;
-
-            if (loc.details === true) {
-
-                if (!$el) return;
-
-                d = dm.getDimensions($el.find('.txt'));
-
-                if (!d.width || !d.height) return;
-
-                neLL = MapUtils.offsetLatLngByPixels(offsetLatLng, loc.zoom, { x: -d.width, y: 0 });
-
-                swLL = MapUtils.offsetLatLngByPixels(offsetLatLng, loc.zoom, { x: 0, y: -d.height });
-
-
-                if (gMap.eventRect) gMap.eventRect.setMap(null);
-
-                gMap.eventRect = null;
-
-                bounds = new google.maps.LatLngBounds(getLatLng(swLL), getLatLng(neLL));
-
-                // Don't recreate rect
-                gMap.eventRect = new google.maps.Rectangle({
-
-                    strokeColor: '#FF0000',
-
-                    strokeOpacity: 0.31,
-
-                    strokeWeight: 0,
-
-                    fillColor: '#6699cc',
-
-                    fillOpacity: 0.16,
-
-                    map: gMap,
-
-                    bounds: bounds
-                    
-                });
-
-                google.maps.event.addListener(gMap.eventRect, 'click', function() {
-
-                    console.log('rect clicked');
-
-                    EventDispatcher.trigger('truthupdate', { cmd: '' });
-
-                });
-
-            }*/
 
         });
 
         gMap.clickRect.setMap(hasDetails !== true ? null : gMap);
+
+    }
+
+    function handleTileMouseover_(tileid) { 
+
+        console.log('handleTileMouseover_', tileid);
 
     }
 
@@ -355,9 +311,35 @@ define([
 
                 });
 
+                google.maps.event.addListener(marker, 'mouseover', function() {
+
+                    console.log('streetview marker mouseover', marker);
+
+                    EventDispatcher.trigger('truthupdate', { photowide: encodeURIComponent(getStreetviewStaticUrl_(marker)) });
+
+                });
+
+                google.maps.event.addListener(marker, 'mouseout', function() {
+
+                    console.log('streetview marker mouseout', marker);
+
+                    EventDispatcher.trigger('truthupdate', { photowide: '' });
+
+                });
+
               gMap.panoramas.push(marker);
 
         });
+
+    }
+
+    function getStreetviewStaticUrl_(obj) {
+
+        var url = "http://maps.googleapis.com/maps/api/streetview?size=343x132&location=" + obj.position.lat() + "," + obj.position.lng() + "&fov=90&heading=235&pitch=10&sensor=false";
+
+        debugger;
+
+        return url;
 
     }
 
@@ -403,6 +385,8 @@ define([
 
         tileoffset = MapUtils.latLngToTileOffset_({ lat: latlng.lat(), lng: latlng.lng() }, zoom);
 
+        EventDispatcher.trigger('truthupdate', { tile: MapUtils.getTileZoomId(tileoffset.tile, zoom) });
+
         locs = MapUtils.getLocationsFromTileCache(tileoffset.tile, zoom);
 
         locAtLatLng = _.chain(locs)
@@ -411,13 +395,33 @@ define([
 
                           var latlng = loc.latlng;
 
-                          return { locationid: loc.locationid, offset: MapUtils.latLngToTileOffset_({ lat: latlng[0], lng: latlng[1] }, zoom).offset };
+                          return { bounds: loc.bounds, locationid: loc.locationid, offset: MapUtils.latLngToTileOffset_({ lat: latlng[0], lng: latlng[1] }, zoom).offset };
 
                        })
 
                        .find(function(obj) {
 
-                          return Math.abs(tileoffset.offset.x - obj.offset.x) < 12 && Math.abs(tileoffset.offset.y - obj.offset.y) < 12;
+/*new google.maps.Rectangle({
+
+            strokeColor: '#FF0000',
+
+            strokeOpacity: 0.31,
+
+            strokeWeight: 0,
+
+            fillColor: '#6699cc',
+
+            fillOpacity: 0.0,
+
+            map: gMap,
+
+            bounds: obj.bounds,
+
+            clickable: false
+            
+        });*/
+
+                            return obj.bounds.contains(latlng) || Math.abs(tileoffset.offset.x - obj.offset.x) < 12 && Math.abs(tileoffset.offset.y - obj.offset.y) < 12;
 
                        })
 
@@ -465,7 +469,7 @@ define([
 
             fillColor: '#6699cc',
 
-            fillOpacity: 0.0,
+            fillOpacity: 0.1,
 
             map: null,
 
@@ -603,6 +607,8 @@ define([
         setMapType: setMapType_,
 
         showPanoramas: showPanoramas_,
+
+        handleTileMouseover: handleTileMouseover_,
 
         clear: clear_
 

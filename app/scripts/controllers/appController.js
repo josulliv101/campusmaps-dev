@@ -82,7 +82,7 @@ define([
 
     AppController.prototype.validateTheTruth = function(attrs) {
 
-        var zoom = theTruth.get('zoom'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
+        var zoom = theTruth.get('zoom'), satellite = theTruth.get('satellite'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
 
         if (!theTruth) return;
 
@@ -119,6 +119,12 @@ define([
                 attrs.panoramas = [];
 
             }
+
+        }
+
+        if (_.has(attrs, 'satellite')) {
+
+            attrs.satellite = !satellite;
 
         }
 

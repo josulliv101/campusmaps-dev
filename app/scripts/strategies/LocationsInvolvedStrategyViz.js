@@ -55,6 +55,22 @@ define([
 
                 },
 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
+
+                    var models = [], keys, val, locs;
+
+                    keys = _.keys(changedAttrs);
+
+                    if (_.size(keys) !== 1 || !_.contains(keys, 'tile')) return;  
+
+                    val = changedAttrs.tile.split('_');               
+
+                    locs = MapUtils.getLocationsFromTileCache({ x: val[0], y: val[1] }, val[2]);
+
+                    return locs;                
+
+                },
+
                 // The default, all locations associated with the campus map
                 function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
 
