@@ -1,6 +1,15 @@
 <div class="shadow panel">
 	<div class="bd">
 		<button class="btn-streetview">Toggle Streetviews</button>
-		<button class="btn-satellite">Satellite Image</button>
+		<button class="btn-satellite">Toggle Satellite Imagery</button>
+		<div class="streetview-thumbnails">
+
+			<% _.each(data, function(panorama, index) { %> 
+			    <button class="btn-panorama" data-photoindex=${index}>view ${++index}</button>
+			<% }); %>
+
+			<% if (data.length === 0) { %>No photospheres yet.<% } %>
+
+		</div>
 	</div>
 </div>

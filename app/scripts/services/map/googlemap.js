@@ -258,6 +258,70 @@ define([
 
     }
 
+    function setPanorama_(obj) {
+
+        alert('setPanorama_');
+
+    }
+
+    function setPanoramaHighlight_(model) {
+
+        //alert('setPanoramaHighlight_');
+        //debugger;
+
+        gMap.panoramahighlight ||  (gMap.panoramahighlight = new google.maps.Marker({ 
+/*
+                                            icon: { 
+
+                                                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW, 
+
+                                                scale: 2,
+
+                                                rotation: 90 
+
+                                            }, 
+                                            */
+
+                                            map: gMap 
+
+                                        })
+
+                                    );
+        
+        if (_.isString(model.latlng)) {
+debugger;
+            gMap.panoramahighlight.setPosition(getLatLng(model.latlng));
+
+            gMap.panoramahighlight.setVisible(true);
+
+            gMap.panoramahighlight.setIcon({ 
+
+                path: google.maps.SymbolPath.FORWARD_OPEN_ARROW, 
+
+                //path: 'M8 8 A 45 45, 0, 0, 0, 125 125 L 125 8 Z',
+
+                scale: 6,
+
+                strokeWeight: 0,
+
+                fillOpacity: .4,
+
+                fillColor: '#6699cc',
+
+                rotation: model.heading - 180 || 0,
+
+                anchor: { x: 0, y: -1 }
+
+            });
+
+        } else {
+
+            gMap.panoramahighlight.setVisible(false);
+
+        }
+        
+    }
+
     function showPanoramas_(objs) {
 
         var thePanorama = gMap.thePanorama;
@@ -295,9 +359,12 @@ define([
 
                 google.maps.event.addListener(marker, 'click', function() {
 
-                    console.log('streetview marker clicked', thePanorama);
+                    //alert('streetview marker clicked');
 
-                    thePanorama.setPosition(marker.getPosition());
+                    // Exclude any marker specific attributes
+                    EventDispatcher.trigger('truthupdate', { panoramadetails: _.pick(marker, 'heading', 'latlng', 'pitch', 'photo', 'zoom') });
+
+/*                    thePanorama.setPosition(marker.getPosition());
 
                     thePanorama.setPov({
 
@@ -307,7 +374,7 @@ define([
 
                     });
 
-                    thePanorama.setVisible(true);
+                    thePanorama.setVisible(true);*/
 
                 });
 
@@ -315,7 +382,15 @@ define([
 
                     console.log('streetview marker mouseover', marker);
 
-                    EventDispatcher.trigger('truthupdate', { photowide: encodeURIComponent(getStreetviewStaticUrl_(marker)) });
+
+
+                    EventDispatcher.trigger('truthupdate', { 
+
+                        photowide: MapUtils.getStreetviewStaticUrl(marker),
+
+                        panoramahighlight: _.pick(marker, 'heading', 'latlng')
+
+                    });
 
                 });
 
@@ -323,23 +398,19 @@ define([
 
                     console.log('streetview marker mouseout', marker);
 
-                    EventDispatcher.trigger('truthupdate', { photowide: '' });
+                    EventDispatcher.trigger('truthupdate', { 
+
+                        photowide: '', 
+
+                        panoramahighlight: ''
+
+                    });
 
                 });
 
               gMap.panoramas.push(marker);
 
         });
-
-    }
-
-    function getStreetviewStaticUrl_(obj) {
-
-        var url = obj.photo || "http://maps.googleapis.com/maps/api/streetview?size=343x132&location=" + obj.position.lat() + "," + obj.position.lng() + "&fov=90&heading=" + obj.position.heading + "&pitch=" + obj.position.pitch + "&sensor=false";
-
-        debugger;
-
-        return url;
 
     }
 
@@ -356,6 +427,8 @@ define([
     function setMapType_(maptype) {
 
         console.log('gmap setMapType_..', maptype);
+
+        maptype || (maptype = google.maps.MapTypeId.ROADMAP);
 
         gMap.setMapTypeId(maptype);
 
@@ -605,6 +678,10 @@ define([
         setCenter: setCenter_,
 
         setMapType: setMapType_,
+
+        setPanorama: setPanorama_,
+
+        setPanoramaHighlight: setPanoramaHighlight_,
 
         showPanoramas: showPanoramas_,
 

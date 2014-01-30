@@ -1,6 +1,10 @@
 define([
 
-    'datastore'
+    'scripts/domManager'
+
+    , 'scripts/services/map/MapUtils'
+
+    , 'datastore'
 
     , 'searchpanels/base'
 
@@ -8,7 +12,7 @@ define([
 
     , 'async!http://maps.google.com/maps/api/js?sensor=false'
 
-], function(Datastore, Base, EventDispatcher) {
+], function(DomManager, MapUtils, Datastore, Base, EventDispatcher) {
 
     'use strict';
 
@@ -17,6 +21,14 @@ define([
         id: 'Streetview',
 
         events: {
+
+            'mouseover .btn-panorama' : 'handleFocus',
+
+            'mouseout .btn-panorama' : 'handleUnFocus',
+
+            'focus .btn-panorama' : 'handleFocus',
+
+            'blur .btn-panorama' : 'handleUnFocus',
 
             'click .btn-streetview' : function(ev) {
     
@@ -35,35 +47,88 @@ define([
 
             'click .btn-satellite' : function(ev) {
 
-                var campus = Datastore.campus(),
-
-                    map = Datastore.map(campus),
-
-                    location = map.details,
-
-                    mapOptions = {
-
-                        center: location.position,
-
-                        zoom: 18,
-
-                        mapTypeId: google.maps.MapTypeId.SATELLITE
-
-                    };
-
-                EventDispatcher.trigger('truthupdate', { satellite: true });
-
-                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-                map.setTilt(45);
-
-                google.maps.event.trigger(map, 'resize');
+                EventDispatcher.trigger('truthupdate', { maptype: 'toggle' });
 
             }
 
         },
 
         template: JST['app/scripts/templates/searchpanels/Streetview.ejs'],
+
+        handleFocus: function(ev) {
+
+            var $btn = $(ev.currentTarget),
+
+                index = $btn.data('photoindex') || 0,
+
+                panoramas = this.model.get('panoramas'),
+
+                url;
+
+            if (_.isEmpty(panoramas)) return;
+
+            url = MapUtils.getStreetviewStaticUrl(panoramas[index]);
+
+            EventDispatcher.trigger('truthupdate', { photowide: MapUtils.getStreetviewStaticUrl(panoramas[index]) });
+
+
+        },
+
+        handleUnFocus: function(ev) {
+
+            EventDispatcher.trigger('truthupdate', { photowide: '' });
+
+        },
+
+        getJSON: function() {
+
+            var campus = Datastore.campus(),
+
+                map = Datastore.map(campus),
+
+                location = map.details, 
+
+                json = location.panoramas || [];
+
+            return { data: json };
+
+        },
+
+        handleOpenPreState: function() {
+
+            var state = this.model.get('state'),
+
+                $thumbs = this.$el.find('.streetview-thumbnails'),
+
+                DM = DomManager.getInstance(),
+
+                model = this.model;
+
+            this.stopListening(EventDispatcher, 'change:panoramas');
+
+            this.listenTo(EventDispatcher, 'change:panoramas', function(panoramas) {
+
+                var classname = 'active';
+
+                if (state !== 'open') return;
+
+                DM.cssFlag(classname, { remove: panoramas.length === 0, $el: $thumbs });
+
+                model.set('panoramas', panoramas, { silent: true });
+
+            });
+
+            Base.prototype.handleOpenPreState.call(this);
+
+        },
+
+       handleClosePostState: function() {
+
+            this.stopListening(EventDispatcher, 'change:panoramas');
+
+            Base.prototype.handleClosePostState.call(this);
+
+        }
 
     });
 

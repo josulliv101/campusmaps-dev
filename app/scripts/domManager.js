@@ -27,7 +27,7 @@ define([
         // Style here instead of css file to make testing easier
         this.$tmp = $('<div/>').attr('id', 'tmp').css({ position: 'absolute', top: 0, left: 0 }).appendTo($('body'));
 
-        this.getElement = _.dispatch(this.getHtmlEl, this.getRootEl);
+        this.getElement = _.dispatch(this.getOptionsEl, this.getHtmlEl, this.getRootEl);
 
         //$(window).unbind('resize');
 
@@ -266,6 +266,12 @@ define([
         $el = this.getElement(options);
 
         $el.removeClass();
+
+    }
+
+    DomManager.prototype.getOptionsEl = function(options) {
+
+        return options.$el;
 
     }
  

@@ -45,6 +45,8 @@ define([
 
                 controller.handleAttrDetails,
 
+                controller.handleAttrPanoramaDetails,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrFullscreen,         
@@ -403,6 +405,17 @@ console.log('...handleAttrDetails', theTruth, val, key);
         }
 
         // Handle at a local controller level
+        AppController.prototype.handleAttrPanoramaDetails = function(model, val, key) {
+
+            if (key !== 'panoramadetails') return;
+
+            console.log('...handleAttrPanoramaDetails', model.cid, val, key);
+debugger;
+            return true;
+
+        }
+
+        // Handle at a local controller level
         AppController.prototype.handleAttrCmd = function(model, val, key) {
 
             if (key !== 'cmd') return;
@@ -436,10 +449,10 @@ console.log('...handleAttrDetails', theTruth, val, key);
             console.log('...handleAttrMapType', model, val, key);
 
             // Only want this attribute handled when vizpath is googlemap
-            if (model.get('vizpath') !== 'googlemap') return model.set('maptype', model.previous('maptype'), opts);
+            //if (model.get('vizpath') !== 'googlemap') return model.set('maptype', model.previous('maptype'), opts);
 
             // Toggle the hide-overlay class which has a css transition for hide/show
-            domManager.cssFlag(classname, { remove: val !== 'satellite' });
+            //domManager.cssFlag(classname, { remove: val !== 'satellite' });
 
             return true;
 

@@ -29,7 +29,7 @@ define([
 
             var model = this.model, view = this;
 
-            _.bindAll(this, 'render', 'handleOpenState', 'handleCloseState', 'handleOpenPreState', 'doDeferredClick');
+            _.bindAll(this, 'getJSON', 'render', 'handleOpenState', 'handleCloseState', 'handleOpenPreState', 'doDeferredClick');
 
             if (!this.id) throw new Error('A search panel view requires an id.');
 

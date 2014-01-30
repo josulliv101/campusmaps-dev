@@ -233,6 +233,14 @@ define([
       };
 
     }
+
+    Utils.prototype.getStreetviewStaticUrl = function(obj) {
+
+        var url = obj.photo || "http://maps.googleapis.com/maps/api/streetview?size=343x132&location=" + obj.position.lat() + "," + obj.position.lng() + "&fov=90&heading=" + obj.position.heading + "&pitch=" + obj.position.pitch + "&sensor=false";
+
+        return encodeURIComponent(url);
+
+    }
  
     return new Utils();
 

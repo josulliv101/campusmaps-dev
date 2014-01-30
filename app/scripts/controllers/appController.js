@@ -82,7 +82,7 @@ define([
 
     AppController.prototype.validateTheTruth = function(attrs) {
 
-        var zoom = theTruth.get('zoom'), satellite = theTruth.get('satellite'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
+        var zoom = theTruth.get('zoom'), maptype = theTruth.get('maptype'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
 
         if (!theTruth) return;
 
@@ -122,9 +122,13 @@ define([
 
         }
 
-        if (_.has(attrs, 'satellite')) {
+        if (_.has(attrs, 'maptype')) {
 
-            attrs.satellite = !satellite;
+            if (attrs.maptype === 'toggle') {
+
+                attrs.maptype = maptype !== 'satellite' ? 'satellite' : '';
+
+            }
 
         }
 

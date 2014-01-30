@@ -154,7 +154,7 @@ define([
                 // Details for location
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
-                    var keys = _.keys(changedAttrs), loc, refreshLabels = [];
+                    var keys = _.keys(changedAttrs), loc, refreshLabels = [], center;
 
                     if (keys.length !== 1 || !_.contains(keys, 'details')) return;
 /*
@@ -165,6 +165,14 @@ define([
                     loc = campusmap.details;
 
                     if (loc) viz.refreshLabels(refreshLabels);*/
+
+                    if (!campusmap.details) return;
+
+                    loc = campusmap.details;
+
+                    center = loc.bounds && loc.bounds.getCenter().toUrlValue() || loc.latlng;
+
+                    //if (campusmap.details) viz.setCenter(center, { x: 200, y: -60 });
 
                     return true;
 
@@ -177,6 +185,34 @@ define([
                     if (keys.length !== 1 || !_.contains(keys, 'cursor')) return;
 
                     viz.setCursor(changedAttrs.cursor);
+
+                    return true;
+
+                },
+
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
+                    var keys = _.keys(changedAttrs);
+
+                    if (keys.length !== 1 || !_.contains(keys, 'panoramadetails')) return;
+//debugger;
+                    //viz.setPanorama(changedAttrs.panoramadetails);
+                    //alert(zoom);
+                    
+
+                    return true;
+
+                },
+
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
+                    var keys = _.keys(changedAttrs);
+
+                    if (keys.length !== 1 || !_.contains(keys, 'panoramahighlight')) return;
+//debugger;
+                    //viz.setPanorama(changedAttrs.panoramadetails);
+                    viz.setPanoramaHighlight(changedAttrs.panoramahighlight);
+                    
 
                     return true;
 

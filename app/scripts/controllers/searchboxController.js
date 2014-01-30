@@ -67,6 +67,8 @@ define([
 
             if (_.has(changedAttributes, 'photowide')) EventDispatcher.trigger('change:photowide', changedAttributes.photowide);
 
+            if (_.has(changedAttributes, 'panoramas')) EventDispatcher.trigger('change:panoramas', changedAttributes.panoramas);
+
             if (_.has(changedAttributes, 'detailsview')) {
 
                 this.detailsview = changedAttributes.detailsview;
