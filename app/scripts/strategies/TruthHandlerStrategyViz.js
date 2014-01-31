@@ -3,11 +3,13 @@ define([
 
       'underscore'
 
+    , 'scripts/domManager'
+
     , 'datastore'
 
     , 'scripts/services/map/MapUtils'
 
-], function(_, Datastore, MapUtils) {
+], function(_, DomManager, Datastore, MapUtils) {
 
     'use strict';
 
@@ -206,13 +208,30 @@ define([
 
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
-                    var keys = _.keys(changedAttrs);
+                    var keys = _.keys(changedAttrs), DM, classname, val, withinRadius, centerLat, centerLng;
 
                     if (keys.length !== 1 || !_.contains(keys, 'panoramahighlight')) return;
-//debugger;
-                    //viz.setPanorama(changedAttrs.panoramadetails);
-                    viz.setPanoramaHighlight(changedAttrs.panoramahighlight);
+//      
+                    if (!campusmap.details) return;
+
+                    val = changedAttrs.panoramahighlight;
+
+                    //if (!_.isObject(val)) return true;
+
+                    centerLat = campusmap.details.latlng[0];
+
+                    centerLng = campusmap.details.latlng[1];
+
                     
+ 
+                    DM = DomManager.getInstance();
+
+                    classname = 'panoramahighlight';
+               
+                    //viz.setPanorama(changedAttrs.panoramadetails);
+                    viz.setPanoramaHighlight(val);
+                    
+                    DM.cssFlag(classname, { remove: !_.isObject(val) || !MapUtils.isWithinRadius(_.latLngObj(campusmap.details.latlng), _.latLngObj(val.latlng), zoom, 100) });
 
                     return true;
 

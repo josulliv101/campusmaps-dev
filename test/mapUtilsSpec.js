@@ -141,6 +141,46 @@ define([
 
 			});
 
+			it('should get the length between 2 points', function () {
+
+				var p1 = { x: 0, y: 0 }, 
+
+					p2 = { x: 4, y: 3 },
+
+					len1 = MapUtils.getLength(p1, p2),
+
+					len2 = MapUtils.getLength(p2, p1);
+
+				expect( len1 ).toBe(5);
+
+				expect( len2 ).toBe(5);
+
+			});
+
+			it('should tell if a latlng is within a certain px radius of another point', function () {
+
+				var center = { lat: 42.40714, lng: -71.12134 }, // Gifford House
+
+					far = { lat: 42.40687, lng: -71.11995 },
+
+					close = { lat: 42.40708, lng: -71.12125 },
+
+					zoom = 18,
+
+					test1 = MapUtils.isWithinRadius(center, close, zoom, 60),
+
+					test2 = MapUtils.isWithinRadius(center, far, zoom, 60),
+
+					test3 = MapUtils.isWithinRadius(center, far, zoom, 999);
+
+				expect( test1 ).toBe(true);
+
+				expect( test2 ).toBe(false);
+
+				expect( test3 ).toBe(true);
+
+			});
+
 		});
 
 		describe('Cache', function () {

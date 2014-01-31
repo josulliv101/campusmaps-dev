@@ -131,6 +131,34 @@ define([
 
     }
 
+    Utils.prototype.isWithinRadius = function(center, latlng, zoom, radius) {
+
+      var centerWorldPoint = this.latLngToWorldPoint(center),
+
+          centerPxCoord = this.worldPointToPixelCoordinate(centerWorldPoint, zoom),
+
+          otherWorldPoint = this.latLngToWorldPoint(latlng),
+
+          otherPxCoord = this.worldPointToPixelCoordinate(otherWorldPoint, zoom),
+
+          len = this.getLength(centerPxCoord, otherPxCoord);
+
+      radius || (radius = 0); // in pixels
+
+      return len < radius;
+
+    }
+
+    Utils.prototype.getLength = function(p1, p2) {
+
+      var x = Math.pow((p2.x - p1.x), 2),
+
+          y = Math.pow((p2.y - p1.y), 2);
+
+      return Math.sqrt( x + y );
+
+    }
+
     Utils.prototype.offsetLatLngByPixels = function(latLng, zoom, offset) {
 
       var worldPoint = this.latLngToWorldPoint(latLng),

@@ -47,6 +47,8 @@ define([
 
                 controller.handleAttrPanoramaDetails,
 
+                controller.handleAttrPanoramaHighlight,
+
                 controller.handleVizPathChange,
 
                 controller.handleAttrFullscreen,         
@@ -410,10 +412,27 @@ console.log('...handleAttrDetails', theTruth, val, key);
             if (key !== 'panoramadetails') return;
 
             console.log('...handleAttrPanoramaDetails', model.cid, val, key);
-debugger;
+
             return true;
 
         }
+
+        // Handle at a local controller level
+        AppController.prototype.handleAttrPanoramaHighlight = function(model, val, key) {
+
+            var classname = 'panoramahighlight';
+
+            if (key !== 'panoramahighlight') return;
+
+            console.log('...handleAttrPanoramaHighlight', model.cid, val, key);
+
+            //domManager.cssFlag(classname, { remove: !_.isObject(val) });
+
+            return true;
+
+        }
+
+        
 
         // Handle at a local controller level
         AppController.prototype.handleAttrCmd = function(model, val, key) {

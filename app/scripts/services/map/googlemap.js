@@ -289,34 +289,34 @@ define([
                                     );
         
         if (_.isString(model.latlng)) {
-debugger;
-            gMap.panoramahighlight.setPosition(getLatLng(model.latlng));
 
-            gMap.panoramahighlight.setVisible(true);
+            gMap.panoramahighlight.setPosition(getLatLng(model.latlng));
 
             gMap.panoramahighlight.setIcon({ 
 
-                path: google.maps.SymbolPath.FORWARD_OPEN_ARROW, 
+                //path: google.maps.SymbolPath.FORWARD_OPEN_ARROW, 
 
-                //path: 'M275,175 v-150 a150,150 0 0,0 -150,150 z',
+                path: 'M-27,64.363c14.432,15.477,38.634,16.322,54.111,1.89L0.056,0L-27,64.363z',
 
-                scale: 8,
+                scale: .4,
 
                 strokeWeight: 1,
 
                 strokeColor: '#f8f8f8',
 
-                strokeOpacity: .1,
+                strokeOpacity: .3,
 
                 fillOpacity: .2,
 
-                fillColor: '#000',
+                fillColor: '#333',
 
                 rotation: model.heading - 180 || 0,
 
-                anchor: { x: 0, y: -1 }
+                anchor: { x: 0, y: -12 }
 
             });
+
+            gMap.panoramahighlight.setVisible(true);
 
         } else {
 
@@ -355,7 +355,7 @@ debugger;
 
                     icon: {
 
-                        url: './app/images/icons/map/pegman.png',
+                        url: './app/images/icons/map/' + (panorama.type && panorama.type === 'photo' ? 'photo-dot.png' : 'pegman.png'),
 
                         anchor: { x: 6, y: 6 }
 

@@ -188,6 +188,15 @@ define([
             return _.map(coords, function(coord) { return parseFloat(coord); });
         },
 
+        latLngObj: function(latlng) {
+
+            if (_.isString(latlng)) latlng = _.latLng(latlng);
+
+            if (_.isArray(latlng)) return { lat: latlng[0], lng: latlng[1] };
+
+            return latlng;
+        },
+
         stringToObject: function(txt, delimitPairs, delimitKeyVal) {
 
             var delimPairs = delimitPairs || ',',
