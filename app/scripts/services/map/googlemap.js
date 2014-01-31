@@ -298,15 +298,19 @@ debugger;
 
                 path: google.maps.SymbolPath.FORWARD_OPEN_ARROW, 
 
-                //path: 'M8 8 A 45 45, 0, 0, 0, 125 125 L 125 8 Z',
+                //path: 'M275,175 v-150 a150,150 0 0,0 -150,150 z',
 
-                scale: 6,
+                scale: 8,
 
-                strokeWeight: 0,
+                strokeWeight: 1,
 
-                fillOpacity: .4,
+                strokeColor: '#f8f8f8',
 
-                fillColor: '#6699cc',
+                strokeOpacity: .1,
+
+                fillOpacity: .2,
+
+                fillColor: '#000',
 
                 rotation: model.heading - 180 || 0,
 
@@ -349,7 +353,13 @@ debugger;
 
                     map: gMap,
 
-                    icon: './app/images/icons/map/pegman.png', 
+                    icon: {
+
+                        url: './app/images/icons/map/pegman.png',
+
+                        anchor: { x: 6, y: 6 }
+
+                    }, 
 
                     title: 'Streetview'
 
@@ -381,8 +391,6 @@ debugger;
                 google.maps.event.addListener(marker, 'mouseover', function() {
 
                     console.log('streetview marker mouseover', marker);
-
-
 
                     EventDispatcher.trigger('truthupdate', { 
 

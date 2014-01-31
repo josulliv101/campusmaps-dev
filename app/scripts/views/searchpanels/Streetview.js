@@ -69,14 +69,20 @@ define([
 
             url = MapUtils.getStreetviewStaticUrl(panoramas[index]);
 
-            EventDispatcher.trigger('truthupdate', { photowide: MapUtils.getStreetviewStaticUrl(panoramas[index]) });
+            EventDispatcher.trigger('truthupdate', { 
+
+                photowide: MapUtils.getStreetviewStaticUrl(panoramas[index]),
+
+                panoramahighlight: panoramas[index]
+
+            });
 
 
         },
 
         handleUnFocus: function(ev) {
 
-            EventDispatcher.trigger('truthupdate', { photowide: '' });
+            EventDispatcher.trigger('truthupdate', { photowide: '', panoramahighlight: '' });
 
         },
 
