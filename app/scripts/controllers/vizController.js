@@ -65,6 +65,8 @@ define([
 
             selectedLocations = campusmap.selectedLocations || [],
 
+            //extendedMap = _.getAttr(campusmap, 'extendsdata'),
+
             zoom = campus.zoom,
 
             center = Datastore.latlng,
@@ -73,6 +75,8 @@ define([
 
             fnRender, locationsInvolved;
 
+            //if (_.isString(extendedMap)) extendedMap = Datastore.map(extendedMap, { id: 'mapid' });
+debugger;
         console.log('VizController labelStrategy', attrs);
 
 

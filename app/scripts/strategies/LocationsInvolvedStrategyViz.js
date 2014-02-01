@@ -21,7 +21,7 @@ define([
 
             fns: [
 
-                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations, extendedMap) { 
 
                     var models = [], keys;
 
@@ -33,7 +33,7 @@ define([
 
                 },
 
-                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations, extendedMap) { 
 
                     var models = [], keys;
 
@@ -45,7 +45,7 @@ define([
 
                 },
 
-                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations, extendedMap) { 
 
                     var keys = _.keys(changedAttrs);
 
@@ -55,7 +55,7 @@ define([
 
                 },
 
-                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations, extendedMap) { 
 
                     var models = [], keys, val, locs;
 
@@ -72,8 +72,16 @@ define([
                 },
 
                 // The default, all locations associated with the campus map
-                function(controller, changedAttrs, previousAttrs, campusmap, locations) { 
+                function(controller, changedAttrs, previousAttrs, campusmap, locations, extendedMap) { 
 
+/*                    var locs =  _.chain(_.getAttr(extendedMap, 'locations'))
+
+                                 .union(locations)
+
+                                 .uniq()
+
+                                 .value();
+debugger;*/
                     return locations;                    
 
                 }               

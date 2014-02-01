@@ -37,6 +37,8 @@ define([
 
                 controller.handleAttrCampusMap,
 
+                controller.handleAttrCustomCampusMap,
+
                 controller.handleAttrCampusId,
 
                 controller.handleAttrZoom,
@@ -159,6 +161,45 @@ define([
             console.log('...handleAttrStreetview', model.cid, val, key);
 
             domManager.cssFlag(classname, { remove: !val });
+
+            return true;
+
+        }
+
+        // Handle a custom map
+        AppController.prototype.handleAttrCustomCampusMap = function(model, val, key) {
+
+            var campus, campusmap, locations, locs, tmpCampusmap;
+
+            if (key !== 'customcampusmap') return;
+
+            console.log('...handleAttrCustomCampusMap', model.cid, val, key);
+
+            campus = Datastore.campus();
+
+            campusmap = Datastore.map(Datastore.campus());
+
+            locs = _.chain(val.split(','))
+
+                    .map(function(id) { return Datastore.location(campusmap, id); })
+
+                    .reject(function(loc) { return loc === undefined; })
+
+                    //.tap(function (all) { _.each(all, function(loc) { loc.selected = true; }); })
+
+                    .value();
+
+            tmpCampusmap = _.pick(campusmap.attributes, 'className', 'latlng', 'zoom');
+
+            _.extend(tmpCampusmap, { id: 'campusmap-tmp', mapid: 'campusmap-tmp', campusid: _.getAttr(campus, 'campusid'), name: 'My Custom Map', locations: locs });
+
+            Datastore.mapList().add(tmpCampusmap);
+
+            var ml = Datastore.mapList();
+
+
+debugger;
+            console.log('custom campus map', locs);
 
             return true;
 
