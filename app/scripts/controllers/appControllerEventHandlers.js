@@ -191,7 +191,7 @@ define([
 
             tmpCampusmap = _.pick(campusmap.attributes, 'className', 'latlng', 'zoom');
 
-            _.extend(tmpCampusmap, { id: 'campusmap-tmp', mapid: 'campusmap-tmp', campusid: _.getAttr(campus, 'campusid'), name: 'My Custom Map', locations: locs });
+            _.extend(tmpCampusmap, { id: 'campusmap-tmp', mapid: 'campusmap-tmp', campusid: _.getAttr(campus, 'campusid'), extendsdata: campusmap.attributes.mapid, name: '* Featured Locations', locations: locs });
 
             Datastore.mapList().add(tmpCampusmap);
 
@@ -365,12 +365,7 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             campusmap = Datastore.map(val, { id: 'mapid', select: true, restrictItemsToCampus: true })
 
-            if (_.getAttr(campusmap, 'extendsdata')) {
-
-               Datastore.extendData(campusmap);
-
-            }
-
+            if (_.getAttr(campusmap, 'extendsdata')) Datastore.extendData(campusmap);
 
             console.log('...handleAttrCampusMap', theTruth, val, key);
 

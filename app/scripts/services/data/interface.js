@@ -168,7 +168,7 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                 if (!_.isObject(campusmap) || !idBase) return;
 
-
+                campusmap.featuredLocations = [];
 
                 locids = _.map(_.getAttr(campusmap, 'locations'), function(loc) { return loc.locationid; });
 
@@ -193,6 +193,8 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
                                 if (match) {
 
                                     _.extend(copy, match);
+
+                                    newLocs.push(copy);
  
                                 }
 
@@ -206,8 +208,11 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                              .value();
 
+                newLocs = _.reject(newLocs, function(loc) { return !_.exists(_.getAttr(loc, 'name')) || !_.exists(_.getAttr(loc, 'latlng')) || !_.exists(_.getAttr(loc, 'locationid')); });
+
                 debugger;
-                campusmap.set({ 'locations': locations, extendsdata: null });
+
+                campusmap.set({ 'locations': locations, featured: _.filter(newLocs, function(loc) { return loc.featured === 'true'; }), extendsdata: null });
 
                 return campusmap;
 
@@ -402,7 +407,7 @@ console.log('@campusmaps', campus, campusmaps);
 
                             maps: _.map(campusmaps, function(map) { 
 
-                                var locList = _.getAttr(map, 'locations') || { length: 0 },
+                                var locList = _.getAttr(map, 'featured') || (_.getAttr(map, 'locations') || { length: 0 }),
 
                                     jsonLocs = _.map(locList, function(loc) { return !!loc.toJSON ? loc.toJSON() : loc; });
 

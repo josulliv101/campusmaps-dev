@@ -3,7 +3,9 @@ define([
 
   '_mixins'
 
-], function(_) {
+  , 'strategies/StrategyManager'
+
+], function(_, StrategyManager) {
 
 
     'use strict';
@@ -206,11 +208,18 @@ define([
 
     }
 
-    Utils.prototype.getLocationsFromTileCache = function(tile, zoom) {
+    Utils.prototype.getLocationsFromTileCache = function(tile, zoom, options) {
 
       var key = getTileZoomId(tile, zoom);
 
+      options || (options = {});
+
       return tileCache[key] || [];
+
+    }
+
+    Utils.prototype.getCloseByLocationsFromTileCache = function(tile, zoom) {
+
 
     }
 

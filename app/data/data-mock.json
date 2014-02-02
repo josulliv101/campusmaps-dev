@@ -485,6 +485,7 @@ cb([
                {
                   "country":"United States",
                   "emphasis":"2",
+                  "featured":"true",
                   "isvisible":"true",
                   "latlng":"42.407306,-71.113225",
                   "locationid":"a009",
@@ -514,6 +515,7 @@ cb([
                   "locationid":"fieldg",
                   "mapid":"green",
                   "name":"Field G",
+                  "featured":"true",
                   "state":"MA",
                   "createdAt":"2013-11-15T22:24:20.089Z",
                   "updatedAt":"2013-11-15T22:24:44.459Z",

@@ -287,6 +287,39 @@ define([
 
 			});
 
+			it('should get close by locations from the tile cache', function () {
+
+				var latlng1 = { lat: 42.49686, lng: -71.180338 },
+
+					latlng2 = { lat: 42.49686, lng: -71.180348 },
+
+					latlng3 = { lat: 42.49686, lng: -71.177048 },
+
+					tileOffset1 = MapUtils.latLngToTileOffset(latlng1, 17),
+
+					tileOffset2 = MapUtils.latLngToTileOffset(latlng2, 17),
+
+					tileOffset3 = MapUtils.latLngToTileOffset(latlng3, 17),
+
+					cache = MapUtils.getTileCache(), locs;
+
+					
+
+				MapUtils.addLocationToTileCache(tileOffset1, { locationid: 'myloc1' });
+
+				MapUtils.addLocationToTileCache(tileOffset2, { locationid: 'myloc2' });
+
+				MapUtils.addLocationToTileCache(tileOffset3, { locationid: 'far away myloc3' });
+
+				locs = MapUtils.getCloseByLocationsFromTileCache(tileOffset1.tile, tileOffset1.zoom);
+
+				debugger;
+/*
+				expect( locs.length ).toBe(2);
+				*/
+
+			});
+
 
 		});
 

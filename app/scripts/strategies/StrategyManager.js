@@ -25,7 +25,9 @@ define([
 
       , 'strategies/LocationsInvolvedStrategyViz'
 
-], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyFletcher, TruthHandlerStrategyViz, RenderStrategyViz, LocationsInvolvedStrategyViz) {
+      , 'strategies/CloseByLocations'
+
+], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyFletcher, TruthHandlerStrategyViz, RenderStrategyViz, LocationsInvolvedStrategyViz, CloseByLocations) {
 
     'use strict';
 
@@ -63,7 +65,9 @@ define([
 
             RENDER_VIZ: 'render_viz',
 
-            LOCATIONS_INVOLVED_VIZ: 'locations-involved-viz'
+            LOCATIONS_INVOLVED_VIZ: 'locations-involved-viz',
+
+            LOCATIONS_CLOSE_BY: 'locations_close_by'
 
         };
 
@@ -87,10 +91,12 @@ define([
 
         this.add(LocationsInvolvedStrategyViz);
 
+        this.add(CloseByLocations);
+
     }
 
     StrategyManager.prototype.createStrategy = function(strategyFn) {
-
+debugger;
         var json = strategyFn(this);
 
         return new Strategy(json);
