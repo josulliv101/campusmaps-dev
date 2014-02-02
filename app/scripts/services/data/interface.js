@@ -162,6 +162,57 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
             }
 
+            function extendData_(campusmap) {
+
+                var campusmapBase, locids, locations, extendedLocs, extendedlocids, newLocs, idBase = _.getAttr(campusmap, 'extendsdata');
+
+                if (!_.isObject(campusmap) || !idBase) return;
+
+
+
+                locids = _.map(_.getAttr(campusmap, 'locations'), function(loc) { return loc.locationid; });
+
+                campusmapBase = _.getItemById(maps_.models, idBase, { id: 'mapid' });
+
+                extendedLocs = _.filter(_.getAttr(campusmapBase, 'locations'), function(loc) { var dup = _.contains(locids, loc.locationid); return dup; });
+
+                extendedlocids = _.map(extendedLocs, function(loc) { return loc.locationid; });
+
+                newLocs = _.reject(_.getAttr(campusmap, 'locations'), function(loc) { var dup = _.contains(extendedlocids, loc.locationid); return dup; });
+
+                locations = _.chain(_.getAttr(campusmapBase, 'locations') || [])
+
+                             .reject(function(loc) { var dup = _.contains(locids, loc.locationid); return dup; })
+
+                             .union(_.map(extendedLocs, function(loc) { 
+
+                                var copy = _.clone(loc), locs = _.getAttr(campusmap, 'locations'),
+
+                                    match = _.find(locs, function(l2) { return copy.locationid === l2.locationid; });
+
+                                if (match) {
+
+                                    _.extend(copy, match);
+ 
+                                }
+
+                                return copy; 
+
+                            }))
+
+                             .union(newLocs)
+
+                             .reject(function(loc) { return !_.exists(_.getAttr(loc, 'name')) || !_.exists(_.getAttr(loc, 'latlng')) || !_.exists(_.getAttr(loc, 'locationid')); })
+
+                             .value();
+
+                debugger;
+                campusmap.set({ 'locations': locations, extendsdata: null });
+
+                return campusmap;
+
+            }
+
             // The Data Interface which every Datastore will implement
             return {
 
@@ -283,6 +334,8 @@ function() {   },
                 mapList: function() { return maps_; },
 
                 campusList: function() { return campuses_; },
+
+                extendData: extendData_,
 
                 Factory: {
 

@@ -365,6 +365,13 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             campusmap = Datastore.map(val, { id: 'mapid', select: true, restrictItemsToCampus: true })
 
+            if (_.getAttr(campusmap, 'extendsdata')) {
+
+               Datastore.extendData(campusmap);
+
+            }
+
+
             console.log('...handleAttrCampusMap', theTruth, val, key);
 
             console.log('...handleAttrCampusMap campus',  Datastore.JSON.maps(), Datastore.mapList());

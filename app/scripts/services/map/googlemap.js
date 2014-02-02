@@ -550,7 +550,7 @@ define([
 
             fillColor: '#6699cc',
 
-            fillOpacity: 0.1,
+            fillOpacity: 0.0,
 
             map: null,
 

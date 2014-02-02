@@ -524,9 +524,11 @@ cb([
                {
                   "country":"United States",
                   "isvisible":"true",
-                  "locationid":"dowling",
+                  "locationid":"m023",
+                  "emphasis":"2",
+                  "address1":"419 Boston Avenue (b)",
                   "mapid":"green",
-                  "name":"Dowling Hall",
+                  "name":"Dowling Hall (visitor parking)",
                   "state":"MA",
                   "createdAt":"2013-12-08T02:39:35.054Z",
                   "updatedAt":"2013-12-08T02:41:45.734Z",

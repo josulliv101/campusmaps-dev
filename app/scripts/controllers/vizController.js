@@ -76,7 +76,7 @@ define([
             fnRender, locationsInvolved;
 
             //if (_.isString(extendedMap)) extendedMap = Datastore.map(extendedMap, { id: 'mapid' });
-debugger;
+
         console.log('VizController labelStrategy', attrs);
 
 
