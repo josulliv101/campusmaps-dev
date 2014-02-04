@@ -127,11 +127,13 @@ define([
 
             panelid || (panelid = this.model.get('detailsview'));
 
-            removeClasses = _.map(this.nav, function(item) { return 'active-' + item.navid; }).join(" ");
+            removeClasses = _.map(this.nav, function(item) { return 'active-' + item.navid + ' card-' + item.navid; }).join(" ");
 
-            $el.find('.content-container').removeClass(removeClasses);
+            $el.find('.content-container,.card').removeClass(removeClasses);
 
             $el.find('.content-container').addClass('active-' + panelid);
+
+            $el.find('.card').addClass('card-' + panelid);
 
             $el.find('.panel-content, .nav-details .nav-item').removeClass('active active-previous');
 

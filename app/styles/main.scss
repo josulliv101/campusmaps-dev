@@ -381,23 +381,40 @@ ul {
                 
                 .bd {
                   
-                  &.card-details {
+                  &.card {
 
                     position: relative;
                     
                     h3 {
 
-                      font-size: 17px;
+                      font-size: 15px;
 
                       letter-spacing: .025em;
 
-                      margin: 12px 0 0;
+                      margin: 6px 0;
+
+                      padding: 0 6px;
 
                       position: absolute;
 
-                      top: 12px;
+                      top: 0px;
 
-                      left: 12px;
+                      left: 6px;
+
+                      z-index: 999;
+
+                      background: rgba(255,255,255,0);
+
+                      border-top-right-radius: 1px;
+                      -webkit-border-top-right-radius: 1px;
+
+                      border-bottom-right-radius: 1px;
+                      -webkit-border-bottom-right-radius: 1px;
+
+                      -webkit-transition: background .6s ease-in-out;
+                      -moz-transition: background .6s ease-in-out;
+                      -o-transition: background .6s ease-in-out;
+                      transition: background .6s ease-in-out;
 
                     }
 
@@ -424,7 +441,7 @@ ul {
 
                         font-weight: 700;
 
-                        
+                        letter-spacing: .025em;
 
                         font-family: Arial,Helvetica,sans-serif;
 
@@ -435,20 +452,40 @@ ul {
                   }
 
                 }
+
             }
+
         }
+
         .panel-container {
 
             display: none;
             margin-right: 0;
             .bd {
                 background: #fff;
-                padding: 3px 12px 12px;
+                padding: 0;
                 border: 1px #999 solid;
                 
                 .back {
                   float: right;
                 }
+
+                &.card-photo {
+
+                  h3 {
+
+                    background: rgba(255,255,255,.85) !important;
+
+                    -webkit-transition: background .8s .4s ease-in-out;
+                    -moz-transition: background .8s .4s ease-in-out;
+                    -o-transition: background .8s .4s ease-in-out;
+                    transition: background .8s .4s ease-in-out;
+
+
+                  }
+
+                }
+
 
             }
             &.showing {

@@ -33,7 +33,7 @@
 		</nav>
 	</div>
 
-	<div class="bd card-details">
+	<div class="bd card card-${data.detailsview}">
 
 		<h3>${data.name}</h3>
 
@@ -94,7 +94,7 @@
 			<%  if (data.urlphoto) { %>
 				<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">
 					<div>
-						<img id="photowide" width="343" height="132" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
+						<img id="photowide" width="369" height="132" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
 						<div id="satellite"></div>
 					</div>
 				</div>
