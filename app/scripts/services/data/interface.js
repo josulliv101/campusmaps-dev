@@ -210,8 +210,6 @@ console.log('selectDefaultMapForCampus_!!!', mapid, maps);
 
                 newLocs = _.reject(newLocs, function(loc) { return !_.exists(_.getAttr(loc, 'name')) || !_.exists(_.getAttr(loc, 'latlng')) || !_.exists(_.getAttr(loc, 'locationid')); });
 
-                debugger;
-
                 campusmap.set({ 'locations': locations, featured: _.filter(newLocs, function(loc) { return loc.featured === 'true'; }), extendsdata: null });
 
                 return campusmap;

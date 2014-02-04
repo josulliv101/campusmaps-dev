@@ -29,7 +29,7 @@ define([
 
                     if (_.size(keys) !== 1 || !_.contains(keys, 'details')) return;  
 
-                    return [campusmap.details, campusmap.detailsPrevious];                 
+                    return changedAttrs.details === '' ? locations : [campusmap.details, campusmap.detailsPrevious].concat(campusmap.closeby);                 
 
                 },
 
@@ -41,7 +41,7 @@ define([
 
                     if (_.size(keys) !== 2 || !_.contains(keys, 'details') || !_.contains(keys, 'cmd')) return;  
 
-                    return [campusmap.details, campusmap.detailsPrevious];                 
+                    return changedAttrs.details === '' ? locations : [campusmap.details, campusmap.detailsPrevious].concat(campusmap.closeby);                 
 
                 },
 
@@ -65,7 +65,7 @@ define([
 
                     val = changedAttrs.tile.split('_');               
 
-                    locs = MapUtils.getLocationsFromTileCache({ x: val[0], y: val[1] }, val[2]);
+                    locs = MapUtils.getCloseByLocationsFromTileCache({ x: val[0], y: val[1] }, val[2]);
 
                     return locs;                
 

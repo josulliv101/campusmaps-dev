@@ -156,26 +156,40 @@ define([
                 // Details for location
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
-                    var keys = _.keys(changedAttrs), loc, refreshLabels = [], center;
+                    var keys = _.keys(changedAttrs), tileoffset, latlng, locs;
 
                     if (keys.length !== 1 || !_.contains(keys, 'details')) return;
-/*
-                    if (_.isObject(campusmap.details)) refreshLabels.push(campusmap.details);
 
-                    if (_.isObject(campusmap.detailsPrevious)) refreshLabels.push(campusmap.detailsPrevious); 
+                    _.each(campusmap.closeby, function(loc) { loc.collision = false; });
 
-                    loc = campusmap.details;
+                    campusmap.closeby = [];
 
-                    if (loc) viz.refreshLabels(refreshLabels);*/
+                    if (!campusmap.details) return true;
 
-                    if (!campusmap.details) return;
+                    latlng = _.latLngObj(campusmap.details.latlng);
 
-                    loc = campusmap.details;
+                    tileoffset = MapUtils.latLngToTileOffset_(latlng, zoom);
 
-                    center = loc.bounds && loc.bounds.getCenter().toUrlValue() || loc.latlng;
 
-                    //if (campusmap.details) viz.setCenter(center, { x: 200, y: -60 });
 
+                    locs = MapUtils.getCloseByLocationsFromTileCache(tileoffset.tile, zoom);
+
+                    campusmap.closeby = locs;
+
+                    
+
+                    locs =  _.chain(locs)
+
+                             .reject(function(loc) { return loc.locationid === campusmap.details.locationid; })
+
+                             .filter(function(loc) { var collision = loc.bounds && campusmap.details.bounds ? loc.bounds.intersects(campusmap.details.bounds) : false ;  return collision; })
+
+                             .each(function(loc) { loc.collision = true; })
+
+                             .value();
+
+                    campusmap.collisions = locs;
+ 
                     return true;
 
                 },

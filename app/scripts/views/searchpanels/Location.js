@@ -30,9 +30,7 @@ define([
 
                             { navid: 'photo', order: 2, navlabel: 'Imagery' },
 
-                            { navid: 'offices', order: 3, navlabel: 'Departments &amp; Offices' },
-
-                            { navid: 'directions', order: 4, navlabel: 'Directions' }
+                            { navid: 'offices', order: 3, navlabel: 'Departments &amp; Offices' }
 
                        ], 'order');
 

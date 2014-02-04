@@ -182,6 +182,10 @@ define([
 
         else if (location.highlight !== true) this.$root.find('#' + id).removeClass('highlight');
 
+        if (location.collision && location.collision === true) classnames = classnames + 'collision ';
+
+        else if (location.collision !== true) this.$root.find('#' + id).removeClass('collision');
+
         this.$root.find('#' + id).addClass(classnames);
 
         return this.$root.find('#' + id);

@@ -295,11 +295,15 @@ define([
 
 					latlng3 = { lat: 42.49686, lng: -71.177048 },
 
+					latlng4 = { lat: 40.49686, lng: -71.177048 },
+
 					tileOffset1 = MapUtils.latLngToTileOffset(latlng1, 17),
 
 					tileOffset2 = MapUtils.latLngToTileOffset(latlng2, 17),
 
 					tileOffset3 = MapUtils.latLngToTileOffset(latlng3, 17),
+
+					tileOffset4 = MapUtils.latLngToTileOffset(latlng4, 17),
 
 					cache = MapUtils.getTileCache(), locs;
 
@@ -311,15 +315,35 @@ define([
 
 				MapUtils.addLocationToTileCache(tileOffset3, { locationid: 'far away myloc3' });
 
+				MapUtils.addLocationToTileCache(tileOffset4, { locationid: 'far away myloc4' });
+
 				locs = MapUtils.getCloseByLocationsFromTileCache(tileOffset1.tile, tileOffset1.zoom);
 
-				debugger;
-/*
-				expect( locs.length ).toBe(2);
-				*/
+				expect( locs.length ).toBe(3);
 
 			});
 
+			it('should compare 2 tiles -- x/y coords', function () {
+
+				var tile1 = { x: 10, y: 10 },
+
+					tile2 = { x: 11, y: 10 },
+
+					tile3 = { x: 10, y: 9 },
+
+					tile4 = { x: 15, y: 5 };
+
+				expect( MapUtils.compareTiles(tile1, tile1) ).toEqual({ x: 0, y: 0 });
+
+				expect( MapUtils.compareTiles(tile1, tile2) ).toEqual({ x: 1, y: 0 });
+
+				expect( MapUtils.compareTiles(tile2, tile1) ).toEqual({ x: -1, y: 0 });
+
+				expect( MapUtils.compareTiles(tile1, tile3) ).toEqual({ x: 0, y: -1 });
+
+				expect( MapUtils.compareTiles(tile4, tile1) ).toEqual({ x: -5, y: 5 });
+
+			});
 
 		});
 

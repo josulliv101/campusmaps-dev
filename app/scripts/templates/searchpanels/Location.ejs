@@ -1,4 +1,22 @@
+<!--
 <div class="panel panel-details panel-nav">
+	<div class="bd nav-details-container">
+		<nav class="nav-details">
+
+			<ul>
+
+				<% _.each(data.nav, function(item) { %> 
+				    <li class="nav-item ${item.navid} ${item.active}"><button data-campusmap="detailsview:${item.navid},cmd:Location" class="btn-${item.navid}">${item.navlabel}</button></li>
+				<% }); %>
+
+			</ul>
+
+		</nav>
+	</div>
+</div>-->
+
+<div class="shadow panel panel-details">
+
 	<div class="bd nav-details-container">
 		<nav class="nav-details">
 
@@ -14,16 +32,10 @@
 
 		</nav>
 	</div>
-</div>
 
-<div class="shadow panel panel-details">
+	<div class="bd card-details">
 
-	<div class="bd">
-
-
-
-		
-		<!--<h3>${data.name}</h3>-->
+		<h3>${data.name}</h3>
 
 		<div class="content-container shadow">
 

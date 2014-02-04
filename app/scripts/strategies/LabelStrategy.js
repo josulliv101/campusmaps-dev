@@ -28,6 +28,14 @@ define([
 
                 function(model, zoom) { // Location Model
 
+                    if (model.collision !== true) return;
+debugger;
+                    return 'label-hide icon-hide';
+
+                },
+
+                function(model, zoom) { // Location Model
+
                     if (model.emphasis > 1) return;
 
                     return 'emphasis' + model.emphasis + ' icon-xsmall'; // Show all label

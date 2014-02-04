@@ -3,9 +3,7 @@ define([
 
   '_mixins'
 
-  , 'strategies/StrategyManager'
-
-], function(_, StrategyManager) {
+], function(_) {
 
 
     'use strict';
@@ -220,6 +218,47 @@ define([
 
     Utils.prototype.getCloseByLocationsFromTileCache = function(tile, zoom) {
 
+      var neighbors = [ 
+
+          { id: 'origin', xdelta: 0, ydelta: 0 },
+
+          { id: 'north', xdelta: 0, ydelta: -1 },
+
+          { id: 'east', xdelta: 1, ydelta: 0 },
+
+          { id: 'south', xdelta: 0, ydelta: 1 },
+
+          { id: 'west', xdelta: -1, ydelta: 0 }
+
+        ],
+
+        fn = this.getLocationsFromTileCache,
+
+        locs = _.chain(neighbors)
+
+                .each(function(neighbor) { return _.extend(neighbor, { x: parseInt(tile.x) + neighbor.xdelta, y: parseInt(tile.y) + neighbor.ydelta }); })
+
+                .map(function(neighborTile) { return fn(neighborTile, zoom); })
+
+                .flatten()
+
+                .value();
+
+        return locs;
+
+    }
+
+    Utils.prototype.compareTiles = function(centerTile, otherTile) {
+
+      return { x: otherTile.x - centerTile.x, y: otherTile.y - centerTile.y };
+
+    }
+
+    Utils.prototype.getAdjustedOffset = function(offset, centerTile, otherTile) {
+
+      var deltas = this.compareTiles(centerTile, otherTile);
+
+      return { x: offset.x + (deltas.x * TILE_SIZE), y: offset.y + (deltas.y * TILE_SIZE) };
 
     }
 

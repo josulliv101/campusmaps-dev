@@ -5,6 +5,12 @@ define([
 
       , 'scripts/config'
 
+      , 'scripts/domManager' // Strategy needs this reference
+
+      , 'datastore' // Strategy needs this reference
+
+      , 'scripts/services/map/MapUtils' // Strategy needs this reference
+
       , 'strategies/Strategy'
 
       , 'strategies/IconStrategy'
@@ -27,7 +33,7 @@ define([
 
       , 'strategies/CloseByLocations'
 
-], function(_, Config, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyFletcher, TruthHandlerStrategyViz, RenderStrategyViz, LocationsInvolvedStrategyViz, CloseByLocations) {
+], function(_, Config, DomManager, Datastore, MapUtils, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyFletcher, TruthHandlerStrategyViz, RenderStrategyViz, LocationsInvolvedStrategyViz, CloseByLocations) {
 
     'use strict';
 
@@ -96,7 +102,7 @@ define([
     }
 
     StrategyManager.prototype.createStrategy = function(strategyFn) {
-debugger;
+
         var json = strategyFn(this);
 
         return new Strategy(json);

@@ -6,6 +6,8 @@ body {
   height: 100%; 
   margin: 0px 0 0; 
   padding: 0; 
+
+  font-family: Arial,Helvetica,sans-serif;
 }
 
 img {
@@ -373,22 +375,62 @@ ul {
                 
                 &.panel-nav {
                   
-                  margin-bottom: 6px;
+                  margin-bottom: -2px;
                   
                 }
                 
                 .bd {
                   
-                  background: #f4f7f9;
+                  &.card-details {
+
+                    position: relative;
+                    
+                    h3 {
+
+                      font-size: 17px;
+
+                      letter-spacing: .025em;
+
+                      margin: 12px 0 0;
+
+                      position: absolute;
+
+                      top: 12px;
+
+                      left: 12px;
+
+                    }
+
+                  }
+                  /*background: #f4f7f9;*/
 
                   &.nav-details-container {
-/*
+/**/
                     border: none;
 
-                    background: transparent;
-                    */
+                    background: #333;
 
+                    color: #FFF;
+                    
                     padding: 0;
+
+                    .nav-item {
+
+                      button {
+
+                        color: #fff;
+
+                        font-size: 11px;
+
+                        font-weight: 700;
+
+                        
+
+                        font-family: Arial,Helvetica,sans-serif;
+
+                      }
+
+                    }
 
                   }
 
@@ -602,7 +644,7 @@ ul {
 /* Contours */
 
 .shadow {
-    box-shadow:         2px 2px 4px 2px rgba(0,0,0,.18);    
+    box-shadow:         1px 1px 2px 2px rgba(0, 0, 0, 0.14);    
 }
 
 /* Directory */
@@ -1042,6 +1084,38 @@ ul {
       .bd {
         
         display: none;
+
+      }
+
+    }
+
+    &.collision {
+      
+      .bd {
+        
+        opacity: 0;
+
+        -webkit-transition: opacity 0.1s ease-out;
+
+        -moz-transition: opacity 0.1s ease-out;
+
+        -o-transition: opacity 0.1s ease-out;
+
+        transition: opacity 0.1s ease-out;
+
+      }
+
+      .icon {
+        
+        opacity: 0;
+
+        -webkit-transition: opacity 0.1s ease-out;
+
+        -moz-transition: opacity 0.1s ease-out;
+
+        -o-transition: opacity 0.1s ease-out;
+
+        transition: opacity 0.1s ease-out;
 
       }
 

@@ -468,15 +468,20 @@ define([
 
         EventDispatcher.trigger('truthupdate', { tile: MapUtils.getTileZoomId(tileoffset.tile, zoom) });
 
-        locs = MapUtils.getLocationsFromTileCache(tileoffset.tile, zoom);
+        // Include surrounding tiles in case loc ui spills over onto neighbor tile
+        locs = MapUtils.getCloseByLocationsFromTileCache(tileoffset.tile, zoom);
 
         locAtLatLng = _.chain(locs)
 
                        .map(function(loc) { 
 
-                          var latlng = loc.latlng;
+                          var latlng = loc.latlng,
 
-                          return { bounds: loc.bounds, locationid: loc.locationid, offset: MapUtils.latLngToTileOffset_({ lat: latlng[0], lng: latlng[1] }, zoom).offset };
+                              tile = MapUtils.latLngToTileOffset_({ lat: latlng[0], lng: latlng[1] }, zoom),
+
+                              offset = MapUtils.getAdjustedOffset(tile.offset, tileoffset.tile, tile.tile);
+
+                          return { bounds: loc.bounds, locationid: loc.locationid, offset: offset };
 
                        })
 
@@ -492,7 +497,7 @@ define([
 
             fillColor: '#6699cc',
 
-            fillOpacity: 0.0,
+            fillOpacity: 0.2,
 
             map: gMap,
 
@@ -550,7 +555,7 @@ define([
 
             fillColor: '#6699cc',
 
-            fillOpacity: 0.0,
+            fillOpacity: 0.3,
 
             map: null,
 

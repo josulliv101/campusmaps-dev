@@ -9,6 +9,14 @@ define([
 
     return function(StrategyManager) { 
 
+/*        var delta = 128, size = 256;
+
+        function bordersEast(point) {
+
+            return size - point.x > delta;
+
+        }
+*/
         return {
 
             id: 'locations_close_by', 
@@ -17,7 +25,7 @@ define([
 
             fns: [
 
-
+                // Include tile to the East
                 function(MapUtils, tile, zoom) { // Location Model
 
                    // if (model.emphasis > 2 || model.selected === true) return;
