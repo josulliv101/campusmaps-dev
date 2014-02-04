@@ -16,6 +16,17 @@ img {
 
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
 /* Animations */
 
 @-webkit-keyframes pulse {
@@ -312,14 +323,65 @@ ul {
 	z-index: 101;
 	top: 32px;
 	left: 32px;
-    .panel {
-        margin-right: 4px;
+
+  .panel {
+
+    margin-right: 4px;
+
+    &.panel-search {
+
+      .form-group {
+
+        padding: 0 30px 0 0;
+
+        #searchbox {
+
+          border: none;
+
+          font-size: 14px;
+
+          line-height: 14px;
+
+          padding: 3px 6px;
+
+          width: 100%;
+
+          -moz-box-sizing: border-box;
+
+            box-sizing: border-box;
+
+        }
+
+      }
+
     }
+
+    .btn {
+        
+      &.search {
+
+        background: #565152;
+
+        background-image: url("../../app/images/icons/map/search@2x.png"); 
+
+        background-repeat: no-repeat;
+
+        background-size: 16px 16px;
+
+        background-position: center; 
+
+      }
+
+    }
+
+  }
+
 	#panels {
 		clear: both;
 		z-index: 100;
     position: relative;
 		margin-top: 6px;
+    margin-right: 30px;
 
     #Streetview {
 
@@ -387,11 +449,13 @@ ul {
                     
                     h3 {
 
-                      font-size: 15px;
+                      color: #3172AE;
 
-                      letter-spacing: .025em;
+                      font-size: 16px;
 
-                      margin: 6px 0;
+                      letter-spacing: .05em;
+
+                      margin: 8px 0 6px;
 
                       padding: 0 6px;
 
@@ -425,13 +489,15 @@ ul {
 /**/
                     border: none;
 
-                    background: #333;
+                    background: #565152;
 
                     color: #FFF;
                     
                     padding: 0;
 
                     .nav-item {
+
+                      margin-right: 4px;
 
                       button {
 
@@ -464,7 +530,7 @@ ul {
             .bd {
                 background: #fff;
                 padding: 0;
-                border: 1px #999 solid;
+                
                 
                 .back {
                   float: right;
@@ -565,19 +631,24 @@ ul {
 
 	}
 	.form-group {
-		width: 100%;
+		width: auto;
 		background: #fff;
 		border-radius: 0;
 		border: 1px #999 solid;
-		padding: 12px 0;
+		
 		position: relative;
 		z-index: 999;
 	}
 	.btn {
-		position: absolute;
-		right: 12px;
-		top: 12px;
-		z-index: 999;
+    height: 23px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 32px;
+    z-index: 999;
+    border: none;
+
+
 	}
 }
 
@@ -1460,12 +1531,21 @@ ul {
 
 /* Navs */
 
-
-.nav-details li {
+.nav-details {
   
-  display: inline-block;
+    ul {
 
-  font-size: 10px;
+      margin-left: 4px;
+
+      li {
+  
+        display: inline-block;
+
+        font-size: 10px;
+
+      }
+
+    }
 
 }
 
@@ -1536,19 +1616,19 @@ ul {
 
       #photo {
 
-        left: 110%;
+        left: 100%;
 
       }
 
       #offices {
 
-        left: 110%;
+        left: 100%;
 
       }
 
       #directions {
 
-        left: 110%;
+        left: 100%;
 
       }
 
@@ -1576,13 +1656,13 @@ ul {
 
       #offices {
 
-        left: 110%;
+        left: 100%;
 
       }
 
       #directions {
 
-        left: 110%;
+        left: 100%;
 
       }
 
@@ -1610,7 +1690,7 @@ ul {
 
       #directions {
 
-        left: 110%;
+        left: 100%;
 
       }
 
@@ -1777,13 +1857,73 @@ ul {
 
   #details {
 
+    .aside {
+
+      position: absolute;
+
+      top: 0;
+
+      right: 0;
+
+      width: 180px;
+
+      height: 100%;
+
+      -moz-box-sizing: border-box;
+
+        box-sizing: border-box;
+
+      z-index: 99;
+
+      padding: 32px 12px 16px 12px;
+
+      &> .bd {
+
+        height: 100%;
+
+        border: none;
+
+        border-left: 1px #eee solid;
+
+        padding-left: 16px !important;
+
+        color: #999;
+
+        h4 {
+
+          margin-top: 0;
+
+          font-size: 12px;
+
+        }
+
+        ul {
+
+          font-size: 11px;
+
+          li {
+
+            margin-bottom: 4px;
+
+          }
+
+        }     
+
+      }
+
+    }
+
     .details-list {
 
       position: relative;
 
+      top: 22px;
+
+      font-size: 13px;
+
       li {
 
-        display: table-cell;
+        display: block; /* table-cell */
 
         p {
 
@@ -1791,13 +1931,59 @@ ul {
 
         }
 
+
+
       }
 
       &.has-thumbnail {
 
         li {
 
-          padding-right: 30%;
+          padding-right: 164px;
+
+          &.address1 {
+
+            margin-bottom: 2px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #333;
+
+            letter-spacing: .02em;
+
+          }
+
+          &.city_state_zip {
+
+            margin-bottom: 16px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #333;
+
+            letter-spacing: .02em;
+
+          }
+
+          &.accessibility {
+
+            color: #999;
+
+            font-size: 12px;
+
+            margin-bottom: 3px;
+
+            &.restroom {
+
+              margin-bottom: 0;
+
+            }
+
+          }
 
           &.thumbnail {
 

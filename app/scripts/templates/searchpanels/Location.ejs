@@ -42,22 +42,43 @@
 			<div class="panel-content <%  if (data.detailsview === 'details') { %>active<% } %>" id="details">
 				<ul class="details-list <%  if (data.thumbnail) { %>has-thumbnail<% } %>">
 
-					<li>
+					<%  if (data.address1) { %><li class="address1">${data.address1}</li><% } %>
 
-						<p>Medford, MA 02155</p>
+					<%  if (data.city_state_zip || true) { %><li class="city_state_zip">Medford, MA 02155</li><% } %>
 
-						<%  if (data.address1) { %><p>${data.address1}</p><% }  %>
+					
 
-						<p>GPS Coordinates: ${data.latlng}</p>
+					<%  if (data.accessibility || true) { %><li class="accessibility">Accessible with assistance</li><% } %>
 
-					</li>
+					<%  if (data.accessibility_restroom || true) { %><li class="accessibility restroom">Accessible restroom</li><% } %>
 
-				
-					<%  if (data.thumbnail) { %><li class="thumbnail"><img class="shadow" src="./app/images/thumbs/${data.thumbnail}" /></li><% } %>
+					<!--<%  if (data.thumbnail) { %><li class="thumbnail"><img class="shadow" src="./app/images/thumbs/${data.thumbnail}" /></li><% } %><div class="linkTo"><button>Link directly to this location</button></div>
+
+					-->
 					
 				</ul>
 
-				<div class="linkTo"><button>Link directly to this location</button></div>
+				<aside class="aside">
+					
+					<div class="bd">
+
+						<ul>
+
+							<%  if (data.phone || true) { %><li class="phone">(617) 627-5000</li><% } %>
+
+							<%  if (data.email || true) { %><li class="email">contact@tufts.edu</li><% } %>
+
+							<%  if (data.website || true) { %><li class="website">Visit the website &gt;</li><% } %>
+
+							<%  if (data.latlng) { %><li class="gps">GPS: ${data.latlng}</li><% } %>
+
+							<li>Directions</li>
+
+						</ul>
+
+					</div>
+
+				</aside>
 
 			</div>
 
@@ -94,7 +115,7 @@
 			<%  if (data.urlphoto) { %>
 				<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">
 					<div>
-						<img id="photowide" width="369" height="132" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
+						<img id="photowide" width="341" height="132" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
 						<div id="satellite"></div>
 					</div>
 				</div>
