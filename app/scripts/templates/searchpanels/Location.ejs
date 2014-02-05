@@ -70,9 +70,9 @@
 
 							<%  if (data.website || true) { %><li class="website">Visit the website &gt;</li><% } %>
 
-							<%  if (data.latlng) { %><li class="gps">GPS: ${data.latlng}</li><% } %>
+							<%  if (data.latlng) { %><li class="gps">${data.latlng}</li><% } %>
 
-							<li>Directions</li>
+							<li><button data-campusmap="cmd:Location_panelA">Directions</button> <button data-campusmap="cmd:Location_panelB">Share a link</button></li>
 
 						</ul>
 
@@ -115,7 +115,7 @@
 			<%  if (data.urlphoto) { %>
 				<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">
 					<div>
-						<img id="photowide" width="341" height="132" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
+						<img id="photowide" width="368" height="132" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
 						<div id="satellite"></div>
 					</div>
 				</div>
