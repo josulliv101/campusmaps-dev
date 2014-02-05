@@ -10,9 +10,11 @@ define([
 
     'animationCSS', // Control appropriate animation to use in config via browser feature detection
 
+    'datastore',
+
     'eventdispatcher'
 
-], function($, _, Backbone, JST, Animation, EventDispatcher) {
+], function($, _, Backbone, JST, Animation, Datastore, EventDispatcher) {
 
     'use strict';
 
@@ -32,7 +34,9 @@ define([
 
         initialize: function() {
 
-            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels');
+            var model = this.model;
+
+            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels', 'refresh');
 
             _.bindAll(Animation.prototype, 'open', 'isOpen_');
 
@@ -40,6 +44,48 @@ define([
 
             // Define dispatch fns for getPanel
             this.getPanel = _.dispatch(this.getCachedPanel, this.createPanel);
+
+            this.listenTo(EventDispatcher, 'change:details', function(locationid) {
+
+                var campus = Datastore.campus(),
+
+                    map = Datastore.map(campus),
+
+                    location = map.details;
+
+                model.set({ name: !location ? '' : location.name }, { silent: true });
+
+                this.refresh();
+
+            });
+
+            this.listenTo(EventDispatcher, 'change:detailsview', function(viewid) {
+
+                var campus = Datastore.campus(),
+
+                    map = Datastore.map(campus),
+
+                    location = map.details;
+
+                model.set({ view: !viewid ? '' : viewid }, { silent: true });
+
+                this.refresh();
+
+            });
+
+        },
+
+        refresh: function() {
+
+            var $input = this.$el.find('#searchbox'),
+
+                label = this.model.get('name');// + ' > ' + this.model.get('view');
+
+            if (!this.model.get('name') || this.model.get('name') === '') label = '';
+
+            $input.val(label);
+
+            return this;
 
         },
 
@@ -77,25 +123,7 @@ define([
 
             ev.preventDefault();
 
-            //alert('btn');
-
-            //EventDispatcher.trigger('truthupdate', { vizpath: 'directory' });
-
-            if ($('#panelA').length === 0) {
-
-                EventDispatcher.trigger('truthupdate', { cmd: 'panelA' });
-
-                return;
-
-            }
-
-            if ($('#panelA').css('display') === 'none') 
-
-                EventDispatcher.trigger('truthupdate', { cmd: 'panelA' });
-
-            else 
-
-                EventDispatcher.trigger('truthupdate', { cmd: 'panelB' });
+            EventDispatcher.trigger('truthupdate', { cmd: '', details: '' });
             
         },
 

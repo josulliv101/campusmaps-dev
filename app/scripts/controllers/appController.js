@@ -102,6 +102,7 @@ define([
         // Always show first panel when details location changes
         if (_.has(attrs, 'details')) {
 
+            // Reset details view and panoramas since there's anew location selected
             if (attrs.details !== details) {
 
                 attrs.detailsview = '';

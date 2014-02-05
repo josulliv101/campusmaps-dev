@@ -541,7 +541,16 @@ define([
 
             zoomControl: false,
 
-            mapTypeControl: false
+            mapTypeControl: false,
+
+            streetViewControl: true,
+
+            streetViewControlOptions: {
+
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
+
+            }
+
 
         });
 

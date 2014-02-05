@@ -237,7 +237,7 @@ debugger;
 
         AppController.prototype.handleAttrDetails = function(theTruth, val, key) {
 
-            var campus, campusmap, location;
+            var campus, campusmap, location, classname = 'details';
 
             if (key !== 'details') return;
 
@@ -278,6 +278,8 @@ console.log('...handleAttrDetails', theTruth, val, key);
                 campusmap.details = null;
 
             }
+
+            domManager.cssFlag(classname, { remove: !campusmap.details });
 
             return true;
 
