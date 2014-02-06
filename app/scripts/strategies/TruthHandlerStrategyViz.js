@@ -263,6 +263,18 @@ define([
 
                 },
 
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
+                    var keys = _.keys(changedAttrs), latlng;
+
+                    if (keys.length !== 1 || !_.contains(keys, 'latlng')) return;
+
+                    viz.setCenter(changedAttrs.latlng);
+
+                    return true;
+
+                },
+
                 // Map center offset
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 

@@ -481,7 +481,7 @@ define([
 
                               offset = MapUtils.getAdjustedOffset(tile.offset, tileoffset.tile, tile.tile);
 
-                          return { bounds: loc.bounds, locationid: loc.locationid, offset: offset };
+                          return { bounds: loc.bounds, locationid: loc.locationid, offset: offset, latlng: loc.latlng };
 
                        })
 
@@ -641,6 +641,12 @@ define([
             cmd = (loc && loc.locationid ? 'Location' : '');
 
             attrs = { details: id, highlight: id, cmd: cmd };
+
+            if (loc && loc.locationid) {
+
+                attrs.latlng = loc.latlng[0] + ',' + loc.latlng[1];
+
+            }
 
             EventDispatcher.trigger('truthupdate', attrs);
 

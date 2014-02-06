@@ -343,7 +343,7 @@ ul {
 #ui-search {
 
   opacity: 1;
-
+  padding: 0 0 4px 4px;
   transition: top .6s;
   -webkit-transition: top .6s; /* Safari */
 
@@ -532,7 +532,7 @@ ul {
 /*565152*/
                     border: none;
 
-                    background: #3172AE;
+                    background: rgba(49, 114, 174, .75);
 
                     color: #fff;
                     
