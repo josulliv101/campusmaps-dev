@@ -229,11 +229,11 @@ ul {
   background: #eee;
   border: 1px #999 solid;
   width: 100%;
-  margin: 20px auto;
+  margin: 0px auto;
   height: 100%;
   max-width: 890px; /* 100% 520px */
 
-  max-height: 520px;
+  max-height: 100%;
 
 
     
@@ -2091,9 +2091,9 @@ and (max-device-width : 480px) {
 
   #ui-search {
     
-    top: -166px;
+    top: 0px;
 
-    left: 0;
+    left: -2px;
 
     width: 100%;
 
@@ -2114,6 +2114,13 @@ and (max-device-width : 480px) {
       }
     }
   }
+
+  .details #controls-zoom {
+
+    display: none;
+
+  }
+
 }
 
 

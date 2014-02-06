@@ -374,7 +374,7 @@ define([
                     // Exclude any marker specific attributes
                     EventDispatcher.trigger('truthupdate', { panoramadetails: _.pick(marker, 'heading', 'latlng', 'pitch', 'photo', 'zoom') });
 
-/*                    thePanorama.setPosition(marker.getPosition());
+                    thePanorama.setPosition(marker.getPosition());
 
                     thePanorama.setPov({
 
@@ -384,7 +384,7 @@ define([
 
                     });
 
-                    thePanorama.setVisible(true);*/
+                    thePanorama.setVisible(true);/**/
 
                 });
 
@@ -465,6 +465,8 @@ define([
         latlng = e.latLng;
 
         tileoffset = MapUtils.latLngToTileOffset_({ lat: latlng.lat(), lng: latlng.lng() }, zoom);
+
+console.log('latlng', latlng);
 
         EventDispatcher.trigger('truthupdate', { tile: MapUtils.getTileZoomId(tileoffset.tile, zoom) });
 
