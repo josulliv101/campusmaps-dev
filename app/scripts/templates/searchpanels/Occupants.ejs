@@ -1,0 +1,18 @@
+<div class="shadow panel">
+	<div class="bd spacing occupant-details">
+		<button class="back" data-campusmap='cmd:Location'>close</button>
+		
+		<h4>${data.name}</h4>
+
+		<ul>
+			<%  if (data.locwithin) { %><li>${data.locwithin}</li><% } %>
+
+			<%  if (data.phone) { %><li>${data.phone}</li><% } %>
+
+			<%  if (data.email) { %><li><a href="mailto:${data.email}">${data.email}</a></li><% } %>
+
+			<%  if (data.website) { %><li><a href="${data.website}">Visit the website &gt;</a></li><% } %>
+
+		</ul>
+	</div>
+</div>

@@ -16,9 +16,17 @@ define([
 
         id: 'Location',
 
+        events: {
+
+            'click .occupant' : 'handleOccupantClick'
+
+        },
+
         initialize: function() {
 
-            //var model = this.model;
+            var departmentsoffices = 'Departments &amp; Offices',
+
+                model = this.model;
 
             Base.prototype.initialize.call(this);
 
@@ -30,9 +38,11 @@ define([
 
                             { navid: 'photo', order: 2, navlabel: 'Imagery' },
 
-                            { navid: 'offices', order: 3, navlabel: 'Departments &amp; Offices' }
+                            { navid: 'offices', order: 3, navlabel: departmentsoffices }
 
                        ], 'order');
+
+            model.set('departmentsoffices', departmentsoffices, { silent: true });
 
             this.listenTo(EventDispatcher, 'change:detailsview', function(panelid) {
 
@@ -43,6 +53,20 @@ define([
                 //panelid === 'photo' ? this.showPanoramaMarkers() : this.hidePanoramaMarkers();
 
             });
+
+        },
+
+        handleOccupantClick: function(ev) {
+
+            var $btn = $(ev.currentTarget),
+
+                index = parseInt($btn.data('index')) || 0,
+
+                occpuants = this.model.get('occupants');
+
+            console.log('handleOccupantClick', occpuants[index]);
+
+            if (_.isObject(occpuants[index])) EventDispatcher.trigger('truthupdate', { occupant: occpuants[index], cmd: 'Location_Occupants', detailsview: 'offices' });
 
         },
 
@@ -64,11 +88,17 @@ define([
 
                 map = Datastore.map(campus),
 
+                label = this.model.get('departmentsoffices'),
+
                 location = map.details, //_.first(map.selectedLocations), //map.locationDetails,
 
                 json = Datastore.JSON.location(location),
 
+                officesItem = this.getNavItemById(this.nav, 'offices'),
+
                 viewid = this.model.get('detailsview') || _.first(this.nav).navid;
+
+            if (json.occupants) json.occupants = _.sortBy(json.occupants, 'name');
 
             location.detailsnav || (location.detailsnav = this.getNavModel(location, viewid));
 
@@ -78,8 +108,25 @@ define([
 
                         .each(function(item) { item.active = (item.navid === viewid ? 'active' : null); })
 
+                        .each(function(item) { 
+
+                            if (item.navid === 'offices') {
+
+                                item.navlabel = label + ' (' + json.occupants.length + ')';
+
+                            }
+
+                        })
+
                         .value();
-       
+
+            
+
+            //if (_.size(json.occupants) > 0) officesItem.navlabel = officesItem.navlabel + " (<span class='total-occupants'>" + _.size(occupants)+ "</span>)";
+
+            
+            this.model.set({ occupants: json.occupants }, { silent: true });
+
             return { data: json };
 
         },
@@ -99,8 +146,7 @@ define([
 
             if (!urlphoto || urlphoto === '')  nav = _.without(nav, this.getNavItemById(nav, 'photo'));
 
-            if (_.size(occupants) > 0) officesItem.navlabel = officesItem.navlabel.replace(/\([0-9]+\)/, "") + " (" + _.size(occupants)+ ")";
-
+            
             return nav;
 
         },
@@ -139,12 +185,21 @@ define([
 
             $panel = $el.find('#' + panelid);
 
+            $el.find('.total-occupants').html('hello');
+
             $nav = $el.find('.nav-details .' + panelid);
 
             if (activePreviousId) {
 
                 $el.find('#' + activePreviousId).addClass('active-previous');
 
+            }
+
+            if (panelid === 'offices') {
+
+                $panel.scrollTop(0);
+
+                console.log('$panel', $panel);
             }
 
             Base.prototype.refresh.call(this);

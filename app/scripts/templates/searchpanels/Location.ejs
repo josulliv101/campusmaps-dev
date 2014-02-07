@@ -72,7 +72,7 @@
 
 							<%  if (data.latlng) { %><li class="gps">${data.latlng}</li><% } %>
 
-							<li><button data-campusmap="cmd:Location_panelA">Directions</button> <button data-campusmap="cmd:Location_panelB">Share a link</button></li>
+							<li><button data-campusmap="cmd:Location_panelA">Directions</button> <button data-campusmap="cmd:Location_panelB">Share link</button></li>
 
 						</ul>
 
@@ -82,14 +82,18 @@
 
 			</div>
 
-			<div class="panel-content <%  if (data.detailsview === 'offices') { %>active<% } %>" id="offices">
+			<div class="panel-content <%  if (data.occupants && data.occupants.length === 1) { %> single-occupant<% } %><%  if (data.detailsview === 'offices') { %> active<% } %>" id="offices">
 				<div class="occupant-list">
 
 
 					<%  if (data.occupants && data.occupants.length > 1) { %>
 
-						<% _.each(data.occupants, function(occupant) { %> 
-						    <button  data-campusmap="detailsview:offices,cmd:Location_panelA">${occupant.name}</button>
+						<h4 class="total">Choose a Department/Office <span class="label-light">(${data.occupants.length} in total)</span></h4>
+
+						<% _.each(data.occupants, function(occupant, index) { %> 
+
+						    <button class="occupant" data-index=${index}><span class="position">#${++index}</span> ${occupant.name}</button>
+
 						<% }); %>
 
 					<% }  else if (data.occupants && data.occupants.length === 1) { %>
@@ -99,11 +103,11 @@
 					<ul>
 						<%  if (data.occupants[0].locwithin) { %><li>${data.occupants[0].locwithin}</li><% } %>
 
-						<%  if (data.occupants[0].email) { %><li>${data.occupants[0].email}</li><% } %>
-
 						<%  if (data.occupants[0].phone) { %><li>${data.occupants[0].phone}</li><% } %>
 
-						<%  if (data.occupants[0].website) { %><li>${data.occupants[0].website}</li><% } %>
+						<%  if (data.occupants[0].email) { %><li><a href="mailto:${data.occupants[0].email}">${data.occupants[0].email}</a></li><% } %>
+
+						<%  if (data.occupants[0].website) { %><li><a href="${data.occupants[0].website}">Visit the website &gt;</a></li><% } %>
 
 					</ul>
 
@@ -115,7 +119,7 @@
 			<%  if (data.urlphoto) { %>
 				<div class="panel-content <%  if (data.detailsview === 'photo') { %>active<% } %>" id="photo">
 					<div>
-						<img id="photowide" width="370" height="132" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
+						<img id="photowide" data-photowide="./app/images/${data.urlphoto}" src="./app/images/${data.urlphoto}" />
 						<div id="satellite"></div>
 					</div>
 				</div>

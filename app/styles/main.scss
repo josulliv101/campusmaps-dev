@@ -16,6 +16,14 @@ img {
 
 }
 
+.label-light {
+  
+  font-size: 11px;
+
+  color: #999;
+
+}
+
 .sr-only {
     position: absolute;
     width: 1px;
@@ -502,7 +510,9 @@ ul {
 
                       position: absolute;
 
-                      visibility: hidden;
+                      
+
+                      display: none;
 
                       top: 0px;
 
@@ -576,7 +586,38 @@ ul {
                 background: #fff;
                 padding: 0;
                 
-                
+                &.spacing {
+
+                  padding: 12px;
+
+                  background: #fff;
+
+                }
+
+                &.occupant-details {
+
+                  font-size: 12px;
+
+                  h4 {
+
+                    margin: 0 0 6px;
+
+                  }
+
+                  ul {
+
+                    li {
+
+                      margin: 0 0 6px 0;
+
+                    }
+
+                  }
+
+                }
+
+
+
                 .back {
                   float: right;
                 }
@@ -969,7 +1010,7 @@ ul {
 
           position: absolute;
 
-          right: 4px;
+          right: 12px;
 
           bottom: 4px;
 
@@ -1126,7 +1167,7 @@ ul {
           min-height: 44px;
           opacity: 1;
           overflow: visible;
-          padding: 0 24px;
+          padding: 0 12px 0 24px;
 
           -webkit-transition: border-color 0.7s ease-out;
 
@@ -1597,6 +1638,16 @@ ul {
 
 /* Panels */
 
+#photowide {
+  
+  width: 100%;
+
+  height: auto;
+
+  min-height: 132px;
+
+}
+
 .panel-details {
 
   .nav-details {
@@ -1645,7 +1696,7 @@ ul {
 
     position: relative;
 
-    min-height: 128px;
+    min-height: 126px;
 
     overflow: hidden;
 
@@ -1824,22 +1875,55 @@ ul {
       }
 
       &#offices {
-/*
-        left: 110%;
 
-        &.active {
+       
+         height: 132px;
 
-          left: 0;
-          
-        }
-        */
+         overflow-y: auto;
+
+         overflow-x: hidden;
+
+         padding: 0;
+
+         &.single-occupant {
+
+          padding: 12px;
+
+          ul {
+
+            li {
+
+              margin-bottom: 6px;
+
+            }
+
+          }
+
+         }
+
         .occupant-list {
 
-          overflow:scroll;
-          
+          font-size: 12px;
+
           h4 {
             
-            margin-top: 0;
+            margin: 0 0 6px;
+
+            font-size: 14px;
+
+            &.total {
+
+              padding: 12px 0 6px 12px;
+
+            }
+
+          }
+
+          a {
+
+            color: #6699cc !important;
+
+            background: transparent !important;
 
           }
 
@@ -1855,11 +1939,23 @@ ul {
 
             border: none;
 
-            padding: 6px 0;
+            padding: 6px 9px;
+
+            font-size: 11px;
 
             &:hover {
               
               background: #eee;
+
+            }
+
+            .position {
+
+              font-size: 11px;
+
+              color: #999;
+
+              margin-right: 12px;
 
             }
 
@@ -1920,7 +2016,7 @@ ul {
 
       z-index: 99;
 
-      padding: 32px 12px 16px 12px;
+      padding: 18px 12px 16px 12px;
 
       &> .bd {
 
@@ -1976,7 +2072,7 @@ ul {
 
       position: relative;
 
-      top: 22px;
+      top: 6px;
 
       font-size: 13px;
 
@@ -1990,85 +2086,75 @@ ul {
 
         }
 
+        padding-right: 164px;
 
+        &.address1 {
 
-      }
+          margin-bottom: 2px;
 
-      &.has-thumbnail {
+          font-size: 14px;
 
-        li {
+          font-weight: 700;
 
-          padding-right: 164px;
+          color: #333;
 
-          &.address1 {
+          letter-spacing: .02em;
 
-            margin-bottom: 2px;
+        }
 
-            font-size: 14px;
+        &.city_state_zip {
 
-            font-weight: 700;
+          margin-bottom: 16px;
 
-            color: #333;
+          font-size: 14px;
 
-            letter-spacing: .02em;
+          font-weight: 700;
 
-          }
+          color: #333;
 
-          &.city_state_zip {
+          letter-spacing: .02em;
 
-            margin-bottom: 16px;
+        }
 
-            font-size: 14px;
+        &.accessibility {
 
-            font-weight: 700;
+          color: #999;
 
-            color: #333;
+          font-size: 11px;
 
-            letter-spacing: .02em;
+          margin-bottom: 3px;
 
-          }
+          &.restroom {
 
-          &.accessibility {
-
-            color: #999;
-
-            font-size: 11px;
-
-            margin-bottom: 3px;
-
-            &.restroom {
-
-              margin-bottom: 0;
-
-            }
+            margin-bottom: 0;
 
           }
 
-          &.thumbnail {
+        }
 
-            display: none;
+        &.thumbnail {
 
-            width: 30%;
+          display: none;
 
-            padding-right: 0;
+          width: 30%;
 
-            position: absolute;
+          padding-right: 0;
 
-            top: 0;
+          position: absolute;
 
-            right: 0;
+          top: 0;
 
-            img {
+          right: 0;
 
-              width: 100%;
+          img {
 
-              height: auto;
+            width: 100%;
 
-              border: #999 1px solid;
+            height: auto;
 
-              border-radius: 4px;
+            border: #999 1px solid;
 
-            }
+            border-radius: 4px;
 
           }
 
@@ -2077,7 +2163,6 @@ ul {
       }
 
     }
-
 
   }
 
@@ -2097,7 +2182,9 @@ and (max-device-width : 480px) {
 
     width: 100%;
 
-    max-width: 100%;
+    /*max-width: 320px;
+
+    margin: 20px;*/
 
     #panels {
       
@@ -2113,6 +2200,42 @@ and (max-device-width : 480px) {
         }       
       }
     }
+  }
+
+
+.panel-details {
+
+  #details {
+
+    .details-list {
+
+      li {
+
+        &.address1 {
+
+          font-size: 12px;
+
+        }
+
+        &.city_state_zip {
+
+          font-size: 12px;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+  #controls-zoom {
+
+    top: 48px;
+
   }
 
   .details #controls-zoom {
