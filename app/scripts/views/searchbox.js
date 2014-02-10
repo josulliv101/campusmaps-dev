@@ -24,7 +24,15 @@ define([
 
             'click .btn.search': 'handleBtnClick',
 
-            'click .btn.full': 'handleBtnExpandClick' 
+            'submit form': 'handleBtnClick',
+
+            //'click .btn.full': 'handleBtnExpandClick',
+
+            'click #searchbox' : 'handleFocus',
+
+            'blur #searchbox' : 'handleUnFocus',
+
+            'keyup #searchbox': 'handleKeyPress'
 
         },
 
@@ -36,7 +44,7 @@ define([
 
             var model = this.model;
 
-            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels', 'refresh');
+            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels', 'refresh', 'handleBtnClick');
 
             _.bindAll(Animation.prototype, 'open', 'isOpen_');
 
@@ -107,6 +115,34 @@ define([
 
         },
 
+        handleKeyPress: function(ev) {
+
+            var $input = $(ev.currentTarget),
+
+                val = $input.val();
+
+            console.log('handleKeyPress', val);
+
+            EventDispatcher.trigger('truthupdate', { query: val });
+
+        },
+
+        handleFocus: function(ev) {
+
+            console.log('handleFocus');
+
+            EventDispatcher.trigger('truthupdate', { cmd: 'Results' });
+
+        },
+
+        handleUnFocus: function(ev) {
+
+            console.log('handleUnFocus');
+
+            //EventDispatcher.trigger('truthupdate', { cmd: '' });
+
+        },
+
         handleBtnExpandClick: function(ev) {
 
             console.log('search btn clicked.');
@@ -123,7 +159,10 @@ define([
 
             ev.preventDefault();
 
-            EventDispatcher.trigger('truthupdate', { cmd: '', details: '' });
+            //alert('y');
+
+            this.$el.focus();
+            //EventDispatcher.trigger('truthupdate', { cmd: '', details: '' });
             
         },
 

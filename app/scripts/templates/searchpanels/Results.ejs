@@ -1,0 +1,25 @@
+<div class="shadow panel">
+	<div class="bd spacing">
+		<div>Searching for: <em>${data.query}</em></div>
+		<ul class="list">
+			<% _.each(data.results, function(loc) { %> 
+			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>>${loc.name} <button data-campusmap="details:<%= loc.locationid %>,cmd:Location" class="locations">View details</button></li>
+			<% }); %>
+			<% if (data.results.length === 0) { %><li>No results found.</li><% } %>
+		</ul>
+		<p class="help">Search by building name, address or keyword.</p>
+	</div>
+</div>
+<!--
+<div class="shadow panel">
+	<div class="bd spacing">
+		<strong>Looking for visitor parking?</strong>
+	</div>
+</div>
+
+<div class="shadow panel">
+	<div class="bd spacing">
+		<strong>Popular tags</strong>
+	</div>
+</div>
+-->
