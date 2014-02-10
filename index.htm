@@ -19,17 +19,21 @@
 	<!-- endbuild -->
 </head>
 <body>
-	<!--<button data-campusmap='cmd:CampusList'>View CampusList</button>-->
-	<div id="campusmap" tabindex=0>
-		<div id="map-wrap">
-			<div id="controls-zoom" class="shadow">
-				<button class="btn plus" data-campusmap='zoom:+'>+</button>
-				<button class="btn minus" data-campusmap='zoom:-'>-</button>
+	<div id="app">
+		<ul class="list-menu">
+			<li><button class="button2" data-campusmap='cmd:CampusMapList'>Menu</button></li>
+			<li><button class="button2" data-campusmap='cmd:panelA'>About</button></li>
+		</ul>	
+		<div id="campusmap" tabindex=0>
+			<div id="map-wrap">
+				<div id="controls-zoom" class="shadow">
+					<button class="btn plus" data-campusmap='zoom:+'>+</button>
+					<button class="btn minus" data-campusmap='zoom:-'>-</button>
+				</div>
+				<div id="map-canvas"></div>
 			</div>
-			<div id="map-canvas"></div>
 		</div>
 	</div>
-
 	<div id="log" class="shadow">
 		<ul>
 			<li><a href="#" data-cmd="panelA">panel A</a></li>

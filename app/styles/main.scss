@@ -1,13 +1,24 @@
 html { height: 100% }
 
 body { 
-  background: #565152; 
+  background: #FFF; /* #565152 */ 
   overflow: hidden; 
   height: 100%; 
   margin: 0px 0 0; 
   padding: 0; 
 
   font-family: Arial,Helvetica,sans-serif;
+}
+
+#app {
+  
+  width: 100%;
+  margin: 12px auto 0;
+  height: 100%;
+  max-width: 890px; /* 100% 520px */
+
+  max-height: 520px;
+
 }
 
 img {
@@ -127,6 +138,19 @@ ul {
   padding:0;
   margin:0;
   list-style-type: none;
+
+  &.list-menu {
+
+    margin-bottom: 6px;
+
+    li {
+
+      display: inline-block;
+
+    }
+
+  }
+
 }
 /* Dev */
 
@@ -236,12 +260,7 @@ ul {
   overflow: hidden;
   background: #eee;
   border: 1px #999 solid;
-  width: 100%;
-  margin: 60px auto 0;
   height: 100%;
-  max-width: 890px; /* 100% 520px */
-
-  max-height: 520px;
 
 
     
@@ -359,8 +378,8 @@ ul {
   -webkit-transition-delay: 0s;
   overflow: hidden;
 	position: absolute;
-	width: 42%;
-  max-width: 400px;
+	width: 48%;
+  max-width: 430px;
 	z-index: 101;
 	top: 12px;
 	left: 12px;
@@ -373,17 +392,17 @@ ul {
 
       .form-group {
 
-        padding: 0 30px 0 0;
+        padding: 0 0px 0 0;
 
         #searchbox {
 
           border: none;
 
-          font-size: 14px;
+          font-size: 20px;
 
           line-height: 18px;
 
-          padding: 7px 6px;
+          padding: 9px 9px;
 
           width: 100%;
 
@@ -412,7 +431,7 @@ ul {
         background-position: center; 
 
         border: medium none;
-        height: 24px;
+        height: 34px;
         position: absolute;
         right: 14px;
         top: 5px;
@@ -481,7 +500,7 @@ ul {
             position: relative;
             z-index: 200;
             .panel {
-                margin: 0 0 12px 0;
+                margin: 0 0 18px 0;
                 position: relative;
                 
                 &.panel-nav {
@@ -542,7 +561,7 @@ ul {
 /*565152*/
                     border: none;
 
-                    background: rgba(49, 114, 174, .75);
+                    background: linear-gradient(to bottom, #8A8C90 0%, #7E8083 65%) repeat scroll 0 0 rgba(0, 0, 0, 0); /*rgba(49, 114, 174, .75);*/
 
                     color: #fff;
                     
@@ -659,7 +678,9 @@ ul {
               -webkit-animation-fill-mode: both; 
 
               &.panel-campuses, &.panel-campusmaps, &.panel-locations {
-                
+
+                margin-top: 22px;
+
                 .maps, .locations {
                   
                   float: right;
@@ -1635,6 +1656,77 @@ ul {
 
 }
 
+/* Buttons */
+
+
+.button1 {
+  font-family: arial, sans-serif;
+  -webkit-border-radius:4px;
+  -moz-border-radius:4px;
+  border-radius:4px;
+  padding: 10px 15px;
+  color: white;
+  font-size: 16px;
+  border-width: 0;
+  background: #3172ae; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: -moz-linear-gradient(top,  #357abb 0%, #3172ae 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#357abb), color-stop(100%,#3172ae)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #357abb 0%,#3172ae 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #357abb 0%,#3172ae 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #357abb 0%,#3172ae 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #357abb 0%,#3172ae 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#357abb', endColorstr='#3172ae',GradientType=0 ); /* IE6-8 */
+}
+
+
+.button2 {
+  font-family: arial, sans-serif;
+  -webkit-border-radius:4px;
+  -moz-border-radius:4px;
+  border-radius:4px;
+  padding: 10px 15px;
+  color: white;
+  font-size: 16px;
+  border-width: 0;
+  background: #8a8c90; /* Old browsers */
+  background: -moz-linear-gradient(top,  #8a8c90 0%, #7e8083 65%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8a8c90), color-stop(65%,#7e8083)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #8a8c90 0%,#7e8083 65%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #8a8c90 0%,#7e8083 65%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #8a8c90 0%,#7e8083 65%); /* IE10+ */
+  background: linear-gradient(to bottom,  #8a8c90 0%,#7e8083 65%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8a8c90', endColorstr='#7e8083',GradientType=0 ); /* IE6-9 */
+}
+
+.button3 {
+  font-family: arial, sans-serif;
+  display: block;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #6d6f72;
+  line-height: 38px;
+  padding: 0 15px;
+  color: #6d6f72;
+  font-size: 16px;
+  text-decoration: none;
+  background: #f1f1f2; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: -moz-linear-gradient(top,  #f7f7f7 0%, #f1f1f2 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#f1f1f2)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #f7f7f7 0%,#f1f1f2 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #f7f7f7 0%,#f1f1f2 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #f7f7f7 0%,#f1f1f2 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #f7f7f7 0%,#f1f1f2 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#f1f1f2',GradientType=0 ); /* IE6-8 */
+}
+
+
+.button1:hover, .button2:hover, .button3:hover {
+  background: #525356;
+}
+
 
 /* Panels */
 
@@ -2173,6 +2265,12 @@ ul {
 and (min-device-width : 320px) 
 and (max-device-width : 480px) {
 /* Styles */
+  
+  #campusmap {
+
+    margin-top: 0;
+
+  }
 
   #ui-search {
     
