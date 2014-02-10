@@ -64,8 +64,6 @@ define([
             if (_.has(changedAttributes, 'locationid')) EventDispatcher.trigger('change:locationid', changedAttributes.locationid);
 
             if (_.has(changedAttributes, 'details')) EventDispatcher.trigger('change:details', changedAttributes.details);
-            
-            if (_.has(changedAttributes, 'occupant')) EventDispatcher.trigger('change:occupant', changedAttributes.occupant);
 
             if (_.has(changedAttributes, 'photowide')) EventDispatcher.trigger('change:photowide', changedAttributes.photowide);
 
@@ -79,11 +77,27 @@ define([
 
             }
 
+            if (_.has(changedAttributes, 'locationlink')) {
+
+                this.locationlink = changedAttributes.locationlink;
+
+                EventDispatcher.trigger('change:locationlink', changedAttributes.locationlink);
+
+            }
+
             if (_.has(changedAttributes, 'query')) {
 
                 this.query = changedAttributes.query;
 
                 EventDispatcher.trigger('change:query', changedAttributes.query);
+
+            }
+
+            if (_.has(changedAttributes, 'occupant')) {
+
+                this.occupant = changedAttributes.occupant;
+
+                EventDispatcher.trigger('change:occupant', changedAttributes.occupant);
 
             }
 
@@ -215,7 +229,7 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ detailsview: this.detailsview, query: this.query }, { silent: true });
+        panel.model.set({ detailsview: this.detailsview, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 

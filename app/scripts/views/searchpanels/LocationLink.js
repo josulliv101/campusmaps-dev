@@ -14,15 +14,15 @@ define([
 
     return Base.extend({
 
-        id: 'occupants',
+        id: 'LocationLink',
 
         initialize: function() {
 
-            var model = this.model, self = this;
+            //var model = this.model, self = this;
 
             Base.prototype.initialize.call(this);
 
-            this.listenTo(EventDispatcher, 'change:occupant', function(occupant) {
+/*            this.listenTo(EventDispatcher, 'change:occupant', function(occupant) {
 
                 model.set('occupant', occupant, { silent: true });
 
@@ -32,18 +32,17 @@ define([
 
                 self.render();
 
-            });
+            });*/
 
         },
 
         getJSON: function() {
 
-            var json = this.model.get('occupant') || { name: 'No Occupants' };
+            var json = { url: this.model.get('locationlink') || 'No Link' };
 
             return { data: json };
 
         }
-
 
     });
 

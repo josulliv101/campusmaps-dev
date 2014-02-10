@@ -13,6 +13,8 @@ define([
 
     var settingsUrl,
 
+        urlLocationAttrWhiteList = ['details', 'campusmap', 'campusid'],
+
         urlAttrWhiteList = ['query', 'customcampusmap', 'centeroffset', 'photowide', 'satellite', 'cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'details', 'detailsview', 'vizpath!', 'zoom', 'latlng', 'highlight'], // 'vizpath',
 
         AppRouter = Backbone.Router.extend({
@@ -23,6 +25,16 @@ define([
 
                 // Default
                 '*params': 'handleRoute'
+
+            },
+
+            initialize: function() {
+
+                this.getLocationShareLink = _.compose(function(qs) {
+
+                        return this.getBaseUrl() + "#cmd=Location&" + qs;
+
+                    }, this.toLocationQueryString);
 
             },
 
@@ -71,6 +83,29 @@ define([
                          .value().join('&');
 
             },
+
+            toLocationQueryString: function(truth) {
+
+                return  _.chain(truth)
+
+                         .pick(urlLocationAttrWhiteList)
+
+                         // Watch XSS/urlencode
+                         .map(function(val, key) { return key + '=' + (_.isObject(val) && val.value ? val.value : val); })
+
+                         .value().join('&');
+
+            },
+
+            getBaseUrl: function() {
+
+                var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+
+                return newURL;
+
+            },
+
+            getLocationShareLink: function() {},
 
             getDefaults: function(qs) {
 

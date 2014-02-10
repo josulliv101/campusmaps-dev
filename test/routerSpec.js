@@ -51,6 +51,14 @@ define([
 
       });
 
+      it('should be able to generate a link pointing directly to a location', function () {
+
+        var qs = router.toLocationQueryString({ details: 'myid', campusmap: 'mymap'});
+
+        expect(qs).toBe('details=myid&campusmap=mymap');
+
+      });
+
     });
 
     describe('Defaults', function () {

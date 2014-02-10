@@ -66,7 +66,13 @@ define([
 
             console.log('handleOccupantClick', occpuants[index]);
 
-            if (_.isObject(occpuants[index])) EventDispatcher.trigger('truthupdate', { occupant: occpuants[index], cmd: 'Location_Occupants', detailsview: 'offices' });
+            if (_.isObject(occpuants[index])) {
+
+                EventDispatcher.trigger('truthupdate', { occupant: occpuants[index] });
+
+                EventDispatcher.trigger('truthupdate', { cmd: 'Location_Occupants', detailsview: 'offices' });
+
+            }
 
         },
 

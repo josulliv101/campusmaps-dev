@@ -207,7 +207,7 @@ define([
 
     AppController.prototype.dispatchTruth = function(model, options) { 
 
-        var changed, previous, querystring;
+        var changed, previous, querystring, locationLink;
 
         changed = model.changedAttributes();
         
@@ -221,6 +221,8 @@ define([
 
         querystring = this.router.toQueryString(theTruth.attributes);
 
+        locationLink = this.router.getLocationShareLink(theTruth.attributes);
+
         // Handle each changed attribute in the most appropriate manner, determined by dispatch function
         _.each(changed, function(val, key) { this.attrChangeDispatch(model, val, key); }, this);
 
@@ -230,6 +232,8 @@ define([
 
         // The Truth changes get sent to Component-level controllers for further handling
         EventDispatcher.trigger('delegateTruth', changed, previous);
+
+        if (locationLink) this.setTheTruth({ locationlink: locationLink });
 
         return true;
 
