@@ -698,6 +698,10 @@ ul {
 
                 margin-top: 22px;
 
+                max-height: 400px;
+                
+                overflow: auto;
+
                 .maps, .locations {
                   
                   float: right;

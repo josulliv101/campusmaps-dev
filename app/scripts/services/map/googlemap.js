@@ -472,8 +472,10 @@ console.log('latlng', latlng);
 
         // Include surrounding tiles in case loc ui spills over onto neighbor tile
         locs = MapUtils.getCloseByLocationsFromTileCache(tileoffset.tile, zoom);
-
+debugger;
         locAtLatLng = _.chain(locs)
+
+                       .reject(function(loc) { return loc.hide === true; })
 
                        .map(function(loc) { 
 

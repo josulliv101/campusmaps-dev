@@ -19,36 +19,27 @@
 	<!-- endbuild -->
 </head>
 <body>
-	<div id="app">
+	<div id="app"> 
 		<ul class="list-menu primary">
 			<li><button class="button2" data-campusmap='cmd:CampusMapList'>Menu</button></li>
 		</ul>
 		<ul class="list-menu secondary">
+			<li><a href="#" data-campusmap='cmd:panelA'>Settings</a></li>
 			<li><a href="#" data-campusmap='cmd:panelA'>Take a Tour</a></li>
 			<li><a href="#" data-campusmap='cmd:panelA'>About</a></li>
 		</ul>
-		<div id="campusmap" tabindex=0>
+		<div id="campusmap" tabindex="0">
 			<div id="map-wrap">
 				<div id="controls-zoom" class="shadow">
-					<button class="btn plus" data-campusmap='zoom:+'>+</button>
-					<button class="btn minus" data-campusmap='zoom:-'>-</button>
+					
+					<button id="btn-zoomin" class="btn plus" data-campusmap='zoom:+'><span class="sr-only" for="btn-zoomin">Zoom In</span>+</button>
+					
+					<button id="btn-zoomout" class="btn minus" data-campusmap='zoom:-'><span class="sr-only" for="btn-zoomout">Zoom Out</span>-</button>
 				</div>
-				<div id="map-canvas"></div>
+				<div id="map-canvas" aria-hidden="true"></div>
 			</div>
 		</div>
 	</div>
-	<div id="log" class="shadow">
-		<ul>
-			<li><a href="#" data-cmd="panelA">panel A</a></li>
-			<li><a href="#" data-cmd="panelB">panel B</a></li>
-			<li><a href="#" data-cmd="panelC">panel C</a></li>
-			<li><a href="#" data-cmd="panelA_panelB">panels A_B</a></li>
-			<li><a href="#" data-cmd="panelA_panelC">panels A_C</a></li>
-			<li><a href="#" data-cmd="panelB_panelC">panels B_C</a></li>
-			<li><a href="#" data-cmd="panelA_panelB_panelC">panels A_B_C</a></li>
-			<li><a href="#" data-cmd="test">panels multi</a></li>
-		</ul>
-	</div>	
 	<!-- build:js scripts/main.js -->
 	<script data-main="app/main" src="bower_components/requirejs/require.js"></script>
 
