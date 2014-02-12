@@ -197,8 +197,6 @@ define([
 
             var ml = Datastore.mapList();
 
-
-debugger;
             console.log('custom campus map', locs);
 
             return true;
@@ -272,6 +270,8 @@ console.log('...handleAttrDetails', theTruth, val, key);
                 location.zoom = theTruth.get('zoom');
 
                 campusmap.details = location;
+
+                EventDispatcher.trigger('truthupdate', { latlng: location.latlng });
 
             } else {
 
@@ -444,8 +444,14 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             console.log('...handleResize', model.cid, val, key);
 
+            //DomManager.getCenterOffset();
+
             // Reset the resize attr as well
-            if (val === true) EventDispatcher.trigger('truthupdate', { vizpath: path, resize: false });
+            if (val === true) {
+
+                EventDispatcher.trigger('truthupdate', { vizpath: path, resize: _.uniqueId('resize') , mapcenteroffset: domManager.getCenterOffset() });
+
+            }
 
             return true;
 

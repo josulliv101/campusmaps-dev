@@ -17,7 +17,66 @@ define([
 
             fns: [
 
+                function(model, zoom) { // Location Model
 
+                    if (zoom < 19) return;
+
+                    model.hide = false;
+
+                    return 'emphasis' + model.emphasis + ' icon-xsmall';
+
+                },
+
+               function(model, zoom) { 
+
+                    var classname;
+
+                    if (zoom !== 18) return;
+
+                    if (model.emphasis < 3) return;
+
+                    classname = model.emphasis === 3 ? ' icon-circle-small' : ' icon-small';
+
+                    model.hide = false;
+
+                    return 'emphasis' + model.emphasis + classname; // Show all label
+
+                },
+
+               function(model, zoom) { 
+
+                    if (zoom !== 17) return;
+
+                    if (model.emphasis < 5) return;
+
+                    model.hide = false;
+
+                    return 'emphasis' + model.emphasis + ' icon-xsmall'; // Show all label
+
+                },
+
+                function(model, zoom) { // Location Model
+
+                    if (zoom > 17) return;
+
+                    model.hide = true;
+
+                    return 'label-hide icon-hide'; 
+
+                },
+
+
+                function(model, zoom) { 
+
+                    model.hide = true;
+
+                    return 'label-hide icon-hide'; 
+
+                }
+
+
+
+/*
                 function(model, zoom) { // Location Model
 
                    // if (model.emphasis > 2 || model.selected === true) return;
@@ -29,7 +88,7 @@ define([
                 function(model, zoom) { // Location Model
 
                     if (model.collision !== true) return;
-debugger;
+
                     return 'label-hide icon-hide';
 
                 },
@@ -76,7 +135,7 @@ debugger;
 
                     return model.details !== true ? 'label-hide icon-hide' : 'details';
 
-                }
+                }*/
 
             ]
 

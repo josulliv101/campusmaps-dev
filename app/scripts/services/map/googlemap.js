@@ -47,7 +47,7 @@ define([
 
         zoom || (zoom = gMap.getZoom());
 
-        offset || (offset = { x: 0, y: 0 });
+        offset || (offset = this.mapCenterOffset || { x: 0, y: 0 });
 
         if (!ll) return;
 
@@ -472,8 +472,10 @@ console.log('latlng', latlng);
 
         // Include surrounding tiles in case loc ui spills over onto neighbor tile
         locs = MapUtils.getCloseByLocationsFromTileCache(tileoffset.tile, zoom);
-
+debugger;
         locAtLatLng = _.chain(locs)
+
+                       .reject(function(loc) { return loc.hide === true; })
 
                        .map(function(loc) { 
 
@@ -643,12 +645,12 @@ console.log('latlng', latlng);
             cmd = (loc && loc.locationid ? 'Location' : '');
 
             attrs = { details: id, highlight: id, cmd: cmd };
-
-            if (loc && loc.locationid) {
+// Do at global level so works for keyboard control as well
+/*            if (loc && loc.locationid) {
 
                 attrs.latlng = loc.latlng[0] + ',' + loc.latlng[1];
 
-            }
+            }*/
 
             EventDispatcher.trigger('truthupdate', attrs);
 
