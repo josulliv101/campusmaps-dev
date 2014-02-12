@@ -4,11 +4,13 @@ define([
 
     , '_mixins'
 
+    , 'scripts/config'
+
     , 'scripts/moduleManager'
 
     , 'eventdispatcher'
 
-], function ($, _, ModuleManager, EventDispatcher) { 
+], function ($, _, Config, ModuleManager, EventDispatcher) { 
 
     var instance = null;
 
@@ -290,6 +292,33 @@ define([
         options || (options = {});
 
         if (options.el && options.el.toLowerCase() === 'html') return $('html');
+
+    }
+
+    DomManager.prototype.getCenterOffset = function($el) {
+
+        var offset = Config.defaults.theTruth.mapcenteroffset || { x: 0, y: 0 },
+
+            pxCeiling = 1024,
+
+            w, h;
+
+        $el || ($el = this.$root);
+
+        w = $el.outerWidth();
+
+        h = $el.outerHeight();
+
+        // Use config definition when width or height of map area is very large and not a factor (doesn't matter device)
+        if (w > pxCeiling || h > pxCeiling) return offset;
+
+        // Set center at bottom for mobile devices
+        if (ModuleManager.getViewportSize() === 'mobile') return { x: -50, y: (h/2 * .65) };
+
+        // Set center to the right on tablets
+        if (w > 860 || ModuleManager.getViewportSize() === 'tablet') return { x: (w/2 * .45), y: -100 };
+
+        return offset;
 
     }
 

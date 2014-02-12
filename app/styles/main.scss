@@ -12,6 +12,7 @@ body {
 
 #app {
   
+  position: relative;
   width: 100%;
   margin: 12px auto 0;
   height: 100%;
@@ -146,6 +147,22 @@ ul {
     li {
 
       display: inline-block;
+
+    }
+
+    &.secondary {
+
+        position: absolute;
+
+        top: 0;
+
+        right: 0;
+
+        li {
+
+          line-height: 42px;
+
+        }
 
     }
 
@@ -991,6 +1008,8 @@ ul {
         display: block;
 
         width: 100%;
+
+        min-width: 80px;
 
         top: 0;
 
@@ -2269,6 +2288,12 @@ and (max-device-width : 480px) {
   #campusmap {
 
     margin-top: 0;
+
+  }
+
+  .list-menu {
+
+    display: none;
 
   }
 

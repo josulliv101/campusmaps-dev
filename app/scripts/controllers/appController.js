@@ -4,6 +4,8 @@ define([
 
     , 'scripts/config'
 
+    , 'scripts/domManager'
+
     , 'scripts/router'
 
     , 'datastore'
@@ -12,7 +14,7 @@ define([
 
     , 'eventdispatcher'
 
-], function(_, Config, Router, Datastore, AppControllerEventHandlers, EventDispatcher) {
+], function(_, Config, DomManager, Router, Datastore, AppControllerEventHandlers, EventDispatcher) {
 
     'use strict';
 
@@ -71,6 +73,8 @@ define([
 
         options || (options = {});
 
+console.log('...handleResize obj', obj);
+
         // Gets cleared when router handles route -- for Back Button integration.
         if (options.clear === true) theTruth.clear({ silent: true });
 
@@ -82,7 +86,7 @@ define([
 
     AppController.prototype.validateTheTruth = function(attrs) {
 
-        var zoom = theTruth.get('zoom'), maptype = theTruth.get('maptype'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
+        var domManager = DomManager.getInstance(), zoom = theTruth.get('zoom'), maptype = theTruth.get('maptype'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
 
         if (!theTruth) return;
 
@@ -166,11 +170,9 @@ define([
         }
 
         // Used when map is clicked on empty area
-        if (_.has(attrs, 'locationid') && !_.isString(attrs.locationid)) {
+        if (_.has(attrs, 'mapcenteroffset') && !_.isObject(attrs.mapcenteroffset)) {
 
-            //attrs.locationid = '-1';
-
-            //debugger;
+            attrs.mapcenteroffset = domManager.getCenterOffset();
 
         }
 

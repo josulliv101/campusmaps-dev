@@ -3,9 +3,11 @@ define([
 
   'jquery'
 
+  , '../scripts/ModuleManager'
+
   , '../scripts/DomManager'
 
-], function ($, DomManager) {
+], function ($, ModuleManager, DomManager) {
 
   describe('DomManager Tests', function () {
 
@@ -134,6 +136,20 @@ define([
 			expect( ratio.width ).toBe(1);
 
 			expect( ratio.height ).toBe(.5);
+
+		});
+
+		it('should determine the center offset based on div dimensions', function () {
+
+			var offset;
+
+			$('#mydiv').width(320);
+
+			$('#mydiv').height(480);
+
+			offset = dm.getCenterOffset($('#mydiv'));
+
+			expect( offset ).toEqual( { x: 0, y: 120 } );
 
 		});
 

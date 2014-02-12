@@ -269,7 +269,7 @@ define([
 
                     if (keys.length !== 1 || !_.contains(keys, 'latlng')) return;
 
-                    viz.setCenter(changedAttrs.latlng);
+                    viz.setCenter(changedAttrs.latlng, undefined, zoom);
 
                     return true;
 
@@ -282,6 +282,9 @@ define([
 
                     if (keys.length !== 1 || !_.contains(keys, 'mapcenteroffset')) return;
 
+                    viz.mapCenterOffset = centerOffset;
+                  
+/*
                     // Don't like this, handle better way
                     if (locations && _.size(locations) === 1) {
 
@@ -293,7 +296,7 @@ define([
 
                         viz.setCenter(center, centerOffset);
 
-                    }
+                    }*/
 
                     return true;
 

@@ -40,6 +40,18 @@ define([
 
                 //EventDispatcher.trigger('truthupdate', { highlight: '' });
 
+            },
+
+            'click .location' : function(ev) {
+
+                var locationid = $(ev.currentTarget).parent().attr('id');
+
+                ev.preventDefault();
+
+                EventDispatcher.trigger('truthupdate', { details: locationid });
+
+                this.refresh(locationid);
+
             }
 
         },

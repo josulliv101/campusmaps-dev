@@ -36,7 +36,9 @@ define([
 
                 , labelstrategy: 'default'
 
-                , mapcenteroffset: { x: 0, y: 0 }
+                , mapcenteroffset: 'default'
+
+                //, resize: null
                               
             }
 
