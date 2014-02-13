@@ -194,6 +194,28 @@ define([
 
     }
 
+    DomManager.prototype.toMultiLines = function(txt, maxcharacters) {
+
+        var words, lines = [], j = 0;
+
+        maxcharacters || (maxcharacters = 32);
+
+        words = txt.split(" ");
+
+        for (var n = 0; n < words.length; n++) {
+
+            lines[j] || (lines[j] = "");
+
+            lines[j] = lines[j] + words[n] + " ";
+
+            if (lines[j].length > maxcharacters) j++;
+
+        }
+
+        return lines;
+
+    }
+
     // Setting tile divs innerHTML seems best performance
     DomManager.prototype.createLabelHtml = function(model) {
 
@@ -204,6 +226,10 @@ define([
             iconSize = { width: 16, height: 16 },
 
             id = _.getAttr(model, 'locationid'),
+
+            name = _.getAttr(model, 'name'),
+
+            multiline = _.map(this.toMultiLines(name, 12), function(line) { return line + "<br/>"}).join(""),
 
             thumbnail = _.getAttr(model, 'thumbnail'),
 
@@ -217,7 +243,7 @@ define([
 
             img = _.exists(thumbnail) ? '<img class="img-th shadow" src="./app/images/thumbs/' + thumbnail + '" />' : '';
 
-        return "<div class='location " + details + highlight + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon' style='" + iconStyle + "'></div><div class='bd'><div class='txt shadow'>" + _.getAttr(model, 'name') + "<div class='more'>next &gt;</div></div><div class='thumb'>" + img + "</div></div></div>";
+        return "<div class='location " + details + highlight + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon' style='" + iconStyle + "'></div><div class='bd'><div class='txt shadow'>" + multiline + "<div class='more'>next &gt;</div></div><div class='thumb'>" + img + "</div></div></div>";
 
     }
 

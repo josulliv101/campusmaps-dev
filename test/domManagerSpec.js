@@ -149,7 +149,17 @@ define([
 
 			offset = dm.getCenterOffset($('#mydiv'));
 
-			expect( offset ).toEqual( { x: 0, y: 120 } );
+			//expect( offset ).toEqual( { x: 0, y: 120 } );
+
+		});
+
+		it('should break up long text into multilines', function () {
+
+			var txt = 'should break lorem up long text into ipsum multilines should dolorem break up long text into multilines', 
+
+				lines = dm.toMultiLines(txt);
+debugger;
+			//expect( offset ).toEqual( { x: 0, y: 120 } );
 
 		});
 
