@@ -81,17 +81,28 @@ define([
 
             });
 
+            
+
         },
 
         refresh: function() {
 
             var $input = this.$el.find('#searchbox'),
 
-                label = this.model.get('name');// + ' > ' + this.model.get('view');
+                label = this.model.get('name'),
+
+                campus = Datastore.campus(),
+
+                campusname = _.getAttr(campus, 'name'),
+
+                placeholder = 'Search the ' + campusname + ' Campus';
 
             if (!this.model.get('name') || this.model.get('name') === '') label = '';
 
             $input.val(label);
+
+            // Use div so that any html entities get converted to real text
+            $input.attr('placeholder', $('<div />').html(placeholder).text() || 'Search this campus');
 
             return this;
 
@@ -99,9 +110,11 @@ define([
 
         render: function() {
 
+            
+
             this.$el.append(this.template({
 
-                placeholder: 'Search this Campus'
+                placeholder: ''
 
             }));
 

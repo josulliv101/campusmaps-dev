@@ -1,12 +1,44 @@
 <div class="shadow panel panel-campusmaps">
 	<div class="bd spacing">
-		<button class="back" onclick="window.history.back()">back</button>
-		<h3>${data.name} Campus Maps</h3>
+		<button class="close" data-campusmap="cmd:"><span class="lite">close</span> X</button>
+		<h3>Menu</h3>
+
+			<ul>
+			 
+			    <li id="medford-main"><a data-campusmap="campusmap:medford-main" href="#medford-main">Main Map</a> <button class="maps" data-campusmap="cmd:LocationList">View locations (145)</button></li>
+			 
+			    <li id="fletcher" class=""><a data-campusmap="campusmap:fletcher" href="#fletcher">Commencement Map</a> <button class="maps" data-campusmap="cmd:LocationList">View locations (12)</button></li>
+
+<!--
+
+			    <li id="engineering" class=""><a data-campusmap="campusmap:engineering" href="#engineering">Accessibility</a> <button class="maps" data-campusmap="cmd:LocationList">View locations (6)</button></li>
+			 
+			    <li id="green" class=""><a data-campusmap="campusmap:green" href="#green">Athletics</a> <button class="maps" data-campusmap="cmd:LocationList">View locations (13)</button></li>
+-->
+			
+			
+			</ul>
+<!--
 		<ul>
 			<% _.each(data.maps, function(map) { %> 
 			    <li id="<%= map.mapid %>" <% if (map.selected) { %>class="active"<% } %>><a href="#<%= map.mapid %>" data-campusmap="campusmap:<%= map.mapid %>">${map.name}</a> <button data-campusmap="cmd:LocationList" class="maps">View locations (${map.locationTotal})</button></li>
 			<% }); %>
 			<% if (data.maps.length === 0) { %><li>No maps yet.</li><% } %>
 		</ul>
+-->		
+
+		<p class="callout-secondary">
+
+			<strong>More:</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+
+			<a href="#" data-campusmap="cmd:CampusMapList_Accessibility">Accessibility</a> | 
+
+			<a href="#" data-campusmap="cmd:CampusMapList_Pdfs">Printable Maps</a> | 
+
+			<a href="#" data-campusmap="cmd:CampusMapList_Tags">Popular Tags</a> | 
+
+			<a href="#" data-campusmap="cmd:CampusMapList_panelA">Something Else</a>
+
+		</p>
 	</div>
 </div>

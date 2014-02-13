@@ -20,17 +20,22 @@
 </head>
 <body>
 	<div id="app">
-		<ul class="list-menu">
-			<li><button class="button2" data-campusmap='cmd:CampusMapList'>Menu</button></li>
-			<li><button class="button2" data-campusmap='cmd:panelA'>About</button></li>
-		</ul>	
-		<div id="campusmap" tabindex=0>
+		<ul class="list-menu primary">
+			<li><a href="#" data-campusmap='cmd:CampusMapList'>Menu</a></li>
+			<li><a href="#" data-campusmap='cmd:panelA'>Settings</a></li>
+		</ul>
+		<ul class="list-menu secondary">
+			
+			<li><a href="#" data-campusmap='cmd:panelA'>Take a Tour</a></li>
+			<li><a href="#" data-campusmap='cmd:panelA'>About</a></li>
+		</ul>
+		<div id="campusmap" tabindex="0">
 			<div id="map-wrap">
 				<div id="controls-zoom" class="shadow">
-					<button class="btn plus" data-campusmap='zoom:+'>+</button>
-					<button class="btn minus" data-campusmap='zoom:-'>-</button>
+					<button id="btn-zoomin" class="btn plus" data-campusmap='zoom:+'><span class="sr-only" for="btn-zoomin">Zoom In</span>+</button>
+					<button id="btn-zoomout" class="btn minus" data-campusmap='zoom:-'><span class="sr-only" for="btn-zoomout">Zoom Out</span>-</button>
 				</div>
-				<div id="map-canvas"></div>
+				<div id="map-canvas" aria-hidden="true"></div>
 			</div>
 		</div>
 	</div>
@@ -83,67 +88,5 @@ requirejs.onError = function (err) {
 
 	</script>
 
-	<div id="controls">
-		<div id="abc">
-			<label>a</label>
-			<label>b</label>
-			<label>c</label>
-			<label>d</label>
-			<label>e</label>
-			<label>f</label>
-			<label>g</label>
-			<label>h</label>
-			<label>i</label>
-			<label>j</label>
-			<label>k</label>
-			<label>l</label>
-			<label>m</label>
-			<label>n</label>
-			<label>o</label>
-			<label>p</label>
-			<label>q</label>
-			<label>r</label>
-			<label>s</label>
-			<label>t</label>
-			<label>u</label>
-			<label>v</label>
-			<label>w</label>
-			<label>x</label>
-			<label>y</label>
-			<label>z</label>
-		</div>
-		<button data-campusmap='cmd:CampusList'>View CampusList</button>
-
-		<button data-campusmap='cmd:panelA'>View A</button>
-
-		<button data-campusmap='cmd:panelB'>View B</button>
-
-		<button data-campusmap='cmd:LocationList'>View LocationList</button>
-
-		<button data-campusmap='cmd:'>View None</button>
-
-		<button data-campusmap='cmd:error'>View Invalid</button>
-		
-		<button data-campusmap='iconstrategy:default'>Icons Default</button>
-
-		<button data-campusmap='iconstrategy:fletcher'>Icons Fletcher</button>
-
-		<button data-campusmap='iconstrategy:clear'>Icons Clear</button>
-
-		<button data-campusmap='labelstrategy:default'>Labels Default</button>
-
-		<button data-campusmap='labelstrategy:label-fletcher'>Labels Fletcher</button>
-
-		<button data-campusmap='zoom:17'>Z17</button>
-
-		<button data-campusmap='zoom:16'>Z16</button>
-
-		<button data-campusmap='maptype:satellite,iconstrategy:clear'>MapType: Satellite</button>
-
-		<button class="back" onclick="window.history.back()">back</button>
-
-	</div>
-
-	
 </body>
 </html>

@@ -57,7 +57,7 @@ define([
 
             if (_.has(changedAttributes, 'cmd')) EventDispatcher.trigger('cmd', changedAttributes.cmd);
 
-            if (_.has(changedAttributes, 'campusid')) EventDispatcher.trigger('change:campus', changedAttributes.campusid);
+            //if (_.has(changedAttributes, 'campusid')) EventDispatcher.trigger('change:campus', changedAttributes.campusid);
 
             if (_.has(changedAttributes, 'campusmap')) EventDispatcher.trigger('change:campusmap', changedAttributes.campusmap);
 
@@ -68,6 +68,14 @@ define([
             if (_.has(changedAttributes, 'photowide')) EventDispatcher.trigger('change:photowide', changedAttributes.photowide);
 
             if (_.has(changedAttributes, 'panoramas')) EventDispatcher.trigger('change:panoramas', changedAttributes.panoramas);
+
+            if (_.has(changedAttributes, 'campusid')) {
+
+                this.campusid = changedAttributes.campusid;
+
+                EventDispatcher.trigger('change:campusid', changedAttributes.campusid);
+
+            }
 
             if (_.has(changedAttributes, 'detailsview')) {
 
@@ -229,7 +237,7 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ detailsview: this.detailsview, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
+        panel.model.set({ campusid: this.campusid, detailsview: this.detailsview, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 
