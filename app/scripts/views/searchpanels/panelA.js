@@ -18,6 +18,10 @@ define([
 
         template: JST['app/scripts/templates/searchpanels/panelA.ejs'],
 
+        id: 'PanelA',
+
+        title: function() { return 'This is Panel A'; },
+
 /*        initialize: function() {
 
         },

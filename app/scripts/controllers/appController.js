@@ -117,6 +117,16 @@ console.log('...handleResize obj', obj);
 
         }
 
+        if (_.has(attrs, 'cmd')) {
+
+            if (_.isEmpty(attrs.cmd)) {
+
+                attrs.searchboxlabel = '';
+
+            }
+
+        }
+
         if (_.has(attrs, 'panoramas')) {
 
             if (!_.isEmpty(panoramas)) {

@@ -14,6 +14,8 @@ define([
 
         id: 'CampusMapList',
 
+        title: 'Menu',
+
         initialize: function() {
 
             Base.prototype.initialize.call(this);

@@ -1,4 +1,5 @@
 <div class="shadow panel">
+	<div class="navbar"><em>Search by building name, address or keyword.</em></div>
 	<div class="bd spacing">
 		<div>Searching for: <em>${data.query}</em></div>
 		<ul class="list">
@@ -7,7 +8,7 @@
 			<% }); %>
 			<% if (data.results.length === 0) { %><li>No results found.</li><% } %>
 		</ul>
-		<p class="help">Search by building name, address or keyword.</p>
+		
 	</div>
 </div>
 <!--

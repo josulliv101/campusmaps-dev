@@ -524,6 +524,7 @@ ul {
 	position: absolute;
 	width: 48%;
   max-width: 430px;
+  min-width: 320px;
 	z-index: 101;
 	top: 12px;
 	left: 12px;
@@ -651,6 +652,18 @@ ul {
                   
                   margin-bottom: -2px;
                   
+                }
+
+                .navbar {
+
+                  background: #999;
+
+                  color: #fff;
+
+                  font-size: 12px;
+
+                  padding: 4px 12px;
+
                 }
                 
                 .bd {
@@ -827,7 +840,7 @@ ul {
 
               &.panel-campuses, &.panel-campusmaps, &.panel-locations {
 
-                margin-top: 9px;
+                /*margin-top: 9px;*/
 
                 max-height: 400px;
                 

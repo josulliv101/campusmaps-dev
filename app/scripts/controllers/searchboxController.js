@@ -63,11 +63,21 @@ define([
 
             if (_.has(changedAttributes, 'locationid')) EventDispatcher.trigger('change:locationid', changedAttributes.locationid);
 
-            if (_.has(changedAttributes, 'details')) EventDispatcher.trigger('change:details', changedAttributes.details);
+            //if (_.has(changedAttributes, 'details')) EventDispatcher.trigger('change:details', changedAttributes.details);
 
             if (_.has(changedAttributes, 'photowide')) EventDispatcher.trigger('change:photowide', changedAttributes.photowide);
 
             if (_.has(changedAttributes, 'panoramas')) EventDispatcher.trigger('change:panoramas', changedAttributes.panoramas);
+
+            if (_.has(changedAttributes, 'searchboxlabel')) EventDispatcher.trigger('change:searchboxlabel', changedAttributes.searchboxlabel);
+
+            if (_.has(changedAttributes, 'details')) {
+
+                this.details = changedAttributes.details;
+
+                EventDispatcher.trigger('change:details', changedAttributes.details);
+
+            }
 
             if (_.has(changedAttributes, 'campusid')) {
 
@@ -237,9 +247,12 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ campusid: this.campusid, detailsview: this.detailsview, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
+        panel.model.set({ campusid: this.campusid, details: this.details, detailsview: this.detailsview, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
+
+        // The first panel always controls the searchbox label
+        if (position === 0) EventDispatcher.trigger('truthupdate', { searchboxlabel: this.view.getSearchboxLabel(panel) });
 
         // Panel must be in close state in order to open
         if (state === 'close') return AnimationConstructor.prototype.open.call(anim, panel, position);

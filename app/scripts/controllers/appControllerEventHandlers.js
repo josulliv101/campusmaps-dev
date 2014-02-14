@@ -67,7 +67,9 @@ define([
 
                 controller.handleAttrMapCenterOffset,
 
-                controller.handleAttrHighlight
+                controller.handleAttrHighlight,
+
+                controller.handleAttrFocusElement
 
             ];
 
@@ -279,7 +281,7 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             }
 
-            domManager.cssFlag(classname, { remove: !campusmap.details });
+            //domManager.cssFlag(classname, { remove: !campusmap.details });
 
             return true;
 
@@ -488,9 +490,18 @@ console.log('...handleAttrDetails', theTruth, val, key);
         // Handle at a local controller level
         AppController.prototype.handleAttrCmd = function(model, val, key) {
 
+            var classname, remove = false;
+
             if (key !== 'cmd') return;
 
+            classname = 'details';
+
+            if (val === '' || val.indexOf('Results') === 0) remove = true; 
+
             console.log('...handleAttrCmd', model.cid, val, key);
+
+            // Set flag in DOM for searchbox vs non-searchbox 
+            domManager.cssFlag(classname, { remove: remove });
 
             return true;
 
@@ -508,6 +519,20 @@ console.log('...handleAttrDetails', theTruth, val, key);
             return true;
 
         }
+
+        AppController.prototype.handleAttrFocusElement = function(model, val, key) {
+
+            if (key !== 'focuselement') return;
+
+            console.log('...handleAttrFocusElement', model.cid, val, key);
+
+            domManager.focus(val);
+
+            return true;
+
+        }
+
+
 
         // Handle at global controller level, then delegate to viz controller
         AppController.prototype.handleAttrMapType = function(model, val, key) {

@@ -87,6 +87,14 @@ define([
 
     }
 
+    DomManager.prototype.focus = function(el) {
+
+        var $el = el && el !== '' ? $(el) : this.$root;
+
+        return $el.focus();
+
+    }
+
     // Expect <div>
     // 
     //          <label id="item1">label1</label>

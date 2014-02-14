@@ -44,7 +44,7 @@ define([
 
             var model = this.model;
 
-            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels', 'refresh', 'handleBtnClick');
+            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels', 'refresh', 'handleBtnClick', 'getSearchboxLabel');
 
             _.bindAll(Animation.prototype, 'open', 'isOpen_');
 
@@ -55,13 +55,27 @@ define([
 
             this.listenTo(EventDispatcher, 'change:details', function(locationid) {
 
-                var campus = Datastore.campus(),
+/*                var campus = Datastore.campus(),
 
                     map = Datastore.map(campus),
 
                     location = map.details;
 
                 model.set({ name: !location ? '' : location.name }, { silent: true });
+
+                this.refresh();
+*/
+            });
+
+            this.listenTo(EventDispatcher, 'change:searchboxlabel', function(label) {
+
+/*                var campus = Datastore.campus(),
+
+                    map = Datastore.map(campus),
+debugger;
+                    location = map.details;
+*/
+                model.set({ name: !label ? '' : label }, { silent: true });
 
                 this.refresh();
 
@@ -81,8 +95,17 @@ define([
 
             });
 
-            
+        },
 
+        getSearchboxLabel: function(view) {
+
+            var title = view.title;
+
+            if (title && _.isFunction(title)) return title();
+
+            if (title && _.isString(title)) return title;
+
+            return view.id || '';
         },
 
         refresh: function() {
@@ -175,7 +198,8 @@ define([
             //alert('y');
 
             this.$el.focus();
-            //EventDispatcher.trigger('truthupdate', { cmd: '', details: '' });
+
+            EventDispatcher.trigger('truthupdate', { cmd: '', details: '' });
             
         },
 

@@ -16,6 +16,8 @@ define([
 
         id: 'Location',
 
+        title: function() {},
+
         events: {
 
             'click .occupant' : 'handleOccupantClick'
@@ -42,6 +44,18 @@ define([
 
                        ], 'order');
 
+            this.title = function() { 
+
+                var campus = Datastore.campus(),
+
+                    map = Datastore.map(campus),
+
+                    location = Datastore.location(map, model.get('details'));
+
+                return location.name || '..'; 
+
+            };
+
             model.set('departmentsoffices', departmentsoffices, { silent: true });
 
             this.listenTo(EventDispatcher, 'change:detailsview', function(panelid) {
@@ -49,6 +63,20 @@ define([
                 model.set('detailsview', panelid, { silent: true });
 
                 this.refresh(panelid);
+
+                //panelid === 'photo' ? this.showPanoramaMarkers() : this.hidePanoramaMarkers();
+
+            });
+
+            this.listenTo(EventDispatcher, 'change:details', function(locationid) {
+debugger;
+                var campus = Datastore.campus(),
+
+                map = Datastore.map(campus),
+
+                location = map.details;
+
+                model.set('label', locationid, { silent: true });
 
                 //panelid === 'photo' ? this.showPanoramaMarkers() : this.hidePanoramaMarkers();
 

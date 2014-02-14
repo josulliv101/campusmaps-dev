@@ -19,9 +19,19 @@ define([
 
         id: 'results',
 
+        title: function() {},
+
         events: {
 
 
+
+        },
+
+        initiialize: function() {
+
+            Base.prototype.initialize.call(this);
+
+            this.title = function() { var t = this; debugger; return this.model.get('query'); };
 
         },
 
@@ -53,8 +63,6 @@ define([
             if (q.length > 2) results = Filter.filter(q, locations, 'name')
 
             json.results = results;
-
-debugger;
 
             return { data: json };
 
