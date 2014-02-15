@@ -38,6 +38,12 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
+input:disabled {
+
+  background: #fff;
+
+}
+
 img {
   
   display: block;
@@ -668,6 +674,12 @@ ul {
                 
                 .bd {
                   
+                  h3 {
+                    
+                    display: none;
+                    
+                  }
+
                   &.card {
 
                     position: relative;
