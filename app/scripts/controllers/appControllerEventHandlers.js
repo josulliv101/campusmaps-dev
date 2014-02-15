@@ -496,7 +496,7 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             classname = 'details';
 
-            if (val === '' || val.indexOf('Results') === 0) remove = true; 
+            if (val === '') remove = true; // || val.indexOf('Results') === 0
 
             console.log('...handleAttrCmd', model.cid, val, key);
 
