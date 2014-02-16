@@ -22,22 +22,6 @@ define([
 
         title: function() { return 'This is Panel A'; },
 
-/*        initialize: function() {
-
-        },
-
-        render: function() {
-
-            console.log('searchpanel model', this.model.get);
-
-            this.$el.html(this.template({
-
-
-            }));
-
-            return this;
-        }
-*/
     });
 
     return SearchPanelPanelAView;

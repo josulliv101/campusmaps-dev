@@ -158,7 +158,7 @@ define([
 			var txt = 'should break lorem up long text into ipsum multilines should dolorem break up long text into multilines', 
 
 				lines = dm.toMultiLines(txt);
-debugger;
+
 			//expect( offset ).toEqual( { x: 0, y: 120 } );
 
 		});

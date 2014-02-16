@@ -408,6 +408,30 @@ define(['_mixins', '../scripts/services/data/Datastore-jsonp'], function (_, Dat
 
       });
 
+
+      it('should get all tags for a campus', function () {
+
+
+        DatastoreJSON.fetch();
+
+        waitsFor(function() {
+
+          return DatastoreJSON.campusList().length > 0;
+
+        }, "fetch data", 5000);
+
+        runs(function () {
+
+          var medfordmap = DatastoreJSON.map('medford1'),
+
+            tags = DatastoreJSON.tags(medfordmap);
+
+          expect(tags['dormitory'].length).toBe(21);
+
+        });
+
+      });
+
     });
 
 /*

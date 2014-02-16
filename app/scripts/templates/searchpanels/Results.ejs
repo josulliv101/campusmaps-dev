@@ -1,14 +1,26 @@
 <div class="shadow panel">
-	<div class="navbar"><em>Search by building name, address or keyword.</em></div>
+	<div class="navbar"><em id="q">${data.query}</em></div>
 	<div class="bd spacing">
-		<div>Searching for: <em id="q">${data.query}</em></div>
-		<ul class="list">
+		<!--<div>Searching for: <em id="q">${data.query}</em></div>-->
+		<div id="results-total" class="label-lite"><em>${data.resultsLabel}</em></div>
+		<ul class="list list-results">
 			<% _.each(data.results, function(loc) { %> 
 			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>>${loc.name} <button data-campusmap="details:<%= loc.locationid %>" class="locations">View details</button></li>
 			<% }); %>
-			<% if (data.results.length === 0) { %><li>No results found.</li><% } %>
+			<% if (data.results &&data.results.length === 0) { %><li>No results found.</li><% } %>
 		</ul>
-		
+
+		<% if (data.tags && data.tags.length > 0) { %>
+			<h4 class="header-tags">Tags:</h4>
+			<ul class="list-tags">
+				<% _.each(data.tags, function(tag, index) { %> 
+				    <li id="tag-<%= index %>">${tag.key}</li>
+				<% }); %>
+			</ul>
+		<% } %>
+
+
+		<button class="close close-just-this" data-campusmap='cmd:'>cancel</button>
 	</div>
 </div>
 <!--

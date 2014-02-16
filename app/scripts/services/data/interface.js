@@ -1,6 +1,8 @@
 define([
 
-     '_mixins'
+    'jquery'
+
+    , '_mixins'
 
     , 'backbone'
 
@@ -8,7 +10,7 @@ define([
 
     , 'eventdispatcher'
 
-], function(_, Backbone, StrategyManager, EventDispatcher) {
+], function($, _, Backbone, StrategyManager, EventDispatcher) {
 
     'use strict';
 
@@ -298,6 +300,41 @@ function() {   },
                     )
 
                 ),
+
+                tags: 
+
+                    _.memoize(function(map) {
+
+                        var locs = _.getAttr(map, 'locations'), tags;
+
+                        tags = _.chain(locs)
+
+                                .reject(function(loc) { return loc.tags === undefined; })
+
+                                .map(function(loc) { 
+
+                                    return _.map(loc.tags.split(','), function(tag) { return { loc: loc, tag: $.trim(tag.toLowerCase()) }})
+
+                                })
+
+                                .flatten()
+
+                                //.tap(function(tags) { _.each(tags, function(tag) { tag = '...'+tag.toLowerCase(); }) })
+                                // Move to reuseable trim method
+                                //.map(function(obj) { return $.trim(tag.toLowerCase()); })
+
+                                .groupBy('tag')
+
+                                // Cleanup
+                                .each(function(val, key, list) { list[key] = _.map(val, function(obj) { return obj.loc; }); })
+
+                                .value();
+
+                        return tags;
+
+                    }, function(map) { return map.mapid; })
+
+                ,
 
                 locations: 
 

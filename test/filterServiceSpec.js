@@ -15,7 +15,9 @@ define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filte
 
         { name: 'Houston Hall', id: 'm002', locationid: 'abc', descr: 'my test descr abc' },
 
-        { name: '80 George Street', id: 'm003', locationid: 'hij', descr: 'my test descr' }
+        { name: '80 George Street', id: 'm003', locationid: 'hij', descr: 'my test descr' },
+
+        { name: 'test SHall', id: 'm004', locationid: 'lmn', descr: 'my descr 2' }
 
       ]);
 
@@ -61,19 +63,19 @@ define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filte
 
         results = Filter.filter('m', locsCollection.models, [f]);
 
-        expect(results.length).toEqual(3);
+        expect(results.length).toEqual(4);
 
         results = Filter.filter('2', locsCollection.models, [f]);
 
-        expect(results.length).toEqual(1);
+        expect(results.length).toEqual(0); // Only matches startswith
 
       });
 
       it('should filter on multiple attributes', function () {
 
-        results = Filter.filter('ou', locsCollection.models, ['name', 'descr']);
+        results = Filter.filter('test', locsCollection.models, ['name', 'descr']);
 
-        expect(results.length).toEqual(1);
+        expect(results.length).toEqual(4);
 
         results = Filter.filter('abc', locsCollection.models, ['locationid', 'descr']);
 
@@ -112,6 +114,17 @@ define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filte
 
         expect(results.length).toEqual(2);
  
+
+      });
+
+      it('should match only on beginings of words', function () {
+
+        var results = Filter.filter('Hall', locsCollection.models, 'name');
+
+        expect(results).toBeDefined();
+
+        expect(results.length).toEqual(2);
+
 
       });
 

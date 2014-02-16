@@ -95,6 +95,18 @@ define([
 
     }
 
+    DomManager.prototype.disable = function(el, val) {
+
+        var $el = el && el !== '' ? $(el) : null;
+
+        _.exists(val) || (val = true);
+
+        if ($el) $el[0].disabled = val;
+
+        return $el;
+
+    }
+
     // Expect <div>
     // 
     //          <label id="item1">label1</label>

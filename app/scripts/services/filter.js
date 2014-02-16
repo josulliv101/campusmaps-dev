@@ -23,9 +23,11 @@
 
                 return function(loc) { 
                     
-                    var val = _.getAttr(loc, attr);
+                    var val = _.getAttr(loc, attr) && _.getAttr(loc, attr).toLowerCase(),
 
-                    return _.exists(val) && val.indexOf(query_.term) > -1; 
+                        words = _.chain(val.split(' ')).reject(function(word) { return _.contains(['and', 'the', 'an', 'at'], word); }).value();
+
+                    return _.exists(val) && _.some(words, function(word) { return word.indexOf(query_.term) === 0; }); //val.indexOf(query_.term) > -1; 
 
                 };
 
@@ -52,7 +54,7 @@
         function filter_(q, locations, filters) {
 
             // Array of filter functions to apply to the locations
-            var fns;
+            var fns, locs = [];
 
             if (!_.exists(locations) || !_.isArray(locations) ) return [];
 
@@ -64,9 +66,9 @@
             fns = filterParamsToFns_(filters);
 
             // Apply the filters
-            _.each(fns, function(fn) { locations = _.filter(locations, fn); });
+            _.each(fns, function(fn, index) { locs[index] = _.filter(locations, fn); });
 
-            return locations;
+            return _.chain(locs).flatten().uniq().value();
 
         }
 

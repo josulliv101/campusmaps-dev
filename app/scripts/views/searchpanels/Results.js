@@ -19,7 +19,11 @@ define([
 
         id: 'results',
 
-        title: function() {},
+        title: function() { 
+
+            return this.model.get('query');// || '< enter search term >'; 
+
+        },
 
         events: {
 
@@ -33,7 +37,7 @@ define([
 
             Base.prototype.initialize.call(this);
 
-            this.title = function() { return self.model.get('query'); };
+            _.bindAll(this, 'title');
 
             this.listenTo(EventDispatcher, 'change:query', function(q) {
 
@@ -52,9 +56,9 @@ define([
 
         refresh: function() {
 
-            var $q = this.$el.find('#q');
+            var $q = this.$el.find('#q'), q = this.model.get('query');
 
-            $q.html(this.model.get('query') || '(start typing above)');
+            $q.html( q && !_.isEmpty(q) || '(start typing above)');
 
         },
 
@@ -66,15 +70,43 @@ define([
 
                 locations = Datastore.locations(map),
 
-                q = this.model.get('query') || '<span class="label-light">(start typing above)</span>',
+                showFirst = 10, q = this.model.get('query'),
 
-                json = { query: q },
+                txt = q && !_.isEmpty(q) ? 'Searching the ' + _.getAttr(campus, 'name') + ' campus: <label>' + q + '</label>' : 'Enter a search term in the textbox above.',
 
-                results = [];
+                json = { query: txt },
 
-            if (q.length > 1) results = Filter.filter(q, locations, 'tags')
+                results = [], tags = [], tagsAll = _.chain(Datastore.tags(map)).map(function(val, key) { return { key: key, val: val }; }).value();//, tagsKeys = _.chain(tagsAll).keys().sortBy().value();
 
-            json.results = results;
+            if (q && q.length > 0) results = _.chain(Filter.filter(q, locations, 'name'))
+
+                                         .sortBy(function(loc) { return loc && loc.emphasis; })
+
+                                         .reverse()
+
+                                         //.first(8)
+
+                                         .value();
+
+                //_.first(, 8);
+
+            if (q && q.length > 0) tags = _.first(Filter.filter(q.toLowerCase(), tagsAll, 'key'), 5);
+
+            json.tags = tags;
+debugger;
+            json.campusname = _.getAttr(campus, 'name');
+
+            json.totalresults = results.length;
+
+            json.results = _.chain(results).first(showFirst).sortBy('name').value();
+
+            json.resultsLabel = results.length === json.results.length ? 'Total results: ' + results.length : 'Showing: ' + json.results.length + ' of ' + results.length + ' results'
+
+            if (json.results.length === 0) json.resultsLabel = '';
+
+            json.showingtotal = results.length;
+
+            
 
             return { data: json };
 

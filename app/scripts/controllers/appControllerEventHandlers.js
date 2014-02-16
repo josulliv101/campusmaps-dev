@@ -496,12 +496,15 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             classname = 'details';
 
-            if (val === '') remove = true; // || val.indexOf('Results') === 0
+            if (val === '' || val.indexOf('Results') === 0) remove = true; // || val.indexOf('Results') === 0
 
             console.log('...handleAttrCmd', model.cid, val, key);
 
             // Set flag in DOM for searchbox vs non-searchbox 
             domManager.cssFlag(classname, { remove: remove });
+
+            // Move to view
+            domManager.disable('#searchbox', !remove);
 
             return true;
 

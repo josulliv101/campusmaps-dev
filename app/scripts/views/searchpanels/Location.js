@@ -16,7 +16,17 @@ define([
 
         id: 'Location',
 
-        title: function() {},
+        title: function() { 
+
+            var campus = Datastore.campus(),
+
+                map = Datastore.map(campus),
+
+                location = Datastore.location(map, this.model.get('details'));
+
+            return location.name || '..'; 
+
+        },
 
         events: {
 
@@ -32,6 +42,8 @@ define([
 
             Base.prototype.initialize.call(this);
 
+            _.bindAll(this, 'title');
+
             this.photowide = '';
 
             this.nav = _.sortBy([
@@ -44,17 +56,6 @@ define([
 
                        ], 'order');
 
-            this.title = function() { 
-
-                var campus = Datastore.campus(),
-
-                    map = Datastore.map(campus),
-
-                    location = Datastore.location(map, model.get('details'));
-
-                return location.name || '..'; 
-
-            };
 
             model.set('departmentsoffices', departmentsoffices, { silent: true });
 
