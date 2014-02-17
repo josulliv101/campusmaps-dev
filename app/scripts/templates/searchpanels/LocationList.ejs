@@ -1,11 +1,11 @@
 <div class="shadow panel panel-locations">
-	<div class="bd spacing">
+	<div class="bd spacing-full">
 		<button class="back" onclick="window.history.back()">back</button>
 		<h3>Campus: ${data.name}</h3>
 
 		<h4>Map: ${data.map.name }</h4> 
 
-		<ul class="list">
+		<ul class="list list-striped">
 			<% _.each(data.map.locations, function(loc) { %> 
 			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>><a class="location" href="#${loc.name}" >${loc.name}</a> <button data-campusmap="details:<%= loc.locationid %>,cmd:Location" class="locations">View details</button></li>
 			<% }); %>

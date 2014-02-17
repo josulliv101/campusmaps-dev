@@ -293,6 +293,87 @@ ul {
 
   }
 
+  &.list-striped {
+
+    li {
+      
+      padding: 0;
+
+      font-size: 16px;
+
+      position: relative;
+
+      &:nth-child(2n + 1) {
+
+          background: #f8f8f8;
+
+      }
+
+      &.active {
+        
+        a {
+
+          background: rgba(49, 114, 174, .14) !important; /* rgba(49, 114, 174, 1) #3172AE */
+
+          color: #3172AE !important; 
+
+          &:hover, &:focus {
+
+            /*color: #fff;
+            &:after {
+               content:  "";
+            }
+*/
+          } 
+                  
+        }
+
+      }
+
+      a {
+        
+        padding: 6px 12px;
+
+        display: block;
+
+        color: #999;
+
+        text-decoration: none;
+
+        &:hover, &:focus {
+          
+          background: rgba(49, 114, 174, 0);
+
+          color: #3172AE;
+
+          text-decoration: none;
+
+          &:after {
+
+             content:  " \003E ";
+
+          }
+
+        }
+
+      }
+
+      button {
+        
+        position: absolute;
+
+        float: none;
+
+        top: 0;
+
+        right: 0;
+        
+      }
+
+    }
+
+  }
+
   &.list-tags {
     
     display: inline-block;
@@ -842,7 +923,7 @@ ul {
 
                 .navbar {
 
-                  background: #999;
+                  background: #3172AE;
 
                   color: #fff;
 
@@ -854,6 +935,12 @@ ul {
                 
                 .bd {
                   
+                  &.spacing-full {
+
+                    padding-top: 32px;
+
+                  }
+
                   h3 {
                     
                     display: none;
@@ -1052,7 +1139,7 @@ ul {
 
                   .maps, .locations {
 
-                    display: inline-block;
+                    display: inline-block !important;
 
                   }
 

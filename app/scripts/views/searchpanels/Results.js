@@ -27,7 +27,17 @@ define([
 
         events: {
 
+            'click .location' : function(ev) {
 
+                var locationid = $(ev.currentTarget).parent().attr('id');
+
+                ev.preventDefault();
+
+                EventDispatcher.trigger('truthupdate', { details: locationid });
+
+                this.refresh(locationid);
+
+            }
 
         },
 
@@ -54,7 +64,7 @@ define([
                 console.log('change:query', qt);
 
                 model.set({ querytype: qt }, { silent: true });
-debugger;
+
                 self.render();
 
             });
@@ -64,11 +74,15 @@ debugger;
 
         template: JST['app/scripts/templates/searchpanels/Results.ejs'],
 
-        refresh: function() {
+        refresh: function (locationid) {
 
-            var $q = this.$el.find('#q'), q = this.model.get('query');
+            if (!_.isString(locationid)) return;
 
-            $q.html( q && !_.isEmpty(q) || '(start typing above)');
+            // Remove existing active flag
+            this.$('.active').removeClass('active');
+
+            // Add it
+            this.$('#' + locationid).addClass('active');
 
         },
 
@@ -126,7 +140,7 @@ debugger;
 
             json.showingtotal = results.length;
 
-            
+            json.showtags = querytype !== 'tag';
 
             return { data: json };
 
