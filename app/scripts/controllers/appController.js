@@ -86,7 +86,7 @@ console.log('...handleResize obj', obj);
 
     AppController.prototype.validateTheTruth = function(attrs) {
 
-        var domManager = DomManager.getInstance(), zoom = theTruth.get('zoom'), maptype = theTruth.get('maptype'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
+        var q, domManager = DomManager.getInstance(), zoom = theTruth.get('zoom'), maptype = theTruth.get('maptype'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
 
         if (!theTruth) return;
 
@@ -112,6 +112,25 @@ console.log('...handleResize obj', obj);
                 attrs.detailsview = '';
 
                 attrs.panoramas = [];
+
+            }
+
+        }
+
+        if (_.has(attrs, 'query')) {
+
+            // Reset
+            attrs.querytype = '';
+
+            attrs.searchboxlabel = attrs.query;
+
+            //attrs.querytype = encodeURIComponent(attrs.querytype);
+
+            if (attrs.query.indexOf('#') === 0) {
+                
+                //attrs.query = attrs.query.substring(5);
+
+                attrs.querytype = 'tag';
 
             }
 
@@ -240,7 +259,7 @@ console.log('...handleResize obj', obj);
 
         console.log('querystring', querystring, theTruth.attributes);
 
-        this.router.navigate(querystring, { trigger: false });
+        if (_.has(changed, 'cmd')) this.router.navigate(querystring, { trigger: false });
 
         // The Truth changes get sent to Component-level controllers for further handling
         EventDispatcher.trigger('delegateTruth', changed, previous);

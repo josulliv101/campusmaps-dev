@@ -69,7 +69,9 @@ define([
 
                 controller.handleAttrHighlight,
 
-                controller.handleAttrFocusElement
+                controller.handleAttrFocusElement,
+
+                controller.handleAttrFeatured
 
             ];
 
@@ -167,6 +169,48 @@ define([
             return true;
 
         }
+
+        AppController.prototype.handleAttrFeatured = function(model, val, key) {
+
+            var campus, campusmap, locs, tag;
+
+            // Add a 'featured' tag to each location. These locations will be exposed the same as a ny other tag.
+
+            if (key !== 'featured') return;
+
+            tag = 'featured';
+
+            console.log('...handleAttrFeatured', model.cid, val, key);
+
+            campus = Datastore.campus();
+
+            campusmap = Datastore.map(Datastore.campus());
+
+            locs = _.chain(val.split(','))
+
+                    .map(function(id) { return Datastore.location(campusmap, id); })
+
+                    .reject(function(loc) { return loc === undefined; })
+
+                    .tap(function (all) { _.each(all, function(loc) {
+
+                        // Featured property used in icon strategy if needed
+                        loc.featured = true;
+
+                        loc.tags = _.isEmpty(loc.tags) ? tag : ', ' + tag;
+
+                    }); })
+
+                    .value();
+
+            // Flag campus as having featured loc
+            if (_.isArray(locs) && locs.length > 0) campus.set({ featured: locs.length }, { silent: true });
+debugger;
+            return true;
+
+        }
+
+        
 
         // Handle a custom map
         AppController.prototype.handleAttrCustomCampusMap = function(model, val, key) {
@@ -490,21 +534,25 @@ console.log('...handleAttrDetails', theTruth, val, key);
         // Handle at a local controller level
         AppController.prototype.handleAttrCmd = function(model, val, key) {
 
-            var classname, remove = false;
+            var classname, remove = false, panelsClosed = false;
 
             if (key !== 'cmd') return;
 
             classname = 'details';
 
-            if (val === '' || val.indexOf('Results') === 0) remove = true; // || val.indexOf('Results') === 0
+            if (val.indexOf('Results') === 0) remove = true; // || val.indexOf('Results') === 0
+
+            if (val === '') panelsClosed = true;
 
             console.log('...handleAttrCmd', model.cid, val, key);
 
             // Set flag in DOM for searchbox vs non-searchbox 
             domManager.cssFlag(classname, { remove: remove });
 
+            domManager.cssFlag('panels-closed', { remove: !panelsClosed });
+
             // Move to view
-            domManager.disable('#searchbox', !remove);
+            domManager.disable('#searchbox', !remove && val !== '');
 
             return true;
 

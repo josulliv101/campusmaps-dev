@@ -49,6 +49,16 @@ define([
 
             });
 
+            this.listenTo(EventDispatcher, 'change:querytype', function(qt) {
+
+                console.log('change:query', qt);
+
+                model.set({ querytype: qt }, { silent: true });
+debugger;
+                self.render();
+
+            });
+
         },
 
 
@@ -76,9 +86,19 @@ define([
 
                 json = { query: txt },
 
+                querytype = this.model.get('querytype') || '',
+
                 results = [], tags = [], tagsAll = _.chain(Datastore.tags(map)).map(function(val, key) { return { key: key, val: val }; }).value();//, tagsKeys = _.chain(tagsAll).keys().sortBy().value();
 
-            if (q && q.length > 0) results = _.chain(Filter.filter(q, locations, 'name'))
+            if (!q) q = '';
+
+            if (q.indexOf('#') === 0) {
+                
+                q = q.substring(1);
+
+            }
+
+            if (q && q.length > 0) results = _.chain(querytype === 'tag' ? Filter.filter(q, locations, 'tags') : Filter.filter(q, locations, 'name'))
 
                                          .sortBy(function(loc) { return loc && loc.emphasis; })
 
@@ -93,7 +113,7 @@ define([
             if (q && q.length > 0) tags = _.first(Filter.filter(q.toLowerCase(), tagsAll, 'key'), 5);
 
             json.tags = tags;
-debugger;
+
             json.campusname = _.getAttr(campus, 'name');
 
             json.totalresults = results.length;

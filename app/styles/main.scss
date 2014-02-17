@@ -173,9 +173,22 @@ button {
 
 :focus {
 	
-	outline-style:dotted;
-	outline-color:#00ff00;
+  border-top: #3172AE 3px none;
+  outline-style: none;
+  outline-color: #333;
+  outline-width: 2px; 
 
+
+}
+
+a {
+  
+  &:focus {
+
+    text-decoration: none;
+
+  }
+  
 }
 
 .header-tags {
@@ -214,6 +227,30 @@ ul {
 
     }
 
+    &.primary {
+      
+      li {
+
+        a {
+
+          padding: 4px 8px 6px;
+          
+          color: #666;
+
+          &:focus {
+
+            /*background: #f8f8f8;*/
+
+            color: #333;
+
+          }
+
+        }
+
+      }
+
+    }
+
     &.secondary {
 
         position: absolute;
@@ -227,6 +264,22 @@ ul {
           font-size: 12px;
 
           color: #999;
+
+          a {
+
+            padding: 4px 6px 5px;
+            
+            color: #666;
+
+            &:focus {
+
+              /*background: #f8f8f8;*/
+
+              color: #333;
+
+            }
+
+          }
 
         }
 
@@ -297,7 +350,9 @@ ul {
         padding: 2px 6px;
         text-align: center;
       }
+
     }
+
 }
 
 #tmp {
@@ -489,6 +544,10 @@ ul {
 
           color: #3172AE;
 
+          background: #fff !important;
+
+          border: none !important;
+
         }
 
       }
@@ -498,6 +557,42 @@ ul {
         &.search {
 
           background-image: url("../../app/images/icons/map/x@2x.png"); 
+
+        }
+
+      }
+    
+    }
+
+  }
+
+}
+
+.panels-closed {
+
+  #ui-search {
+
+    .panel {
+      
+      .form-group {
+
+        #searchbox {
+
+          color: #3172AE;
+
+          background: #fff !important;
+
+          border: none !important;
+
+        }
+
+      }
+
+      .btn {
+          
+        &.search {
+
+          background-image: url("../../app/images/icons/map/search@2x.png") !important;
 
         }
 
@@ -567,6 +662,20 @@ ul {
 
 }
 
+#featured {
+
+  font-size: 12px;
+
+  margin: 6px 4px;
+
+  a {
+
+    color: #999;
+
+  }
+
+}
+
 #results-total {
 
   position: absolute;
@@ -612,15 +721,21 @@ ul {
 
         #searchbox {
 
-          border: none;
+          border: 1px #eee solid;
 
-          font-size: 18px;
+          background: #f8f8f8;
 
-          line-height: 18px;
+          font-size: 16px;
 
-          padding: 9px 9px;
+          line-height: 16px;
+
+          padding: 3px;
+
+          margin: 6px;
 
           width: 100%;
+
+          max-width: 406px;
 
           -moz-box-sizing: border-box;
 
@@ -638,7 +753,7 @@ ul {
 
         background: transparent;
 
-        background-image: url("../../app/images/icons/map/search@2x.png"); 
+        background-image: url("../../app/images/icons/map/x@2x.png"); 
 
         background-repeat: no-repeat;
 
@@ -650,7 +765,7 @@ ul {
         height: 34px;
         position: absolute;
         right: 14px;
-        top: 5px;
+        top: 3px;
         width: 24px;
         z-index: 999;
 
@@ -1654,6 +1769,16 @@ ul {
       .icon {
 
         background-image: url("../../app/images/icons/map/dot@2x.png");
+
+      }
+
+    }
+
+    &.icon-star {
+
+      .icon {
+
+        background-image: url("../../app/images/icons/map/star.png");
 
       }
 

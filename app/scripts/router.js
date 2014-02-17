@@ -15,7 +15,7 @@ define([
 
         urlLocationAttrWhiteList = ['details', 'campusmap', 'campusid'],
 
-        urlAttrWhiteList = ['query', 'customcampusmap', 'centeroffset', 'photowide', 'satellite', 'cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'details', 'detailsview', 'vizpath!', 'zoom', 'latlng', 'highlight'], // 'vizpath',
+        urlAttrWhiteList = ['featured', 'query', 'querytype', 'customcampusmap', 'centeroffset', 'photowide', 'satellite', 'cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'details', 'detailsview', 'vizpath!', 'zoom', 'latlng', 'highlight'], // 'vizpath',
 
         AppRouter = Backbone.Router.extend({
 
@@ -78,7 +78,7 @@ define([
                          .pick(urlAttrWhiteList)
 
                          // Watch XSS/urlencode
-                         .map(function(val, key) { return key + '=' + (_.isObject(val) && val.value ? val.value : val); })
+                         .map(function(val, key) { return key + '=' + (_.isObject(val) && val.value ? encodeURIComponent(val.value) : encodeURIComponent(val)); })
 
                          .value().join('&');
 
@@ -91,7 +91,7 @@ define([
                          .pick(urlLocationAttrWhiteList)
 
                          // Watch XSS/urlencode
-                         .map(function(val, key) { return key + '=' + (_.isObject(val) && val.value ? val.value : val); })
+                         .map(function(val, key) { return key + '=' + (_.isObject(val) && val.value ? encodeURIComponent(val.value) : encodeURIComponent(val)); })
 
                          .value().join('&');
 

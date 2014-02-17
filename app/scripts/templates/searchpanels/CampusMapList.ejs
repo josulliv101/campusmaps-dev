@@ -7,15 +7,21 @@
 			<ul>
 			 
 			    <li id="medford-main"><a data-campusmap="campusmap:medford-main" href="#medford-main">Main Map</a> <button class="maps" data-campusmap="cmd:LocationList">View locations (145)</button></li>
-			 
+
+			    <% if (data.featured) { %>
+			    <li id="featured" class=""><a data-campusmap="query:#featured,cmd:Results" href="#featured">${data.featured} Featured locations</a></li>
+			    <% } %>		
+
 			    <li id="fletcher" class=""><a data-campusmap="campusmap:fletcher" href="#fletcher">Commencement Map</a> <button class="maps" data-campusmap="cmd:LocationList">View locations (12)</button></li>
 
-<!--
+
+
+
 
 			    <li id="engineering" class=""><a data-campusmap="campusmap:engineering" href="#engineering">Accessibility</a> <button class="maps" data-campusmap="cmd:LocationList">View locations (6)</button></li>
 			 
 			    <li id="green" class=""><a data-campusmap="campusmap:green" href="#green">Athletics</a> <button class="maps" data-campusmap="cmd:LocationList">View locations (13)</button></li>
--->
+<!---->
 			
 			
 			</ul>

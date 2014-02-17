@@ -23,9 +23,13 @@
 
                 return function(loc) { 
                     
-                    var val = _.getAttr(loc, attr) && _.getAttr(loc, attr).toLowerCase(),
+                    var val, words;
 
-                        words = _.chain(val.split(' ')).reject(function(word) { return _.contains(['and', 'the', 'an', 'at'], word); }).value();
+                    val = _.getAttr(loc, attr) && _.getAttr(loc, attr).toLowerCase();
+
+                    if (!val) return false;
+
+                    words = _.chain(val.split(' ')).reject(function(word) { return _.contains(['and', 'the', 'an', 'at'], word); }).value();
 
                     return _.exists(val) && _.some(words, function(word) { return word.indexOf(query_.term) === 0; }); //val.indexOf(query_.term) > -1; 
 
@@ -61,13 +65,13 @@
             _.isArray(filters) || (filters = [ filters ]);
 
             // Update query object term
-            query_.term = q;
+            query_.term = q && q.toLowerCase();
 
             fns = filterParamsToFns_(filters);
 
             // Apply the filters
             _.each(fns, function(fn, index) { locs[index] = _.filter(locations, fn); });
-
+debugger;
             return _.chain(locs).flatten().uniq().value();
 
         }

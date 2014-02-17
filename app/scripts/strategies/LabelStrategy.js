@@ -19,6 +19,14 @@ define([
 
                 function(model, zoom) { // Location Model
 
+                    if (!model.featured) return;
+
+                    return 'emphasis' + model.emphasis + ' icon-star';
+
+                },
+
+                function(model, zoom) { // Location Model
+
                     if (zoom < 19) return;
 
                     model.hide = false;

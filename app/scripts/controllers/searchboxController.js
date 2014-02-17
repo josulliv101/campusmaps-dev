@@ -111,6 +111,14 @@ define([
 
             }
 
+            if (_.has(changedAttributes, 'querytype')) {
+
+                this.querytype = changedAttributes.querytype;
+
+                EventDispatcher.trigger('change:querytype', changedAttributes.querytype);
+
+            }
+
             if (_.has(changedAttributes, 'occupant')) {
 
                 this.occupant = changedAttributes.occupant;
@@ -247,7 +255,7 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ campusid: this.campusid, details: this.details, detailsview: this.detailsview, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
+        panel.model.set({ campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 

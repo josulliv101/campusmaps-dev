@@ -30,6 +30,8 @@ define([
 
             'click #searchbox' : 'handleFocus',
 
+            'focus #searchbox' : 'handleFocus',
+
             'blur #searchbox' : 'handleUnFocus',
 
             'keyup #searchbox': 'handleKeyPress'

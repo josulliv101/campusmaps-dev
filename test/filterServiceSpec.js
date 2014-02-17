@@ -89,7 +89,7 @@ define(['_mixins', '../scripts/services/filter', 'backbone'], function (_, Filte
 
       it('should filter on passed in fns making use of query term', function () {
 
-        var fnExactMatch= function(loc) { return _.getAttr(loc, 'name') === Filter.getQuery().term; };
+        var fnExactMatch= function(loc) { var name = _.getAttr(loc, 'name'); return name && name.toLowerCase() === Filter.getQuery().term; };
 
         results = Filter.filter('Ballou Hall', locsCollection.models, [fnExactMatch]);
 
