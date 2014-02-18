@@ -23,7 +23,7 @@
 		<ul class="list-menu primary">
 			<li><a href="#" data-campusmap='cmd:CampusMapList'>Menu</a></li>
 			<li><a href="#" data-campusmap='cmd:Results'>Search</a></li>
-			<li><a href="#" data-campusmap='cmd:panelA'>Settings</a></li>
+			<li><a href="#" data-campusmap='cmd:Settings'>Settings</a></li>
 		</ul>
 		<ul class="list-menu secondary">
 			
@@ -46,7 +46,9 @@
 
 	<!-- endbuild -->
 	<script>
-		
+
+if ( ! window.console ) console = { log: function(){} };
+
 requirejs.onError = function (err) {
 
     console.log(err.requireType);

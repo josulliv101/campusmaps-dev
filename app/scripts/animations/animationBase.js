@@ -135,7 +135,9 @@ define([
 
         view.model.set('state', 'open');
 
-        if (view.$el) view.$el.removeClass('animating');
+        if (view.$el) view.$el.removeClass('animating state-closed');
+
+        view.$el.addClass('state-opened');
 
     };
 
@@ -184,9 +186,11 @@ define([
 
         view.model.set('state', 'close');
 
-        if (view.$el) view.$el.removeClass('animating');
+        if (view.$el) view.$el.removeClass('animating state-opened');
 
         if (view.$el) view.$el.css({ display: 'none' });
+
+        view.$el.addClass('state-closed');
 
     };
 

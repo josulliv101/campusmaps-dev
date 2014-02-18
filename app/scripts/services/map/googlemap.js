@@ -99,6 +99,8 @@ define([
 
             bounds = new google.maps.LatLngBounds(getLatLng(southwestLatLng), getLatLng(northeastLatLng));
 
+
+
             loc.bounds = bounds;
 
             if (!hasDetails) return;
@@ -485,6 +487,8 @@ console.log('latlng', latlng);
 
                               offset = MapUtils.getAdjustedOffset(tile.offset, tileoffset.tile, tile.tile);
 
+
+
                           return { bounds: loc.bounds, locationid: loc.locationid, offset: offset, latlng: loc.latlng };
 
                        })
@@ -511,7 +515,7 @@ console.log('latlng', latlng);
             
         });*/
 
-                            return obj.bounds.contains(latlng) || Math.abs(tileoffset.offset.x - obj.offset.x) < 12 && Math.abs(tileoffset.offset.y - obj.offset.y) < 12;
+                            return (obj.bounds && obj.bounds.contains(latlng)) || Math.abs(tileoffset.offset.x - obj.offset.x) < 12 && Math.abs(tileoffset.offset.y - obj.offset.y) < 12;
 
                        })
 

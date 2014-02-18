@@ -1060,7 +1060,7 @@ ul {
             display: none;
             margin-right: 0;
             max-height: 400px;
-            overflow-y: auto;
+            /*overflow-y: auto;*/
             .bd {
                 background: #fff;
                 padding: 0;
@@ -1227,6 +1227,7 @@ ul {
 	}
 }
 
+
 /* Transition */
 
 @keyframes slideUpFrames {
@@ -1330,6 +1331,138 @@ ul {
 
     }
 }
+
+
+@keyframes slideDownFrames2 {
+    0% { 
+
+      -webkit-transform: none !important; 
+       -moz-transform: none !important; 
+        -ms-transform: none !important; 
+         -o-transform: none !important; 
+            transform: none !important; 
+      
+      opacity: 0; 
+
+    }
+    100% { 
+
+     
+      opacity: 1;
+      -webkit-transform: none !important; 
+       -moz-transform: none !important;  
+        -ms-transform: none !important; 
+         -o-transform: none !important; 
+            transform: none !important; 
+
+    }
+}
+
+@keyframes slideUpFrames2 {
+    0% { 
+
+      -webkit-transform: none !important; 
+       -moz-transform: none !important; 
+        -ms-transform: none !important; 
+         -o-transform: none !important; 
+            transform: none !important; 
+      
+      opacity: 1;
+
+    }
+
+    100% { 
+
+ 
+      opacity: 0;
+
+      -webkit-transform: none !important; 
+       -moz-transform: none !important;  
+        -ms-transform: none !important;  
+         -o-transform: none !important; 
+            transform: none !important;  
+
+    }
+}
+
+@-webkit-keyframes slideDownFrames2 {
+    0% { 
+
+      -webkit-transform: none !important; 
+       -moz-transform: none !important; 
+        -ms-transform: none !important; 
+         -o-transform: none !important; 
+            transform: none !important; 
+      
+      opacity: 0; 
+
+    }
+    100% { 
+
+     
+      opacity: 1;
+      -webkit-transform: none !important; 
+       -moz-transform: none !important;  
+        -ms-transform: none !important; 
+         -o-transform: none !important; 
+            transform: none !important; 
+
+    }
+}
+
+@-webkit-keyframes slideUpFrames2 {
+    0% { 
+
+      -webkit-transform: none !important; 
+       -moz-transform: none !important; 
+        -ms-transform: none !important; 
+         -o-transform: none !important; 
+            transform: none !important; 
+      
+      opacity: 1;
+
+    }
+
+    100% { 
+
+ 
+      opacity: 0;
+
+      -webkit-transform: none !important; 
+       -moz-transform: none !important;  
+        -ms-transform: none !important;  
+         -o-transform: none !important; 
+            transform: none !important;  
+
+    }
+}
+
+.transition-animations {
+          
+          .state-closed {
+            display: none;
+          }
+
+          .state-opened {
+            display: block;
+          }
+
+          .slideDown {
+
+            -webkit-animation: slideDownFrames2 0.6s !important; 
+            animation: slideDownFrames2 0.6s !important; 
+
+          }
+
+          .slideUp {
+
+            -webkit-animation: slideUpFrames2 0.3s !important;
+            animation: slideUpFrames2 0.3s !important; 
+            
+          }/**/
+
+}
+
 
 /* Contours */
 
@@ -1897,7 +2030,15 @@ ul {
 
 }
 
-
+.lt-ie9 {
+  .label-tile {
+    .location {
+      .icon {
+        background-image: url("../../app/images/icons/map/circle.png");
+      }
+    }
+  }
+}
 
 .label {
 

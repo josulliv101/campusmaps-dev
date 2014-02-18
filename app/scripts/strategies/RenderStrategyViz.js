@@ -157,7 +157,7 @@ define([
 
                     return true;
 
-                },
+                }
 
                 // There's no default, a render may not always be needed
 /*                function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 

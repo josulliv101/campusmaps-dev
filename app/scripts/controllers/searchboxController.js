@@ -74,6 +74,16 @@ define([
             if (_.has(changedAttributes, 'locationlistfilter')) EventDispatcher.trigger('change:locationlistfilter', changedAttributes.locationlistfilter);
 
 
+
+
+            if (_.has(changedAttributes, 'panelanimations')) {
+
+                this.panelanimations = changedAttributes.panelanimations;
+
+                EventDispatcher.trigger('change:panelanimations', changedAttributes.panelanimations);
+
+            }
+
             if (_.has(changedAttributes, 'details')) {
 
                 this.details = changedAttributes.details;
@@ -258,7 +268,7 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
+        panel.model.set({ panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 

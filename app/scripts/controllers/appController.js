@@ -73,10 +73,12 @@ define([
 
         options || (options = {});
 
-console.log('...handleResize obj', obj);
+
 
         // Gets cleared when router handles route -- for Back Button integration.
         if (options.clear === true) theTruth.clear({ silent: true });
+
+
 
         this.validateTheTruth(obj);
 
@@ -263,9 +265,12 @@ console.log('...handleResize obj', obj);
 
         // The Truth changes get sent to Component-level controllers for further handling
         EventDispatcher.trigger('delegateTruth', changed, previous);
+/*
 
+ie7/8 choking on this
+ 
         if (locationLink) this.setTheTruth({ locationlink: locationLink });
-
+ */
         return true;
 
     }

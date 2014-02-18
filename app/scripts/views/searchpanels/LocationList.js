@@ -60,7 +60,7 @@ define([
 
         initialize: function() {
 
-            var model = this.model; self = this;
+            var model = this.model, self = this;
 
             Base.prototype.initialize.call(this);
 

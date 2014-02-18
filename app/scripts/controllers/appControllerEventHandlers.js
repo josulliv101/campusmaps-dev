@@ -71,6 +71,8 @@ define([
 
                 controller.handleAttrFocusElement,
 
+                controller.handleAttrPanelAnimations,
+
                 controller.handleAttrFeatured
 
             ];
@@ -262,6 +264,22 @@ define([
             return true;
 
         }
+
+        AppController.prototype.handleAttrPanelAnimations = function(model, val, key) {
+
+            var classname = 'transition-animations';
+
+            if (key !== 'panelanimations') return;
+
+            console.log('...handleAttrPanelAnimations', model.cid, val, key);
+
+            domManager.cssFlag(classname, { remove: !val });
+
+            return true;
+
+        }
+
+        
 
         // Handle at global controller level, if needed, then delegate
         AppController.prototype.handleAttrCampusId = function(theTruth, val, key) {
