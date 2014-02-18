@@ -219,7 +219,7 @@ debugger;
 
             if (key !== 'customcampusmap') return;
 
-            console.log('...handleAttrCustomCampusMap', model.cid, val, key);
+/*            console.log('...handleAttrCustomCampusMap', model.cid, val, key);
 
             campus = Datastore.campus();
 
@@ -243,7 +243,7 @@ debugger;
 
             var ml = Datastore.mapList();
 
-            console.log('custom campus map', locs);
+            console.log('custom campus map', locs);*/
 
             return true;
 

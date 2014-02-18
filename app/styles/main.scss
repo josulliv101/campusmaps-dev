@@ -476,9 +476,9 @@ ul {
 
     left: -2px;
 
-    opacity: 0;
+    opacity: 1;
 
-    max-width: 0;
+    max-width: 100%;
 
     letter-spacing: .04em;
 
@@ -938,6 +938,12 @@ ul {
                   &.spacing-full {
 
                     padding-top: 32px;
+
+                  }
+
+                  &.fluid-height {
+
+                    min-height: initial;
 
                   }
 
