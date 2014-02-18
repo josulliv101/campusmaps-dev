@@ -71,6 +71,9 @@ define([
 
             if (_.has(changedAttributes, 'searchboxlabel')) EventDispatcher.trigger('change:searchboxlabel', changedAttributes.searchboxlabel);
 
+            if (_.has(changedAttributes, 'locationlistfilter')) EventDispatcher.trigger('change:locationlistfilter', changedAttributes.locationlistfilter);
+
+
             if (_.has(changedAttributes, 'details')) {
 
                 this.details = changedAttributes.details;

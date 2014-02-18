@@ -1,7 +1,42 @@
 <div class="shadow panel panel-locations">
-	<div class="navbar"><em id="q">Select a location.</em></div>
+	<div class="navbar"><em id="q">Select a filter.</em> </div>
 	<div class="bd spacing-full">
-		<button class="back" onclick="window.history.back()">back</button>
+		<button data-campusmap="locationlistfilter:">All Locations</button>
+		<button data-campusmap="locationlistfilter:#athletics">Athletics</button>
+		<button data-campusmap="locationlistfilter:#dorm">Residences</button>
+		<button data-campusmap="locationlistfilter:az">A-Z</button> 
+
+		<div id="nav-abc">
+			<button data-campusmap="locationlistfilter:a">A</button> 
+			<button data-campusmap="locationlistfilter:b">B</button> 
+			<button data-campusmap="locationlistfilter:c">C</button> 
+			<button data-campusmap="locationlistfilter:d">D</button> 
+			<button data-campusmap="locationlistfilter:e">E</button> 
+			<button data-campusmap="locationlistfilter:f">F</button> 
+			<button data-campusmap="locationlistfilter:g">G</button> 
+			<button data-campusmap="locationlistfilter:h">H</button> 
+			<button data-campusmap="locationlistfilter:i">I</button> 
+			<button data-campusmap="locationlistfilter:j">J</button> 
+
+			<button data-campusmap="locationlistfilter:k">K</button> 
+			<button data-campusmap="locationlistfilter:l">L</button> 
+			<button data-campusmap="locationlistfilter:m">M</button> 
+			<button data-campusmap="locationlistfilter:n">N</button> 
+			<button data-campusmap="locationlistfilter:o">O</button> 
+			<button data-campusmap="locationlistfilter:p">P</button> 
+			<button data-campusmap="locationlistfilter:q">Q</button> 
+			<button data-campusmap="locationlistfilter:r">R</button> 
+			<button data-campusmap="locationlistfilter:s">S</button> 
+			<button data-campusmap="locationlistfilter:t">T</button> 
+
+			<button data-campusmap="locationlistfilter:u">U</button> 
+			<button data-campusmap="locationlistfilter:v">V</button> 
+			<button data-campusmap="locationlistfilter:w">W</button> 
+			<button data-campusmap="locationlistfilter:x">X</button> 
+			<button data-campusmap="locationlistfilter:y">Y</button> 
+			<button data-campusmap="locationlistfilter:z">Z</button> 
+		</div>
+
 		<h3>Campus: ${data.name}</h3>
 
 		<h4>Map: ${data.map.name }</h4> 

@@ -2,11 +2,13 @@ define([
 
     'datastore'
 
+    , 'scripts/services/filter'
+
     , 'searchpanels/base'
 
     , 'eventdispatcher'
 
-], function(Datastore, Base, EventDispatcher) {
+], function(Datastore, Filter, Base, EventDispatcher) {
 
     'use strict';
 
@@ -58,9 +60,19 @@ define([
 
         initialize: function() {
 
+            var model = this.model; self = this;
+
             Base.prototype.initialize.call(this);
 
             this.listenTo(EventDispatcher, 'change:locationid', this.refresh);
+
+            this.listenTo(EventDispatcher, 'change:locationlistfilter', function(letter) {
+
+                model.set({ filter: letter }, { silent: true });
+
+                self.render();
+
+            });
 
         },
 
@@ -68,11 +80,19 @@ define([
 
             var campus = Datastore.campus(),
 
-                json = Datastore.JSON.campus(campus);
+                json = Datastore.JSON.campus(campus),
+
+                filter = this.model.get('filter') || '',
+
+                fnFirstLetterMatch= function(loc) { var name = _.getAttr(loc, 'name'); return name && name.toLowerCase().indexOf(Filter.getQuery().term) === 0; };
 
             _.extend(json, { map: _.find(json.maps, function(map) { return map.selected === true; })});
 
             if (!json.map || !json.map.locations) return { data: {}};
+
+            if (filter && filter.length === 1) json.map.locations = Filter.filter(filter, json.map.locations, [ fnFirstLetterMatch ]);
+
+            else if (filter && filter.indexOf('#') === 0) json.map.locations = Filter.filter(filter.substring(1), json.map.locations, 'tags');
 
             // Sort the locations
             json.map.locations = _.sortBy(json.map.locations, function(loc){ return _.getAttr(loc, 'name'); });

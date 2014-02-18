@@ -205,7 +205,7 @@ define([
 
             // Flag campus as having featured loc
             if (_.isArray(locs) && locs.length > 0) campus.set({ featured: locs.length }, { silent: true });
-debugger;
+
             return true;
 
         }
