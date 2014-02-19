@@ -14,9 +14,11 @@ define([
     // Returns a deferred object promise
     AnimationBase.prototype.animateDomOpen_ = function(view) {
 
-        view.$el.css({ overflow: 'hidden', top: '-50px' });
+        view.$el.css({ overflow: 'hidden', top: '0px' }); // top: '-50px'
 
-        return view.$el.show().animate({
+        return view.$el.fadeIn();
+
+/*        return view.$el.show().animate({
 
                     top: '0px',
 
@@ -26,7 +28,7 @@ define([
 
                     duration: 400
                     
-                })
+                })*/
 
     };
 
@@ -35,7 +37,9 @@ define([
 
         view.$el.css('overflow', 'hidden');
 
-        return view.$el.animate({
+        return view.$el.fadeOut();
+
+/*        return view.$el.animate({
 
                     top: '-50px',
 
@@ -45,7 +49,7 @@ define([
 
                     duration: 400
 
-                })
+                })*/
 
     };
 

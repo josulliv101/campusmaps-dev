@@ -359,6 +359,8 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             if (key !== 'highlight') return;
 
+            if (!val) val = '';
+
             campus = Datastore.campus();
 
             campusmap = Datastore.map(Datastore.campus()),

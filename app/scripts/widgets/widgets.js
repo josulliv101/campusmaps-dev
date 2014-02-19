@@ -26,7 +26,7 @@ define([
 
     function campusmap_(el, settings) {
 
-        require([ 'scripts/views/locationdetails', 'scripts/controllers/locationDetailsController', 'scripts/views/searchbox', 'scripts/controllers/searchboxController', 'animationCSS'], function (LocationDetailsView, LocationDetailsController, SearchboxView, SearchboxController, Animation) {
+        require([ 'scripts/views/locationdetails', 'scripts/controllers/locationDetailsController', 'scripts/views/searchbox', 'scripts/controllers/searchboxController', 'animation'], function (LocationDetailsView, LocationDetailsController, SearchboxView, SearchboxController, Animation) {
 
             var app, theSettings, root = el,
 

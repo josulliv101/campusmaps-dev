@@ -8,7 +8,7 @@ define([
 
     'templates',
 
-    'animationCSS', // Control appropriate animation to use in config via browser feature detection
+    'animation', // Control appropriate animation to use in config via browser feature detection
 
     'datastore',
 

@@ -261,7 +261,8 @@ define([
 
         console.log('querystring', querystring, theTruth.attributes);
 
-        if (_.has(changed, 'cmd') || _.has(changed, 'details')) this.router.navigate(querystring, { trigger: false });
+        //if (_.has(changed, 'cmd') || _.has(changed, 'details')) 
+        this.router.navigate(querystring, { trigger: false });
 
         // The Truth changes get sent to Component-level controllers for further handling
         EventDispatcher.trigger('delegateTruth', changed, previous);

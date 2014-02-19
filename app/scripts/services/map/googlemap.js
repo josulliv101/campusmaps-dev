@@ -165,7 +165,7 @@ define([
 
     function renderIcons_(models) {
 
-        _.each(models, getMarker);
+        // tbd ? _.each(models, getMarker);
 /*
         var markers;
 
@@ -508,9 +508,7 @@ console.log('latlng', latlng);
 
                               offset = MapUtils.getAdjustedOffset(tile.offset, tileoffset.tile, tile.tile);
 
-
-
-                          return { bounds: loc.bounds, locationid: loc.locationid, offset: offset, latlng: loc.latlng };
+                          return { bounds: _.getAttr(loc, 'bounds'), locationid: _.getAttr(loc, 'locationid'), offset: offset, latlng: loc.latlng };
 
                        })
 
@@ -535,7 +533,8 @@ console.log('latlng', latlng);
             clickable: false
             
         });*/
-
+                       
+// ? does latlng need to be google latlng?
                             return (obj.bounds && obj.bounds.contains(latlng)) || Math.abs(tileoffset.offset.x - obj.offset.x) < 12 && Math.abs(tileoffset.offset.y - obj.offset.y) < 12;
 
                        })

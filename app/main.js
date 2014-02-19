@@ -66,9 +66,11 @@
 
             'app': './scripts/app',
 
-            'animation': './scripts/animations/animationCSS3',
+            'animation': './scripts/animations/animationBase',
 
-            'animationCSS': './scripts/animations/animationCSS3',
+            'animationJS': './scripts/animations/animationBase',
+
+            'animationCSS': './scripts/animations/animationCSS',
 
             'eventdispatcher': './scripts/eventdispatcher',
 
@@ -76,7 +78,7 @@
 
             'parsecom': 'http://www.parsecdn.com/js/parse-1.2.9.min',
 
-            'datastore': './scripts/services/data/datastore-jsonp', // datastore-injected datastore-jsonp datastore-parse-com
+            'datastore': './scripts/services/data/datastore-parse-com', // datastore-injected datastore-jsonp datastore-parse-com
 
             'datainterface': './scripts/services/data/interface',
 

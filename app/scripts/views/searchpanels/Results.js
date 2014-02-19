@@ -178,7 +178,7 @@ define([
 
             EventDispatcher.trigger('truthupdate', { query: '' });
 
-        },
+        }
 
     });
 

@@ -284,7 +284,7 @@ define([
 
         div.style.height = '256px';
 
-        div.style.border = '1px #ccc none';
+        div.style.border = '1px #ccc dashed';
 
         return div;
 

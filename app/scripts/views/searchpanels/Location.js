@@ -24,7 +24,7 @@ define([
 
                 location = Datastore.location(map, this.model.get('details'));
 
-            return location.name || '..'; 
+            return _.getAttr(location, 'name') || '..'; 
 
         },
 

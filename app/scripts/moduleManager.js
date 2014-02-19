@@ -121,14 +121,18 @@ define([
 
         console.log('q', q);
 
-        if (q === undefined) return modules;
+        //if (q === undefined) return modules;
 
-        modules = parseQueryString_(q) || {};
+        if (q !== undefined) modules = parseQueryString_(q) || {};
 
         if (modules.animation) return modules;
 
         // Forcing a module via querystring params takes precedence over feature detection tweaks
         if (modules.animation === undefined && Modernizr.cssanimations === true) modules.animation = 'animationCSS';
+
+        else modules.animation = 'animation';
+
+console.log('modules.animation', modules.animation);
 
         console.log('modules', modules, Modernizr.cssanimations );
 
@@ -151,7 +155,7 @@ define([
 
             var mappings = getOverrides_();
 
-            console.log('mappings', mappings);
+            console.log('mappings', mappings.animation);
 
             require.config({
 

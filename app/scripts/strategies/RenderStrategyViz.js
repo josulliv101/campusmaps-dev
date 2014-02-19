@@ -70,7 +70,7 @@ define([
                     controller.setTileCache(models);
 
                     viz.renderIcons(models);
-                    
+                  
                     // Label refresh gets taken care of since zoom requires all new tiles loaded
                     //viz.renderLabels(models);
                     

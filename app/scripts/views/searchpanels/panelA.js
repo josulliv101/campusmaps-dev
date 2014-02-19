@@ -20,7 +20,7 @@ define([
 
         id: 'PanelA',
 
-        title: function() { return 'This is Panel A'; },
+        title: function() { return 'This is Panel A'; }
 
     });
 
