@@ -35,6 +35,10 @@ define([
 
                 controller.handleAttrMapType,
 
+                controller.handleAttrMapStyle,
+
+                controller.handleAttrShowMe,
+
                 controller.handleAttrCampusMap,
 
                 controller.handleAttrCustomCampusMap,
@@ -485,6 +489,23 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
         }
 
+        // Handle at local controller level
+        AppController.prototype.handleAttrShowMe = function(model, val, key) {
+
+            if (key !== 'showme') return;
+
+            if (val !== true) return; // Skips if it's the coords object also
+
+            ModuleManager.getLocation(function(ev) {
+
+                EventDispatcher.trigger('truthupdate', { showme: { lat: ev.coords.latitude, lng: ev.coords.longitude } });
+
+            })
+
+            return true;
+
+        }
+
         AppController.prototype.handleAttrLabelStrategy = function(model, val, key) {
 
             var campus, strategy = StrategyManager.getStrategy;
@@ -601,7 +622,19 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
         }
 
+        AppController.prototype.handleAttrMapStyle = function(model, val, key) {
 
+            var classname = 'mapstyle-inverted';
+
+            if (key !== 'mapstyle') return;
+
+            console.log('...handleAttrMapStyle', model.cid, val, key);
+
+            domManager.cssFlag(classname, { remove: val !== 'inverted' });
+
+            return true;
+
+        }
 
         // Handle at global controller level, then delegate to viz controller
         AppController.prototype.handleAttrMapType = function(model, val, key) {

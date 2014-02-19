@@ -1449,15 +1449,21 @@ ul {
 
           .slideDown {
 
-            -webkit-animation: slideDownFrames2 0.6s !important; 
-            animation: slideDownFrames2 0.6s !important; 
+            -webkit-animation: slideDownFrames2 0.65s !important; 
+            animation: slideDownFrames2 0.65s !important; 
+
+            animation-timing-function:ease-out;
+            -webkit-animation-timing-function:ease-out; /* Safari and Chrome */
 
           }
 
           .slideUp {
 
-            -webkit-animation: slideUpFrames2 0.3s !important;
-            animation: slideUpFrames2 0.3s !important; 
+            -webkit-animation: slideUpFrames2 0.25s !important;
+            animation: slideUpFrames2 0.25s !important; 
+
+            animation-timing-function:linear;
+            -webkit-animation-timing-function:linear; /* Safari and Chrome */
             
           }/**/
 
@@ -2028,6 +2034,19 @@ ul {
 
   }
 
+}
+
+.mapstyle-inverted {
+  .label-tile {
+    .location {
+      color: #fff;
+      font-size: 18px;
+      .bd {
+        top: -24px;
+        left: 22px;
+      }
+    }
+  }
 }
 
 .lt-ie9 {

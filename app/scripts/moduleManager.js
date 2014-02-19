@@ -52,6 +52,20 @@ define([
 
     }
 
+    function getLocation_(success, fail) {
+
+        success || (success = function(){});
+
+        fail || (fail = function(){});
+
+        if (Modernizr.geolocation) {
+
+            navigator.geolocation.getCurrentPosition(success, fail);
+
+        }
+
+    }
+
     function isMobile() {
 
         // Is viewport bigger than 660px
@@ -130,6 +144,8 @@ define([
         getVizPath: getVizPath_,
 
 		getOverrides: getOverrides_,
+
+        getLocation: getLocation_,
 
         setPathsMap: function(require) {
 

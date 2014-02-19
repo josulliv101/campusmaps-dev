@@ -260,6 +260,13 @@ define([
 
     }
 
+    function setMapStyle_(id) {
+
+        //gMap.set('styles', MapStyles.styles.plain)
+
+    }
+
+
     function setPanorama_(obj) {
 
         alert('setPanorama_');
@@ -424,6 +431,20 @@ define([
 
     }
 
+    function showMe_(latlng) {
+
+        var marker = new google.maps.Marker({
+
+            position: getLatLng(latlng),
+
+            map: gMap,
+
+            title: 'My Location'
+
+        });
+
+    }
+
     function setZoom_(level) {
 
         level = parseInt(level);
@@ -438,7 +459,7 @@ define([
 
         console.log('gmap setMapType_..', maptype);
 
-        maptype || (maptype = google.maps.MapTypeId.ROADMAP);
+        maptype || (maptype = google.maps.MapTypeId.ROADMAP); //google.maps.MapTypeId.ROADMAP
 
         gMap.setMapTypeId(maptype);
 
@@ -533,9 +554,9 @@ console.log('latlng', latlng);
 
             zoom: zoom,
 
-            styles: MapStyles.styles,
+            //styles: MapStyles.styles.plain,
 
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            
 
             navigationControl: true,
 
@@ -551,6 +572,15 @@ console.log('latlng', latlng);
 
             mapTypeControl: false,
 
+            mapTypeControlOptions: {
+
+              mapTypeIds: ['plain']
+
+            },
+
+            //mapTypeId: 'plain',
+
+
             streetViewControl: true,
 
             streetViewControlOptions: {
@@ -561,6 +591,9 @@ console.log('latlng', latlng);
 
 
         });
+
+        // Create a new matype for each style
+        _.each(MapStyles.styles, function(val, key) { gMap.mapTypes.set(key, new google.maps.StyledMapType(val)); });
 
         gMap.clickRect = new google.maps.Rectangle({
 
@@ -711,6 +744,8 @@ console.log('latlng', latlng);
 
         setCursor: setCursor_,
 
+        setMapStyle: setMapStyle_,
+
         setCenter: setCenter_,
 
         setMapType: setMapType_,
@@ -720,6 +755,8 @@ console.log('latlng', latlng);
         setPanoramaHighlight: setPanoramaHighlight_,
 
         showPanoramas: showPanoramas_,
+
+        showMe: showMe_,
 
         handleTileMouseover: handleTileMouseover_,
 

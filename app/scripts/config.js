@@ -38,6 +38,8 @@ define([
 
                 , mapcenteroffset: 'default'
 
+                , maptype: 'plain'
+
                 , panelanimations: true
 
                 //, resize: null

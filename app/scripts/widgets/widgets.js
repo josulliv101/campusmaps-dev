@@ -43,7 +43,7 @@ define([
 
             DM.render(root, locDetailsView);
 
-            theSettings = _.extend({ vizpath: vizpath, maptype: 'roadmap' }, settings);
+            theSettings = _.extend({ vizpath: vizpath }, settings);
 
             app = new App(root, theSettings);
 

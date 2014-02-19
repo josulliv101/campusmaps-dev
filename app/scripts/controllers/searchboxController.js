@@ -74,6 +74,7 @@ define([
             if (_.has(changedAttributes, 'locationlistfilter')) EventDispatcher.trigger('change:locationlistfilter', changedAttributes.locationlistfilter);
 
 
+            if (_.has(changedAttributes, 'showme')) EventDispatcher.trigger('change:showme', changedAttributes.showme);
 
 
             if (_.has(changedAttributes, 'panelanimations')) {
@@ -81,6 +82,14 @@ define([
                 this.panelanimations = changedAttributes.panelanimations;
 
                 EventDispatcher.trigger('change:panelanimations', changedAttributes.panelanimations);
+
+            }
+
+            if (_.has(changedAttributes, 'mapstyle')) {
+
+                this.mapstyle = changedAttributes.mapstyle;
+
+                EventDispatcher.trigger('change:mapstyle', changedAttributes.mapstyle);
 
             }
 
@@ -182,7 +191,7 @@ define([
 
             options || (options = {});
 
-            deferreds.concat(dfdsClose);
+            //deferreds.concat(dfdsClose);
 
             console.log('deferreds', deferreds, (dfdsClose));
 
@@ -201,6 +210,8 @@ define([
     SearchboxController.prototype.getCmds = function(txt) {
 
         console.log('*** getCmds ***');
+
+        //EventDispatcher.trigger('truthupdate', { searchboxlabel: 'yo' });
 
         return this.cmds = _.isString(txt) && txt.length > 0 ? txt.split('_') : [];
 
@@ -268,7 +279,7 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
+        panel.model.set({ mapstyle: this.mapstyle, panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 

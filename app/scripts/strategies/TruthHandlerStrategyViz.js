@@ -222,6 +222,20 @@ define([
 
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
+                    var keys = _.keys(changedAttrs);
+
+                    if (keys.length !== 1 || !_.contains(keys, 'showme')) return;
+//debugger;
+                    if (!_.isObject(changedAttrs.showme)) return;
+
+                    viz.showMe(changedAttrs.showme);
+                    
+                    return true;
+
+                },
+
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
                     var keys = _.keys(changedAttrs), DM, classname, val, withinRadius, centerLat, centerLng;
 
                     if (keys.length !== 1 || !_.contains(keys, 'panoramahighlight')) return;
@@ -312,6 +326,18 @@ define([
 /*                    locationModels = controller.setIconsAndLabels(allLocations, campus.iconStrategy, campus.labelStrategy, zoom);
 
                     viz.renderIcons(locationModels);*/
+
+                    return true;
+
+                },
+
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
+                    var keys = _.keys(changedAttrs);
+
+                    if (keys.length !== 1 || !_.contains(keys, 'mapstyle')) return;
+
+                    viz.setMapType(changedAttrs['mapstyle']);
 
                     return true;
 

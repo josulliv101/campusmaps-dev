@@ -6,12 +6,14 @@ define([
 
     , 'scripts/services/filter'
 
+    , 'scripts/moduleManager'
+
     , 'searchpanels/base'
 
     , 'eventdispatcher'
 
 
-], function(DomManager, Datastore, Filter, Base, EventDispatcher) {
+], function(DomManager, Datastore, Filter, ModuleManager, Base, EventDispatcher) {
 
     'use strict';
 

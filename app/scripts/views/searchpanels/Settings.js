@@ -14,7 +14,11 @@ define([
 
 		events: {
 
-		        'click [type="checkbox"]': 'handleCheckboxAnimations'
+		        'click .animation [type="checkbox"]': 'handleCheckboxAnimations',
+
+                'click .style [type="checkbox"]': 'handleCheckboxStyle',
+
+                'click .showme [type="checkbox"]': 'handleCheckboxShowMe'
 
 		},
 
@@ -32,6 +36,35 @@ define([
 
             });
 
+            this.listenTo(EventDispatcher, 'change:mapstyle', function(mapstyle) {
+
+                console.log('change:mapstyle', mapstyle);
+
+                model.set({ highcontrast: mapstyle === 'inverted' }, { silent: true });
+
+            });
+
+            this.listenTo(EventDispatcher, 'change:showme', function(latlng) {
+
+                console.log('change:showme', latlng);
+
+                //alert(latlng);
+
+                model.set({ showme: latlng }, { silent: true });
+
+
+            });
+
+        },
+
+        handleCheckboxStyle: function(ev) {
+
+            var $checkbox = $(ev.currentTarget);
+
+            console.log('handleCheckboxStyle', $checkbox.is(':checked'));
+
+            EventDispatcher.trigger('truthupdate', { mapstyle: $checkbox.is(':checked') ? 'inverted' : 'plain' });
+
         },
 
 		handleCheckboxAnimations: function(ev) {
@@ -43,6 +76,16 @@ define([
 			EventDispatcher.trigger('truthupdate', { panelanimations: $checkbox.is(':checked') });
 
 		},
+
+        handleCheckboxShowMe: function(ev) {
+
+            var $checkbox = $(ev.currentTarget);
+
+            console.log('handleCheckboxShowMe', $checkbox.is(':checked'));
+
+            EventDispatcher.trigger('truthupdate', { showme: $checkbox.is(':checked') });
+
+        },
 
 		getJSON: function() {
 
