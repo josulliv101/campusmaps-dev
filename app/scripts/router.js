@@ -15,7 +15,7 @@ define([
 
         urlLocationAttrWhiteList = ['details', 'campusmap', 'campusid'],
 // 'latlng', ,  'highlight'
-        urlAttrWhiteList = ['highlight', 'tile'], //['featured', 'query', 'querytype', 'customcampusmap', 'centeroffset', 'photowide', 'satellite', 'cmd', 'campusid', 'campusmap', 'locs', 'locationid', 'details', 'detailsview', 'vizpath!', 'zoom'], // 'vizpath',
+        urlAttrWhiteList = ['adminmarker', 'cmd', 'details', 'highlight', 'tile'], //['featured', 'query', 'querytype', 'customcampusmap', 'centeroffset', 'photowide', 'satellite', 'campusid', 'campusmap', 'locs', 'locationid', 'details', 'detailsview', 'vizpath!', 'zoom'], // 'vizpath',
 
         AppRouter = Backbone.Router.extend({
 

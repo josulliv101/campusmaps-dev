@@ -76,6 +76,8 @@ define([
 
             if (_.has(changedAttributes, 'showme')) EventDispatcher.trigger('change:showme', changedAttributes.showme);
 
+            if (_.has(changedAttributes, 'adminmarker')) EventDispatcher.trigger('change:adminmarker', changedAttributes.adminmarker);
+
 
             if (_.has(changedAttributes, 'panelanimations')) {
 

@@ -2,11 +2,13 @@ define([
 
     'searchpanels/base'
 
-], function(Base) {
+    , 'searchpanels/CampusList'
+
+], function(Base, CampusList) {
 
     'use strict';
 
-    return Base.extend({
+    return CampusList.extend({
 
         id: 'AdminCampusList'
 

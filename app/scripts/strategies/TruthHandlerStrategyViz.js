@@ -208,6 +208,20 @@ define([
 
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 
+                    var keys = _.keys(changedAttrs), val;
+
+                    if (keys.length !== 1 || !_.contains(keys, 'adminmarker')) return;
+
+                    val = changedAttrs.adminmarker;
+
+                    viz.setAdminMarker(val);
+                    
+                    return true;
+
+                },
+
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
                     var keys = _.keys(changedAttrs);
 
                     if (keys.length !== 1 || !_.contains(keys, 'panoramadetails')) return;

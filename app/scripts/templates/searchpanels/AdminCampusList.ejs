@@ -1,7 +1,12 @@
-<div class="shadow panel">
+<div class="shadow panel panel-campuses">
 	<div class="bd spacing">
-		<h3>Pdfs</h3>
-		<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-		<button class="close close-just-this" data-campusmap='cmd:CampusMapList'><span class="lite">close this panel</span> X</button>
+		<button class="back" onclick="window.history.back()">back</button>
+		<h3>Admin: Campuses ${data.test}</h3> 
+		<ul>
+			<% _.each(data.campuses, function(campus) { %> 
+			    <li id="<%= campus.campusid %>" <% if (campus.selected) { %>class="active"<% } %>><a href="#" data-campusmap="campusid:<%= campus.campusid %>">${campus.name}</a> <button data-campusmap="cmd:AdminCampusMapList" class="maps">View maps</button></li>
+			<% }); %>
+			<% if (!data.campuses) { %><li>No campuses yet.</li><% } %>
+		</ul>
 	</div>
 </div>

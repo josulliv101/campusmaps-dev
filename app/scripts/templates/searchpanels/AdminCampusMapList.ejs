@@ -1,0 +1,12 @@
+<div class="shadow panel panel-campusmaps">
+	<div class="navbar">Edit a map on the Medford/Somerville Campus</div>
+	<div class="bd spacing">
+		<h3>Admin CampusMap List</h3>
+		<ul>
+			<% _.each(data.maps, function(map) { %> 
+			    <li id="<%= map.mapid %>" <% if (map.selected) { %>class="active"<% } %>><a href="#<%= map.mapid %>" data-campusmap="campusmap:<%= map.mapid %>">${map.name}</a> <button data-campusmap="cmd:AdminLocationList" class="maps">View locations (${map.locationTotal})</button></li>
+			<% }); %>
+			<% if (data.maps.length === 0) { %><li>No maps yet.</li><% } %>
+		</ul>
+	</div>
+</div>

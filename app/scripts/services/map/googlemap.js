@@ -465,6 +465,42 @@ define([
 
     }
 
+    function setAdminMarker_(latlng) {
+
+        console.log('gmap setAdminMarker_..', latlng);
+
+
+    if (!gMap.adminmarker) {
+
+        gMap.adminmarker = new google.maps.Marker({
+
+                                map: gMap,
+
+                                title: 'Drag markerto change lat/lng',
+
+                                draggable: true
+
+                            });
+
+        google.maps.event.addListener(gMap.adminmarker, 'dragend', function() {
+
+            var latlng = gMap.adminmarker.getPosition().toUrlValue();
+
+            EventDispatcher.trigger('truthupdate', { adminmarker: latlng.replace(/[\(\)]+/g, '') });
+
+        });
+
+    }
+
+
+        if (_.isEmpty(latlng)) return gMap.adminmarker.setVisible(false);
+        
+        gMap.adminmarker.setPosition(getLatLng(latlng));
+
+        gMap.adminmarker.setVisible(true);
+
+    }
+
     function clear_() {
 
         //alert(gMap.markers.length);
@@ -738,6 +774,8 @@ console.log('latlng', latlng);
         renderIcons: renderIcons_,
 
         render: render_,
+
+        setAdminMarker: setAdminMarker_,
 
         setZoom: setZoom_,
 
