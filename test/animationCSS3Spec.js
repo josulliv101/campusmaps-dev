@@ -3,7 +3,7 @@ define([
 
   'jquery',
 
-  '../scripts/animations/animationCSS3'
+  '../scripts/animations/animationCSS'
 
 ], function ($, AnimationCSS) {
 

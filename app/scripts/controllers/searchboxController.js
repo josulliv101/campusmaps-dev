@@ -73,6 +73,7 @@ define([
 
             if (_.has(changedAttributes, 'locationlistfilter')) EventDispatcher.trigger('change:locationlistfilter', changedAttributes.locationlistfilter);
 
+            if (_.has(changedAttributes, 'mapclick')) EventDispatcher.trigger('change:mapclick', changedAttributes.mapclick);
 
             if (_.has(changedAttributes, 'showme')) EventDispatcher.trigger('change:showme', changedAttributes.showme);
 
@@ -92,6 +93,14 @@ define([
                 this.mapstyle = changedAttributes.mapstyle;
 
                 EventDispatcher.trigger('change:mapstyle', changedAttributes.mapstyle);
+
+            }
+
+            if (_.has(changedAttributes, 'zoom')) {
+
+                this.zoom = changedAttributes.zoom;
+
+                EventDispatcher.trigger('change:zoom', changedAttributes.zoom);
 
             }
 
@@ -281,7 +290,7 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ mapstyle: this.mapstyle, panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
+        panel.model.set({ zoom: this.zoom, mapstyle: this.mapstyle, panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 

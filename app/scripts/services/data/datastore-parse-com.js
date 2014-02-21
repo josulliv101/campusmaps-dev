@@ -82,4 +82,6 @@ define([
 
     return _.extend(fns_, { fetch: fetch_ });
 
+    // , Factory: { model: function(attrs) { return new Backbone.Model(attrs); }}
+
 });

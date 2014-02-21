@@ -9,7 +9,9 @@ define([
 
     , 'scripts/services/map/MapUtils'
 
-], function(_, DomManager, Datastore, MapUtils) {
+    , 'eventdispatcher'
+
+], function(_, DomManager, Datastore, MapUtils, EventDispatcher) {
 
     'use strict';
 
@@ -213,6 +215,17 @@ define([
                     if (keys.length !== 1 || !_.contains(keys, 'adminmarker')) return;
 
                     val = changedAttrs.adminmarker;
+
+                    if (val === 'center') {
+
+                        val = center;
+
+                        // Let any panels update themselves
+                        EventDispatcher.trigger('truthupdate', { adminmarker: val });
+
+                        return true;
+
+                    }
 
                     viz.setAdminMarker(val);
                     

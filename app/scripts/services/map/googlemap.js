@@ -59,6 +59,26 @@ define([
 
     }
 
+    function getCenter_(zoom, offset, options) {    
+
+        var ll = gMap.getCenter(), offsetLatLng;
+
+        options || (options = {});
+
+        zoom || (zoom = gMap.getZoom());
+
+        offset || (offset = this.mapCenterOffset || { x: 0, y: 0 });
+
+        if (!ll) return;
+
+       ll = { lat: ll.lat(), lng: ll.lng() };
+
+       offsetLatLng = MapUtils.offsetLatLngByPixels(ll, zoom, offset);
+debugger;
+       return options.format === 'string' ? getLatLng(offsetLatLng).toUrlValue() : offsetLatLng;
+
+    }
+
     function getLatLng(latlng) {
 
         var ll = _.isString(latlng) ? _.latLng(latlng) : latlng;
@@ -706,7 +726,7 @@ console.log('latlng', latlng);
  
         google.maps.event.addListener(gMap, 'click', function(ev) {
 
-            //EventDispatcher.trigger('truthupdate', { details: '', cmd: '' });
+            if (ev.latLng) return EventDispatcher.trigger('truthupdate', { mapclick: ev.latLng.toUrlValue() });
             
             var loc, id, cmd, attrs, zoom = gMap.getZoom();
 
@@ -725,6 +745,8 @@ console.log('latlng', latlng);
             }*/
 
             EventDispatcher.trigger('truthupdate', attrs);
+
+
 
         });
 
@@ -784,6 +806,8 @@ console.log('latlng', latlng);
         setMapStyle: setMapStyle_,
 
         setCenter: setCenter_,
+
+        getCenter: getCenter_,
 
         setMapType: setMapType_,
 
