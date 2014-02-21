@@ -65,12 +65,10 @@ define([
 
                 this.refresh(panelid);
 
-                //panelid === 'photo' ? this.showPanoramaMarkers() : this.hidePanoramaMarkers();
-
             });
 
             this.listenTo(EventDispatcher, 'change:details', function(locationid) {
-debugger;
+
                 var campus = Datastore.campus(),
 
                 map = Datastore.map(campus),

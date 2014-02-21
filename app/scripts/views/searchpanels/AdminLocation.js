@@ -116,9 +116,6 @@ define([
 
             ev.preventDefault();
 
-            console.log('save', ev);
-
-            console.log('selectedLocation', location);
 
             if (!location) return;
 
@@ -129,16 +126,9 @@ define([
             location.save(inputObj)
 
             .then(function() {
+                
             	alert('saved');
-/*
-                EventDispatcher.trigger('change:locations', undefined, {
 
-                    reset: true
-
-                });
-
-                EventDispatcher.trigger('cmd', 'admin-map-locations');
-*/
             });
 
         },
