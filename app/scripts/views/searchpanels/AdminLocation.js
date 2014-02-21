@@ -14,7 +14,17 @@ define([
 
         id: 'AdminLocation',
 
-        title: 'AdminLocation',
+        title: function() { 
+
+            var campus = Datastore.campus(),
+
+                map = Datastore.map(campus),
+
+                location = Datastore.location(map, this.model.get('details'));
+
+            return _.getAttr(location, 'name') || '..'; 
+
+        },
 
         events: {
 
@@ -28,11 +38,20 @@ define([
 
             Base.prototype.initialize.call(this);
 
-            //_.bindAll(this, 'title');
+            _.bindAll(this, 'title');
 
             this.listenTo(EventDispatcher, 'change:details', function(locationid) {
 
+                var campus = Datastore.campus(),
+
+                map = Datastore.map(campus),
+
+                location = map.details;
+
+                model.set('label', locationid, { silent: true });
+
                 if (locationid && _.isString(locationid)) self.render();
+
 
             });
 
@@ -126,7 +145,7 @@ define([
             location.save(inputObj)
 
             .then(function() {
-                
+
             	alert('saved');
 
             });
