@@ -113,6 +113,21 @@ define([
 
                 },
 
+
+                function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
+
+                    var keys = _.keys(changedAttrs), val;
+
+                    if (keys.length !== 1 || !_.contains(keys, 'locationsadded')) return;
+
+                    val = _.isArray(changedAttrs.locationsadded) ? changedAttrs.locationsadded : [];
+
+                    viz.setAddedLocations(val);
+
+                    return true;
+
+                },
+
                 // Label Strategy has changed
                 function(controller, viz, changedAttrs, previousAttrs, campus, campusmap, locations, allLocations, center, centerOffset, zoom) { 
 

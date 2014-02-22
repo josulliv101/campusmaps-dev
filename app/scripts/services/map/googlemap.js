@@ -485,6 +485,21 @@ debugger;
 
     }
 
+    function setAddedLocations_(models) {
+
+        gMap.newlocations || (gMap.newlocations = []);
+
+        // Reset
+        _.each(gMap.newlocations, function(marker) { marker.setMap(null); });
+
+        gMap.newlocations = _.map(models, function(model) {
+
+            return new google.maps.Marker({ map: gMap, position: getLatLng(model.latlng) });
+
+        });
+
+    }
+
     function setAdminMarker_(latlng) {
 
         console.log('gmap setAdminMarker_..', latlng);
@@ -810,6 +825,8 @@ console.log('latlng', latlng);
         getCenter: getCenter_,
 
         setMapType: setMapType_,
+
+        setAddedLocations: setAddedLocations_,
 
         setPanorama: setPanorama_,
 

@@ -44,16 +44,26 @@ define([
         },
 
         handleMapClick: function(latlng) {
+debugger;
+        	var loc, campus, map;
 
-        	var loc;
+            campus = Datastore.campus();
 
-        	this.newLocations.push(loc);
+            map = Datastore.map(campus);
 
         	loc = {
 
-        		name: 'New Location ' + this.newLocations.length
+        		name: 'New Location',
+
+                latlng: latlng,
+
+                mapid: _.getAttr(map, 'mapid')
 
         	};
+
+            this.newLocations.push(loc);
+
+            //EventDispatcher.trigger('truthupdate', { locationsadded: this.newLocations });
 
         	this.render();
 
@@ -75,6 +85,8 @@ define([
 
             this.init = true;
 
+            this.stopListening(EventDispatcher, 'change:mapclick');
+
 			this.listenTo(EventDispatcher, 'change:mapclick', this.handleMapClick);
 
 		},
@@ -86,6 +98,8 @@ define([
             if (state !== 'close') return;
 
 		    this.stopListening(EventDispatcher, 'change:mapclick');
+
+            EventDispatcher.trigger('truthupdate', { locationsadded: null });
 
 		    this.newLocations = [];
 
