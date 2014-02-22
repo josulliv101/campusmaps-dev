@@ -6,7 +6,9 @@ define([
 
     , 'eventdispatcher'
 
-], function(Base, Datastore, EventDispatcher) {
+    , 'parsecom'
+
+], function(Base, Datastore, EventDispatcher, Parse) {
 
     'use strict';
 
@@ -38,20 +40,38 @@ define([
 			campus = Datastore.campus();
 
             map = Datastore.map(campus);
-            
-        	alert(this.newLocations.length);
+
+            _.each(this.newLocations, function(attrs) { 
+
+                var loc = new Datastore.Location(attrs);
+
+                loc.save()
+
+                .then(function() {
+
+                    if (!map.has('locations')) map.set('locations', []); 
+
+                    map.get('locations').push(loc);
+
+                    map.save();
+
+                });
+
+            });
 
         },
 
         handleMapClick: function(latlng) {
-debugger;
-        	var loc, campus, map;
+
+        	var loc, campus, map, id = _.uniqueId('Location');
 
             campus = Datastore.campus();
 
             map = Datastore.map(campus);
 
         	loc = {
+
+                locationid: id,
 
         		name: 'New Location',
 
@@ -61,11 +81,15 @@ debugger;
 
         	};
 
-            this.newLocations.push(loc);
+            if (!_.find(this.newLocations, function(model) { return model.latlng === latlng; })) this.newLocations.push(loc);
 
-            //EventDispatcher.trigger('truthupdate', { locationsadded: this.newLocations });
+            //this.newLocations = _.uniq(this.newLocations);
+
+            EventDispatcher.trigger('truthupdate', { locationsadded: _.map(this.newLocations, function(l){ return l.latlng; }).join('|') });
 
         	this.render();
+
+           
 
         },
 

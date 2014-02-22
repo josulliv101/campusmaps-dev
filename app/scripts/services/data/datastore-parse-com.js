@@ -27,7 +27,9 @@ define([
         // To do: campuses have no data yet, this needs to move.
         maps_ = new Parse.Collection(),
 
-        fns_ = DataInterface.initialize(campuses_, maps_);
+        fns_ = DataInterface.initialize(campuses_, maps_),
+
+        classLocation_ = Parse.Object.extend({className: "Location"});
 
 
     // Wrap the Parse.com in a jquery deferred obj for consistency
@@ -80,7 +82,7 @@ define([
 
     //// Public ////
 
-    return _.extend(fns_, { fetch: fetch_ });
+    return _.extend(fns_, { fetch: fetch_, Location: classLocation_ });
 
     // , Factory: { model: function(attrs) { return new Backbone.Model(attrs); }}
 

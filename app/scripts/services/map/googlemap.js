@@ -494,7 +494,7 @@ debugger;
 
         gMap.newlocations = _.map(models, function(model) {
 
-            return new google.maps.Marker({ map: gMap, position: getLatLng(model.latlng) });
+            return new google.maps.Marker({ map: gMap, position: getLatLng(model) });
 
         });
 
@@ -741,8 +741,12 @@ console.log('latlng', latlng);
  
         google.maps.event.addListener(gMap, 'click', function(ev) {
 
-            if (ev.latLng) return EventDispatcher.trigger('truthupdate', { mapclick: ev.latLng.toUrlValue() });
+            if (ev.latLng) {
+
+                return EventDispatcher.trigger('truthupdate', { mapclick: ev.latLng.toUrlValue() });
             
+            }
+
             var loc, id, cmd, attrs, zoom = gMap.getZoom();
 
             loc = handleLatLng_(ev, zoom);

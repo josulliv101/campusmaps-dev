@@ -85,7 +85,7 @@ define([
                 filter = this.model.get('filter') || '',
 
                 fnFirstLetterMatch= function(loc) { var name = _.getAttr(loc, 'name'); return name && name.toLowerCase().indexOf(Filter.getQuery().term) === 0; };
-
+debugger;
             _.extend(json, { map: _.find(json.maps, function(map) { return map.selected === true; })});
 
             if (!json.map || !json.map.locations) return { data: {}};

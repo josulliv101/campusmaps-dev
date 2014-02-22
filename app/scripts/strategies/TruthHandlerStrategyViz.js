@@ -120,9 +120,11 @@ define([
 
                     if (keys.length !== 1 || !_.contains(keys, 'locationsadded')) return;
 
-                    val = _.isArray(changedAttrs.locationsadded) ? changedAttrs.locationsadded : [];
+                    val = !_.isString(changedAttrs.locationsadded) ? [] : changedAttrs.locationsadded.split('|');
 
-                    viz.setAddedLocations(val);
+                    //val = _.isArray(changedAttrs.locationsadded && changedAttrs.locationsadded.data) ? changedAttrs.locationsadded.data : [];
+debugger;
+                    if (val) viz.setAddedLocations(val);
 
                     return true;
 
