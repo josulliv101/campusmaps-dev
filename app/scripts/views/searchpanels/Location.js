@@ -168,16 +168,16 @@ define([
 
             var nav = _.clone(this.nav),
 
-                occupants = loc.occupants,
+                occupants = _.getAttr(loc, 'occupants'),
 
-                urlphoto = loc.urlphoto,
+                imageurl = _.getAttr(loc, 'imageurl'),
 
                 officesItem = this.getNavItemById(nav, 'offices');
 
             // Hide the offices item if none
             if (!occupants || _.size(occupants) === 0)  nav = _.without(nav, officesItem);
 
-            if (!urlphoto || urlphoto === '')  nav = _.without(nav, this.getNavItemById(nav, 'photo'));
+            if (!imageurl || imageurl === '')  nav = _.without(nav, this.getNavItemById(nav, 'photo'));
 
             
             return nav;

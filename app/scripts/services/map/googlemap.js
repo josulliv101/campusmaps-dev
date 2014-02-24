@@ -560,7 +560,7 @@ debugger;
 
         tileoffset = MapUtils.latLngToTileOffset_({ lat: latlng.lat(), lng: latlng.lng() }, zoom);
 
-console.log('latlng', latlng);
+//console.log('latlng', latlng);
 
         EventDispatcher.trigger('truthupdate', { tile: MapUtils.getTileZoomId(tileoffset.tile, zoom) });
 
@@ -675,7 +675,7 @@ console.log('latlng', latlng);
 
             fillColor: '#6699cc',
 
-            fillOpacity: 0.0,
+            fillOpacity: 0,
 
             map: null,
 
@@ -759,11 +759,12 @@ console.log('latlng', latlng);
 
             attrs = { details: id, highlight: id, cmd: cmd };
 // Do at global level so works for keyboard control as well
-/*            if (loc && loc.locationid) {
+/**/
+            if (loc && loc.locationid) {
 
                 attrs.latlng = loc.latlng[0] + ',' + loc.latlng[1];
 
-            }*/
+            }
 
             EventDispatcher.trigger('truthupdate', attrs);
 

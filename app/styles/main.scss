@@ -247,19 +247,29 @@ ul {
 
     &.primary {
       
+      position: relative;
+
+      left: 10px;
+
       li {
 
         a {
 
           padding: 4px 8px 6px;
           
-          color: #666;
+          color: #3172AE;
+
+          font-size: 13px;
+
+          font-weight: 700;
 
           &:focus {
 
             /*background: #f8f8f8;*/
 
             color: #333;
+
+            text-decoration: underline;
 
           }
 
@@ -318,6 +328,8 @@ ul {
       padding: 0;
 
       font-size: 16px;
+
+      line-height: 22px;
 
       position: relative;
 
@@ -803,8 +815,9 @@ ul {
   overflow: hidden;
 	position: absolute;
 	width: 48%;
-  max-width: 430px;
+  /*max-width: 430px;*/
   min-width: 320px;
+  max-width: 360px;
 	z-index: 101;
 	top: 12px;
 	left: 12px;
@@ -833,7 +846,7 @@ ul {
 
           margin: 6px;
 
-          width: 100%;
+          width: 97%;
 
           max-width: 406px;
 
@@ -1185,7 +1198,7 @@ ul {
 
               &.slideDown {
 
-                -webkit-animation: slideDownFrames 0.4s; /* Safari and Chrome */
+                -webkit-animation: slideDownFrames 0.4s; /* Safari and Chrome 0.4 */
                 animation: slideDownFrames 0.4s;
                 
                 -webkit-animation-timing-function:ease-in;
@@ -1452,18 +1465,18 @@ ul {
 
           .slideDown {
 
-            -webkit-animation: slideDownFrames2 0.95s !important; 
-            animation: slideDownFrames2 0.95s !important; 
+            -webkit-animation: slideDownFrames2 0.35s !important; 
+            animation: slideDownFrames2 0.35s !important; 
 
             animation-timing-function:ease-out;
-            -webkit-animation-timing-function:ease-out; /* Safari and Chrome */
+            -webkit-animation-timing-function:ease-out; /* Safari and Chrome  0.95s */
 
           }
 
           .slideUp {
 
-            -webkit-animation: slideUpFrames2 0.25s !important;
-            animation: slideUpFrames2 0.25s !important; 
+            -webkit-animation: slideUpFrames2 0.15s !important;
+            animation: slideUpFrames2 0.15s !important; 
 
             animation-timing-function:linear;
             -webkit-animation-timing-function:linear; /* Safari and Chrome */
@@ -1573,7 +1586,7 @@ ul {
 
       position: relative;
 
-      top: -15px;
+      top: -22px;
 
       left: 12px;
 
@@ -1616,13 +1629,15 @@ ul {
 
         min-width: 80px;
 
-        top: 0;
+        top: 0px;
 
         left: 0;
 
         white-space: nowrap;
 
-        border-style: none;
+        line-height: 16px;
+
+        border-style: solid;
 
         border-color: transparent;
 
@@ -1631,6 +1646,8 @@ ul {
         border-radius: 4px;
 
         vertical-align: top;
+
+        padding: 4px 12px 0 0px;
 
 
 /*
@@ -1659,7 +1676,7 @@ ul {
 
           right: 12px;
 
-          bottom: 4px;
+          bottom: 5px;
 
           font-size: 11px;
 
@@ -1811,22 +1828,24 @@ ul {
         
         display: block;
 
-        left: -12px;
+        left: -18px;
 
         .txt {
 
 
           -moz-box-sizing: border-box;
           box-sizing: border-box;
-/*
-          background: none repeat scroll 0 0 rgba(232, 232, 232, 0.56);*/
+
+          background:  none repeat scroll 0 0 rgba(232, 232, 232, 0.56); /*#6699cc; */
           border-color: #FFFFFF;
           color: #1C92C9;
+
+          border-style: solid;
           
-          min-height: 32px;
+          min-height: 54px;
           opacity: 1;
           overflow: visible;
-          padding: 0 12px 0 24px;
+          padding: 4px 12px 22px 30px;
 
           -webkit-transition: border-color 0.7s ease-out;
 
@@ -2027,11 +2046,11 @@ ul {
     &.details {
 
       .icon {
-
+/*
         background-image: url("../../app/images/icons/map/marker-icon-2x.png") !important;
         
         top: -1px;
-
+*/
       }
 
     }
@@ -2098,6 +2117,9 @@ ul {
       .bd {
         top: -24px;
         left: 22px;
+        .txt {
+          line-height: 24px;
+        }
       }
     }
   }
@@ -2184,10 +2206,10 @@ ul {
     color: #1c92c9;
 
     display: block;
-/*
+/**/
     background: rgba(232, 232, 232, 0.56);
 
-    border-style: none;  solid */
+    border-style: solid;   
 
     border-color: #fff;
 
