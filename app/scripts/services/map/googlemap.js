@@ -675,7 +675,7 @@ console.log('latlng', latlng);
 
             fillColor: '#6699cc',
 
-            fillOpacity: 0.3,
+            fillOpacity: 0.0,
 
             map: null,
 
@@ -743,7 +743,9 @@ console.log('latlng', latlng);
 
             if (ev.latLng) {
 
-                return EventDispatcher.trigger('truthupdate', { mapclick: ev.latLng.toUrlValue() });
+                //return
+
+                EventDispatcher.trigger('truthupdate', { mapclick: ev.latLng.toUrlValue() });
             
             }
 

@@ -1,13 +1,15 @@
 html { height: 100% }
 
 body { 
-  background: #FFF; /* #565152 */ 
+  /*
+  background: #FFF;  
   overflow: hidden; 
   height: 100%; 
   margin: 0px 0 0; 
   padding: 0; 
 
   font-family: DINmed,Arial,sans-serif;
+  */
 }
 
 input {
@@ -33,8 +35,8 @@ h1, h2, h3, h4, h5, h6 {
   margin: 12px auto 0;
   height: 100%;
   max-width: 890px; /* 100% 520px */
-
-  max-height: 520px;
+  
+  max-height: 560px;
 
 }
 
@@ -321,7 +323,7 @@ ul {
 
       &:nth-child(2n + 1) {
 
-          background: #f8f8f8;
+          background: #eee;
 
       }
 
@@ -591,7 +593,7 @@ ul {
 
 /* Layout */
 
-#map-wrap, #map-canvas { height: 100% }
+#map-wrap, #map-canvas { height: 100%; min-height: 520px; }
 
 #map-wrap {
 	position: relative;
@@ -614,6 +616,7 @@ ul {
   background: #eee;
   border: 1px #999 solid;
   height: 100%;
+  
 
 
     
@@ -1449,8 +1452,8 @@ ul {
 
           .slideDown {
 
-            -webkit-animation: slideDownFrames2 0.65s !important; 
-            animation: slideDownFrames2 0.65s !important; 
+            -webkit-animation: slideDownFrames2 0.95s !important; 
+            animation: slideDownFrames2 0.95s !important; 
 
             animation-timing-function:ease-out;
             -webkit-animation-timing-function:ease-out; /* Safari and Chrome */
@@ -1530,6 +1533,8 @@ ul {
 
     color: #666;
 
+    font-size: 12px;
+
     /* Icons */
 
     .icon {
@@ -1571,6 +1576,7 @@ ul {
       left: 16px;
 
       z-index: 998;
+
 
 /*
       -webkit-transition: all 0.5s ease-out;
@@ -1614,7 +1620,7 @@ ul {
 
         white-space: nowrap;
 
-        border-style: solid;
+        border-style: none;
 
         border-color: transparent;
 
@@ -1624,14 +1630,16 @@ ul {
 
         vertical-align: top;
 
-        -webkit-transition: color 0.2s linear;
 
-        -moz-transition: color 0.2s linear;
+/*
+        -webkit-transition: color 0.3s ease-in;
 
-        -o-transition: color 0.2s linear;
+        -moz-transition: color 0.3s ease-in;
 
-        transition: color 0.2s linear;
+        -o-transition: color 0.3s ease-in;
 
+        transition: color 0.3s ease-in;
+*/
 
         &.shadow {
 
@@ -1755,9 +1763,15 @@ ul {
 
         .txt {
 
-          /*color: #1C92C9;*/
+          color: #1C92C9;
 
           text-decoration: underline;
+
+          &:after {
+
+             /*content:  " \003E ";*/
+
+          }
 
         }
 
@@ -1964,9 +1978,29 @@ ul {
 
     }
 
+    &.emphasis2 {
+
+      
+
+    }
+
     &.emphasis3 {
 
-      color: #237cc9;
+      /*color: #237cc9;*/
+
+      font-size: 14px;
+
+      padding-left: 9px;
+
+    }
+
+    &.emphasis4 {
+
+      /*color: #237cc9;*/
+
+      font-size: 14px;
+
+      padding-left: 9px;
 
     }
 
@@ -2133,7 +2167,7 @@ ul {
 
     background: rgba(232, 232, 232, 0.56);
 
-    border-style: solid;
+    border-style: none; /* solid */
 
     border-color: #fff;
 

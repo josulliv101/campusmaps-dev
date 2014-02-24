@@ -19,9 +19,9 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    if (!model.featured) return;
+                    if (!_.getAttr(model, 'featured')) return;
 
-                    return 'emphasis' + model.emphasis + ' icon-star';
+                    return 'emphasis' + _.getAttr(model, 'emphasis') + ' icon-star';
 
                 },
 
@@ -31,35 +31,41 @@ define([
 
                     model.hide = false;
 
-                    return 'emphasis' + model.emphasis + ' icon-xsmall';
+                    return 'emphasis' + _.getAttr(model, 'emphasis') + ' icon-xsmall';
 
                 },
 
                function(model, zoom) { 
 
-                    var classname;
+                    var classname, emphasis;
 
                     if (zoom !== 18) return;
 
-                    if (model.emphasis < 3) return;
+                    emphasis = parseInt(_.getAttr(model, 'emphasis'));
 
-                    classname = model.emphasis === 3 ? ' icon-circle-small' : ' icon-small';
+                    if (emphasis < 2) return;
 
+                    classname = emphasis === 2 ? ' icon-circle-small' : ' ';
+debugger;
                     model.hide = false;
 
-                    return 'emphasis' + model.emphasis + classname; // Show all label
+                    return 'emphasis' + emphasis + classname; // Show all label
 
                 },
 
                function(model, zoom) { 
 
+                    var emphasis;
+
                     if (zoom !== 17) return;
 
-                    if (model.emphasis < 5) return;
+                    emphasis = parseInt(_.getAttr(model, 'emphasis'));
+
+                    if (emphasis < 4) return;
 
                     model.hide = false;
 
-                    return 'emphasis' + model.emphasis + ' icon-xsmall'; // Show all label
+                    return 'emphasis' + _.getAttr(model, 'emphasis') + ' icon-xsmall'; // Show all label
 
                 },
 

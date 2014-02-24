@@ -8,7 +8,7 @@
 
 		<ul class="list list-striped">
 			<% _.each(data.map.locations, function(loc) { %> 
-			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>><a class="location" href="#${loc.name}" >${loc.name}</a> <button data-campusmap="details:<%= loc.locationid %>,cmd:AdminLocation" class="locations">View details</button></li>
+			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>><a class="location" data-campusmap="latlng:${loc.latlng},highlight:<%= loc.locationid %>,focus:<%= loc.locationid %>" href="#${loc.name}" >${loc.name}</a> <button data-campusmap="details:<%= loc.locationid %>,cmd:AdminLocation" class="locations">View details</button></li>
 			<% }); %>
 			<% if (data.map.locations.length === 0) { %><li>No locations yet.</li><% } %>
 		</ul>

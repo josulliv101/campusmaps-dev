@@ -249,7 +249,7 @@ define([
 
             name = _.getAttr(model, 'name'),
 
-            multiline = _.map(this.toMultiLines(name, 12), function(line) { return line + "<br/>"}).join(""),
+            multiline = _.map(this.toMultiLines(name, 12), function(line) { return line}).join("<br/>"),
 
             thumbnail = _.getAttr(model, 'thumbnail'),
 
@@ -261,9 +261,9 @@ define([
 
             iconStyle = _.getAttr(model, 'iconstyle') ? 'background-image: url(' + _.getAttr(model, 'iconstyle') + ');' : '',
 
-            img = _.exists(thumbnail) ? '<img class="img-th shadow" src="./app/images/thumbs/' + thumbnail + '" />' : '';
+            img = _.exists(thumbnail) ? '<img class="img-th " src="./app/images/thumbs/' + thumbnail + '" />' : '';
 
-        return "<div class='location " + details + highlight + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon' style='" + iconStyle + "'></div><div class='bd'><div class='txt shadow'>" + multiline + "<div class='more'>next &gt;</div></div><div class='thumb'>" + img + "</div></div></div>";
+        return "<div class='location " + details + highlight + labelClasses + "' style='top: " + px(offset.y - iconSize.height/2) + "; left: " + px(offset.x - iconSize.width/2) + ";' id='" + id + "'><div class='icon' style='" + iconStyle + "'></div><div class='bd'><div class='txt '>" + multiline + "<div class='more'>next &gt;</div></div><div class='thumb'>" + img + "</div></div></div>";
 
     }
 

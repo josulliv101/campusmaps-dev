@@ -46,13 +46,15 @@ define([
 
             'click .location' : function(ev) {
 
-                var locationid = $(ev.currentTarget).parent().attr('id');
+/*                var locationid = $(ev.currentTarget).parent().attr('id');
 
                 ev.preventDefault();
 
-                EventDispatcher.trigger('truthupdate', { details: locationid });
+                if (this.id !== 'LocationList') return;
 
-                this.refresh(locationid);
+                EventDispatcher.trigger('truthupdate', { focus: locationid });
+
+                this.refresh(locationid);*/
 
             }
 
@@ -65,6 +67,8 @@ define([
             Base.prototype.initialize.call(this);
 
             this.listenTo(EventDispatcher, 'change:locationid', this.refresh);
+
+            this.listenTo(EventDispatcher, 'change:focus', this.refresh);
 
             this.listenTo(EventDispatcher, 'change:locationlistfilter', function(letter) {
 
@@ -85,7 +89,7 @@ define([
                 filter = this.model.get('filter') || '',
 
                 fnFirstLetterMatch= function(loc) { var name = _.getAttr(loc, 'name'); return name && name.toLowerCase().indexOf(Filter.getQuery().term) === 0; };
-debugger;
+
             _.extend(json, { map: _.find(json.maps, function(map) { return map.selected === true; })});
 
             if (!json.map || !json.map.locations) return { data: {}};
@@ -96,6 +100,8 @@ debugger;
 
             // Sort the locations
             json.map.locations = _.sortBy(json.map.locations, function(loc){ return _.getAttr(loc, 'name'); });
+
+            _.each(json.map.locations, function(loc) { loc.latlng = loc.latlng.replace(',', '|'); });
 
             console.log('LocationList json', campus, json);
 

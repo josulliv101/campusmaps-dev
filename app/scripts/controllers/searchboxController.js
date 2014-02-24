@@ -79,6 +79,8 @@ define([
 
             if (_.has(changedAttributes, 'adminmarker')) EventDispatcher.trigger('change:adminmarker', changedAttributes.adminmarker);
 
+            if (_.has(changedAttributes, 'focus')) EventDispatcher.trigger('change:focus', changedAttributes.focus);
+
 
             if (_.has(changedAttributes, 'panelanimations')) {
 

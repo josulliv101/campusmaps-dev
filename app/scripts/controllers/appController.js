@@ -105,6 +105,12 @@ define([
 
         }
 
+        if (_.has(attrs, 'latlng')) {
+
+            if (attrs.latlng && attrs.latlng.indexOf('|') > -1) attrs.latlng = attrs.latlng.replace('|', ',');
+
+        }
+
         // Always show first panel when details location changes
         if (_.has(attrs, 'details')) {
 
