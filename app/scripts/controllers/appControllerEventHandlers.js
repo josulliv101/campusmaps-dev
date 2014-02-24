@@ -339,7 +339,7 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
                 campusmap.details = location;
 
-                EventDispatcher.trigger('truthupdate', { latlng: location.latlng });
+                //EventDispatcher.trigger('truthupdate', { latlng: location.latlng });
 
             } else {
 

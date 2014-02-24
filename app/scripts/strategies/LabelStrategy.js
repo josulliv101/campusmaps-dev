@@ -46,7 +46,7 @@ define([
                     if (emphasis < 2) return;
 
                     classname = emphasis === 2 ? ' icon-circle-small' : ' ';
-debugger;
+
                     model.hide = false;
 
                     return 'emphasis' + emphasis + classname; // Show all label

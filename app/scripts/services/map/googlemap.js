@@ -109,7 +109,7 @@ debugger;
 
             if (loc.details === true) hasDetails = true;;
 
-            offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: _.latLng(loc.latlng)[0], lng: _.latLng(loc.latlng)[1] }, loc.zoom, { x: hasDetails ? 16 : -8, y: 10 });
+            offsetLatLng = MapUtils.offsetLatLngByPixels({ lat: _.latLng(loc.latlng)[0], lng: _.latLng(loc.latlng)[1] }, loc.zoom, { x: hasDetails ? 16 : -8, y: 4 });
 
             dimensions = DM.getDimensions($el.find('.txt'));
 
