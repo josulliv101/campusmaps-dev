@@ -222,7 +222,7 @@ a {
 
     background: none;
 
-    padding: 0;
+    padding: 0 1px 0 0;
 
     margin: 0;
 
@@ -249,9 +249,23 @@ ul {
       
       position: relative;
 
-      left: 10px;
+      left: 0px;
+
+      top: -2px;
 
       li {
+
+        border-left: 1px #ddd solid;
+
+        &:first-child {
+
+          border-left: none;
+
+          a {
+            padding-left: 0;
+          }
+
+        }
 
         a {
 
@@ -259,9 +273,11 @@ ul {
           
           color: #3172AE;
 
-          font-size: 13px;
+          font-size: 14px;
 
-          font-weight: 700;
+          font-weight: 400;
+
+          letter-spacing: .07em;
 
           &:focus {
 
@@ -299,6 +315,8 @@ ul {
             
             color: #666;
 
+            letter-spacing: .04em;
+
             &:focus {
 
               /*background: #f8f8f8;*/
@@ -310,6 +328,30 @@ ul {
           }
 
         }
+
+    }
+
+    &.footer {
+      
+      float: right;
+
+      margin-top: 6px;
+
+      li {
+
+        a {
+
+          padding: 4px 8px 6px;
+          
+          color: #999;
+
+          font-size: 12px;
+
+          font-weight: 400;
+
+        }
+
+      }
 
     }
 
@@ -366,7 +408,7 @@ ul {
 
         display: block;
 
-        color: #999;
+        color: #333;
 
         text-decoration: none;
 
@@ -470,6 +512,45 @@ ul {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+
+.location-filters {
+  .navbar {
+    button {
+      color: #eee;
+      border-style: none;
+      background: transparent;
+      margin: 0;
+      padding: 0 12px;
+      &.active {
+        color: #fff;
+        text-decoration: underline;
+      } 
+      &:first-child {
+        margin-left: 32px;
+      }
+    }
+  }
+  #nav-abc {
+    display: none;
+    text-align: center;
+    button {
+      font-size: 12px;
+      color: #6699cc;
+      padding: 3px 1px;
+      letter-spacing: .1em;
+    }
+  }
+
+  &.abc {
+    #nav-abc {
+      display: block;
+    }
+  }
+  button {
+
+  }
 }
 
 .close {
@@ -696,6 +777,10 @@ ul {
 
           border: none !important;
 
+          letter-spacing: .02em;
+
+          font-size: 12px;
+
         }
 
       }
@@ -817,7 +902,7 @@ ul {
 	width: 48%;
   /*max-width: 430px;*/
   min-width: 320px;
-  max-width: 360px;
+  max-width: 420px;
 	z-index: 101;
 	top: 12px;
 	left: 12px;
@@ -963,13 +1048,15 @@ ul {
 
                   padding: 4px 12px;
 
+                  line-height: 16px;
+
                 }
                 
                 .bd {
                   
                   &.spacing-full {
 
-                    padding-top: 32px;
+                    /*padding-top: 32px;*/
 
                   }
 
@@ -1075,7 +1162,7 @@ ul {
 
             display: none;
             margin-right: 0;
-            max-height: 400px;
+            max-height: 440px;
             /*overflow-y: auto;*/
             .bd {
                 background: #fff;
@@ -1161,7 +1248,7 @@ ul {
 
                 /*margin-top: 9px;*/
 
-                max-height: 400px;
+                max-height: 440px;
                 
                 overflow: auto;
 
@@ -1465,8 +1552,8 @@ ul {
 
           .slideDown {
 
-            -webkit-animation: slideDownFrames2 0.35s !important; 
-            animation: slideDownFrames2 0.35s !important; 
+            -webkit-animation: slideDownFrames2 0.75s !important; 
+            animation: slideDownFrames2 0.75s !important; 
 
             animation-timing-function:ease-out;
             -webkit-animation-timing-function:ease-out; /* Safari and Chrome  0.95s */
@@ -1475,8 +1562,8 @@ ul {
 
           .slideUp {
 
-            -webkit-animation: slideUpFrames2 0.15s !important;
-            animation: slideUpFrames2 0.15s !important; 
+            -webkit-animation: slideUpFrames2 0.55s !important;
+            animation: slideUpFrames2 0.55s !important; 
 
             animation-timing-function:linear;
             -webkit-animation-timing-function:linear; /* Safari and Chrome */
@@ -1547,6 +1634,8 @@ ul {
     color: #666;
 
     font-size: 12px;
+
+    margin-left: 10px; /* Aligns icons with true lat/lng point */
 
     /* Icons */
 
@@ -2017,7 +2106,7 @@ ul {
 
       font-size: 14px;
 
-      padding-left: 9px;
+      
 
     }
 
@@ -2027,7 +2116,7 @@ ul {
 
       font-size: 14px;
 
-      padding-left: 9px;
+     
 
     }
 
@@ -2037,7 +2126,7 @@ ul {
 
         font-size: 11px;
 
-        padding-left: 6px;
+         
 
       }
       
@@ -2064,6 +2153,43 @@ ul {
       }
 
     }
+
+    &.icon-parking {
+
+      .icon {
+
+        background-image: url("../../app/images/icons/map/parking.png");
+
+      }
+
+    }
+
+    &.icon-greenery {
+
+      .icon {
+
+        background-image: url("../../app/images/icons/map/leaf@2x.png");
+
+        display:none;
+
+      }
+
+      color: #376940;
+
+      font-size: 11px;
+
+      opacity: .75;
+
+      text-align: center;
+
+      line-height: 11px;
+
+    }
+
+
+    
+
+    
 
     &.icon-circle-small {
 

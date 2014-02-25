@@ -71,7 +71,7 @@
 
             // Apply the filters
             _.each(fns, function(fn, index) { locs[index] = _.filter(locations, fn); });
-debugger;
+
             return _.chain(locs).flatten().uniq().value();
 
         }

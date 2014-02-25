@@ -33,13 +33,37 @@ define([
 
                     var pos = ' ';
 
+                    if (_.getAttr(model, 'type') !== 'parking') return;
+
+                    if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
+
+                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + (zoom <= 17 ? ' label-hide icon-hide' : ' icon-parking');
+
+                },
+
+                function(model, zoom) { // Location Model
+
+                    var pos = ' ';
+
+                    if (_.getAttr(model, 'type') !== 'greenery') return;
+
+                    if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
+
+                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + (zoom < 17 ? ' label-hide icon-hide' : ' icon-greenery');
+
+                },
+
+                function(model, zoom) { // Location Model
+
+                    var pos = ' ';
+
                     if (zoom < 19) return;
 
                     if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
 
                     model.hide = false;
 
-                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + ' icon-xsmall';
+                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + ' icon-small';
 
                 },
 
@@ -77,7 +101,7 @@ define([
 
                     model.hide = false;
 
-                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + ' icon-xsmall'; // Show all label
+                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + ' icon-small'; // Show all label
 
                 },
 

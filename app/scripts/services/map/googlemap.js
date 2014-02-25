@@ -743,9 +743,7 @@ debugger;
 
             if (ev.latLng) {
 
-                //return
-
-                EventDispatcher.trigger('truthupdate', { mapclick: ev.latLng.toUrlValue() });
+                return EventDispatcher.trigger('truthupdate', { mapclick: ev.latLng.toUrlValue() });
             
             }
 

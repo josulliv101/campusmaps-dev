@@ -16,6 +16,8 @@ define([
 
         id: 'LocationList',
 
+        title: 'All Buildings',
+
         events: {
 
             'mouseover .list li' : function(ev) {
@@ -70,9 +72,9 @@ define([
 
             this.listenTo(EventDispatcher, 'change:focus', this.refresh);
 
-            this.listenTo(EventDispatcher, 'change:locationlistfilter', function(letter) {
+            this.listenTo(EventDispatcher, 'change:locationlistfilter', function(filter) {
 
-                model.set({ filter: letter }, { silent: true });
+                model.set({ filter: filter }, { silent: true });
 
                 self.render();
 
@@ -103,6 +105,12 @@ define([
 
             _.each(json.map.locations, function(loc) { loc.latlng = loc.latlng.replace(',', '|'); });
 
+            if (filter.length === 1) json.classname =  'abc';
+
+            else if (filter && filter.indexOf('#') === 0)  json.classname = filter.substring(1);
+
+            else json.classname = filter;
+
             console.log('LocationList json', campus, json);
 
             console.log('LocationList maps', Datastore.mapList());
@@ -110,6 +118,16 @@ define([
             return { data: json };
 
         },
+
+/*        render: function() {
+
+            Base.prototype.render.call(this);
+
+            if (this.$el.find('.abc').length > 0) this.$el.find('#nav-abc').fadeIn(300);
+
+            return this;
+
+        },*/
 
         refresh: function (locationid) {
 

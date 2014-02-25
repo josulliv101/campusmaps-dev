@@ -19,13 +19,11 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    if (!model.tags) return; 
+                    var pos = ' ';
 
-                    return model.tags.indexOf('fletcher') > -1 ? true : undefined; // Show all label
+                    if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
 
-                    //if (model.selected !== true) return;
-
-                    //return StrategyManager.getIconPath('circle_solid_center-big.png');
+                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + ' icon-greenery';
 
                 }
 

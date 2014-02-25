@@ -8,7 +8,9 @@ define([
 
     return Base.extend({
 
-        id: 'Parking'
+        id: 'Parking',
+
+        title: 'Visitor & Restricted Parking'
 
     });
 
