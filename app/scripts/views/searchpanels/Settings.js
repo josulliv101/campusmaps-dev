@@ -18,7 +18,13 @@ define([
 
                 'click .style [type="checkbox"]': 'handleCheckboxStyle',
 
-                'click .showme [type="checkbox"]': 'handleCheckboxShowMe'
+                'click .showme [type="checkbox"]': 'handleCheckboxShowMe',
+
+                'click .largelabels [type="checkbox"]': 'handleCheckboxLargeLabels',
+
+                'click .highcontrastlabels [type="checkbox"]': 'handleCheckboxHighContrastLabels'
+
+
 
 		},
 
@@ -55,6 +61,30 @@ define([
 
             });
 
+            this.listenTo(EventDispatcher, 'change:largelabels', function(bool) {
+
+                console.log('change:largelabels', bool);
+
+                //alert(latlng);
+
+                model.set({ largelabels: bool }, { silent: true });
+
+
+            });
+
+            this.listenTo(EventDispatcher, 'change:highcontrastlabels', function(bool) {
+
+                console.log('change:highcontrastlabels', bool);
+
+                //alert(latlng);
+
+                model.set({ highcontrastlabels: bool }, { silent: true });
+
+
+            });
+
+            
+
         },
 
         handleCheckboxStyle: function(ev) {
@@ -86,6 +116,28 @@ define([
             EventDispatcher.trigger('truthupdate', { showme: $checkbox.is(':checked') });
 
         },
+
+        handleCheckboxLargeLabels: function(ev) {
+
+            var $checkbox = $(ev.currentTarget);
+
+            console.log('handleCheckboxLargeLabels', $checkbox.is(':checked'));
+
+            EventDispatcher.trigger('truthupdate', { largelabels: $checkbox.is(':checked') });
+
+        },
+
+        handleCheckboxHighContrastLabels: function(ev) {
+
+            var $checkbox = $(ev.currentTarget);
+
+            console.log('handleCheckboxHighContrastLabels', $checkbox.is(':checked'));
+
+            EventDispatcher.trigger('truthupdate', { highcontrastlabels: $checkbox.is(':checked') });
+
+        },
+
+        
 
 		getJSON: function() {
 

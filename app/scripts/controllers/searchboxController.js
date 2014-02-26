@@ -90,6 +90,22 @@ define([
 
             }
 
+            if (_.has(changedAttributes, 'largelabels')) {
+
+                this.largelabels = changedAttributes.largelabels;
+
+                EventDispatcher.trigger('change:largelabels', changedAttributes.largelabels);
+
+            }
+
+            if (_.has(changedAttributes, 'highcontrastlabels')) {
+
+                this.highcontrastlabels = changedAttributes.highcontrastlabels;
+
+                EventDispatcher.trigger('change:highcontrastlabels', changedAttributes.highcontrastlabels);
+
+            }
+
             if (_.has(changedAttributes, 'mapstyle')) {
 
                 this.mapstyle = changedAttributes.mapstyle;
@@ -292,7 +308,7 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ zoom: this.zoom, mapstyle: this.mapstyle, panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
+        panel.model.set({ highcontrastlabels: this.highcontrastlabels, largelabels: this.largelabels, zoom: this.zoom, mapstyle: this.mapstyle, panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 

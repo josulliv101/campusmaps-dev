@@ -39,6 +39,10 @@ define([
 
                 controller.handleAttrShowMe,
 
+                controller.handleAttrLargeLabels,
+
+                controller.handleAttrHighContrastLabels,
+
                 controller.handleAttrCampusMap,
 
                 controller.handleAttrCustomCampusMap,
@@ -503,6 +507,30 @@ console.log('...handleAttrDetails', theTruth, val, key);
                 EventDispatcher.trigger('truthupdate', { showme: { lat: ev.coords.latitude, lng: ev.coords.longitude } });
 
             })
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrLargeLabels = function(model, val, key) {
+
+            var classname;
+
+            if (key !== 'largelabels') return;
+
+            domManager.cssFlag('large-labels', { remove: !val });
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrHighContrastLabels = function(model, val, key) {
+
+            var classname;
+
+            if (key !== 'highcontrastlabels') return;
+
+            domManager.cssFlag('highcontrast-labels', { remove: !val });
 
             return true;
 

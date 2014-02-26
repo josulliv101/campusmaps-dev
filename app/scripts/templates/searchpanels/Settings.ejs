@@ -9,7 +9,17 @@
 		</div>
 		<div class="checkbox animation">
 			<label>
-			  <input type="checkbox" checked="${data.panelanimations}"> Enable panel animations
+			  <input type="checkbox" <% if (data.panelanimations === true) { %>checked<% } %>> Enable panel animations
+			</label>
+		</div>
+		<div class="checkbox largelabels">
+			<label>
+			  <input type="checkbox" <% if (data.largelabels === true) { %>checked<% } %>> Enable large labels
+			</label>
+		</div>
+		<div class="checkbox highcontrastlabels">
+			<label>
+			  <input type="checkbox" <% if (data.highcontrastlabels === true) { %>checked<% } %>> Enable high contrast map labels
 			</label>
 		</div>
 		<div class="checkbox style">

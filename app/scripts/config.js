@@ -42,6 +42,8 @@ define([
 
                 , panelanimations: true
 
+                , largelabels: false
+
                 //, resize: null
                               
             }

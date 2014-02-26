@@ -1714,11 +1714,11 @@ ul {
 
         display: block;
 
-        width: 100%;
+        width: auto;
 
-        min-width: 80px;
+        /*min-width: 80px;*/
 
-        top: 0px;
+        top: 3px;
 
         left: 0;
 
@@ -1732,11 +1732,13 @@ ul {
 
         border-width: 2px;
 
-        border-radius: 4px;
+        border-radius: 1px;
 
         vertical-align: top;
 
-        padding: 4px 12px 0 0px;
+        padding: 0 2px; /*4px 12px 0 0px;*/
+
+        letter-spacing: .05em;
 
 
 /*
@@ -2239,12 +2241,42 @@ ul {
   .label-tile {
     .location {
       color: #fff;
-      font-size: 18px;
+      /*font-size: 18px;*/
       .bd {
         top: -24px;
         left: 22px;
         .txt {
           line-height: 24px;
+          background: #000;
+        }
+      }
+    }
+  }
+}
+
+.large-labels {
+  .label-tile {
+    .location {
+      .bd {
+        .txt {
+          font-size: 16px;
+          line-height: 21px;
+          letter-spacing: .06em;
+        }
+      }
+    }
+  }
+}
+
+
+.highcontrast-labels {
+  .label-tile {
+    .location {
+      .bd {
+        .txt {
+          background: #fff;
+          color: #000;
+          box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.14); 
         }
       }
     }
