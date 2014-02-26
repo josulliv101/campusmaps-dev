@@ -306,14 +306,14 @@ function() {   },
                     _.memoize(function(map) {
 
                         var locs = _.getAttr(map, 'locations'), tags;
-
+debugger;
                         tags = _.chain(locs)
 
-                                .reject(function(loc) { return loc.tags === undefined; })
+                                .reject(function(loc) { return _.getAttr(loc, 'tags') === undefined; })
 
                                 .map(function(loc) { 
 
-                                    return _.map(loc.tags.split(','), function(tag) { return { loc: loc, tag: $.trim(tag.toLowerCase()) }})
+                                    return _.map(_.getAttr(loc, 'tags').split(','), function(tag) { return { loc: loc, tag: $.trim(tag.toLowerCase()) }})
 
                                 })
 

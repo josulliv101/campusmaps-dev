@@ -42,7 +42,7 @@ define([
 
                 , panelanimations: true
 
-                , largelabels: false
+                //, largelabels: false
 
                 //, resize: null
                               

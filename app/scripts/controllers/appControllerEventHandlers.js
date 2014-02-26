@@ -518,6 +518,14 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             if (key !== 'largelabels') return;
 
+            if (_.isString(val)) {
+
+                val = val === 'true' ? true : false;
+
+                model.set({ largelabels: val }, { silent: true });
+
+            }
+
             domManager.cssFlag('large-labels', { remove: !val });
 
             return true;

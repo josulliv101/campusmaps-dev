@@ -116,15 +116,15 @@ define([
 
             if (q && q.length > 0) results = _.chain(querytype === 'tag' ? Filter.filter(q, locations, 'tags') : Filter.filter(q, locations, 'name'))
 
-                                         .sortBy(function(loc) { return loc && loc.emphasis; })
+                                              .sortBy(function(loc) { return loc && _.getAttr(loc, 'emphasis'); })
 
-                                         .reverse()
+                                              .map(function(loc) { return loc && loc.toJSON ? loc.toJSON() : loc; })
 
-                                         //.first(8)
+                                              .reverse()
 
-                                         .value();
+                                              //.first(8)
 
-                //_.first(, 8);
+                                              .value();
 
             if (q && q.length > 0) tags = _.first(Filter.filter(q.toLowerCase(), tagsAll, 'key'), 5);
 
@@ -143,7 +143,7 @@ define([
             json.showingtotal = results.length;
 
             json.showtags = querytype !== 'tag';
-
+debugger;
             return { data: json };
 
         },

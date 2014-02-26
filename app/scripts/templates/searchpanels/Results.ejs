@@ -7,7 +7,7 @@
 			<% _.each(data.results, function(loc) { %> 
 			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>><a class="location" href="#${loc.name}" >${loc.name}</a> <button data-campusmap="details:<%= loc.locationid %>,cmd:Location" class="locations">View details</button></li>
 			<% }); %>
-			<% if (data.results &&data.results.length === 0) { %><li>No locations found.</li><% } %>
+			<% if (data.results &&data.results.length === 0) { %><li class="no-locs">No locations found.</li><% } %>
 		</ul>
 
 		<% if (data.showtags === true && data.tags && data.tags.length > 0) { %>
@@ -18,8 +18,6 @@
 				<% }); %>
 			</ul>
 		<% } %>
-
-
 		<button class="close close-just-this" data-campusmap='cmd:'>cancel</button>
 	</div>
 </div>
