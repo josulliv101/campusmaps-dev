@@ -30,7 +30,7 @@ define([
         events: {
 
             'click .location' : function(ev) {
-
+/*
                 var locationid = $(ev.currentTarget).parent().attr('id');
 
                 ev.preventDefault();
@@ -38,7 +38,7 @@ define([
                 EventDispatcher.trigger('truthupdate', { details: locationid });
 
                 this.refresh(locationid);
-
+*/
             }
 
         },
@@ -106,6 +106,8 @@ define([
 
                 results = [], tags = [], tagsAll = _.chain(Datastore.tags(map)).map(function(val, key) { return { key: key, val: val }; }).value();//, tagsKeys = _.chain(tagsAll).keys().sortBy().value();
 
+            
+
             if (!q) q = '';
 
             if (q.indexOf('#') === 0) {
@@ -133,6 +135,8 @@ define([
             json.campusname = _.getAttr(campus, 'name');
 
             json.totalresults = results.length;
+
+            _.each(results, function(loc) { if (_.isString(loc.latlng)) loc.latlng = loc.latlng.replace(',', '|'); });
 
             json.results = _.chain(results).first(showFirst).sortBy('name').value();
 

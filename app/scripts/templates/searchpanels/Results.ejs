@@ -5,7 +5,7 @@
 		<div id="results-total" class="label-lite"><em>${data.resultsLabel}</em> | Back to List</div>
 		<ul class="list list-results list-striped">
 			<% _.each(data.results, function(loc) { %> 
-			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>><a class="location" href="#${loc.name}" >${loc.name}</a> <button data-campusmap="details:<%= loc.locationid %>,cmd:Location" class="locations">View details</button></li>
+			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>><a class="location" href="#${loc.name}" data-campusmap="latlng:${loc.latlng},highlight:<%= loc.locationid %>,focus:<%= loc.locationid %>" >${loc.name}</a> <button data-campusmap="details:<%= loc.locationid %>,cmd:Location" class="locations">View details</button></li>
 			<% }); %>
 			<% if (data.results &&data.results.length === 0) { %><li class="no-locs">No locations found.</li><% } %>
 		</ul>

@@ -306,7 +306,7 @@ function() {   },
                     _.memoize(function(map) {
 
                         var locs = _.getAttr(map, 'locations'), tags;
-debugger;
+
                         tags = _.chain(locs)
 
                                 .reject(function(loc) { return _.getAttr(loc, 'tags') === undefined; })

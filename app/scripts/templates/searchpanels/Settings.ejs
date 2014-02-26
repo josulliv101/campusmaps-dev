@@ -1,32 +1,44 @@
 <div class="shadow panel">
-	
+	<div class="navbar">
+		Changes to settings will remain on future visits.
+	</div>
 	<div class="bd spacing">
 		<h3>Settings</h3>
+
+		<h4>Map</h4>
+
 		<div class="checkbox showme">
 			<label>
-			  <input type="checkbox" <% if (data.showme === true) { %>checked<% } %>> Enable show my location
+			  <input type="checkbox" <% if (data.showme === true) { %>checked<% } %>> Show my location
 			</label>
 		</div>
-		<div class="checkbox animation">
-			<label>
-			  <input type="checkbox" <% if (data.panelanimations === true) { %>checked<% } %>> Enable panel animations
-			</label>
-		</div>
-		<div class="checkbox largelabels">
-			<label>
-			  <input type="checkbox" <% if (data.largelabels === true) { %>checked<% } %>> Enable large labels
-			</label>
-		</div>
-		<div class="checkbox highcontrastlabels">
-			<label>
-			  <input type="checkbox" <% if (data.highcontrastlabels === true) { %>checked<% } %>> Enable high contrast map labels
-			</label>
-		</div>
+
 		<div class="checkbox style">
 			<label>
-			  <input type="checkbox" <% if (data.highcontrast === true) { %>checked<% } %>> Enable high-contrast map style
+			  <input type="checkbox" <% if (data.highcontrast === true) { %>checked<% } %>> High-contrast map style (experimental)
 			</label>
-		</div><br/>
-		<div class=""><em>Changes to settings will persist on futire visits.</em></div>
+		</div>
+		<hr/>
+		<h4>Map Labels</h4>
+
+		<div class="checkbox largelabels">
+			<label>
+			  <input type="checkbox" <% if (data.largelabels === true) { %>checked<% } %>> Large labels
+			</label>
+		</div>
+
+		<div class="checkbox highcontrastlabels">
+			<label>
+			  <input type="checkbox" <% if (data.highcontrastlabels === true) { %>checked<% } %>> High contrast map labels
+			</label>
+		</div>
+		<hr/>
+		<h4>Animation</h4>
+
+		<div class="checkbox animation">
+			<label>
+			  <input type="checkbox" <% if (data.panelanimations === true) { %>checked<% } %>> Panel animations
+			</label>
+		</div>
 	</div>
 </div>

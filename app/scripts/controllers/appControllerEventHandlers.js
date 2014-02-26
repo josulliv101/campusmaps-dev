@@ -182,7 +182,7 @@ define([
 
         AppController.prototype.handleAttrFeatured = function(model, val, key) {
 
-            var campus, campusmap, locs, tag;
+            var campus, campusmap, locs, tag, $el;
 
             // Add a 'featured' tag to each location. These locations will be exposed the same as a ny other tag.
 
@@ -204,17 +204,24 @@ define([
 
                     .tap(function (all) { _.each(all, function(loc) {
 
+                        var model = loc.attributes || loc;
                         // Featured property used in icon strategy if needed
-                        loc.featured = true;
+                        model.featured = true;
 
-                        loc.tags = _.isEmpty(loc.tags) ? tag : ', ' + tag;
+                        model.tags = _.isEmpty(loc.tags) ? tag : ', ' + tag;
 
                     }); })
 
                     .value();
-
+debugger;
             // Flag campus as having featured loc
             if (_.isArray(locs) && locs.length > 0) campus.set({ featured: locs.length }, { silent: true });
+            
+            $el = $root.closest('#app');
+
+            if ($el.length === 0) $el = $root.closest('body');
+
+            domManager.cssFlag('has-featured-locations', { $el: $el, remove: !(_.isArray(locs) && locs.length > 0) });
 
             return true;
 
