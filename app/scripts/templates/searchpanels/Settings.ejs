@@ -5,6 +5,34 @@
 	<div class="bd spacing">
 		<h3>Settings</h3>
 
+		
+		<h4>Animation</h4>
+
+		<div class="checkbox animation">
+			<label>
+			  <input type="checkbox" <% if (data.panelanimations === true) { %>checked<% } %>> Panel animations
+			</label>
+		</div>
+
+
+		<hr/>
+		
+		<h4>Map Labels</h4>
+
+		<div class="checkbox largelabels">
+			<label>
+			  <input type="checkbox" <% if (data.largelabels === true) { %>checked<% } %>> Large labels
+			</label>
+		</div>
+
+		<div class="checkbox highcontrastlabels">
+			<label>
+			  <input type="checkbox" <% if (data.highcontrastlabels === true) { %>checked<% } %>> High contrast map labels
+			</label>
+		</div>		
+
+		<hr/>
+
 		<h4>Map</h4>
 
 		<div class="checkbox showme">
@@ -18,27 +46,7 @@
 			  <input type="checkbox" <% if (data.highcontrast === true) { %>checked<% } %>> High-contrast map style (experimental)
 			</label>
 		</div>
-		<hr/>
-		<h4>Map Labels</h4>
 
-		<div class="checkbox largelabels">
-			<label>
-			  <input type="checkbox" <% if (data.largelabels === true) { %>checked<% } %>> Large labels
-			</label>
-		</div>
 
-		<div class="checkbox highcontrastlabels">
-			<label>
-			  <input type="checkbox" <% if (data.highcontrastlabels === true) { %>checked<% } %>> High contrast map labels
-			</label>
-		</div>
-		<hr/>
-		<h4>Animation</h4>
-
-		<div class="checkbox animation">
-			<label>
-			  <input type="checkbox" <% if (data.panelanimations === true) { %>checked<% } %>> Panel animations
-			</label>
-		</div>
 	</div>
 </div>

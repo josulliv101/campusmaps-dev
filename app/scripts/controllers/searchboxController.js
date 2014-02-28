@@ -81,6 +81,8 @@ define([
 
             if (_.has(changedAttributes, 'focus')) EventDispatcher.trigger('change:focus', changedAttributes.focus);
 
+            if (_.has(changedAttributes, 'singleresult')) EventDispatcher.trigger('change:singleresult', changedAttributes.singleresult);
+
 
             if (_.has(changedAttributes, 'panelanimations')) {
 

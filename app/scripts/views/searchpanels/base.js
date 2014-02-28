@@ -29,7 +29,7 @@ define([
 
             var model = this.model, view = this;
 
-            _.bindAll(this, 'getJSON', 'render', 'handleOpenState', 'handleCloseState', 'handleOpenPreState', 'doDeferredClick');
+            _.bindAll(this, 'getJSON', 'render', 'handleOpenState', 'handleCloseState', 'handleOpenPreState',  'handleClosePreState', 'doDeferredClick');
 
             if (!this.id) throw new Error('A search panel view requires an id.');
 
@@ -39,7 +39,7 @@ define([
 
             this.$el.attr({ tabindex: 0, role: 'presentation' }).addClass('panel-container');
 
-            this.handleStateChange = _.dispatch(this.handleOpenState, this.handleCloseState, this.handleOpenPreState);
+            this.handleStateChange = _.dispatch(this.handleOpenState, this.handleCloseState, this.handleOpenPreState, this.handleClosePreState);
 
             this.listenTo(model, 'change:state', this.handleStateChange);
 
@@ -108,6 +108,14 @@ alert('doDeferredClick');
             if (state !== 'openPre') return;
 
             this.render();
+
+        },
+
+        handleClosePreState: function() {
+
+            var state = this.model.get('state');
+
+            if (state !== 'closePre') return;
 
         },
 

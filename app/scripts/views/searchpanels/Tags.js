@@ -8,7 +8,9 @@ define([
 
     return Base.extend({
 
-        id: 'Tags'
+        id: 'Tags',
+
+        title: 'Popular Tags'
 
     });
 

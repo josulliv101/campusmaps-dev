@@ -123,6 +123,29 @@ define([
 
                 },
 
+                // The label strategy changes -- always refresh all
+                function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 
+
+                    var models, keys;
+
+                    keys = _.keys(changedAttrs);
+
+                    if (!_.contains(keys, 'labelstrategy')) return;  
+
+                    models = controller.setIconsAndLabels(locations, campus.iconStrategy, campus.labelStrategy, zoom);
+
+                    MapUtils.resetCache();
+
+                    controller.setTileCache(models);
+
+                    viz.renderIcons(models);
+                    
+                    viz.renderLabels(models);
+
+                    return true;                 
+
+                },
+
 
                 // The campusmap changes -- always refresh all
                 function(controller, viz, locations, campus, zoom, changedAttrs, previousAttrs) { 

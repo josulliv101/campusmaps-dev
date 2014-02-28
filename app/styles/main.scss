@@ -180,12 +180,12 @@ button {
 }
 
 :focus {
-	
+	/*
   border-top: #3172AE 3px none;
   outline-style: none;
   outline-color: #333;
   outline-width: 2px; 
-
+*/
 
 }
 
@@ -1263,7 +1263,7 @@ ul {
               animation-fill-mode: both; 
               -webkit-animation-fill-mode: both; 
 
-              &.panel-campuses, &.panel-campusmaps, &.panel-locations {
+              &.panel-campuses, &.panel-campusmaps, &.panel-locations, &.panel-results {
 
                 /*margin-top: 9px;*/
 
@@ -1284,6 +1284,8 @@ ul {
                   .maps, .locations {
 
                     display: inline-block !important;
+
+                    margin: 5px;
 
                   }
 
@@ -2316,6 +2318,25 @@ ul {
     	  .txt {
 			color: #fff !important;
     	  }
+        }
+      }
+    }
+  }
+}
+
+.accessibility {
+  .label-tile {
+    .location {
+      &.accessibility-1 {
+        .icon {
+          display: block;
+          background-image: url("../../app/images/icons/map/accessibility1@2x.png");
+        }
+      }
+      &.accessibility-2 {
+        .icon {
+          display: block;
+          background-image: url("../../app/images/icons/map/accessibility2@2x.png");
         }
       }
     }

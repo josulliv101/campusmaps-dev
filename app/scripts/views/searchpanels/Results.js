@@ -30,15 +30,15 @@ define([
         events: {
 
             'click .location' : function(ev) {
-/*
+
                 var locationid = $(ev.currentTarget).parent().attr('id');
 
                 ev.preventDefault();
 
-                EventDispatcher.trigger('truthupdate', { details: locationid });
+                //EventDispatcher.trigger('truthupdate', { details: locationid });
 
                 this.refresh(locationid);
-*/
+
             }
 
         },
@@ -144,10 +144,25 @@ define([
 
             if (json.results.length === 0) json.resultsLabel = '';
 
+            this.model.set({ singleresult: null }, { silent: true });
+
+            if (json.results.length === 1) {
+
+                json.results[0].selected = true;
+
+                json.helpTxt = 'Press [Enter] or select the item below to view details.';
+
+                EventDispatcher.trigger('truthupdate', { singleresult: json.results[0] });
+            } else {
+
+                EventDispatcher.trigger('truthupdate', { singleresult: '' });
+
+            }
+
             json.showingtotal = results.length;
 
             json.showtags = querytype !== 'tag';
-debugger;
+
             return { data: json };
 
         },

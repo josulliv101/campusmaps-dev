@@ -34,7 +34,21 @@ define([
 
             'blur #searchbox' : 'handleUnFocus',
 
-            'keyup #searchbox': 'handleKeyPress'
+            'keyup #searchbox': 'handleKeyPress',
+
+            'keypress #searchbox': function(ev) {
+
+                var loc = this.model.get('singleresult');
+                
+                if ( ev.which === 13 ) { 
+
+                    ev.preventDefault();
+debugger;
+                    if (loc) EventDispatcher.trigger('truthupdate', { cmd: 'Location', details: _.getAttr(loc, 'locationid') });
+
+                }
+
+            }
 
         },
 
@@ -46,7 +60,7 @@ define([
 
             var model = this.model;
 
-            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels', 'refresh', 'handleBtnClick', 'getSearchboxLabel');
+            _.bindAll(this, 'getPanel', 'getCachedPanel', 'createPanel', 'closePanels', 'refresh', 'handleBtnClick', 'getSearchboxLabel', 'handleKeyPress');
 
             _.bindAll(Animation.prototype, 'open', 'isOpen_');
 
@@ -94,6 +108,16 @@ debugger;
                 model.set({ view: !viewid ? '' : viewid }, { silent: true });
 
                 this.refresh();
+
+            });
+
+            this.listenTo(EventDispatcher, 'change:singleresult', function(arg) {
+
+                model.set({ singleresult: arg }, { silent: true });
+debugger;
+                if (arg) EventDispatcher.trigger('truthupdate', { latlng: _.getAttr(arg, 'latlng'), details: _.getAttr(arg, 'locationid') });
+
+                //else EventDispatcher.trigger('truthupdate', { details: '' });
 
             });
 
@@ -157,11 +181,17 @@ debugger;
 
             var $input = $(ev.currentTarget),
 
-                val = $input.val();
+                val = $input.val(), model = this.model,
+
+                singleresult = model.get('singleresult');
+
+
 
             console.log('handleKeyPress', val);
 
             EventDispatcher.trigger('truthupdate', { query: val });
+
+            
 
         },
 

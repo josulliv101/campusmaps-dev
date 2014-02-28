@@ -73,6 +73,8 @@ define([
 
                 controller.handleAttrLabelStrategy,
 
+                controller.handleAttrAccessibility,
+
                 controller.handleAttrMapCenterOffset,
 
                 controller.handleAttrHighlight,
@@ -560,6 +562,17 @@ console.log('...handleAttrDetails', theTruth, val, key);
             campus = Datastore.campus();
 
             campus.labelStrategy = strategy(val) || strategy(StrategyManager.TYPE.LABEL);
+
+            return true;
+
+        }
+
+
+        AppController.prototype.handleAttrAccessibility = function(model, val, key) {
+
+            if (key !== 'accessibility') return;
+
+            domManager.cssFlag('accessibility', { remove: !val });
 
             return true;
 

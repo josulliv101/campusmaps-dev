@@ -125,6 +125,33 @@ define([
 
         }
 
+        if (_.has(attrs, 'cmd')) {
+
+            if (_.isEmpty(attrs.cmd)) {
+
+                attrs.searchboxlabel = '';
+
+            }
+
+            if (attrs.cmd === 'Accessibility') {
+
+                attrs.labelstrategy = 'big';
+
+                attrs.accessibility = true;
+
+            } 
+
+            else {
+
+                attrs.labelstrategy = '';
+
+                attrs.accessibility = false;
+
+            }
+            
+
+        }
+
         if (_.has(attrs, 'query')) {
 
             // Reset
@@ -142,17 +169,26 @@ define([
 
             }
 
-        }
+            if (attrs.query.indexOf('accessible-') > -1) {
 
-        if (_.has(attrs, 'cmd')) {
+                attrs.labelstrategy = 'big';
 
-            if (_.isEmpty(attrs.cmd)) {
+                attrs.accessibility = true;
 
-                attrs.searchboxlabel = '';
+            }
+
+            else {
+
+                attrs.labelstrategy = '';
+
+                attrs.accessibility = false;
 
             }
 
         }
+
+
+
 
         if (_.has(attrs, 'panoramas')) {
 

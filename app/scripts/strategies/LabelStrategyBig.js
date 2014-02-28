@@ -19,11 +19,13 @@ define([
 
                 function(model, zoom) { // Location Model
 
-                    var pos = ' ';
+                    var pos = ' ', classname;
 
                     if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
 
-                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + ' icon-greenery';
+                    classname = _.getAttr(model, 'accessibility') > 0 ? ' accessibility-' + _.getAttr(model, 'accessibility') : ' label-hide icon-hide';
+
+                    return pos + ' emphasis' + classname + ' ';
 
                 }
 
