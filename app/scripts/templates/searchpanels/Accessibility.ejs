@@ -4,5 +4,11 @@
 		<h3>Accessibility</h3>
 		<p><a href="#" data-campusmap='query:#accessible-full,cmd:Results'>List of fully accessible buildings</a></p>
 		<p><a href="#" data-campusmap='query:#accessible-with-assistance,cmd:Results'>List of buildings accessible with assistance</a></p>
+		
+		<div class="checkbox accessibility">
+			<label>
+			  <input type="checkbox" <% if (data.accessibility === true || data.accessibility === 'true') { %>checked<% } %>> Display accessibility icon
+			</label>
+		</div>
 	</div>
 </div>

@@ -75,6 +75,8 @@ define([
 
                 controller.handleAttrAccessibility,
 
+                controller.handleAttrParking,
+
                 controller.handleAttrMapCenterOffset,
 
                 controller.handleAttrHighlight,
@@ -572,7 +574,25 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             if (key !== 'accessibility') return;
 
+            if (val === 'false') val = false;
+
+            else if (val === 'true') val = true;
+
             domManager.cssFlag('accessibility', { remove: !val });
+
+            return true;
+
+        }
+
+        AppController.prototype.handleAttrParking = function(model, val, key) {
+
+            if (key !== 'parking') return;
+
+            if (val === 'false') val = false;
+
+            else if (val === 'true') val = true;
+
+            domManager.cssFlag('parking', { remove: !val });
 
             return true;
 

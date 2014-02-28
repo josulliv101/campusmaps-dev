@@ -399,7 +399,7 @@ ul {
         
         a {
 
-          background: #3172AE !important; /* rgba(49, 114, 174, .14) rgba(49, 114, 174, 1) #3172AE */
+          background: #565152 !important; /* rgba(49, 114, 174, .14) rgba(49, 114, 174, 1) #3172AE #3172AE*/
 
           color: #fff !important; /* 3172AE */
           &:hover, &:focus {
@@ -662,6 +662,29 @@ ul {
 
 /* Controls */
 
+#btn-accessibility, #btn-parking {
+    display: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: medium none;
+    border-radius: 0;
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    line-height: 20px;
+    position: absolute;
+    right: 70px;
+    text-transform: uppercase;
+    top: 13px;
+    z-index: 999;
+    .x {
+      display: inline-block;
+      color: #3172AE;
+      margin-right: 8px;
+    }
+    &:hover {
+      color: #6699cc;
+    }
+}
+
 #controls-zoom {
   position: absolute;
   top: 12px;
@@ -678,6 +701,7 @@ ul {
     font-size: 20px;
     display: block;
     color: #ccc;
+    border-radius: 0;
 
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
@@ -688,15 +712,15 @@ ul {
       background: #444;
       color: #fff;
     }
-    &.plus {
+    &.plus {/*
       border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
+      border-top-right-radius: 4px;*/
       border-bottom-style: none;
     }
 
-    &.minus {
+    &.minus {/*
       border-bottom-left-radius: 4px;
-      border-bottom-right-radius: 4px;
+      border-bottom-right-radius: 4px;*/
       border-top-style: none;
     }
 
@@ -817,6 +841,34 @@ ul {
     }
 
   }
+
+}
+
+.nav-icon-cog {
+
+      position: relative; /* For z-index */
+
+      left: 0px;
+
+      top: 1px;
+
+      width: 16px;
+
+      height: 16px;
+
+      background-image: url("../../app/images/icons/cog.png") !important;
+
+      background-repeat: no-repeat;
+
+      background-size: 16px 16px;
+
+      display: inline-block;
+
+      height: 16px;
+
+      line-height: 16px;
+
+      margin-right: 0px;
 
 }
 
@@ -2324,7 +2376,22 @@ ul {
   }
 }
 
+.parking {
+  #btn-parking {
+    display: block;
+  }
+
+  &.accessibility {
+    #btn-parking {
+      right: 220px;
+    }
+  }
+}
+
 .accessibility {
+  #btn-accessibility {
+    display: block;
+  }
   .label-tile {
     .location {
       &.accessibility-1 {

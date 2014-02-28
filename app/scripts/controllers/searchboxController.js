@@ -124,6 +124,14 @@ define([
 
             }
 
+            if (_.has(changedAttributes, 'accessibility')) {
+
+                this.accessibility = changedAttributes.accessibility;
+
+                EventDispatcher.trigger('change:accessibility', changedAttributes.accessibility);
+
+            }
+
             if (_.has(changedAttributes, 'details')) {
 
                 this.details = changedAttributes.details;
@@ -310,7 +318,7 @@ define([
 
             anim = new AnimationConstructor();
 
-        panel.model.set({ highcontrastlabels: this.highcontrastlabels, largelabels: this.largelabels, zoom: this.zoom, mapstyle: this.mapstyle, panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
+        panel.model.set({ accessibility: this.accessibility, highcontrastlabels: this.highcontrastlabels, largelabels: this.largelabels, zoom: this.zoom, mapstyle: this.mapstyle, panelanimations: this.panelanimations, campusid: this.campusid, details: this.details, detailsview: this.detailsview, querytype: this.querytype, query: this.query, occupant: this.occupant, locationlink: this.locationlink }, { silent: true });
 
         console.log('panel model', Constructor, viewid);
 

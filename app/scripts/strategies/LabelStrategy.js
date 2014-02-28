@@ -37,7 +37,9 @@ define([
 
                     if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
 
-                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + (zoom <= 17 ? ' label-hide icon-hide' : ' icon-parking');
+                    model.hide = true;
+
+                    return pos + ' label-hide icon-hide'; 
 
                 },
 
@@ -96,6 +98,24 @@ define([
                     emphasis = parseInt(_.getAttr(model, 'emphasis'));
 
                     if (emphasis < 4) return;
+
+                    if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
+
+                    model.hide = false;
+
+                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + ' icon-small'; // Show all label
+
+                },
+
+               function(model, zoom) { 
+
+                    var emphasis, pos = ' ';
+
+                    if (zoom !== 16) return;
+
+                    emphasis = parseInt(_.getAttr(model, 'emphasis'));
+
+                    if (emphasis < 5) return;
 
                     if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
 

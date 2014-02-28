@@ -42,6 +42,10 @@ define([
 
                 , panelanimations: true
 
+                , parking: false
+
+                , accessibility: false
+
                 //, largelabels: false
 
                 //, resize: null

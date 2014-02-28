@@ -132,7 +132,7 @@ define([
                 attrs.searchboxlabel = '';
 
             }
-
+/*
             if (attrs.cmd === 'Accessibility') {
 
                 attrs.labelstrategy = 'big';
@@ -148,8 +148,36 @@ define([
                 attrs.accessibility = false;
 
             }
-            
+            */
 
+        }
+
+        if (_.has(attrs, 'accessibility')) {
+
+            if (attrs.accessibility === true || attrs.accessibility === 'true') {
+
+                attrs.labelstrategy = 'big';
+
+                attrs.parking = false;
+
+            }
+            
+        }
+
+        if (_.has(attrs, 'parking')) {
+
+            if (attrs.parking === true || attrs.parking === 'true') {
+
+                attrs.labelstrategy = 'parking';
+
+                attrs.accessibility = false;
+
+            } else if ((attrs.parking === false || attrs.parking === 'false') && !attrs.accessibility) {
+
+                attrs.labelstrategy = '';
+
+            }
+            
         }
 
         if (_.has(attrs, 'query')) {
@@ -168,7 +196,7 @@ define([
                 attrs.querytype = 'tag';
 
             }
-
+/*
             if (attrs.query.indexOf('accessible-') > -1) {
 
                 attrs.labelstrategy = 'big';
@@ -184,6 +212,7 @@ define([
                 attrs.accessibility = false;
 
             }
+            */
 
         }
 

@@ -727,11 +727,11 @@ debugger;
 */
         });
 
-/*        google.maps.event.addListener(gMap, 'dragend', function(ev) {
+        google.maps.event.addListener(gMap, 'dragend', function(ev) {
 
-            EventDispatcher.trigger('truthupdate', { latlng: gMap.getCenter().toUrlValue() });
+            EventDispatcher.trigger('truthupdate', { latlng: gMap.getCenter().toUrlValue() }, { silent: true });
 
-        });*/
+        });
 
        google.maps.event.addListener(gMap, 'zoom_changed', function(ev) {
 

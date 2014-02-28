@@ -38,7 +38,7 @@ define([
 
                     location = map.details,
 
-                    panoramas = !_.isEmpty(location.panoramas) ? location.panoramas : [];
+                    panoramas = !_.isEmpty(_.getAttr(location, 'panoramas')) ? _.getAttr(location, 'panoramas') : [];
 
                 if (panoramas) EventDispatcher.trigger('truthupdate', { panoramas: panoramas });
 
@@ -94,7 +94,7 @@ define([
 
                 location = map.details, 
 
-                json = location.panoramas || [];
+                json = _.getAttr(location, 'panoramas') || [];
 
             return { data: json };
 

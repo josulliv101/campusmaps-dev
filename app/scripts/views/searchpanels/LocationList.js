@@ -90,7 +90,16 @@ define([
 
                 filter = this.model.get('filter') || '',
 
-                fnFirstLetterMatch= function(loc) { var name = _.getAttr(loc, 'name'); return name && name.toLowerCase().indexOf(Filter.getQuery().term) === 0; };
+                fnFirstLetterMatch= function(loc) { 
+
+                    var name = _.getAttr(loc, 'name'), type = _.getAttr(loc, 'type');
+
+                    // Exclude parking types
+                    //if (type && type === 'parking') return false;
+
+                    return name && name.toLowerCase().indexOf(Filter.getQuery().term) === 0; 
+
+                };
 
             _.extend(json, { map: _.find(json.maps, function(map) { return map.selected === true; })});
 

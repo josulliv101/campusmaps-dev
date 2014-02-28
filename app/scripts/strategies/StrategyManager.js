@@ -23,6 +23,8 @@ define([
 
       , 'strategies/LabelStrategyBig'
 
+      , 'strategies/LabelStrategyParking'
+
       , 'strategies/LabelStrategyFletcher'
 
       , 'strategies/TruthHandlerStrategyViz'
@@ -33,7 +35,7 @@ define([
 
       , 'strategies/CloseByLocations'
 
-], function(_, Config, DomManager, Datastore, MapUtils, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyFletcher, TruthHandlerStrategyViz, RenderStrategyViz, LocationsInvolvedStrategyViz, CloseByLocations) {
+], function(_, Config, DomManager, Datastore, MapUtils, Strategy, IconStrategy, IconStrategyClear, IconStrategyFletcher, LabelStrategy, LabelStrategyBig, LabelStrategyParking, LabelStrategyFletcher, TruthHandlerStrategyViz, RenderStrategyViz, LocationsInvolvedStrategyViz, CloseByLocations) {
 
     'use strict';
 
@@ -88,6 +90,8 @@ define([
         this.add(LabelStrategy);
 
         this.add(LabelStrategyBig);
+
+        this.add(LabelStrategyParking);
 
         this.add(LabelStrategyFletcher);
         
