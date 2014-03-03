@@ -140,7 +140,7 @@ define([
         
 
 		getJSON: function() {
-debugger;
+
 			return { data: this.model.toJSON() };
 
 		}

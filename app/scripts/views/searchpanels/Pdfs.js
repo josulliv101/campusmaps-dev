@@ -8,7 +8,9 @@ define([
 
     return Base.extend({
 
-        id: 'Pdfs'
+        id: 'Pdfs',
+
+        title: 'Printable Maps'
 
     });
 

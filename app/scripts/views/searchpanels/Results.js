@@ -163,6 +163,10 @@ define([
 
             json.showtags = querytype !== 'tag';
 
+            if (q && q.length > 0 && results.length === 0) json.hasQueryNoResults = true;
+
+            if (_.isEmpty(q)) json.noQuery= true;
+
             return { data: json };
 
         },

@@ -578,7 +578,7 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             else if (val === 'true') val = true;
 
-            domManager.cssFlag('accessibility', { remove: !val });
+            domManager.cssFlag('state-accessibility', { $el: $('#app'), remove: !val });
 
             return true;
 
@@ -592,7 +592,7 @@ console.log('...handleAttrDetails', theTruth, val, key);
 
             else if (val === 'true') val = true;
 
-            domManager.cssFlag('parking', { remove: !val });
+            domManager.cssFlag('state-parking', { $el: $('#app'), remove: !val });
 
             return true;
 

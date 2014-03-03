@@ -1,26 +1,37 @@
-<div class="shadow panel panel-results">
+<div class="shadow panel panel-results <% if (data.noQuery) { %>panel-results-no-query<% } %> <% if (data.hasQueryNoResults) { %>panel-results-no-results<% } %>">
 	<div class="navbar"><em id="q">
 		<% if (data.helpTxt) { %><%= data.helpTxt %><% } else { %><%= data.query %><% } %>
 	</em></div>
 	<div class="bd spacing-full">
 		<!--<div>Searching for: <em id="q">${data.query}</em></div>-->
-		<div id="results-total" class="label-lite"><em>${data.resultsLabel}</em> | Back to List</div>
+		<div id="results-total" class="label-lite"><em>${data.resultsLabel}</em></div>
 		<ul class="list list-results list-striped">
 			<% _.each(data.results, function(loc) { %> 
 			    <li id="<%= loc.locationid %>" <% if (loc.selected) { %>class="active"<% } %>><a class="location" href="#${loc.name}" data-campusmap="latlng:${loc.latlng},highlight:<%= loc.locationid %>,focus:<%= loc.locationid %>" >${loc.name}</a> <button data-campusmap="details:<%= loc.locationid %>,cmd:Location" class="locations">details</button></li>
 			<% }); %>
-			<% if (data.results &&data.results.length === 0) { %><li class="no-locs">No locations found.</li><% } %>
+			<% if (data.hasQueryNoResults) { %><li class="no-locs">No matching locations found.</li><% } %>
+			<% if (data.noQuery) { %>
+			<li class="no-query">
+
+				<p>Search by <strong>building name</strong>, <strong>keyword</strong>, <strong>address</strong>, or <strong>tag</strong>.</p>
+
+				<p class="callout"><strong class="padding-lite">Looking for visitor parking?</strong> Visitors can park at the <a href="#" data-campusmap='details:dowlinghallparking,cmd:Location'>Dowling Parking Garage</a>, but must purchase a token in order to exit the garage. </p>
+
+			</li>
+			<% } %>
 		</ul>
 
 		<% if (data.showtags === true && data.tags && data.tags.length > 0) { %>
-			<h4 class="header-tags">Tags:</h4>
-			<ul class="list-tags">
-				<% _.each(data.tags, function(tag, index) { %> 
-				    <li id="tag-<%= index %>"><a href="#" data-campusmap="query:#${tag.key},cmd:Results">#${tag.key}</a></li>
-				<% }); %>
-			</ul>
+			<div class="results-tags">
+				<h4 class="header-tags">Tags:</h4>
+				<ul class="list-tags">
+					<% _.each(data.tags, function(tag, index) { %> 
+					    <li id="tag-<%= index %>"><a href="#" data-campusmap="query:#${tag.key},cmd:Results">#${tag.key}</a></li>
+					<% }); %>
+				</ul>
+			</div>
 		<% } %>
-		<button class="close close-just-this" data-campusmap='cmd:'>cancel</button>
+		<!--<button class="close close-just-this" data-campusmap='cmd:'>cancel</button>-->
 	</div>
 </div>
 <!--

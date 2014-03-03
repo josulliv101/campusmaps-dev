@@ -20,12 +20,18 @@ input {
 
 }
 
+input, select, textarea, button{font-family:inherit;}
+
 h1, h2, h3, h4, h5, h6 {
   
   margin-top: 0;
 
   text-rendering: optimizelegibility;
 
+}
+
+strong {
+  color: #565152;
 }
 
 #app {
@@ -63,6 +69,25 @@ img {
   font-size: 11px;
 
   color: #999;
+
+}
+
+.callout {
+  
+  border-top: 1px solid #DDDDDD;
+  font-size: 11px;
+  line-height: 19px;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 16px 0 4px;
+  color: #555;
+
+  .padding-lite {
+    display: inline-block;
+    padding-right: 6px;
+  }
+
+
 
 }
 
@@ -259,23 +284,31 @@ ul {
 
       top: -2px;
 
+      .nav-icon-check {
+
+        visibility: visible;
+
+      }
+
       li {
 
-        border-left: 1px #ddd solid;
+        border-left: 1px #eee none;
 
         &:first-child {
 
           border-left: none;
 
           a {
+
             padding-left: 0;
+
           }
 
         }
 
         a {
 
-          padding: 4px 8px 6px;
+          padding: 4px 4px 6px;
           
           color: #3172AE;
 
@@ -292,6 +325,30 @@ ul {
             color: #333;
 
             text-decoration: underline;
+
+          }
+
+        }
+
+        .checkbox {
+
+          input {
+
+            position: relative;
+
+            top: 1px;   
+
+          }
+
+          margin-left: 4px;
+
+        }
+
+        label {
+
+          a {
+
+            padding-left: 0;
 
           }
 
@@ -329,7 +386,9 @@ ul {
 
               /*background: #f8f8f8;*/
 
-              color: #333;
+              color: #6699cc;
+
+              text-decoration: underline;
 
             }
 
@@ -371,7 +430,29 @@ ul {
   
   &.list-results {
 
-    margin-bottom: 12px;
+    padding-top: 24px;
+
+    margin-bottom: 0px;
+
+    li {
+
+      &.no-locs, &.no-query {
+
+        padding: 4px 12px;
+        
+        display: block;
+
+        border: none;
+
+        background: #fff !important;
+
+        font-size: 13px;
+
+        top: -1em;
+
+      }
+
+    }
 
   }
 
@@ -412,6 +493,30 @@ ul {
           } 
                   
         }
+
+      }
+
+      .callout {
+
+        a {
+
+          display: inline-block !important;
+
+          color: #6699cc;
+
+          padding: 0;
+
+          &:hover, &:focus {
+            
+            &:after {
+
+               content:  "";
+
+            }
+
+          }
+
+        }      
 
       }
 
@@ -467,7 +572,7 @@ ul {
         
         padding: 2px 6px;
 
-        margin: 0 6px 3px 0;
+        margin: 0 6px 9px 0;
 
         text-align: center;
 
@@ -536,18 +641,26 @@ ul {
 
 .location-filters {
   .navbar {
+    
     button {
       color: #eee;
       border-style: none;
       background: transparent;
       margin: 0;
-      padding: 0 12px;
+      padding: 0 10px;
+      letter-spacing: 0;
       &.active {
         color: #fff;
         text-decoration: underline;
       } 
       &:first-child {
         margin-left: 32px;
+      }
+      &:focus {
+        outline: 1px dotted #FFFFFF !important;
+      }
+      &::-moz-focus-inner {
+        border: none;
       }
     }
   }
@@ -643,6 +756,8 @@ ul {
     left: auto;
 
     font-size: 11px;
+
+    letter-spacing: 0.05em;
 
     color: #999;
 
@@ -784,6 +899,8 @@ ul {
 
           border: none !important;
 
+          box-shadow: none !important;
+
         }
 
       }
@@ -814,13 +931,11 @@ ul {
 
         #searchbox {
 
-          color: #3172AE;
+          color: #666;
 
           background: #fff !important;
 
-          border: none !important;
-
-          letter-spacing: .02em;
+          border: transparent 1px solid !important;
 
           font-size: 12px;
 
@@ -844,31 +959,65 @@ ul {
 
 }
 
+.lbl-filters {
+
+  margin-right: 32px;
+
+}
+
 .nav-icon-cog {
 
-      position: relative; /* For z-index */
+  position: relative; /* For z-index */
 
-      left: 0px;
+  left: 0px;
 
-      top: 1px;
+  top: 1px;
 
-      width: 16px;
+  width: 16px;
 
-      height: 16px;
+  height: 16px;
 
-      background-image: url("../../app/images/icons/cog.png") !important;
+  background-image: url("../../app/images/icons/cog.png") !important;
 
-      background-repeat: no-repeat;
+  background-repeat: no-repeat;
 
-      background-size: 16px 16px;
+  background-size: 16px 16px;
 
-      display: inline-block;
+  display: inline-block;
 
-      height: 16px;
+  height: 16px;
 
-      line-height: 16px;
+  line-height: 16px;
 
-      margin-right: 0px;
+  margin-right: 0px;
+
+}
+
+.nav-icon-check {
+
+  position: relative; /* For z-index */
+
+  left: 0px;
+
+  top: -1px;
+
+  width: 16px;
+
+  height: 16px;
+
+  background-image: url("../../app/images/icons/checkbox-unchecked.png") !important;
+
+  background-repeat: no-repeat;
+
+  background-size: 16px 16px;
+
+  display: inline-block;
+
+  height: 16px;
+
+  line-height: 16px;
+
+  margin-right: 0px;
 
 }
 
@@ -948,13 +1097,15 @@ ul {
 
   position: absolute;
 
-  top: 32px;
+  top: 2px;
 
   right: 12px;
 
   font-size: 12px;
 
   color: #999;
+
+  z-index: 999;
 
 }
 
@@ -964,6 +1115,8 @@ ul {
   opacity: 1;
   padding: 0 0 4px 4px;
   transition: top .6s;
+  letter-spacing: .02em;
+
   -webkit-transition: top .6s; /* Safari */
 
   transition-delay: 0s;
@@ -990,13 +1143,15 @@ ul {
 
         #searchbox {
 
-          border: 1px #eee solid;
+          border: 1px #ddd solid;
 
-          background: #f8f8f8;
+          background: #fff;
 
-          font-size: 16px;
+          font-size: 14px;
 
           line-height: 16px;
+
+          letter-spacing: 0.06em;
 
           padding: 3px;
 
@@ -1005,6 +1160,8 @@ ul {
           width: 97%;
 
           max-width: 406px;
+
+          box-shadow: 0 0 2px #eee inset; 
 
           -moz-box-sizing: border-box;
 
@@ -1125,6 +1282,8 @@ ul {
                 
                 .bd {
                   
+                  position: relative;
+
                   &.spacing-full {
 
                     /*padding-top: 32px;*/
@@ -1141,6 +1300,18 @@ ul {
                     
                     display: none;
                     
+                  }
+
+                  .results-tags {
+
+                    padding: 6px 20px 20px 12px;
+
+                    h4 {
+
+                      margin-bottom: 9px;
+
+                    }
+
                   }
 
                   &.card {
@@ -1238,7 +1409,8 @@ ul {
             .bd {
                 background: #fff;
                 padding: 0;
-                
+                font-size: 13px;
+                line-height: 20px;
                 &.spacing {
 
                   min-height: 108px;
@@ -2376,9 +2548,30 @@ ul {
   }
 }
 
-.parking {
+.state-parking {
+
+  .primary {
+
+    .checkbox {
+
+      &.parking {
+
+        .nav-icon-check {
+
+          visibility: visible !important;
+
+          background-image: url("../../app/images/icons/checkbox-checked.png") !important;
+
+        }        
+
+      }
+
+    }
+
+  }
+
   #btn-parking {
-    display: block;
+    /*display: block;*/
   }
 
   &.accessibility {
@@ -2388,9 +2581,31 @@ ul {
   }
 }
 
-.accessibility {
+.state-accessibility {
+
+  .primary {
+
+    .checkbox {
+
+      &.accessibility {
+
+        .nav-icon-check {
+
+          visibility: visible !important;
+
+          background-image: url("../../app/images/icons/checkbox-checked.png") !important;
+
+        }        
+
+      }
+
+    }
+
+  }
+
+
   #btn-accessibility {
-    display: block;
+    /*display: block;*/
   }
   .label-tile {
     .location {
@@ -2446,7 +2661,7 @@ ul {
     top: -6px;
     left: -28px;
     background: #999;
-    margin-left: 4px;
+    margin-left: 6px;
 
     img {
       

@@ -10,7 +10,7 @@ define([
 
         id: 'Parking',
 
-        title: 'Visitor & Restricted Parking'
+        title: 'Parking'
 
     });
 

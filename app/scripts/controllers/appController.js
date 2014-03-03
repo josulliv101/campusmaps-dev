@@ -88,7 +88,7 @@ define([
 
     AppController.prototype.validateTheTruth = function(attrs) {
 
-        var q, domManager = DomManager.getInstance(), zoom = theTruth.get('zoom'), maptype = theTruth.get('maptype'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
+        var q, domManager = DomManager.getInstance(), cmd = theTruth.get('cmd'), accessibility = theTruth.get('accessibility'), parking = theTruth.get('parking'), zoom = theTruth.get('zoom'), maptype = theTruth.get('maptype'), panoramas = theTruth.get('panoramas') || [], details = theTruth.get('details'), pos, detailsview = theTruth.get('detailsview'), detailsNav = Config.search.details.nav;
 
         if (!theTruth) return;
 
@@ -151,7 +151,7 @@ define([
             */
 
         }
-
+/*
         if (_.has(attrs, 'accessibility')) {
 
             if (attrs.accessibility === true || attrs.accessibility === 'true') {
@@ -163,20 +163,45 @@ define([
             }
             
         }
+*/
 
-        if (_.has(attrs, 'parking')) {
 
-            if (attrs.parking === true || attrs.parking === 'true') {
+        if (_.has(attrs, 'parking') && attrs.parking === 'toggle') {
 
-                attrs.labelstrategy = 'parking';
+            //if (attrs.parking === true || attrs.parking === 'true') {
 
-                attrs.accessibility = false;
+                //attrs.labelstrategy = 'parking';
 
-            } else if ((attrs.parking === false || attrs.parking === 'false') && !attrs.accessibility) {
+                attrs.parking = !parking;
 
-                attrs.labelstrategy = '';
+                if (attrs.parking === true) attrs.accessibility = false;
 
-            }
+                if (attrs.parking !== true && cmd === 'Parking') attrs.searchboxlabel = '';
+
+                attrs.cmd = !attrs.parking ? '' : 'Parking'; 
+
+                attrs.labelstrategy = !attrs.parking ? '' : 'parking'; 
+
+            //} else if ((attrs.parking === false || attrs.parking === 'false') && !attrs.accessibility) {
+
+                //attrs.labelstrategy = '';
+
+            //}
+            
+        }
+
+        if (_.has(attrs, 'accessibility') && attrs.accessibility === 'toggle') {
+
+
+            attrs.accessibility = !accessibility;
+
+            if (attrs.accessibility === true) attrs.parking = false;
+
+            if (attrs.accessibility !== true && cmd === 'Accessibility') attrs.searchboxlabel = '';
+
+            attrs.cmd = !attrs.accessibility ? '' : 'Accessibility'; 
+
+            attrs.labelstrategy = !attrs.accessibility ? '' : 'big'; 
             
         }
 

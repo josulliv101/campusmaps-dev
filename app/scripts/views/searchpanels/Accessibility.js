@@ -14,7 +14,7 @@ define([
 
         events: {
 
-                'click .accessibility [type="checkbox"]': 'handleCheckboxAccessibility'
+                //'click .accessibility [type="checkbox"]': 'handleCheckboxAccessibility'
 
         },
 
@@ -32,7 +32,7 @@ define([
 
                 model.set({ accessibility: accessibility }, { silent: true });
 
-                self.render();
+                //self.render();
 
             });
 
@@ -47,7 +47,7 @@ define([
             EventDispatcher.trigger('truthupdate', { accessibility: $checkbox.is(':checked') });
 
         },
-
+/*
         handleOpenPreState: function() {
 
             var state = this.model.get('state');
@@ -59,7 +59,7 @@ define([
             //EventDispatcher.trigger('truthupdate', { accessibility: true }); 
 
         },
-
+*/
         getJSON: function() {
 
             var json = this.model.toJSON();
