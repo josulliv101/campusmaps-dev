@@ -46,13 +46,19 @@
 
 					<%  if (data.city_state_zip || true) { %><li class="city_state_zip">Medford, MA 02155</li><% } %>
 
-					
+					<%  if (data.latlng) { %><li class="gps"><span class="sr-only">GPS: </span><img title="GPS Coordinates" class="img-gps" src="./app/images/icons/gps.png" /> ${data.latlng}</li><% } %>
 
+					<li class="nav-btns">
+						<button data-campusmap="cmd:Location_LocationAccessibility">Accessibility</button>
+						<button data-campusmap="cmd:Location_Directions">Directions</button> 
+						<button data-campusmap="cmd:Location_LocationLink">Share link</button></li>
+					
+<!--
 					<%  if (data.accessibility || true) { %><li class="accessibility">Accessible with assistance</li><% } %>
 
 					<%  if (data.accessibility_restroom || true) { %><li class="accessibility restroom">Accessible restroom</li><% } %>
 
-					<!--<%  if (data.thumbnail) { %><li class="thumbnail"><img class="shadow" src="./app/images/thumbs/${data.thumbnail}" /></li><% } %><div class="linkTo"><button>Link directly to this location</button></div>
+					<%  if (data.thumbnail) { %><li class="thumbnail"><img class="shadow" src="./app/images/thumbs/${data.thumbnail}" /></li><% } %><div class="linkTo"><button>Link directly to this location</button></div>
 
 					-->
 					
@@ -66,13 +72,13 @@
 
 							<%  if (data.phone || true) { %><li class="phone">(617) 627-5000</li><% } %>
 
-							<%  if (data.email || true) { %><li class="email">contact@tufts.edu</li><% } %>
+							<%  if (data.email || true) { %><li class="email"><a href="#">contact@tufts.edu</a></li><% } %>
 
-							<%  if (data.website || true) { %><li class="website">Visit the website &gt;</li><% } %>
+							<%  if (data.website || true) { %><li class="website"><a href="#">Visit the website &gt;</a></li><% } %>
 
-							<%  if (data.latlng) { %><li class="gps">${data.latlng}</li><% } %>
+							
 
-							<li><button data-campusmap="cmd:Location_Directions">Directions</button> <button data-campusmap="cmd:Location_LocationLink">Share link</button></li>
+							
 
 						</ul>
 

@@ -153,7 +153,7 @@ define([
 
                         .value();
 
-            
+            json.latlng = json.latlng.replace(',', ', ');
 
             //if (_.size(json.occupants) > 0) officesItem.navlabel = officesItem.navlabel + " (<span class='total-occupants'>" + _.size(occupants)+ "</span>)";
 
