@@ -612,7 +612,7 @@ console.log('...handleAttrDetails', theTruth, val, key);
             // Reset the resize attr as well
             if (val === true) {
 
-                EventDispatcher.trigger('truthupdate', { vizpath: path, resize: _.uniqueId('resize') , mapcenteroffset: domManager.getCenterOffset() });
+                EventDispatcher.trigger('truthupdate', { resize: _.uniqueId('resize') , mapcenteroffset: domManager.getCenterOffset() });
 
             }
 

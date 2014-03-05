@@ -258,7 +258,7 @@ define([
 
             if (attrs.maptype === 'toggle') {
 
-                attrs.maptype = maptype !== 'satellite' ? 'satellite' : '';
+                attrs.maptype = maptype !== 'satellite' ? 'satellite' : 'plain';
 
             }
 

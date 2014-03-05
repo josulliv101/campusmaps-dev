@@ -51,7 +51,11 @@ define([
 
                     if (_.getAttr(model, 'labelplacement')) pos = pos + _.getAttr(model, 'labelplacement');
 
-                    return pos + ' emphasis' + _.getAttr(model, 'emphasis') + (zoom < 17 ? ' label-hide icon-hide' : ' icon-greenery');
+                    model.hide = true;
+
+                    //return pos + ' emphasis' + _.getAttr(model, 'emphasis') + (zoom < 17 ? ' label-hide icon-hide' : ' icon-greenery');
+                    
+                    return pos + ' label-hide icon-hide'; 
 
                 },
 

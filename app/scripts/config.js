@@ -40,7 +40,7 @@ define([
 
                 , maptype: 'plain'
 
-                , panelanimations: true
+                , panelanimations: false
 
                 , parking: false
 
