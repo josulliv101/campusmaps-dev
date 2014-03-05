@@ -665,6 +665,66 @@ debugger;
         // Create a new matype for each style
         _.each(MapStyles.styles, function(val, key) { gMap.mapTypes.set(key, new google.maps.StyledMapType(val)); });
 
+        gMap.mapTypes.set("sketch", new google.maps.ImageMapType({
+
+            getTileUrl: function(coord, zoom) {
+                return "http://d.tiles.mapbox.com/v3/examples.a4c252ab/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: "Sketch",
+            maxZoom: 18
+        }));
+
+        gMap.mapTypes.set("pinterest", new google.maps.ImageMapType({
+
+            getTileUrl: function(coord, zoom) {
+                return "https://a.tiles.mapbox.com/v3/pinterest.map-ho21rkos/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: "Pinterest",
+            maxZoom: 18
+        }));
+
+        gMap.mapTypes.set("3d", new google.maps.ImageMapType({
+
+            getTileUrl: function(coord, zoom) {
+                return "http://c.tiles.mapbox.com/v3/examples.c7d2024a/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: "3D",
+            maxZoom: 18
+        }));
+
+        gMap.mapTypes.set("comicbook", new google.maps.ImageMapType({
+
+            getTileUrl: function(coord, zoom) {
+                return "https://a.tiles.mapbox.com/v3/examples.bc17bb2a/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: "3D",
+            maxZoom: 18
+        }));
+
+        gMap.mapTypes.set("mozilla", new google.maps.ImageMapType({
+
+            getTileUrl: function(coord, zoom) {
+                return "http://a.tiles.mapbox.com/v3/examples.map-zr0njcqy/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: "Mozilla",
+            maxZoom: 18
+        }));
+
+        gMap.mapTypes.set("treasure", new google.maps.ImageMapType({
+
+            getTileUrl: function(coord, zoom) {
+                return "https://b.tiles.mapbox.com/v3/examples.a3cad6da/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+            },
+            tileSize: new google.maps.Size(256, 256),
+            name: "Mozilla",
+            maxZoom: 18
+        }));
+
         gMap.clickRect = new google.maps.Rectangle({
 
             strokeColor: '#FF0000',
