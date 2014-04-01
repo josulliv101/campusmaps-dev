@@ -241,7 +241,6 @@ define([
         return instance;
     };
 
-console.log('@strategymanager');
     return getInstance();
 
 });

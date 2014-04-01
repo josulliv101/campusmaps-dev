@@ -154,7 +154,8 @@ define([
             // DataManager is listening
             //EventDispatcher.trigger('set:defaults', defaults);
 
-        });*/
+        });
+*/
 
         return appRouter;
 
